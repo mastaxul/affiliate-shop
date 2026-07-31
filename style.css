@@ -60,3 +60,15 @@ button {
 button:hover {
     background: #008000;
 }
+
+.kategori-menu {
+    padding: 15px;
+}
+
+.kategori-menu button {
+    background: #228B22;
+}
+
+.kategori-menu button:hover {
+    background: #5a3a22;
+}
