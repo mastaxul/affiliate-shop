@@ -1,1 +1,18 @@
-
+[
+  {
+    "nama": "Contoh Produk Vitamin",
+    "harga": "RM39.90",
+    "gambar": "https://via.placeholder.com/300",
+    "tiktok": "https://www.tiktok.com/",
+    "shopee": "https://shopee.com.my/",
+    "lazada": "https://www.lazada.com.my/"
+  },
+  {
+    "nama": "Contoh Produk Gadget",
+    "harga": "RM59.90",
+    "gambar": "https://via.placeholder.com/300",
+    "tiktok": "https://www.tiktok.com/",
+    "shopee": "https://shopee.com.my/",
+    "lazada": "https://www.lazada.com.my/"
+  }
+]
