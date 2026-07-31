@@ -47,7 +47,54 @@ fetch("products.json")
 
 let paparan = "";
 
+function paparProduk(kategori="Semua") {
+
+let paparan = "";
+
 data.forEach(item => {
+
+if(kategori=="Semua" || item.kategori==kategori){
+
+paparan += `
+
+<div class="produk">
+
+<img src="${item.gambar}">
+
+<h2>${item.nama}</h2>
+
+<h3>${item.harga}</h3>
+
+<a href="${item.tiktok}">
+<button>TikTok</button>
+</a>
+
+<a href="${item.shopee}">
+<button>Shopee</button>
+</a>
+
+<a href="${item.lazada}">
+<button>Lazada</button>
+</a>
+
+</div>
+
+`;
+
+}
+
+});
+
+document.getElementById("produk").innerHTML = paparan;
+
+}
+
+
+function pilihKategori(kategori){
+paparProduk(kategori);
+}
+
+  paparProduk();
 
 paparan += `
 
