@@ -1,110 +1,25 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-<title>Masta Xul Affiliate Shop</title>
-<link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
-<div class="header">
-
-<img src="logo.png" class="logo">
-
-<h1>Masta Xul Affiliate Shop</h1>
-
-<p>Pilihan produk TikTok Shop • Shopee • Lazada</p>
-
-</div>
-
-<p>Pilihan produk TikTok Shop • Shopee • Lazada</p>
-
-  <div class="kategori-menu">
-
-<button onclick="pilihKategori('Semua')">
-Semua
-</button>
-
-<button onclick="pilihKategori('Viral')">
-🔥 Viral
-</button>
-
-<button onclick="pilihKategori('Kesihatan')">
-🌿 Kesihatan
-</button>
-
-<button onclick="pilihKategori('Gadget')">
-📱 Gadget
-</button>
-
-<button onclick="pilihKategori('Rumah')">
-🏠 Rumah
-</button>
-
-</div>
-
-<div id="produk"></div>
-
-
 <script>
+
+let semuaProduk = [];
 
 fetch("products.json")
 .then(response => response.json())
 .then(data => {
 
-let paparan = "";
-
-function paparProduk(kategori="Semua") {
-
-let paparan = "";
-
-data.forEach(item => {
-
-if(kategori=="Semua" || item.kategori==kategori){
-
-paparan += `
-
-<div class="produk">
-
-<img src="${item.gambar}">
-
-<h2>${item.nama}</h2>
-
-<h3>${item.harga}</h3>
-
-<a href="${item.tiktok}">
-<button>TikTok</button>
-</a>
-
-<a href="${item.shopee}">
-<button>Shopee</button>
-</a>
-
-<a href="${item.lazada}">
-<button>Lazada</button>
-</a>
-
-</div>
-
-`;
-
-}
+    semuaProduk = data;
+    paparProduk("Semua");
 
 });
 
-document.getElementById("produk").innerHTML = paparan;
+function paparProduk(kategori){
 
-}
+    let paparan = "";
 
+    semuaProduk.forEach(item => {
 
-function pilihKategori(kategori){
-paparProduk(kategori);
-}
+        if(kategori=="Semua" || item.kategori==kategori){
 
-  paparProduk();
-
-paparan += `
+            paparan += `
 
 <div class="produk">
 
@@ -114,15 +29,15 @@ paparan += `
 
 <h3>${item.harga}</h3>
 
-<a href="${item.tiktok}">
+<a href="${item.tiktok}" target="_blank">
 <button>TikTok</button>
 </a>
 
-<a href="${item.shopee}">
+<a href="${item.shopee}" target="_blank">
 <button>Shopee</button>
 </a>
 
-<a href="${item.lazada}">
+<a href="${item.lazada}" target="_blank">
 <button>Lazada</button>
 </a>
 
@@ -130,15 +45,16 @@ paparan += `
 
 `;
 
-});
+        }
 
+    });
 
-document.getElementById("produk").innerHTML = paparan;
+    document.getElementById("produk").innerHTML = paparan;
 
-});
+}
+
+function pilihKategori(kategori){
+    paparProduk(kategori);
+}
 
 </script>
-
-
-</body>
-</html>
