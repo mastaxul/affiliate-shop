@@ -3,49 +3,60 @@ body {
     text-align: center;
     background: #f5f5f5;
     color: #222;
+    margin: 0;
 }
 
 h1 {
-    background: #000000;
+    background: #000;
     color: white;
-    padding: 20px;
+    padding: 25px;
     margin: 0;
+    border-bottom: 5px solid #d60000;
 }
 
 p {
     color: #5a3a22;
 }
 
+#produk {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
 .produk {
     background: white;
-    margin: 20px;
+    border-radius: 20px;
     padding: 20px;
-    border-radius: 15px;
     border: 3px solid #5a3a22;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.produk img {
+    width: 100%;
+    max-width: 250px;
+    border-radius: 15px;
+}
+
+.produk h2 {
+    color: #000;
+}
+
+.produk h3 {
+    color: #d60000;
 }
 
 button {
     background: #d60000;
     color: white;
     border: none;
-    padding: 12px 25px;
+    padding: 10px 15px;
+    margin: 5px;
     border-radius: 10px;
     font-weight: bold;
 }
 
 button:hover {
     background: #008000;
-}
-
-.kategori {
-    background: #228B22;
-    color: white;
-    padding: 10px;
-    border-radius: 20px;
-}
-
-.footer {
-    background: #5a3a22;
-    color: white;
-    padding: 15px;
 }
