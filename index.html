@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 <title>Masta Affiliate Shop</title>
 <link rel="stylesheet" href="style.css">
@@ -9,16 +10,56 @@
 
 <h1>🛒 Masta Affiliate Shop</h1>
 
-<p>Pilihan produk terbaik dari TikTok Shop, Shopee & Lazada</p>
+<p>Pilihan produk TikTok Shop • Shopee • Lazada</p>
+
+<div id="produk"></div>
+
+
+<script>
+
+fetch("products.json")
+.then(response => response.json())
+.then(data => {
+
+let paparan = "";
+
+data.forEach(item => {
+
+paparan += `
 
 <div class="produk">
 
-<h2>Produk Contoh</h2>
-<p>Letak produk affiliate anda di sini</p>
+<img src="${item.gambar}" width="200">
 
-<button>Beli Sekarang</button>
+<h2>${item.nama}</h2>
+
+<h3>${item.harga}</h3>
+
+<a href="${item.tiktok}">
+<button>TikTok</button>
+</a>
+
+<a href="${item.shopee}">
+<button>Shopee</button>
+</a>
+
+<a href="${item.lazada}">
+<button>Lazada</button>
+</a>
 
 </div>
+
+`;
+
+});
+
+
+document.getElementById("produk").innerHTML = paparan;
+
+});
+
+</script>
+
 
 </body>
 </html>
