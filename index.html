@@ -1,25 +1,108 @@
-<script>
+<!DOCTYPE html>
+<html>
 
-let semuaProduk = [];
+<head>
+<title>Masta Xul Affiliate Shop</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="header">
+
+<img src="logo.png" class="logo">
+
+<h1>Masta Xul Affiliate Shop</h1>
+
+<p>Pilihan produk TikTok Shop • Shopee • Lazada</p>
+
+</div>
+
+<p>Pilihan produk TikTok Shop • Shopee • Lazada</p>
+
+  <div class="kategori-menu">
+
+<button onclick="pilihKategori('Semua')">
+Semua
+</button>
+
+<button onclick="pilihKategori('Viral')">
+🔥 Viral
+</button>
+
+<button onclick="pilihKategori('Kesihatan')">
+🌿 Kesihatan
+</button>
+
+<button onclick="pilihKategori('Gadget')">
+📱 Gadget
+</button>
+
+<button onclick="pilihKategori('Rumah')">
+🏠 Rumah
+</button>
+
+</div>
+
+<div id="produk"></div>
+
+<script>
 
 fetch("products.json")
 .then(response => response.json())
 .then(data => {
 
-    semuaProduk = data;
-    paparProduk("Semua");
+let paparan = "";
+
+function paparProduk(kategori="Semua") {
+
+let paparan = "";
+
+data.forEach(item => {
+
+if(kategori=="Semua" || item.kategori==kategori){
+
+paparan += `
+
+<div class="produk">
+
+<img src="${item.gambar}">
+
+<h2>${item.nama}</h2>
+
+<h3>${item.harga}</h3>
+
+<a href="${item.tiktok}">
+<button>TikTok</button>
+</a>
+
+<a href="${item.shopee}">
+<button>Shopee</button>
+</a>
+
+<a href="${item.lazada}">
+<button>Lazada</button>
+</a>
+
+</div>
+
+`;
+
+}
 
 });
 
-function paparProduk(kategori){
+document.getElementById("produk").innerHTML = paparan;
 
-    let paparan = "";
+}
 
-    semuaProduk.forEach(item => {
+function pilihKategori(kategori){
+paparProduk(kategori);
+}
 
-        if(kategori=="Semua" || item.kategori==kategori){
+  paparProduk();
 
-            paparan += `
+paparan += `
 
 <div class="produk">
 
@@ -29,15 +112,15 @@ function paparProduk(kategori){
 
 <h3>${item.harga}</h3>
 
-<a href="${item.tiktok}" target="_blank">
+<a href="${item.tiktok}">
 <button>TikTok</button>
 </a>
 
-<a href="${item.shopee}" target="_blank">
+<a href="${item.shopee}">
 <button>Shopee</button>
 </a>
 
-<a href="${item.lazada}" target="_blank">
+<a href="${item.lazada}">
 <button>Lazada</button>
 </a>
 
@@ -45,16 +128,13 @@ function paparProduk(kategori){
 
 `;
 
-        }
+});
 
-    });
+document.getElementById("produk").innerHTML = paparan;
 
-    document.getElementById("produk").innerHTML = paparan;
-
-}
-
-function pilihKategori(kategori){
-    paparProduk(kategori);
-}
+});
 
 </script>
+
+</body>
+</html>
