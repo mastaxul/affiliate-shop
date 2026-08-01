@@ -1,4 +1,4 @@
-const API_URL = "https://script.googleusercontent.com/macros/echo?user_content_key=AUkAhnTqHl_HhHs-1adzwb4klckZvKfDQDLV5_Kn1evEm3ZT9S2eIHuxg8VSg_361XJYcCFS47qrxrBm85RN7pIWpupLI237mudnOEw__h4MJQyg3RAh2lgFWCZKkbeGupZZfiqf6eOnl7wpB-hpOgaaO1C256co6YPlh1RjtmuEvvAiw2BmKrnlgOE5qMSdnT4rjM3AOl1pADkQRPBGzZ7LLjmNhn7lfTZaqf-fjJ7gvDGY-jjkCN4rFJPYwQRajjxUPVGFwMHjtZzndfyz5DhWZWuNPkYCLA&lib=MLqwvRUxxDrPXMN_fa_cBjjv3k8czDl4_";
+const API_URL = "https://script.google.com/macros/s/AKfycbw4nklBXEOUJM0grVQW_Ud9Z9RJnkA7yw8zBz8GvAPRhDh_mPCaX5cJ0LwXm8MRkwjm/exec";
 
 let semuaProduk = [];
 
