@@ -1,140 +1,33 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="ms">
 <head>
-<title>Masta Xul Affiliate Shop</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masta Xul Affiliate Shop</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="header">
+    <div class="header">
+        <img src="logo.png" class="logo" alt="Logo">
+        <h1>Masta Xul Affiliate Shop</h1>
+        <p>Pilihan produk TikTok Shop • Shopee • Lazada</p>
+    </div>
 
-<img src="logo.png" class="logo">
+    <div class="kategori-menu">
+        <button onclick="pilihKategori('Semua')">Semua</button>
+        <button onclick="pilihKategori('Viral')">🔥 Viral</button>
+        <button onclick="pilihKategori('Kesihatan')">🌿 Kesihatan</button>
+        <button onclick="pilihKategori('Gadget')">📱 Gadget</button>
+        <button onclick="pilihKategori('Rumah')">🏠 Rumah</button>
+    </div>
 
-<h1>Masta Xul Affiliate Shop</h1>
+    <!-- Produk akan dipaparkan secara automatik -->
+    <div id="produk"></div>
 
-<p>Pilihan produk TikTok Shop • Shopee • Lazada</p>
-
-</div>
-
-<p>Pilihan produk TikTok Shop • Shopee • Lazada</p>
-
-  <div class="kategori-menu">
-
-<button onclick="pilihKategori('Semua')">
-Semua
-</button>
-
-<button onclick="pilihKategori('Viral')">
-🔥 Viral
-</button>
-
-<button onclick="pilihKategori('Kesihatan')">
-🌿 Kesihatan
-</button>
-
-<button onclick="pilihKategori('Gadget')">
-📱 Gadget
-</button>
-
-<button onclick="pilihKategori('Rumah')">
-🏠 Rumah
-</button>
-
-</div>
-
-<div id="produk"></div>
-
-<script>
-
-fetch("products.json")
-.then(response => response.json())
-.then(data => {
-
-let paparan = "";
-
-function paparProduk(kategori="Semua") {
-
-let paparan = "";
-
-data.forEach(item => {
-
-if(kategori=="Semua" || item.kategori==kategori){
-
-paparan += `
-
-<div class="produk">
-
-<img src="${item.gambar}">
-
-<h2>${item.nama}</h2>
-
-<h3>${item.harga}</h3>
-
-<a href="${item.tiktok}">
-<button>TikTok</button>
-</a>
-
-<a href="${item.shopee}">
-<button>Shopee</button>
-</a>
-
-<a href="${item.lazada}">
-<button>Lazada</button>
-</a>
-
-</div>
-
-`;
-
-}
-
-});
-
-document.getElementById("produk").innerHTML = paparan;
-
-}
-
-function pilihKategori(kategori){
-paparProduk(kategori);
-}
-
-  paparProduk();
-
-paparan += `
-
-<div class="produk">
-
-<img src="${item.gambar}" width="200">
-
-<h2>${item.nama}</h2>
-
-<h3>${item.harga}</h3>
-
-<a href="${item.tiktok}">
-<button>TikTok</button>
-</a>
-
-<a href="${item.shopee}">
-<button>Shopee</button>
-</a>
-
-<a href="${item.lazada}">
-<button>Lazada</button>
-</a>
-
-</div>
-
-`;
-
-});
-
-document.getElementById("produk").innerHTML = paparan;
-
-});
-
-</script>
+    <!-- JavaScript -->
+    <script src="script.js"></script>
 
 </body>
 </html>
