@@ -9,7 +9,7 @@ fetch(API_URL)
     paparProduk("Semua");
   })
   .catch(error => {
-    console.error("Ralat:", error);
+    console.error(error);
     document.getElementById("produk").innerHTML =
       "<p>❌ Gagal memuatkan produk.</p>";
   });
@@ -24,31 +24,36 @@ function paparProduk(kategori) {
 
   semuaProduk.forEach(item => {
 
-    if (kategori === "Semua" || item.kategori === kategori) {
+    if (kategori === "Semua" || item.Kategeri === kategori) {
 
       html += `
       <div class="produk">
 
-        <img src="${item.gambar}" alt="${item.nama}">
+        <img src="${item.Gambar}" alt="${item.Nama}">
 
-        <h2>${item.nama}</h2>
+        <h2>${item.Nama}</h2>
 
-        <h3>${item.harga}</h3>
+        <p><strong>${item.Badge}</strong></p>
 
-        <a href="${item.tiktok}" target="_blank">
+        <p>🛒 ${item.Terjual}</p>
+
+        <h3>${item.Harga}</h3>
+
+        <a href="${item.Tiktok}" target="_blank">
           <button>TikTok</button>
         </a>
 
-        <a href="${item.shopee}" target="_blank">
+        <a href="${item.Shopee}" target="_blank">
           <button>Shopee</button>
         </a>
 
-        <a href="${item.lazada}" target="_blank">
+        <a href="${item.Lazada}" target="_blank">
           <button>Lazada</button>
         </a>
 
       </div>
       `;
+
     }
 
   });
