@@ -1,33 +1,250 @@
 <!DOCTYPE html>
 <html lang="ms">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masta Xul Affiliate Shop</title>
-    <link rel="stylesheet" href="style.css">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Masta Xul Affiliate Shop</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
 
-    <div class="header">
-        <img src="logo.png" class="logo" alt="Logo">
-        <h1>Masta Xul Affiliate Shop</h1>
-        <p>Pilihan produk TikTok Shop • Shopee • Lazada</p>
-    </div>
+<!-- HEADER -->
 
-    <div class="kategori-menu">
-        <button onclick="pilihKategori('Semua')">Semua</button>
-        <button onclick="pilihKategori('Viral')">🔥 Viral</button>
-        <button onclick="pilihKategori('Kesihatan')">🌿 Kesihatan</button>
-        <button onclick="pilihKategori('Gadget')">📱 Gadget</button>
-        <button onclick="pilihKategori('Rumah')">🏠 Rumah</button>
-    </div>
+<header>
 
-    <!-- Produk akan dipaparkan secara automatik -->
-    <div id="produk"></div>
+<div class="header-top">
 
-    <!-- JavaScript -->
-    <script src="script.js"></script>
+<img src="images/logo.png" class="logo">
+
+<div>
+
+<h1>Masta Xul Affiliate Shop</h1>
+
+<p>
+Produk Pilihan • Harga Terbaik • Affiliate Malaysia
+</p>
+
+</div>
+
+</div>
+
+</header>
+
+<!-- SOSIAL -->
+
+<section class="social-bar">
+
+<a href="https://www.tiktok.com/" target="_blank">
+
+🎵 TikTok
+
+</a>
+
+<a href="https://www.instagram.com/" target="_blank">
+
+📷 Instagram
+
+</a>
+
+<a href="https://wa.me/60123456789" target="_blank">
+
+💬 WhatsApp
+
+</a>
+
+<a href="https://www.facebook.com/" target="_blank">
+
+📘 Facebook
+
+</a>
+
+<a href="https://t.me/" target="_blank">
+
+✈ Telegram
+
+</a>
+
+</section>
+
+<!-- BANNER -->
+
+<section class="banner">
+
+<h2>
+
+🔥 Jom Dapatkan Produk Viral Pilihan 🔥
+
+</h2>
+
+<p>
+
+Harga terbaik setiap hari.
+
+</p>
+
+</section>
+
+<!-- SEARCH -->
+
+<section class="search-section">
+
+<input
+
+type="text"
+
+id="search"
+
+placeholder="🔍 Cari produk..."
+
+onkeyup="cariProduk()"
+
+>
+
+<div id="jumlahProduk">
+
+Jumlah Produk : 0
+
+</div>
+
+</section>
+
+<!-- MENU -->
+
+<section class="menu">
+
+<button class="active"
+
+onclick="filterProduk('Semua')">
+
+Semua
+
+</button>
+
+<button onclick="filterProduk('Viral')">
+
+Viral
+
+</button>
+
+<button onclick="filterProduk('Kesihatan')">
+
+Kesihatan
+
+</button>
+
+<button onclick="filterProduk('Gadget')">
+
+Gadget
+
+</button>
+
+<button onclick="filterProduk('Rumah')">
+
+Rumah
+
+</button>
+
+</section>
+
+<!-- PRODUK -->
+
+<main>
+
+<div
+
+id="produk-list"
+
+class="produk-grid">
+
+</div>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer>
+
+<div class="footer-title">
+
+Masta Xul Affiliate Shop
+
+</div>
+
+<div class="footer-text">
+
+Website Affiliate Produk Viral Malaysia
+
+</div>
+
+<div class="footer-social">
+
+<a href="https://www.tiktok.com/" target="_blank">
+
+TikTok
+
+</a>
+
+|
+
+<a href="https://www.instagram.com/" target="_blank">
+
+Instagram
+
+</a>
+
+|
+
+<a href="https://wa.me/60123456789" target="_blank">
+
+WhatsApp
+
+</a>
+
+|
+
+<a href="https://www.facebook.com/" target="_blank">
+
+Facebook
+
+</a>
+
+</div>
+
+<p>
+
+© 2026 Masta Xul Affiliate Shop
+
+</p>
+
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+
+<a
+
+href="https://wa.me/60123456789"
+
+target="_blank"
+
+class="whatsapp">
+
+💬
+
+</a>
+
+<script src="script.js"></script>
 
 </body>
+
 </html>
