@@ -3,7 +3,7 @@
 // ===============================
 
 // GANTIKAN URL INI DENGAN URL APPS SCRIPT NANTI
-const API_URL = "";
+const API_URL = "https://script.google.com/macros/s/AKfycbyMG70IM6KD4cmzbNLPZX6mxB4es-qZHwe9NjTa6UV99XdIM6R1DnXgdQKqnA4zV-43Ew/exec";
 
 // Semua produk
 let semuaProduk = [];
