@@ -329,3 +329,56 @@ footer {
     font-size: 0.85rem;
   }
 }
+
+/* ========== GAMBAR PRODUK ========== */
+.produk-img-wrapper {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #6B4423;
+}
+
+.produk-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ========== BUTANG DISABLED ========== */
+.btn-disabled {
+  background-color: #cccccc !important;
+  color: #888888 !important;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Pastikan platform-buttons kemas */
+.platform-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.btn-platform {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: #FFFFFF;
+  transition: all 0.2s;
+}
+
+.btn-tiktok { background-color: #111111; }
+.btn-tiktok:hover { background-color: #6B4423; }
+
+.btn-shopee { background-color: #D32F2F; }
+.btn-shopee:hover { background-color: #111111; }
+
+.btn-lazada { background-color: #6B4423; }
+.btn-lazada:hover { background-color: #D32F2F; }
