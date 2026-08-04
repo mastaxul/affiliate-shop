@@ -1,6 +1,6 @@
 /* ========================================
    MASTA XUL AFFILIATE SHOP
-   script.js - Versi 3 Butang Platform
+   script.js - Versi 3 Butang Sentiasa Ada
 ======================================== */
 
 let semuaProduk = [];
@@ -39,44 +39,49 @@ function paparProduk(senarai) {
   }
 
   container.innerHTML = senarai.map(p => {
-    // Badge (HOT / Viral / dll)
+    // Badge
     const badge = p.badge 
       ? `<span class="label-hot">${p.badge}</span>` 
       : "";
 
-    // Butang TikTok
-    const btnTiktok = p.tiktok 
-      ? `<a href="${p.tiktok}" class="btn-platform btn-tiktok" target="_blank" rel="noopener">Beli di TikTok</a>` 
-      : "";
-
-    // Butang Shopee
-    const btnShopee = p.shopee 
-      ? `<a href="${p.shopee}" class="btn-platform btn-shopee" target="_blank" rel="noopener">Beli di Shopee</a>` 
-      : "";
-
-    // Butang Lazada
-    const btnLazada = p.lazada 
-      ? `<a href="${p.lazada}" class="btn-platform btn-lazada" target="_blank" rel="noopener">Beli di Lazada</a>` 
-      : "";
-
-    // Terjual (optional)
+    // Terjual
     const terjual = p.terjual 
       ? `<div class="produk-terjual">${p.terjual} terjual</div>` 
       : "";
 
+    // ===== 3 BUTANG (sentiasa ada) =====
+    const btnTiktok = p.tiktok 
+      ? `<a href="${p.tiktok}" class="btn-platform btn-tiktok" target="_blank" rel="noopener">Beli di TikTok</a>`
+      : `<span class="btn-platform btn-disabled">Beli di TikTok</span>`;
+
+    const btnShopee = p.shopee 
+      ? `<a href="${p.shopee}" class="btn-platform btn-shopee" target="_blank" rel="noopener">Beli di Shopee</a>`
+      : `<span class="btn-platform btn-disabled">Beli di Shopee</span>`;
+
+    const btnLazada = p.lazada 
+      ? `<a href="${p.lazada}" class="btn-platform btn-lazada" target="_blank" rel="noopener">Beli di Lazada</a>`
+      : `<span class="btn-platform btn-disabled">Beli di Lazada</span>`;
+
+    // Gambar (dengan fallback)
+    const gambar = p.gambar && p.gambar.trim() !== "" 
+      ? p.gambar 
+      : "https://via.placeholder.com/400x300/f5f5f5/6B4423?text=Tiada+Gambar";
+
     return `
       <div class="produk-card">
-        <img 
-          src="${p.gambar || 'https://via.placeholder.com/300x200?text=Tiada+Imej'}" 
-          alt="${p.nama}" 
-          class="produk-img"
-          loading="lazy"
-          onerror="this.src='https://via.placeholder.com/300x200?text=Tiada+Imej'">
+        <div class="produk-img-wrapper">
+          <img 
+            src="${gambar}" 
+            alt="${p.nama}" 
+            class="produk-img"
+            loading="lazy"
+            onerror="this.src='https://via.placeholder.com/400x300/f5f5f5/6B4423?text=Tiada+Gambar'">
+        </div>
         
         <div class="produk-info">
           ${badge}
           <h3 class="produk-nama">${p.nama}</h3>
-          <div class="produk-harga">RM ${parseFloat(p.harga).toFixed(2)}</div>
+          <div class="produk-harga">RM ${parseFloat(p.harga || 0).toFixed(2)}</div>
           ${terjual}
 
           <div class="platform-buttons">
@@ -92,7 +97,6 @@ function paparProduk(senarai) {
 
 // ========== FILTER KATEGORI ==========
 function filterProduk(kategori) {
-  // Update butang aktif
   document.querySelectorAll(".menu button").forEach(btn => {
     btn.classList.remove("active");
   });
@@ -104,7 +108,6 @@ function filterProduk(kategori) {
     butangAktif.classList.add("active");
   }
 
-  // Filter produk
   if (kategori === "Semua") {
     produkDipapar = [...semuaProduk];
   } else {
@@ -113,7 +116,6 @@ function filterProduk(kategori) {
     );
   }
 
-  // Kalau ada carian aktif
   const keyword = document.getElementById("search").value.trim();
   if (keyword) {
     produkDipapar = produkDipapar.filter(p =>
@@ -124,27 +126,22 @@ function filterProduk(kategori) {
   paparProduk(produkDipapar);
 }
 
-// ========== CARIAN PRODUK ==========
+// ========== CARIAN ==========
 function cariProduk() {
   const keyword = document.getElementById("search").value.trim().toLowerCase();
-
   const butangAktif = document.querySelector(".menu button.active");
   const kategoriAktif = butangAktif ? butangAktif.textContent.trim() : "Semua";
 
   let hasil = [...semuaProduk];
 
-  // Filter kategori
   if (kategoriAktif !== "Semua") {
     hasil = hasil.filter(p => 
       p.kategori && p.kategori.toLowerCase() === kategoriAktif.toLowerCase()
     );
   }
 
-  // Filter keyword
   if (keyword) {
-    hasil = hasil.filter(p =>
-      p.nama.toLowerCase().includes(keyword)
-    );
+    hasil = hasil.filter(p => p.nama.toLowerCase().includes(keyword));
   }
 
   produkDipapar = hasil;
