@@ -1,6 +1,6 @@
 /* ========================================
    MASTA XUL AFFILIATE SHOP
-   script.js - Versi 3 Butang Sentiasa Ada
+   script.js - Hanya Papar Butang Yang Ada Link
 ======================================== */
 
 let semuaProduk = [];
@@ -49,21 +49,23 @@ function paparProduk(senarai) {
       ? `<div class="produk-terjual">${p.terjual} terjual</div>` 
       : "";
 
-    // ===== 3 BUTANG (sentiasa ada) =====
-    const btnTiktok = p.tiktok 
-      ? `<a href="${p.tiktok}" class="btn-platform btn-tiktok" target="_blank" rel="noopener">Beli di TikTok</a>`
-      : `<span class="btn-platform btn-disabled">Beli di TikTok</span>`;
+    // ===== BUTANG (hanya keluar kalau ada link) =====
+    let butangHTML = "";
 
-    const btnShopee = p.shopee 
-      ? `<a href="${p.shopee}" class="btn-platform btn-shopee" target="_blank" rel="noopener">Beli di Shopee</a>`
-      : `<span class="btn-platform btn-disabled">Beli di Shopee</span>`;
+    if (p.tiktok && p.tiktok.trim() !== "") {
+      butangHTML += `<a href="${p.tiktok}" class="btn-platform btn-tiktok" target="_blank" rel="noopener">Beli di TikTok</a>`;
+    }
 
-    const btnLazada = p.lazada 
-      ? `<a href="${p.lazada}" class="btn-platform btn-lazada" target="_blank" rel="noopener">Beli di Lazada</a>`
-      : `<span class="btn-platform btn-disabled">Beli di Lazada</span>`;
+    if (p.shopee && p.shopee.trim() !== "") {
+      butangHTML += `<a href="${p.shopee}" class="btn-platform btn-shopee" target="_blank" rel="noopener">Beli di Shopee</a>`;
+    }
 
-    // Gambar (dengan fallback)
-    const gambar = p.gambar && p.gambar.trim() !== "" 
+    if (p.lazada && p.lazada.trim() !== "") {
+      butangHTML += `<a href="${p.lazada}" class="btn-platform btn-lazada" target="_blank" rel="noopener">Beli di Lazada</a>`;
+    }
+
+    // Gambar
+    const gambar = (p.gambar && p.gambar.trim() !== "") 
       ? p.gambar 
       : "https://via.placeholder.com/400x300/f5f5f5/6B4423?text=Tiada+Gambar";
 
@@ -85,9 +87,7 @@ function paparProduk(senarai) {
           ${terjual}
 
           <div class="platform-buttons">
-            ${btnTiktok}
-            ${btnShopee}
-            ${btnLazada}
+            ${butangHTML}
           </div>
         </div>
       </div>
