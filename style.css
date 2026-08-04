@@ -1,115 +1,273 @@
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
+/* ========================================
+   MASTA XUL AFFILIATE SHOP
+   Tema: Hitam | Coklat | Merah | Putih | Hijau
+======================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-background:#f5f5f5;
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #FFFFFF; /* Putih */
+  color: #111111; /* Hitam */
+  line-height: 1.5;
+  min-height: 100vh;
 }
 
-header{
-background:#111;
-color:white;
-padding:20px;
-text-align:center;
+/* ========== HEADER ========== */
+header {
+  background-color: #111111; /* Hitam */
+  color: #FFFFFF; /* Putih */
+  text-align: center;
+  padding: 28px 16px 24px;
 }
 
-.logo{
-width:90px;
-margin-bottom:10px;
+.logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  background-color: #FFFFFF;
+  padding: 6px;
 }
 
-.menu{
-display:flex;
-justify-content:center;
-gap:10px;
-padding:15px;
-flex-wrap:wrap;
+header h1 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  letter-spacing: 0.3px;
 }
 
-.menu button{
-padding:10px 20px;
-border:none;
-background:#ddd;
-cursor:pointer;
-border-radius:8px;
+header p {
+  font-size: 0.95rem;
+  opacity: 0.85;
+  color: #FFFFFF;
 }
 
-.menu button.active{
-background:#d60000;
-color:white;
+/* ========== MENU / FILTER ========== */
+.menu {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 20px 16px 10px;
+  background-color: #FFFFFF;
 }
 
-.search-box{
-padding:15px;
-text-align:center;
+.menu button {
+  background-color: #FFFFFF;
+  color: #111111;
+  border: 2px solid #6B4423; /* Coklat */
+  padding: 8px 18px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.search-box input{
-width:90%;
-max-width:450px;
-padding:12px;
-border-radius:8px;
-border:1px solid #ccc;
+.menu button:hover {
+  background-color: #6B4423; /* Coklat */
+  color: #FFFFFF;
 }
 
-.produk-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-padding:20px;
+.menu button.active {
+  background-color: #D32F2F; /* Merah */
+  border-color: #D32F2F;
+  color: #FFFFFF;
 }
 
-.card{
-background:white;
-border-radius:12px;
-overflow:hidden;
-box-shadow:0 3px 10px rgba(0,0,0,.15);
+/* ========== SEARCH BOX ========== */
+.search-box {
+  max-width: 480px;
+  margin: 10px auto 24px;
+  padding: 0 16px;
 }
 
-.card img{
-width:100%;
-height:220px;
-object-fit:cover;
+.search-box input {
+  width: 100%;
+  padding: 12px 18px;
+  border: 2px solid #6B4423; /* Coklat */
+  border-radius: 30px;
+  font-size: 1rem;
+  outline: none;
+  background-color: #FFFFFF;
+  color: #111111;
+  transition: border-color 0.2s;
 }
 
-.card-body{
-padding:15px;
+.search-box input:focus {
+  border-color: #D32F2F; /* Merah */
 }
 
-.card h3{
-font-size:18px;
-margin-bottom:10px;
+.search-box input::placeholder {
+  color: #6B4423;
+  opacity: 0.7;
 }
 
-.harga{
-color:red;
-font-size:20px;
-font-weight:bold;
+/* ========== PRODUK GRID ========== */
+.produk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 0 16px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.kategori{
-margin:10px 0;
-color:#777;
+/* ========== KAD PRODUK ========== */
+.produk-card {
+  background-color: #FFFFFF;
+  border: 2px solid #6B4423; /* Coklat */
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.card a{
-display:block;
-text-align:center;
-padding:12px;
-background:#ff9900;
-color:white;
-text-decoration:none;
-border-radius:8px;
-margin-top:10px;
+.produk-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(107, 68, 35, 0.25); /* Coklat soft */
 }
 
-footer{
-margin-top:40px;
-padding:20px;
-text-align:center;
-background:#111;
-color:white;
+.produk-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background-color: #FFFFFF;
+  border-bottom: 2px solid #6B4423;
+}
+
+.produk-info {
+  padding: 14px 16px 18px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.produk-nama {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111111;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.8em;
+}
+
+.produk-harga {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #D32F2F; /* Merah */
+  margin-bottom: 4px;
+}
+
+.produk-harga-asal {
+  font-size: 0.85rem;
+  color: #6B4423; /* Coklat */
+  text-decoration: line-through;
+  margin-bottom: 12px;
+}
+
+/* Label HOT */
+.label-hot {
+  display: inline-block;
+  background-color: #D32F2F; /* Merah */
+  color: #FFFFFF;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  width: fit-content;
+}
+
+/* Butang Beli */
+.btn-beli {
+  display: block;
+  text-align: center;
+  background-color: #D32F2F; /* Merah */
+  color: #FFFFFF;
+  text-decoration: none;
+  padding: 11px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-top: auto;
+  transition: background-color 0.2s;
+}
+
+.btn-beli:hover {
+  background-color: #111111; /* Hitam */
+}
+
+/* Butang WhatsApp (jika ada) */
+.btn-whatsapp {
+  display: block;
+  text-align: center;
+  background-color: #2E7D32; /* Hijau */
+  color: #FFFFFF;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-top: 8px;
+  transition: background-color 0.2s;
+}
+
+.btn-whatsapp:hover {
+  background-color: #111111;
+}
+
+/* ========== FOOTER ========== */
+footer {
+  background-color: #111111; /* Hitam */
+  color: #FFFFFF;
+  text-align: center;
+  padding: 22px 16px;
+  font-size: 0.9rem;
+  margin-top: auto;
+}
+
+/* ========== EMPTY / LOADING STATE ========== */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 50px 20px;
+  color: #6B4423;
+  font-size: 1.1rem;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.4rem;
+  }
+
+  .logo {
+    width: 65px;
+    height: 65px;
+  }
+
+  .produk-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 14px;
+  }
+
+  .produk-img {
+    height: 150px;
+  }
+
+  .menu button {
+    padding: 7px 14px;
+    font-size: 0.85rem;
+  }
 }
