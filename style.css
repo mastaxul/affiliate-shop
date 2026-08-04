@@ -1,440 +1,208 @@
-/* ==========================================
-   MASTA XUL AFFILIATE SHOP
-   style.css Version 2.0
-========================================== */
+// ===============================
+// MASTA XUL AFFILIATE SHOP
+// ===============================
 
+// GANTIKAN URL INI DENGAN URL APPS SCRIPT NANTI
+const API_URL = "";
 
-/* RESET */
+// Semua produk
+let semuaProduk = [];
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
+// ===============================
+// LOAD WEBSITE
+// ===============================
 
+window.onload = function () {
 
+    if(API_URL===""){
 
-body {
+        demoProduk();
 
-    background: #f5f5f5;
-    color: #222;
-    min-height: 100vh;
+    }else{
 
-}
+        loadProduk();
 
+    }
 
+};
 
-/* ==========================================
-   HEADER
-========================================== */
+function loadProduk(){
 
-header {
+fetch(API_URL)
+.then(res=>res.json())
+.then(data=>{
 
-    background: #111;
-    color: white;
-    padding: 20px;
-    text-align: center;
+semuaProduk=data;
+paparProduk(semuaProduk);
 
-    border-bottom: 4px solid #d4af37;
+})
+.catch(error=>{
 
-}
+console.error(error);
 
+document.getElementById("produk-list").innerHTML=`
 
+<h2 style="text-align:center;width:100%;color:red;">
 
-header h1 {
+Gagal memuatkan produk.
 
-    font-size: 28px;
-    color: #d4af37;
+</h2>
 
-}
+`;
 
-
-
-header p {
-
-    margin-top: 8px;
-    color: white;
+});
 
 }
 
+// ===============================
+// LOAD API
+// ===============================
 
+function loadProduk(){
 
+fetch(API_URL)
 
+.then(res=>res.json())
 
-/* ==========================================
-   SEARCH
-========================================== */
+.then(data=>{
 
-.search-box {
+semuaProduk=data;
 
-    padding: 15px;
-    text-align: center;
+paparProduk(semuaProduk);
 
-}
+})
 
+.catch(()=>{
 
+demoProduk();
 
-.search-box input {
-
-    width: 90%;
-    max-width: 500px;
-
-    padding: 12px 15px;
-
-    border-radius: 25px;
-
-    border: 2px solid #d4af37;
-
-    font-size: 16px;
+});
 
 }
 
+// ===============================
+// PAPAR PRODUK
+// ===============================
 
+function paparProduk(data){
 
+const container=document.getElementById("produk-list");
 
+container.innerHTML="";
 
-/* ==========================================
-   KATEGORI
-========================================== */
+document.getElementById("jumlahProduk").innerHTML=
 
-.kategori {
+"Jumlah Produk : "+data.length;
 
-    display: flex;
+if(data.length===0){
 
-    justify-content: center;
+container.innerHTML=`
 
-    gap: 10px;
+<h2 style="text-align:center;width:100%;">
 
-    flex-wrap: wrap;
+Tiada Produk Dijumpai
 
-    padding: 10px;
+</h2>
 
-}
+`;
 
-
-
-.kategori button {
-
-    background: #111;
-
-    color: white;
-
-    border: none;
-
-    padding: 10px 18px;
-
-    border-radius: 20px;
-
-    cursor: pointer;
+return;
 
 }
 
+data.forEach(item=>{
 
+container.innerHTML+=`
 
-.kategori button:hover {
+<div class="card">
 
-    background: #d4af37;
+<img src="${item.gambar}" alt="">
 
-    color: black;
+<div class="card-body">
 
-}
+<h3>${item.nama}</h3>
 
+<div class="harga">
 
+${item.harga}
 
+</div>
 
+<div class="kategori">
 
-/* ==========================================
-   PRODUK CONTAINER
-========================================== */
+${item.kategori}
 
+</div>
 
-#produk-container {
+<a
 
+href="${item.link}"
 
-    display: grid;
+target="_blank">
 
-    grid-template-columns: repeat(
-        auto-fit,
-        minmax(200px,1fr)
-    );
+🛒 Beli Sekarang
 
+</a>
 
-    gap: 20px;
+</div>
 
+</div>
 
-    padding: 20px;
+`;
 
-
-}
-
-
-
-
-
-
-/* ==========================================
-   KAD PRODUK
-========================================== */
-
-
-.produk-card {
-
-
-    background: white;
-
-    border-radius: 15px;
-
-    overflow: hidden;
-
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-
-    padding-bottom: 15px;
-
-    transition: 0.3s;
-
+});
 
 }
 
+// ===============================
+// SEARCH
+// ===============================
 
+function cariProduk(){
 
-.produk-card:hover {
+const keyword=document
+.getElementById("search")
+.value
+.toLowerCase();
 
+const hasil=semuaProduk.filter(item=>
 
-    transform: translateY(-5px);
+item.nama
+.toLowerCase()
+.includes(keyword)
 
+);
 
-}
-
-
-
-
-
-.produk-card img {
-
-
-    width: 100%;
-
-    height: 200px;
-
-    object-fit: cover;
-
+paparProduk(hasil);
 
 }
 
+// ===============================
+// FILTER
+// ===============================
 
+function filterProduk(kategori){
 
+document
+.querySelectorAll(".menu button")
+.forEach(btn=>btn.classList.remove("active"));
 
+event.target.classList.add("active");
 
-.produk-card h3 {
+if(kategori==="Semua"){
 
+paparProduk(semuaProduk);
 
-    font-size: 18px;
-
-    padding: 12px;
-
-}
-
-
-
-
-
-.produk-card p {
-
-
-    padding: 0 12px;
-
-    font-size: 18px;
-
-    color: #d00000;
-
-    font-weight: bold;
-
+return;
 
 }
 
+const hasil=semuaProduk.filter(item=>
 
+item.kategori===kategori
 
+);
 
-
-/* ==========================================
-   BUTTON BELI
-========================================== */
-
-
-.produk-card button {
-
-
-    width: calc(100% - 24px);
-
-    margin: 15px 12px 0;
-
-
-    padding: 12px;
-
-
-    border: none;
-
-
-    border-radius: 25px;
-
-
-    background: #d00000;
-
-
-    color: white;
-
-
-    font-size: 16px;
-
-
-    cursor: pointer;
-
-
-}
-
-
-
-.produk-card button:hover {
-
-
-    background: #d4af37;
-
-    color: black;
-
-
-}
-
-
-
-
-
-/* ==========================================
-   LOADING
-========================================== */
-
-
-.loading {
-
-
-    text-align:center;
-
-    padding:40px;
-
-    font-size:18px;
-
-}
-
-
-
-
-
-/* ==========================================
-   PRODUK KOSONG
-========================================== */
-
-
-.kosong {
-
-
-    text-align:center;
-
-    padding:40px;
-
-
-}
-
-
-
-
-
-
-/* ==========================================
-   FOOTER
-========================================== */
-
-
-footer {
-
-
-    background:#111;
-
-    color:white;
-
-    text-align:center;
-
-    padding:20px;
-
-    margin-top:30px;
-
-
-}
-
-
-
-footer span {
-
-
-    color:#d4af37;
-
-
-}
-
-
-
-
-
-
-/* ==========================================
-   MOBILE RESPONSIVE
-========================================== */
-
-
-@media(max-width:600px){
-
-
-
-header h1 {
-
-    font-size:22px;
-
-}
-
-
-
-#produk-container {
-
-    grid-template-columns: repeat(2,1fr);
-
-    gap:12px;
-
-    padding:12px;
-
-}
-
-
-
-.produk-card img {
-
-    height:150px;
-
-}
-
-
-
-.produk-card h3 {
-
-    font-size:15px;
-
-}
-
-
-
-.produk-card p {
-
-    font-size:15px;
-
-}
-
+paparProduk(hasil);
 
 }
