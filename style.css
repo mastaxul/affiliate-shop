@@ -246,6 +246,64 @@ footer {
   font-size: 1.1rem;
 }
 
+/* ========== 3 BUTANG PLATFORM ========== */
+.platform-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.btn-platform {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: #FFFFFF;
+  transition: background-color 0.2s, transform 0.15s;
+}
+
+.btn-platform:hover {
+  transform: translateY(-2px);
+}
+
+/* TikTok - Hitam */
+.btn-tiktok {
+  background-color: #111111;
+}
+
+.btn-tiktok:hover {
+  background-color: #6B4423; /* Coklat */
+}
+
+/* Shopee - Merah */
+.btn-shopee {
+  background-color: #D32F2F;
+}
+
+.btn-shopee:hover {
+  background-color: #111111;
+}
+
+/* Lazada - Coklat */
+.btn-lazada {
+  background-color: #6B4423;
+}
+
+.btn-lazada:hover {
+  background-color: #D32F2F;
+}
+
+/* Terjual */
+.produk-terjual {
+  font-size: 0.8rem;
+  color: #6B4423;
+  margin-bottom: 4px;
+}
+
 /* ========== RESPONSIVE ========== */
 @media (max-width: 600px) {
   header h1 {
