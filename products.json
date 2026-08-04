@@ -1,18 +1,42 @@
 [
   {
-    "nama": "Contoh Produk Vitamin",
-    "harga": "RM39.90",
-    "gambar": "https://via.placeholder.com/300",
-    "tiktok": "https://www.tiktok.com/",
-    "shopee": "https://shopee.com.my/",
-    "lazada": "https://www.lazada.com.my/"
+    "id": "1",
+    "nama": "Wireless Earbuds TWS Pro",
+    "harga": "29.90",
+    "harga_asal": "59.90",
+    "imej": "https://contoh.com/imej1.jpg",
+    "link": "https://shopee.com.my/produk-anda",
+    "kategori": "Gadget",
+    "hot": true,
+    "whatsapp": "60123456789"
   },
   {
-    "nama": "Contoh Produk Gadget",
-    "harga": "RM59.90",
-    "gambar": "https://via.placeholder.com/300",
-    "tiktok": "https://www.tiktok.com/",
-    "shopee": "https://shopee.com.my/",
-    "lazada": "https://www.lazada.com.my/"
+    "id": "2",
+    "nama": "Vitamin C 1000mg",
+    "harga": "45.00",
+    "harga_asal": "79.00",
+    "imej": "https://contoh.com/imej2.jpg",
+    "link": "https://lazada.com.my/produk-anda",
+    "kategori": "Kesihatan",
+    "hot": false
+  },
+  {
+    "id": "3",
+    "nama": "Blender Portable",
+    "harga": "39.90",
+    "harga_asal": "",
+    "imej": "https://contoh.com/imej3.jpg",
+    "link": "https://tiktok.com/@shop/produk",
+    "kategori": "Rumah"
+  },
+  {
+    "id": "4",
+    "nama": "Serum Viral TikTok",
+    "harga": "19.90",
+    "harga_asal": "39.90",
+    "imej": "https://contoh.com/imej4.jpg",
+    "link": "https://shopee.com.my/serum",
+    "kategori": "Viral",
+    "hot": true
   }
 ]
