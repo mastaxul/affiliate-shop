@@ -1,21 +1,27 @@
 /* ========================================
    MASTA XUL AFFILIATE SHOP
-   script.js - Hanya Papar Butang Yang Ada Link
+   script.js - Ambil Data dari Google Apps Script
 ======================================== */
+
+const API_URL = "https://script.google.com/macros/s/AKfycbyMG70IM6KD4cmzbNLPZX6mxB4es-qZHwe9NjTa6UV99XdIM6R1DnXgdQKqnA4zV-43Ew/exec";
 
 let semuaProduk = [];
 let produkDipapar = [];
 
-// ========== LOAD PRODUK ==========
+// ========== LOAD PRODUK DARI APPS SCRIPT ==========
 async function muatProduk() {
   const container = document.getElementById("produk-list");
   container.innerHTML = `<div class="empty-state">Memuatkan produk...</div>`;
 
   try {
-    const response = await fetch("products.json?t=" + new Date().getTime());
-    if (!response.ok) throw new Error("Gagal memuatkan products.json");
+    const response = await fetch(API_URL);
+    if (!response.ok) throw new Error("Gagal memuatkan data");
 
-    semuaProduk = await response.json();
+    const data = await response.json();
+
+    // Filter baris kosong (kalau ada)
+    semuaProduk = data.filter(p => p.nama && p.nama.toString().trim() !== "");
+
     produkDipapar = [...semuaProduk];
     paparProduk(produkDipapar);
 
@@ -24,7 +30,7 @@ async function muatProduk() {
     container.innerHTML = `
       <div class="empty-state">
         Gagal memuatkan produk.<br>
-        Sila pastikan fail <strong>products.json</strong> wujud.
+        Sila semak sambungan atau Apps Script.
       </div>`;
   }
 }
@@ -49,23 +55,23 @@ function paparProduk(senarai) {
       ? `<div class="produk-terjual">${p.terjual} terjual</div>` 
       : "";
 
-    // ===== BUTANG (hanya keluar kalau ada link) =====
+    // Butang (hanya keluar kalau ada link)
     let butangHTML = "";
 
-    if (p.tiktok && p.tiktok.trim() !== "") {
+    if (p.tiktok && p.tiktok.toString().trim() !== "") {
       butangHTML += `<a href="${p.tiktok}" class="btn-platform btn-tiktok" target="_blank" rel="noopener">Beli di TikTok</a>`;
     }
 
-    if (p.shopee && p.shopee.trim() !== "") {
+    if (p.shopee && p.shopee.toString().trim() !== "") {
       butangHTML += `<a href="${p.shopee}" class="btn-platform btn-shopee" target="_blank" rel="noopener">Beli di Shopee</a>`;
     }
 
-    if (p.lazada && p.lazada.trim() !== "") {
+    if (p.lazada && p.lazada.toString().trim() !== "") {
       butangHTML += `<a href="${p.lazada}" class="btn-platform btn-lazada" target="_blank" rel="noopener">Beli di Lazada</a>`;
     }
 
     // Gambar
-    const gambar = (p.gambar && p.gambar.trim() !== "") 
+    const gambar = (p.gambar && p.gambar.toString().trim() !== "") 
       ? p.gambar 
       : "https://via.placeholder.com/400x300/f5f5f5/6B4423?text=Tiada+Gambar";
 
@@ -112,14 +118,14 @@ function filterProduk(kategori) {
     produkDipapar = [...semuaProduk];
   } else {
     produkDipapar = semuaProduk.filter(p => 
-      p.kategori && p.kategori.toLowerCase() === kategori.toLowerCase()
+      p.kategori && p.kategori.toString().toLowerCase() === kategori.toLowerCase()
     );
   }
 
   const keyword = document.getElementById("search").value.trim();
   if (keyword) {
     produkDipapar = produkDipapar.filter(p =>
-      p.nama.toLowerCase().includes(keyword.toLowerCase())
+      p.nama.toString().toLowerCase().includes(keyword.toLowerCase())
     );
   }
 
@@ -136,12 +142,14 @@ function cariProduk() {
 
   if (kategoriAktif !== "Semua") {
     hasil = hasil.filter(p => 
-      p.kategori && p.kategori.toLowerCase() === kategoriAktif.toLowerCase()
+      p.kategori && p.kategori.toString().toLowerCase() === kategoriAktif.toLowerCase()
     );
   }
 
   if (keyword) {
-    hasil = hasil.filter(p => p.nama.toLowerCase().includes(keyword));
+    hasil = hasil.filter(p => 
+      p.nama.toString().toLowerCase().includes(keyword)
+    );
   }
 
   produkDipapar = hasil;
