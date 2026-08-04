@@ -1,12 +1,33 @@
 /* ========================================
    MASTA XUL AFFILIATE SHOP
-   script.js - Ambil Data dari Google Apps Script
+   script.js - Versi Betul Harga (No more NaN)
 ======================================== */
 
 const API_URL = "https://script.google.com/macros/s/AKfycbyMG70IM6KD4cmzbNLPZX6mxB4es-qZHwe9NjTa6UV99XdIM6R1DnXgdQKqnA4zV-43Ew/exec";
 
 let semuaProduk = [];
 let produkDipapar = [];
+
+// ========== FORMAT HARGA (elak NaN) ==========
+function formatHarga(harga) {
+  if (harga === null || harga === undefined || harga === "") {
+    return "0.00";
+  }
+
+  // Buang "RM", ruang, dan tukar koma kepada titik
+  let clean = harga.toString()
+    .replace(/rm/gi, "")
+    .replace(/\s/g, "")
+    .replace(/,/g, ".");
+
+  const num = parseFloat(clean);
+
+  if (isNaN(num)) {
+    return "0.00";
+  }
+
+  return num.toFixed(2);
+}
 
 // ========== LOAD PRODUK DARI APPS SCRIPT ==========
 async function muatProduk() {
@@ -19,7 +40,7 @@ async function muatProduk() {
 
     const data = await response.json();
 
-    // Filter baris kosong (kalau ada)
+    // Filter baris kosong
     semuaProduk = data.filter(p => p.nama && p.nama.toString().trim() !== "");
 
     produkDipapar = [...semuaProduk];
@@ -89,7 +110,7 @@ function paparProduk(senarai) {
         <div class="produk-info">
           ${badge}
           <h3 class="produk-nama">${p.nama}</h3>
-          <div class="produk-harga">RM ${parseFloat(p.harga || 0).toFixed(2)}</div>
+          <div class="produk-harga">RM ${formatHarga(p.harga)}</div>
           ${terjual}
 
           <div class="platform-buttons">
