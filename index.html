@@ -1,397 +1,57 @@
 <!DOCTYPE html>
 <html lang="ms">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masta Xul Affiliate Shop</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Masta Xul Affiliate Shop</title>
-
-<meta name="description" content="Masta Xul Affiliate Shop - Produk Pilihan Dengan Harga Terbaik.">
-
-<meta name="keywords" content="Affiliate, TikTok Shop, Shopee, Lazada, Gadget, Kesihatan">
-
-<meta name="author" content="Masta Xul">
-
-<meta name="theme-color" content="#000000">
-
-<meta property="og:title" content="Masta Xul Affiliate Shop">
-
-<meta property="og:description" content="Produk Pilihan Dengan Harga Terbaik">
-
-<meta property="og:type" content="website">
-
-<meta property="og:image" content="images/logo.png">
-
-<link rel="icon" href="images/logo.png">
-
-<link rel="stylesheet" href="style.css">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- LOADING -->
-
-<div id="loading">
-
-<div class="loader"></div>
-
-<p>Memuatkan Produk...</p>
-
-</div>
-
-<!-- HEADER -->
-
 <header>
+    <img src="images/logo.png" class="logo" alt="Logo">
 
-<div class="header-container">
+    <h1>Masta Xul Affiliate Shop</h1>
 
-<div class="logo-box">
-
-<img src="images/logo.png" class="logo" alt="Logo">
-
-</div>
-
-<div class="title-box">
-
-<h1>Masta Xul Affiliate Shop</h1>
-
-<p>
-
-Produk Pilihan Dengan Harga Terbaik
-
-</p>
-
-</div>
-
-</div>
-
+    <p>Produk Pilihan Dengan Harga Terbaik</p>
 </header>
 
-<!-- SOCIAL -->
+<div class="menu">
 
-<section class="social-bar">
+    <button class="active" onclick="filterProduk('Semua')">Semua</button>
 
-<a href="https://www.tiktok.com/" target="_blank">
+    <button onclick="filterProduk('Viral')">Viral</button>
 
-🎵 TikTok
+    <button onclick="filterProduk('Kesihatan')">Kesihatan</button>
 
-</a>
+    <button onclick="filterProduk('Gadget')">Gadget</button>
 
-<a href="https://www.instagram.com/" target="_blank">
-
-📷 Instagram
-
-</a>
-
-<a href="https://wa.me/60123456789" target="_blank">
-
-💬 WhatsApp
-
-</a>
-
-<a href="https://www.facebook.com/" target="_blank">
-
-📘 Facebook
-
-</a>
-
-<a href="https://t.me/" target="_blank">
-
-✈ Telegram
-
-</a>
-
-</section>
-
-<!-- BANNER -->
-
-<section class="banner">
-
-<div class="banner-content">
-
-<h2>
-
-🔥 Produk Viral Malaysia 🔥
-
-</h2>
-
-<p>
-
-TikTok • Shopee • Lazada
-
-</p>
+    <button onclick="filterProduk('Rumah')">Rumah</button>
 
 </div>
 
-</section>
+<div class="search-box">
 
-<!-- SEARCH -->
-
-<section class="search-section">
-
-<input
-
-type="text"
-
-id="search"
-
-placeholder="🔍 Cari Produk..."
-
-onkeyup="cariProduk()"
-
->
-
-<div id="jumlahProduk">
-
-Jumlah Produk : 0
+    <input
+        type="text"
+        id="search"
+        placeholder="Cari produk..."
+        onkeyup="cariProduk()">
 
 </div>
 
-</section>
+<div id="produk-list" class="produk-grid">
 
-<!-- MENU -->
-
-<section class="kategori">
-
-<button class="active"
-
-onclick="filterProduk('Semua', this)">
-
-Semua
-
-</button>
-
-<button
-
-onclick="filterProduk('VIRAL', this)">
-
-Viral
-
-</button>
-
-<button
-
-onclick="filterProduk('Kesihatan', this)">
-
-Kesihatan
-
-</button>
-
-<button
-
-onclick="filterProduk('Gadget', this)">
-
-Gadget
-
-</button>
-
-<button
-
-onclick="filterProduk('Rumah', this)">
-
-Rumah
-
-</button>
-
-</section>
-
-<!-- PRODUK -->
-
-<main>
-
-<div
-
-id="produk-list"
-
-class="produk-grid">
-
-  </div>
-
-</main>
-
-<!-- BUTANG SCROLL KE ATAS -->
-
-<button id="scrollTopBtn" title="Kembali Ke Atas">
-
-⬆️
-
-</button>
-
-<!-- WHATSAPP FLOAT -->
-
-<a
-
-href="https://wa.me/60123456789"
-
-class="whatsapp-float"
-
-target="_blank"
-
-title="Hubungi Kami">
-
-💬
-
-</a>
-
-<!-- FOOTER -->
+</div>
 
 <footer>
 
-<div class="footer-container">
-
-<div class="footer-logo">
-
-<img src="images/logo.png" alt="Logo">
-
-<h2>
-
-Masta Xul Affiliate Shop
-
-</h2>
-
-<p>
-
-Produk Pilihan Dengan Harga Terbaik
-
-</p>
-
-</div>
-
-<div class="footer-menu">
-
-<h3>
-
-Kategori
-
-</h3>
-
-<ul>
-
-<li>Viral</li>
-
-<li>Kesihatan</li>
-
-<li>Gadget</li>
-
-<li>Rumah</li>
-
-</ul>
-
-</div>
-
-<div class="footer-social">
-
-<h3>
-
-Ikuti Kami
-
-</h3>
-
-<a href="https://www.tiktok.com/" target="_blank">
-
-🎵 TikTok
-
-</a>
-
-<a href="https://www.instagram.com/" target="_blank">
-
-📷 Instagram
-
-</a>
-
-<a href="https://wa.me/60123456789" target="_blank">
-
-💬 WhatsApp
-
-</a>
-
-<a href="https://www.facebook.com/" target="_blank">
-
-📘 Facebook
-
-</a>
-
-<a href="https://t.me/" target="_blank">
-
-✈ Telegram
-
-</a>
-
-</div>
-
-</div>
-
-<hr>
-
-<p class="copyright">
-
 © 2026 Masta Xul Affiliate Shop
-
-<br>
-
-Semua Hak Cipta Terpelihara.
-
-</p>
 
 </footer>
 
 <script src="script.js"></script>
 
-<script>
-
-// LOADING
-
-window.addEventListener("load",function(){
-
-const loading=document.getElementById("loading");
-
-loading.style.display="none";
-
-});
-
-// SCROLL BUTTON
-
-const scrollBtn=document.getElementById("scrollTopBtn");
-
-window.onscroll=function(){
-
-if(document.body.scrollTop>300 ||
-
-document.documentElement.scrollTop>300){
-
-scrollBtn.style.display="block";
-
-}else{
-
-scrollBtn.style.display="none";
-
-}
-
-};
-
-scrollBtn.onclick=function(){
-
-window.scrollTo({
-
-top:0,
-
-behavior:"smooth"
-
-});
-
-};
-
-</script>
-
 </body>
-
 </html>
