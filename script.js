@@ -22,7 +22,10 @@ function shareProduk(nama, harga, platform = "other") {
   if (platform === "whatsapp") {
     window.open(`https://wa.me/?text=${encoded}`, "_blank");
   } else if (platform === "telegram") {
-    window.open(`https://t.me/share/url?url=${WEBSITE_URL}&text=${encoded}`, "_blank");
+    window.open(
+      `https://t.me/share/url?url=${encodeURIComponent(WEBSITE_URL)}&text=${encoded}`,
+      "_blank"
+    );
   } else {
     if (navigator.share) {
       navigator.share({
