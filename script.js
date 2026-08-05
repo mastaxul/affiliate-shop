@@ -12,19 +12,19 @@ const produkPerPage = 20;
 
 // ========== SHARE PRODUK ==========
 function shareProduk(nama, harga, platform = "other") {
-  const teks = `🔥 ${nama}\nHarga: RM ${harga}\n\nLihat produk ni di Masta Xul Affiliate Shop:\nhttps://mastaxul.github.io`;
+  const teks = `🔥 ${nama}\nHarga: RM ${harga}\n\nLihat produk ni di Masta Xul Affiliate Shop:\nhttps://mastaxul.github.io/affiliate-shop/`;
   const encoded = encodeURIComponent(teks);
 
   if (platform === "whatsapp") {
     window.open(`https://wa.me/?text=${encoded}`, "_blank");
   } else if (platform === "telegram") {
-    window.open(`https://t.me/share/url?url=https://mastaxul.github.io&text=${encoded}`, "_blank");
+    window.open(`https://t.me/share/url?url=https://mastaxul.github.io/affiliate-shop/&text=${encoded}`, "_blank");
   } else {
     if (navigator.share) {
       navigator.share({
         title: nama,
         text: teks,
-        url: "https://mastaxul.github.io"
+        url: "https://mastaxul.github.io/affiliate-shop/"
       }).catch(err => console.log(err));
     } else {
       navigator.clipboard.writeText(teks);
