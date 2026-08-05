@@ -8,6 +8,60 @@ const API_URL = "https://script.google.com/macros/s/AKfycbyMG70IM6KD4cmzbNLPZX6m
 let semuaProduk = [];
 let produkDipapar = [];
 
+// ========== SHARE PRODUK ==========
+function shareProduk(nama, harga, platform = "other") {
+  const teks = `🔥 ${nama}\nHarga: RM ${harga}\n\nLihat produk ni di Masta Xul Affiliate Shop:\nhttps://mastaxul.github.io`;
+  const encoded = encodeURIComponent(teks);
+
+  if (platform === "whatsapp") {
+    window.open(`https://wa.me/?text=${encoded}`, "_blank");
+  } 
+  else if (platform === "telegram") {
+    window.open(`https://t.me/share/url?url=https://mastaxul.github.io&text=${encoded}`, "_blank");
+  } 
+  else {
+    // Web Share API (akan keluar menu native telefon)
+    if (navigator.share) {
+      navigator.share({
+        title: nama,
+        text: teks,
+        url: "https://mastaxul.github.io"
+      }).catch(err => console.log(err));
+    } else {
+      // Fallback
+      navigator.clipboard.writeText(teks);
+      alert("Teks telah disalin! Anda boleh paste di media sosial.");
+    }
+  }
+}
+
+// ========== BACK TO TOP ==========
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+window.addEventListener("scroll", () => {
+  const btn = document.getElementById("backToTop");
+  if (btn) {
+    if (window.scrollY > 300) {
+      btn.classList.add("show");
+    } else {
+      btn.classList.remove("show");
+    }
+  }
+});
+
+// ========== LIVE VISITOR COUNTER ==========
+async function loadVisitorCount() {
+  try {
+    const res = await fetch("https://api.countapi.xyz/hit/mastaxul.github.io/visits");
+    const data = await res.json();
+    document.getElementById("visitCount").textContent = data.value;
+  } catch (e) {
+    document.getElementById("visitCount").textContent = "-";
+  }
+}
+
 // ========== FORMAT HARGA (elak NaN) ==========
 function formatHarga(harga) {
   if (harga === null || harga === undefined || harga === "") {
@@ -131,8 +185,14 @@ function paparProduk(senarai) {
           ${terjual}
 
           <div class="platform-buttons">
-            ${butangHTML}
-          </div>
+  ${butangHTML}
+</div>
+
+<div class="share-buttons">
+  <button class="btn-share btn-share-wa" onclick="shareProduk('${p.nama.replace(/'/g, "\\'")}', '${formatHarga(p.harga)}', 'whatsapp')">WhatsApp</button>
+  <button class="btn-share btn-share-telegram" onclick="shareProduk('${p.nama.replace(/'/g, "\\'")}', '${formatHarga(p.harga)}', 'telegram')">Telegram</button>
+  <button class="btn-share btn-share-other" onclick="shareProduk('${p.nama.replace(/'/g, "\\'")}', '${formatHarga(p.harga)}', 'other')">Lain</button>
+</div>
         </div>
       </div>
     `;
@@ -197,4 +257,5 @@ function cariProduk() {
 // ========== MULAKAN ==========
 document.addEventListener("DOMContentLoaded", () => {
   muatProduk();
+   loadVisitorCount();  //
 });
