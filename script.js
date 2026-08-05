@@ -132,39 +132,46 @@ async function muatProduk(cuba = 1) {
 // ========== PAPAR PRODUK ==========
 function paparProduk(senarai) {
   const container = document.getElementById("produk-list");
+  const pagination = document.getElementById("pagination");
 
   if (!senarai || senarai.length === 0) {
     container.innerHTML = `<div class="empty-state">Tiada produk dijumpai.</div>`;
+    if (pagination) pagination.style.display = "none";
     return;
   }
 
-  container.innerHTML = senarai.map(p => {
-    // Badge
+  // Kira jumlah page
+  const totalPage = Math.ceil(senarai.length / produkPerPage);
+  
+  if (currentPage > totalPage) currentPage = totalPage;
+  if (currentPage < 1) currentPage = 1;
+
+  // Ambil 20 produk sahaja untuk page semasa
+  const startIndex = (currentPage - 1) * produkPerPage;
+  const endIndex = startIndex + produkPerPage;
+  const produkSekarang = senarai.slice(startIndex, endIndex);
+
+  container.innerHTML = produkSekarang.map(p => {
     const badge = p.badge 
       ? `<span class="label-hot">${p.badge}</span>` 
       : "";
 
-    // Terjual
     const terjual = p.terjual 
       ? `<div class="produk-terjual">${p.terjual} terjual</div>` 
       : "";
 
-    // Butang (hanya keluar kalau ada link)
     let butangHTML = "";
 
     if (p.tiktok && p.tiktok.toString().trim() !== "") {
       butangHTML += `<a href="${p.tiktok}" class="btn-platform btn-tiktok" target="_blank" rel="noopener">Beli di TikTok</a>`;
     }
-
     if (p.shopee && p.shopee.toString().trim() !== "") {
       butangHTML += `<a href="${p.shopee}" class="btn-platform btn-shopee" target="_blank" rel="noopener">Beli di Shopee</a>`;
     }
-
     if (p.lazada && p.lazada.toString().trim() !== "") {
       butangHTML += `<a href="${p.lazada}" class="btn-platform btn-lazada" target="_blank" rel="noopener">Beli di Lazada</a>`;
     }
 
-    // Gambar
     const gambar = (p.gambar && p.gambar.toString().trim() !== "") 
       ? p.gambar 
       : "https://via.placeholder.com/400x300/f5f5f5/6B4423?text=Tiada+Gambar";
@@ -187,24 +194,26 @@ function paparProduk(senarai) {
           ${terjual}
 
           <div class="platform-buttons">
-  ${butangHTML}
-</div>
+            ${butangHTML}
+          </div>
 
-<div class="share-buttons">
-  <button class="btn-share btn-share-wa" onclick="shareProduk('${p.nama.replace(/'/g, "\\'")}', '${formatHarga(p.harga)}', 'whatsapp')">WhatsApp</button>
-  <button class="btn-share btn-share-telegram" onclick="shareProduk('${p.nama.replace(/'/g, "\\'")}', '${formatHarga(p.harga)}', 'telegram')">Telegram</button>
-  <button class="btn-share btn-share-other" onclick="shareProduk('${p.nama.replace(/'/g, "\\'")}', '${formatHarga(p.harga)}', 'other')">Lain</button>
-</div>
+          <div class="share-buttons">
+            <button class="btn-share btn-share-wa" onclick="shareProduk('${p.nama.replace(/'/g, "\\'")}', '${formatHarga(p.harga)}', 'whatsapp')">WhatsApp</button>
+            <button class="btn-share btn-share-telegram" onclick="shareProduk('${p.nama.replace(/'/g, "\\'")}', '${formatHarga(p.harga)}', 'telegram')">Telegram</button>
+            <button class="btn-share btn-share-other" onclick="shareProduk('${p.nama.replace(/'/g, "\\'")}', '${formatHarga(p.harga)}', 'other')">Lain</button>
+          </div>
         </div>
       </div>
     `;
   }).join("");
-}
 
-function tukarPage(arah) {
-  currentPage += arah;
-  paparProduk(produkDipapar);
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  // Update pagination
+  if (pagination) {
+    document.getElementById("pageInfo").textContent = `Halaman ${currentPage} dari ${totalPage}`;
+    document.getElementById("btnPrev").disabled = currentPage === 1;
+    document.getElementById("btnNext").disabled = currentPage === totalPage;
+    pagination.style.display = totalPage > 1 ? "flex" : "none";
+  }
 }
 
 // ========== FILTER KATEGORI ==========
