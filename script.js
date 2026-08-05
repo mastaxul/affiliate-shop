@@ -7,6 +7,8 @@ const API_URL = "https://script.google.com/macros/s/AKfycbyMG70IM6KD4cmzbNLPZX6m
 
 let semuaProduk = [];
 let produkDipapar = [];
+let currentPage = 1;
+const produkPerPage = 20;
 
 // ========== SHARE PRODUK ==========
 function shareProduk(nama, harga, platform = "other") {
@@ -199,6 +201,12 @@ function paparProduk(senarai) {
   }).join("");
 }
 
+function tukarPage(arah) {
+  currentPage += arah;
+  paparProduk(produkDipapar);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 // ========== FILTER KATEGORI ==========
 function filterProduk(kategori) {
   document.querySelectorAll(".menu button").forEach(btn => {
@@ -226,7 +234,7 @@ function filterProduk(kategori) {
       p.nama.toString().toLowerCase().includes(keyword.toLowerCase())
     );
   }
-
+currentPage = 1;
   paparProduk(produkDipapar);
 }
 
@@ -251,6 +259,7 @@ function cariProduk() {
   }
 
   produkDipapar = hasil;
+   currentPage = 1;
   paparProduk(produkDipapar);
 }
 
