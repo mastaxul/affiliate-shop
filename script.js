@@ -1,6 +1,7 @@
 /* ========================================
    MASTA XUL AFFILIATE SHOP
    script.js - Full Version
+   (Pagination + Share + Retry + Multiple Category)
 ======================================== */
 
 const API_URL = "https://script.google.com/macros/s/AKfycbyMG70IM6KD4cmzbNLPZX6mxB4es-qZHwe9NjTa6UV99XdIM6R1DnXgdQKqnA4zV-43Ew/exec";
@@ -212,7 +213,7 @@ function tukarPage(arah) {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-// ========== FILTER KATEGORI ==========
+// ========== FILTER KATEGORI (Sokong Multiple) ==========
 function filterProduk(kategori) {
   document.querySelectorAll(".menu button").forEach(btn => {
     btn.classList.remove("active");
@@ -228,11 +229,21 @@ function filterProduk(kategori) {
   if (kategori === "Semua") {
     produkDipapar = [...semuaProduk];
   } else {
-    produkDipapar = semuaProduk.filter(p =>
-      p.kategori && p.kategori.toString().toLowerCase() === kategori.toLowerCase()
-    );
+    produkDipapar = semuaProduk.filter(p => {
+      if (!p.kategori) return false;
+
+      // Sokong multiple kategori (pisah dengan koma)
+      const senaraiKategori = p.kategori
+        .toString()
+        .toLowerCase()
+        .split(",")
+        .map(k => k.trim());
+
+      return senaraiKategori.includes(kategori.toLowerCase());
+    });
   }
 
+  // Kalau ada carian aktif
   const keyword = document.getElementById("search").value.trim();
   if (keyword) {
     produkDipapar = produkDipapar.filter(p =>
@@ -253,9 +264,17 @@ function cariProduk() {
   let hasil = [...semuaProduk];
 
   if (kategoriAktif !== "Semua") {
-    hasil = hasil.filter(p =>
-      p.kategori && p.kategori.toString().toLowerCase() === kategoriAktif.toLowerCase()
-    );
+    hasil = hasil.filter(p => {
+      if (!p.kategori) return false;
+
+      const senaraiKategori = p.kategori
+        .toString()
+        .toLowerCase()
+        .split(",")
+        .map(k => k.trim());
+
+      return senaraiKategori.includes(kategoriAktif.toLowerCase());
+    });
   }
 
   if (keyword) {
