@@ -1,6 +1,6 @@
 /* ========================================
    MASTA XUL AFFILIATE SHOP
-   script.js - Versi Betul Harga (No more NaN)
+   script.js - Full Version (Pagination + Share + Retry)
 ======================================== */
 
 const API_URL = "https://script.google.com/macros/s/AKfycbyMG70IM6KD4cmzbNLPZX6mxB4es-qZHwe9NjTa6UV99XdIM6R1DnXgdQKqnA4zV-43Ew/exec";
@@ -17,12 +17,9 @@ function shareProduk(nama, harga, platform = "other") {
 
   if (platform === "whatsapp") {
     window.open(`https://wa.me/?text=${encoded}`, "_blank");
-  } 
-  else if (platform === "telegram") {
+  } else if (platform === "telegram") {
     window.open(`https://t.me/share/url?url=https://mastaxul.github.io&text=${encoded}`, "_blank");
-  } 
-  else {
-    // Web Share API (akan keluar menu native telefon)
+  } else {
     if (navigator.share) {
       navigator.share({
         title: nama,
@@ -30,7 +27,6 @@ function shareProduk(nama, harga, platform = "other") {
         url: "https://mastaxul.github.io"
       }).catch(err => console.log(err));
     } else {
-      // Fallback
       navigator.clipboard.writeText(teks);
       alert("Teks telah disalin! Anda boleh paste di media sosial.");
     }
@@ -58,37 +54,33 @@ async function loadVisitorCount() {
   try {
     const res = await fetch("https://api.countapi.xyz/hit/mastaxul.github.io/visits");
     const data = await res.json();
-    document.getElementById("visitCount").textContent = data.value;
+    const el = document.getElementById("visitCount");
+    if (el) el.textContent = data.value;
   } catch (e) {
-    document.getElementById("visitCount").textContent = "-";
+    const el = document.getElementById("visitCount");
+    if (el) el.textContent = "-";
   }
 }
 
-// ========== FORMAT HARGA (elak NaN) ==========
+// ========== FORMAT HARGA ==========
 function formatHarga(harga) {
   if (harga === null || harga === undefined || harga === "") {
     return "0.00";
   }
 
-  // Buang "RM", ruang, dan tukar koma kepada titik
   let clean = harga.toString()
     .replace(/rm/gi, "")
     .replace(/\s/g, "")
     .replace(/,/g, ".");
 
   const num = parseFloat(clean);
-
-  if (isNaN(num)) {
-    return "0.00";
-  }
-
-  return num.toFixed(2);
+  return isNaN(num) ? "0.00" : num.toFixed(2);
 }
 
-// ========== LOAD PRODUK DARI APPS SCRIPT (dengan Retry) ==========
+// ========== LOAD PRODUK (dengan Retry) ==========
 async function muatProduk(cuba = 1) {
   const container = document.getElementById("produk-list");
-  
+
   if (cuba === 1) {
     container.innerHTML = `<div class="empty-state">Memuatkan produk...</div>`;
   } else {
@@ -105,20 +97,18 @@ async function muatProduk(cuba = 1) {
 
     const data = await response.json();
 
-    // Filter baris kosong
     semuaProduk = data.filter(p => p.nama && p.nama.toString().trim() !== "");
-
     produkDipapar = [...semuaProduk];
+    currentPage = 1;
     paparProduk(produkDipapar);
 
   } catch (error) {
     console.error("Percubaan " + cuba + " gagal:", error);
 
-    // Cuba semula maksimum 3 kali
     if (cuba < 3) {
       setTimeout(() => {
         muatProduk(cuba + 1);
-      }, 1500); // tunggu 1.5 saat sebelum cuba lagi
+      }, 1500);
     } else {
       container.innerHTML = `
         <div class="empty-state">
@@ -129,7 +119,7 @@ async function muatProduk(cuba = 1) {
   }
 }
 
-// ========== PAPAR PRODUK ==========
+// ========== PAPAR PRODUK (dengan Pagination) ==========
 function paparProduk(senarai) {
   const container = document.getElementById("produk-list");
   const pagination = document.getElementById("pagination");
@@ -140,28 +130,20 @@ function paparProduk(senarai) {
     return;
   }
 
-  // Kira jumlah page
   const totalPage = Math.ceil(senarai.length / produkPerPage);
-  
+
   if (currentPage > totalPage) currentPage = totalPage;
   if (currentPage < 1) currentPage = 1;
 
-  // Ambil 20 produk sahaja untuk page semasa
   const startIndex = (currentPage - 1) * produkPerPage;
   const endIndex = startIndex + produkPerPage;
   const produkSekarang = senarai.slice(startIndex, endIndex);
 
   container.innerHTML = produkSekarang.map(p => {
-    const badge = p.badge 
-      ? `<span class="label-hot">${p.badge}</span>` 
-      : "";
-
-    const terjual = p.terjual 
-      ? `<div class="produk-terjual">${p.terjual} terjual</div>` 
-      : "";
+    const badge = p.badge ? `<span class="label-hot">${p.badge}</span>` : "";
+    const terjual = p.terjual ? `<div class="produk-terjual">${p.terjual} terjual</div>` : "";
 
     let butangHTML = "";
-
     if (p.tiktok && p.tiktok.toString().trim() !== "") {
       butangHTML += `<a href="${p.tiktok}" class="btn-platform btn-tiktok" target="_blank" rel="noopener">Beli di TikTok</a>`;
     }
@@ -172,8 +154,8 @@ function paparProduk(senarai) {
       butangHTML += `<a href="${p.lazada}" class="btn-platform btn-lazada" target="_blank" rel="noopener">Beli di Lazada</a>`;
     }
 
-    const gambar = (p.gambar && p.gambar.toString().trim() !== "") 
-      ? p.gambar 
+    const gambar = (p.gambar && p.gambar.toString().trim() !== "")
+      ? p.gambar
       : "https://via.placeholder.com/400x300/f5f5f5/6B4423?text=Tiada+Gambar";
 
     return `
@@ -207,13 +189,20 @@ function paparProduk(senarai) {
     `;
   }).join("");
 
-  // Update pagination
+  // Update pagination UI
   if (pagination) {
     document.getElementById("pageInfo").textContent = `Halaman ${currentPage} dari ${totalPage}`;
     document.getElementById("btnPrev").disabled = currentPage === 1;
     document.getElementById("btnNext").disabled = currentPage === totalPage;
     pagination.style.display = totalPage > 1 ? "flex" : "none";
   }
+}
+
+// ========== TUKAR PAGE ==========
+function tukarPage(arah) {
+  currentPage += arah;
+  paparProduk(produkDipapar);
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 // ========== FILTER KATEGORI ==========
@@ -224,7 +213,7 @@ function filterProduk(kategori) {
 
   const butangAktif = Array.from(document.querySelectorAll(".menu button"))
     .find(btn => btn.textContent.trim() === kategori);
-  
+
   if (butangAktif) {
     butangAktif.classList.add("active");
   }
@@ -232,7 +221,7 @@ function filterProduk(kategori) {
   if (kategori === "Semua") {
     produkDipapar = [...semuaProduk];
   } else {
-    produkDipapar = semuaProduk.filter(p => 
+    produkDipapar = semuaProduk.filter(p =>
       p.kategori && p.kategori.toString().toLowerCase() === kategori.toLowerCase()
     );
   }
@@ -243,7 +232,8 @@ function filterProduk(kategori) {
       p.nama.toString().toLowerCase().includes(keyword.toLowerCase())
     );
   }
-currentPage = 1;
+
+  currentPage = 1;
   paparProduk(produkDipapar);
 }
 
@@ -256,24 +246,24 @@ function cariProduk() {
   let hasil = [...semuaProduk];
 
   if (kategoriAktif !== "Semua") {
-    hasil = hasil.filter(p => 
+    hasil = hasil.filter(p =>
       p.kategori && p.kategori.toString().toLowerCase() === kategoriAktif.toLowerCase()
     );
   }
 
   if (keyword) {
-    hasil = hasil.filter(p => 
+    hasil = hasil.filter(p =>
       p.nama.toString().toLowerCase().includes(keyword)
     );
   }
 
   produkDipapar = hasil;
-   currentPage = 1;
+  currentPage = 1;
   paparProduk(produkDipapar);
 }
 
 // ========== MULAKAN ==========
 document.addEventListener("DOMContentLoaded", () => {
   muatProduk();
-   loadVisitorCount();  //
+  loadVisitorCount();
 });
