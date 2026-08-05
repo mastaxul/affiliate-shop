@@ -29,14 +29,23 @@ function formatHarga(harga) {
   return num.toFixed(2);
 }
 
-// ========== LOAD PRODUK DARI APPS SCRIPT ==========
-async function muatProduk() {
+// ========== LOAD PRODUK DARI APPS SCRIPT (dengan Retry) ==========
+async function muatProduk(cuba = 1) {
   const container = document.getElementById("produk-list");
-  container.innerHTML = `<div class="empty-state">Memuatkan produk...</div>`;
+  
+  if (cuba === 1) {
+    container.innerHTML = `<div class="empty-state">Memuatkan produk...</div>`;
+  } else {
+    container.innerHTML = `<div class="empty-state">Mencuba semula... (${cuba}/3)</div>`;
+  }
 
   try {
-    const response = await fetch(API_URL);
-    if (!response.ok) throw new Error("Gagal memuatkan data");
+    const response = await fetch(API_URL + "?t=" + new Date().getTime(), {
+      method: "GET",
+      redirect: "follow"
+    });
+
+    if (!response.ok) throw new Error("Network response not ok");
 
     const data = await response.json();
 
@@ -47,12 +56,20 @@ async function muatProduk() {
     paparProduk(produkDipapar);
 
   } catch (error) {
-    console.error(error);
-    container.innerHTML = `
-      <div class="empty-state">
-        Gagal memuatkan produk.<br>
-        Sila semak sambungan atau Apps Script.
-      </div>`;
+    console.error("Percubaan " + cuba + " gagal:", error);
+
+    // Cuba semula maksimum 3 kali
+    if (cuba < 3) {
+      setTimeout(() => {
+        muatProduk(cuba + 1);
+      }, 1500); // tunggu 1.5 saat sebelum cuba lagi
+    } else {
+      container.innerHTML = `
+        <div class="empty-state">
+          Gagal memuatkan produk.<br>
+          Sila refresh halaman atau cuba lagi sebentar.
+        </div>`;
+    }
   }
 }
 
