@@ -472,3 +472,40 @@ footer {
 .btn-share:hover {
   opacity: 0.9;
 }
+
+/* ========== PAGINATION ========== */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 30px 16px 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pagination button {
+  background-color: #111111;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.pagination button:hover {
+  background-color: #D32F2F;
+}
+
+.pagination button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+#pageInfo {
+  font-weight: 600;
+  color: #111111;
+  font-size: 1rem;
+}
