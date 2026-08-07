@@ -57,18 +57,7 @@ window.addEventListener("scroll", () => {
   }
 });
 
-// ========== LIVE VISITOR COUNTER ==========
-async function loadVisitorCount() {
-  try {
-    const res = await fetch("https://api.countapi.xyz/hit/mastaxul.github.io/visits");
-    const data = await res.json();
-    const el = document.getElementById("visitCount");
-    if (el) el.textContent = data.value;
-  } catch (e) {
-    const el = document.getElementById("visitCount");
-    if (el) el.textContent = "-";
-  }
-}
+
 
 // ========== FORMAT HARGA ==========
 function formatHarga(harga) {
@@ -291,5 +280,4 @@ function cariProduk() {
 // ========== MULAKAN ==========
 document.addEventListener("DOMContentLoaded", () => {
   muatProduk();
-  loadVisitorCount();
 });
