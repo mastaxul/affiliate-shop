@@ -1,65 +1,55 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masta Xul Affiliate Shop</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
+  <title>Masta Xul Affiliate Shop | Produk Viral TikTok, Shopee & Lazada</title>
+
+  <meta name="description" content="Cari produk viral TikTok, Shopee dan Lazada dengan harga terbaik. Masta Xul Affiliate Shop - produk pilihan berkualiti.">
+  <meta name="keywords" content="produk viral tiktok, affiliate shopee, lazada malaysia, produk kesihatan, gadget murah, masta xul">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Masta Xul">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Masta Xul Affiliate Shop">
+  <meta property="og:description" content="Produk viral TikTok, Shopee & Lazada dengan harga terbaik.">
+  <meta property="og:image" content="https://mastaxul.my/images/logo.png">
+  <meta property="og:url" content="https://mastaxul.my/">
+  <meta property="og:type" content="website">
+
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-    <img src="https://i.ibb.co/SwpWGqrs/IMG-0606.png" class="logo" alt="Logo">
-
-    <h1>Masta Xul Affiliate Shop</h1>
-
-    <p>Produk Pilihan Dengan Harga Terbaik</p>
+  <img src="https://i.ibb.co/SwpWGqrs/IMG-0606.png" class="logo" alt="Logo">
+  <h1>Masta Xul Affiliate Shop</h1>
+  <p>Produk Pilihan Dengan Harga Terbaik</p>
 </header>
 
 <div class="menu">
-
-    <button class="active" onclick="filterProduk('Semua')">Semua</button>
-
-    <button onclick="filterProduk('Viral')">Viral</button>
-
-    <button onclick="filterProduk('Kesihatan')">Kesihatan</button>
-
-    <button onclick="filterProduk('Gadget')">Gadget</button>
-
-    <button onclick="filterProduk('Rumah')">Rumah</button>
-    
-    <button onclick="filterProduk('Kecantikan')">Kecantikan</button>
-    
-    <button onclick="filterProduk('Pertanian')">Pertanian</button>
-
-    <button onclick="filterProduk('Lelaki')">Lelaki</button>
-
-    <button onclick="filterProduk('Wanita')">Wanita</button>
-    
-    <button onclick="filterProduk('Sukan')">Sukan</button>
-
-    <button onclick="filterProduk('Eletrik')">Eletrik</button>
-
-    <button onclick="filterProduk('Tumbuhan')">Tumbuhan</button>
-
+  <button class="active" onclick="filterProduk('Semua')">Semua</button>
+  <button onclick="filterProduk('Viral')">Viral</button>
+  <button onclick="filterProduk('Kesihatan')">Kesihatan</button>
+  <button onclick="filterProduk('Gadget')">Gadget</button>
+  <button onclick="filterProduk('Rumah')">Rumah</button>
+  <button onclick="filterProduk('Kecantikan')">Kecantikan</button>
+  <button onclick="filterProduk('Pertanian')">Pertanian</button>
+  <button onclick="filterProduk('Lelaki')">Lelaki</button>
+  <button onclick="filterProduk('Wanita')">Wanita</button>
+  <button onclick="filterProduk('Sukan')">Sukan</button>
+  <button onclick="filterProduk('Elektrik')">Elektrik</button>
+  <button onclick="filterProduk('Tumbuhan')">Tumbuhan</button>
 </div>
 
 <div class="search-box">
-
-    <input
-        type="text"
-        id="search"
-        placeholder="Cari produk..."
-        onkeyup="cariProduk()">
-
+  <input type="text" id="search" placeholder="Cari produk..." onkeyup="cariProduk()">
 </div>
 
-<div id="produk-list" class="produk-grid">
+<div id="produk-list" class="produk-grid"></div>
 
-</div>
-
-    <!-- Pagination -->
+<!-- Pagination -->
 <div class="pagination" id="pagination">
   <button onclick="tukarPage(-1)" id="btnPrev">← Previous</button>
   <span id="pageInfo">Halaman 1</span>
@@ -67,14 +57,12 @@
 </div>
 
 <footer>
-
-© 2026 Masta Xul Affiliate Shop
-
+  © 2026 Masta Xul Affiliate Shop
 </footer>
 
 <!-- Butang Google Form Terapung -->
 <a href="https://forms.gle/rr3MzmniqZAtEPhm6" class="float-form" target="_blank" rel="noopener" title="Tambah Produk / Hubungi">
-  💬
+  📝
 </a>
 
 <!-- Butang Back to Top -->
@@ -82,9 +70,9 @@
 
 <!-- Live Visitor Counter -->
 <div class="visitor-counter" id="visitorCounter">
-  ✌🏻 <span id="visitCount">-</span> Selamat Datang
+  👀 <span id="visitCount">-</span> sedang melihat
 </div>
-    
+
 <script src="script.js"></script>
 
 </body>
