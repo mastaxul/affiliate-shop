@@ -1,23 +1,5 @@
 // ========== MENU HAMBURGER (Pusat) ==========
 function loadMenu() {
-  // HTML untuk butang 3 garis + side menu
-  const menuHTML = `
-    <button class="menu-toggle" onclick="toggleMenu()" aria-label="Menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-
-    <div class="side-menu" id="sideMenu">
-      <a href="/">🏠 Laman Utama</a>
-      <a href="/shop/">🛍️ Shop</a>
-      <a href="/tentang/">📖 Tentang Kami</a>
-      <a href="/hubungi/">📞 Hubungi Kami</a>
-      <a href="https://whatsapp.com/channel/0029VaHHLhNIt5rvXDSZl03Y" target="_blank">📢 WhatsApp Channel</a>
-    </div>
-    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
-  `;
-
   // Cari tempat untuk letak butang (dalam .header-top)
   const headerTop = document.querySelector(".header-top");
   if (headerTop) {
@@ -40,6 +22,7 @@ function loadMenu() {
     document.body.insertAdjacentHTML("beforeend", `
       <div class="side-menu" id="sideMenu">
         <a href="/">🏠 Laman Utama</a>
+        <a href="/shop/">🛍️ Shop</a>
         <a href="/tentang/">📖 Tentang Kami</a>
         <a href="/hubungi/">📞 Hubungi Kami</a>
         <a href="https://whatsapp.com/channel/0029VaHHLhNIt5rvXDSZl03Y" target="_blank">📢 WhatsApp Channel</a>
