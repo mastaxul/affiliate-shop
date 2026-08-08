@@ -10,6 +10,7 @@ function loadMenu() {
 
     <div class="side-menu" id="sideMenu">
       <a href="/">🏠 Laman Utama</a>
+      <a href="/shop/">🛍️ Shop</a>
       <a href="/tentang/">📖 Tentang Kami</a>
       <a href="/hubungi/">📞 Hubungi Kami</a>
       <a href="https://whatsapp.com/channel/0029VaHHLhNIt5rvXDSZl03Y" target="_blank">📢 WhatsApp Channel</a>
