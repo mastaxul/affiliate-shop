@@ -277,6 +277,15 @@ function cariProduk() {
   paparProduk(produkDipapar);
 }
 
+// ========== TOGGLE MENU ==========
+function toggleMenu() {
+  const menu = document.getElementById("sideMenu");
+  const overlay = document.getElementById("menuOverlay");
+  
+  menu.classList.toggle("open");
+  overlay.classList.toggle("open");
+}
+
 // ========== MULAKAN ==========
 document.addEventListener("DOMContentLoaded", () => {
   muatProduk();
