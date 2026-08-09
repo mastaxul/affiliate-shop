@@ -1,1 +1,410 @@
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSejxq1ZsFRPb-EEQbLm7WXYTlC5lMeOdNK1zyMiEZnYcNlL8w/viewform?embedded=true" width="640" height="2071" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Masta Xul Admin</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   Roboto, Arial, sans-serif;
+      background:
+        linear-gradient(
+          135deg,
+          #f5f1eb 0%,
+          #ffffff 45%,
+          #edf5ee 100%
+        );
+      color: #111;
+      min-height: 100vh;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    .header {
+      background: #111;
+      padding: 18px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(
+        90deg,
+        #6b4226,
+        #111111,
+        #c62828,
+        #ffffff,
+        #2e7d32
+      );
+    }
+
+    .header-inner {
+      max-width: 1000px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(
+        135deg,
+        #6b4226,
+        #c62828,
+        #2e7d32
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 900;
+      font-size: 18px;
+      box-shadow: 0 5px 15px rgba(0,0,0,.25);
+    }
+
+    .brand-text h1 {
+      color: white;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: .5px;
+    }
+
+    .brand-text p {
+      color: #bbb;
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .admin-badge {
+      background: #c62828;
+      color: white;
+      padding: 7px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .5px;
+    }
+
+    /* =========================
+       MAIN
+    ========================== */
+
+    .container {
+      width: 100%;
+      max-width: 850px;
+      margin: 30px auto 50px;
+      padding: 0 15px;
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .intro h2 {
+      font-size: 26px;
+      font-weight: 850;
+      color: #111;
+      margin-bottom: 7px;
+    }
+
+    .intro h2 span {
+      color: #c62828;
+    }
+
+    .intro p {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* =========================
+       INFO CARD
+    ========================== */
+
+    .info-card {
+      background: white;
+      border-radius: 18px;
+      padding: 18px 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.08);
+      border-left: 5px solid #2e7d32;
+    }
+
+    .info-title {
+      font-weight: 800;
+      margin-bottom: 7px;
+      color: #111;
+    }
+
+    .info-text {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #666;
+    }
+
+    /* =========================
+       FORM CARD
+    ========================== */
+
+    .form-card {
+      background: white;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.12);
+      border: 1px solid #eee;
+    }
+
+    .form-top {
+      height: 8px;
+      background: linear-gradient(
+        90deg,
+        #6b4226 0%,
+        #111111 25%,
+        #c62828 50%,
+        #ffffff 70%,
+        #2e7d32 100%
+      );
+      border-bottom: 1px solid #ddd;
+    }
+
+    .form-wrapper {
+      width: 100%;
+      background: #fff;
+    }
+
+    iframe {
+      display: block;
+      width: 100%;
+      min-height: 2071px;
+      border: 0;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    .footer {
+      text-align: center;
+      margin-top: 25px;
+      padding: 20px 10px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .footer strong {
+      color: #111;
+    }
+
+    .footer-line {
+      width: 100px;
+      height: 3px;
+      margin: 0 auto 12px;
+      border-radius: 10px;
+      background: linear-gradient(
+        90deg,
+        #6b4226,
+        #c62828,
+        #2e7d32
+      );
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media (max-width: 600px) {
+
+      .header {
+        padding: 15px;
+      }
+
+      .header-inner {
+        align-items: center;
+      }
+
+      .logo {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        font-size: 15px;
+      }
+
+      .brand-text h1 {
+        font-size: 17px;
+      }
+
+      .brand-text p {
+        font-size: 10px;
+      }
+
+      .admin-badge {
+        padding: 6px 9px;
+        font-size: 9px;
+      }
+
+      .container {
+        margin-top: 22px;
+        padding: 0 10px;
+      }
+
+      .intro h2 {
+        font-size: 22px;
+      }
+
+      .intro p {
+        font-size: 13px;
+      }
+
+      .info-card {
+        padding: 15px;
+        border-radius: 15px;
+      }
+
+      .form-card {
+        border-radius: 16px;
+      }
+
+      iframe {
+        min-height: 2071px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <header class="header">
+
+    <div class="header-inner">
+
+      <div class="brand">
+
+        <div class="logo">
+          MX
+        </div>
+
+        <div class="brand-text">
+          <h1>MASTA XUL</h1>
+          <p>Affiliate Shop Admin Panel</p>
+        </div>
+
+      </div>
+
+      <div class="admin-badge">
+        ADMIN
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================
+       MAIN
+  ========================== -->
+
+  <main class="container">
+
+    <div class="intro">
+
+      <h2>
+        Tambah <span>Produk</span>
+      </h2>
+
+      <p>
+        Gunakan borang di bawah untuk memasukkan produk baru
+        ke dalam Masta Xul Affiliate Shop.
+      </p>
+
+    </div>
+
+
+    <!-- INFO -->
+
+    <div class="info-card">
+
+      <div class="info-title">
+        🛍️ Maklumat Produk
+      </div>
+
+      <div class="info-text">
+        Pastikan semua maklumat produk seperti nama, harga,
+        kategori, gambar dan link affiliate diisi dengan betul
+        sebelum menghantar borang.
+      </div>
+
+    </div>
+
+
+    <!-- GOOGLE FORM -->
+
+    <div class="form-card">
+
+      <div class="form-top"></div>
+
+      <div class="form-wrapper">
+
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLSejxq1ZsFRPb-EEQbLm7WXYTlC5lMeOdNK1zyMiEZnYcNlL8w/viewform?embedded=true"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0">
+          Loading…
+        </iframe>
+
+      </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+
+      <div class="footer-line"></div>
+
+      <strong>MASTA XUL AFFILIATE SHOP</strong>
+
+      <br>
+
+      Admin Product Management
+
+    </div>
+
+  </main>
+
+</body>
+</html>
