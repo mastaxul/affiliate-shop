@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produk | Masta Xul Affiliate Shop</title>
+  <meta name="description" content="Butiran produk dari Masta Xul Affiliate Shop">
+  <link rel="stylesheet" href="../style.css">
+
+  <style>
+    .product-detail {
+      max-width: 520px;
+      margin: 30px auto 80px;
+      padding: 0 16px;
+    }
+
+    .product-detail-card {
+      background: #FFFFFF;
+      border: 2px solid #6B4423;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(107,68,35,0.12);
+    }
+
+    .product-detail-img {
+      width: 100%;
+      max-height: 420px;
+      object-fit: cover;
+      background: #f5f5f5;
+      display: block;
+    }
+
+    .product-detail-body {
+      padding: 20px;
+    }
+
+    .product-detail-badge {
+      display: inline-block;
+      background: #D32F2F;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .product-detail-name {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #111111;
+      margin-bottom: 10px;
+      line-height: 1.35;
+    }
+
+    .product-detail-price {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #D32F2F;
+      margin-bottom: 6px;
+    }
+
+    .product-detail-sold {
+      font-size: 0.9rem;
+      color: #6B4423;
+      margin-bottom: 20px;
+    }
+
+    .product-detail-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .product-detail-buttons a {
+      display: block;
+      text-align: center;
+      padding: 14px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      color: #FFFFFF;
+      transition: 0.2s;
+    }
+
+    .btn-tiktok { background: #111111; }
+    .btn-shopee { background: #D32F2F; }
+    .btn-lazada { background: #6B4423; }
+
+    .btn-tiktok:hover { background: #6B4423; }
+    .btn-shopee:hover { background: #111111; }
+    .btn-lazada:hover { background: #D32F2F; }
+
+    .back-btn {
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+      color: #6B4423;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .back-btn:hover {
+      color: #D32F2F;
+    }
+
+    .loading-detail, .error-detail {
+      text-align: center;
+      padding: 60px 20px;
+      color: #6B4423;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-top">
+      <img src="https://i.ibb.co/SwpWGqrs/IMG-0606.png" class="logo" alt="Logo">
+      <!-- Hamburger ditambah oleh menu.js -->
+    </div>
+    <h1>Masta Xul Affiliate Shop</h1>
+    <p>Butiran Produk</p>
+  </header>
+
+  <div class="product-detail" id="productDetail">
+    <div class="loading-detail">Memuatkan produk...</div>
+  </div>
+
+  <footer>
+    © 2026 Masta Xul Affiliate Shop
+  </footer>
+
+  <script src="../menu.js"></script>
+
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbyMG70IM6KD4cmzbNLPZX6mxB4es-qZHwe9NjTa6UV99XdIM6R1DnXgdQKqnA4zV-43Ew/exec";
+
+    function formatHarga(harga) {
+      if (harga === null || harga === undefined || harga === "") return "0.00";
+      let clean = harga.toString().replace(/rm/gi, "").replace(/\s/g, "").replace(/,/g, ".");
+      const num = parseFloat(clean);
+      return isNaN(num) ? "0.00" : num.toFixed(2);
+    }
+
+    function getQueryId() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("id");
+    }
+
+    async function muatProdukDetail() {
+      const container = document.getElementById("productDetail");
+      const id = getQueryId();
+
+      if (!id) {
+        container.innerHTML = `<div class="error-detail">ID produk tidak dijumpai.<br><a href="/shop/" class="back-btn">← Kembali ke Shop</a></div>`;
+        return;
+      }
+
+      try {
+        const res = await fetch(API_URL + "?t=" + Date.now());
+        const data = await res.json();
+
+        const produk = data.find(p => String(p.id) === String(id));
+
+        if (!produk) {
+          container.innerHTML = `<div class="error-detail">Produk tidak dijumpai.<br><a href="/shop/" class="back-btn">← Kembali ke Shop</a></div>`;
+          return;
+        }
+
+        // Update title
+        document.title = `${produk.nama} | Masta Xul Affiliate Shop`;
+
+        const badge = produk.badge ? `<span class="product-detail-badge">${produk.badge}</span>` : "";
+        const terjual = produk.terjual ? `<div class="product-detail-sold">${produk.terjual} terjual</div>` : "";
+
+        let buttons = "";
+        if (produk.tiktok) buttons += `<a href="${produk.tiktok}" class="btn-tiktok" target="_blank" rel="noopener">Beli di TikTok</a>`;
+        if (produk.shopee) buttons += `<a href="${produk.shopee}" class="btn-shopee" target="_blank" rel="noopener">Beli di Shopee</a>`;
+        if (produk.lazada) buttons += `<a href="${produk.lazada}" class="btn-lazada" target="_blank" rel="noopener">Beli di Lazada</a>`;
+
+        const gambar = produk.gambar || "https://via.placeholder.com/500x400/f5f5f5/6B4423?text=Tiada+Gambar";
+
+        container.innerHTML = `
+          <div class="product-detail-card">
+            <img src="${gambar}" alt="${produk.nama}" class="product-detail-img"
+                 onerror="this.src='https://via.placeholder.com/500x400/f5f5f5/6B4423?text=Tiada+Gambar'">
+            
+            <div class="product-detail-body">
+              ${badge}
+              <h2 class="product-detail-name">${produk.nama}</h2>
+              <div class="product-detail-price">RM ${formatHarga(produk.harga)}</div>
+              ${terjual}
+
+              <div class="product-detail-buttons">
+                ${buttons || "<p>Tiada pautan pembelian buat masa ini.</p>"}
+              </div>
+
+              <a href="/shop/" class="back-btn">← Kembali ke Shop</a>
+            </div>
+          </div>
+        `;
+
+      } catch (err) {
+        console.error(err);
+        container.innerHTML = `<div class="error-detail">Gagal memuatkan produk.<br><a href="/shop/" class="back-btn">← Kembali ke Shop</a></div>`;
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", muatProdukDetail);
+  </script>
+
+</body>
+</html>
