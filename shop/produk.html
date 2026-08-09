@@ -70,7 +70,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .product-detail-buttons a {
@@ -92,6 +92,35 @@
     .btn-tiktok:hover { background: #6B4423; }
     .btn-shopee:hover { background: #111111; }
     .btn-lazada:hover { background: #D32F2F; }
+
+    /* Butang Kongsi */
+    .share-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .share-detail button {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      color: #FFFFFF;
+      transition: 0.2s;
+    }
+
+    .btn-kongsi-wa { background: #2E7D32; }
+    .btn-kongsi-telegram { background: #0088cc; }
+    .btn-kongsi-lain { background: #6B4423; }
+
+    .btn-kongsi-wa:hover { background: #1b5e20; }
+    .btn-kongsi-telegram:hover { background: #006699; }
+    .btn-kongsi-lain:hover { background: #111111; }
 
     .back-btn {
       display: block;
@@ -119,7 +148,6 @@
   <header>
     <div class="header-top">
       <img src="https://i.ibb.co/SwpWGqrs/IMG-0606.png" class="logo" alt="Logo">
-      <!-- Hamburger ditambah oleh menu.js -->
     </div>
     <h1>Masta Xul Affiliate Shop</h1>
     <p>Butiran Produk</p>
@@ -137,6 +165,7 @@
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbyMG70IM6KD4cmzbNLPZX6mxB4es-qZHwe9NjTa6UV99XdIM6R1DnXgdQKqnA4zV-43Ew/exec";
+    const WEBSITE_URL = "https://mastaxul.my/shop/";
 
     function formatHarga(harga) {
       if (harga === null || harga === undefined || harga === "") return "0.00";
@@ -148,6 +177,30 @@
     function getQueryId() {
       const params = new URLSearchParams(window.location.search);
       return params.get("id");
+    }
+
+    function kongsiProduk(nama, harga, platform) {
+      const id = getQueryId();
+      const linkProduk = WEBSITE_URL + "produk.html?id=" + id;
+      const teks = `🔥 ${nama}\nHarga: RM ${harga}\n\nLihat produk ni di Masta Xul Affiliate Shop:\n${linkProduk}`;
+      const encoded = encodeURIComponent(teks);
+
+      if (platform === "whatsapp") {
+        window.open(`https://wa.me/?text=${encoded}`, "_blank");
+      } else if (platform === "telegram") {
+        window.open(`https://t.me/share/url?url=${encodeURIComponent(linkProduk)}&text=${encoded}`, "_blank");
+      } else {
+        if (navigator.share) {
+          navigator.share({
+            title: nama,
+            text: teks,
+            url: linkProduk
+          }).catch(err => console.log(err));
+        } else {
+          navigator.clipboard.writeText(teks);
+          alert("Teks telah disalin! Anda boleh paste di media sosial.");
+        }
+      }
     }
 
     async function muatProdukDetail() {
@@ -162,7 +215,6 @@
       try {
         const res = await fetch(API_URL + "?t=" + Date.now());
         const data = await res.json();
-
         const produk = data.find(p => String(p.id) === String(id));
 
         if (!produk) {
@@ -170,11 +222,11 @@
           return;
         }
 
-        // Update title
         document.title = `${produk.nama} | Masta Xul Affiliate Shop`;
 
         const badge = produk.badge ? `<span class="product-detail-badge">${produk.badge}</span>` : "";
         const terjual = produk.terjual ? `<div class="product-detail-sold">${produk.terjual} terjual</div>` : "";
+        const harga = formatHarga(produk.harga);
 
         let buttons = "";
         if (produk.tiktok) buttons += `<a href="${produk.tiktok}" class="btn-tiktok" target="_blank" rel="noopener">Beli di TikTok</a>`;
@@ -182,6 +234,7 @@
         if (produk.lazada) buttons += `<a href="${produk.lazada}" class="btn-lazada" target="_blank" rel="noopener">Beli di Lazada</a>`;
 
         const gambar = produk.gambar || "https://via.placeholder.com/500x400/f5f5f5/6B4423?text=Tiada+Gambar";
+        const namaSafe = (produk.nama || "").replace(/'/g, "\\'");
 
         container.innerHTML = `
           <div class="product-detail-card">
@@ -191,11 +244,23 @@
             <div class="product-detail-body">
               ${badge}
               <h2 class="product-detail-name">${produk.nama}</h2>
-              <div class="product-detail-price">RM ${formatHarga(produk.harga)}</div>
+              <div class="product-detail-price">RM ${harga}</div>
               ${terjual}
 
               <div class="product-detail-buttons">
                 ${buttons || "<p>Tiada pautan pembelian buat masa ini.</p>"}
+              </div>
+
+              <div class="share-detail">
+                <button class="btn-kongsi-wa" onclick="kongsiProduk('${namaSafe}', '${harga}', 'whatsapp')">
+                  Kongsi Ke WhatsApp
+                </button>
+                <button class="btn-kongsi-telegram" onclick="kongsiProduk('${namaSafe}', '${harga}', 'telegram')">
+                  Kongsi Ke Telegram
+                </button>
+                <button class="btn-kongsi-lain" onclick="kongsiProduk('${namaSafe}', '${harga}', 'other')">
+                  Kongsi Ke Lain-lain
+                </button>
               </div>
 
               <a href="/shop/" class="back-btn">← Kembali ke Shop</a>
