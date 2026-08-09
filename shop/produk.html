@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ms">
 <head>
   <meta charset="UTF-8">
@@ -179,9 +179,13 @@
       const terjual = produk.terjual ? `<div class="product-detail-sold">${produk.terjual} terjual</div>` : "";
       const harga = formatHarga(produk.harga);
 
-      const deskripsi = produk.deskripsi
-        ? `<div class="product-detail-desc">${produk.deskripsi}</div>`
-        : "";
+      const deskripsi = `
+  <div class="product-detail-desc">
+    <strong>DEBUG:</strong><br>
+    ID: ${produk.id}<br>
+    Deskripsi: ${produk.deskripsi || "UNDEFINED / KOSONG"}
+  </div>
+`;
 
       let buttons = "";
       if (produk.tiktok) buttons += `<a href="${produk.tiktok}" class="btn-tiktok" target="_blank" rel="noopener">Beli di TikTok</a>`;
