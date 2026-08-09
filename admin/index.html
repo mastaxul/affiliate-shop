@@ -1,310 +1,1168 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Masta Xul Admin</title>
+<title>Masta Xul Admin</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-                   Roboto, Arial, sans-serif;
-      background:
-        linear-gradient(
-          135deg,
-          #f5f1eb 0%,
-          #ffffff 45%,
-          #edf5ee 100%
-        );
-      color: #111;
-      min-height: 100vh;
-    }
+/* ========================================
+   RESET
+======================================== */
 
-    /* =========================
-       HEADER
-    ========================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    .header {
-      background: #111;
-      padding: 18px 20px;
-      position: relative;
-      overflow: hidden;
-    }
+body {
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
 
-    .header::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 5px;
-      background: linear-gradient(
-        90deg,
-        #6b4226,
-        #111111,
-        #c62828,
-        #ffffff,
-        #2e7d32
-      );
-    }
+  background:
+    linear-gradient(
+      135deg,
+      #f5f1eb 0%,
+      #ffffff 48%,
+      #edf5ee 100%
+    );
 
-    .header-inner {
-      max-width: 1000px;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-    }
+  color: #111;
+  min-height: 100vh;
+}
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
 
-    .logo {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      background: linear-gradient(
-        135deg,
-        #6b4226,
-        #c62828,
-        #2e7d32
-      );
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 900;
-      font-size: 18px;
-      box-shadow: 0 5px 15px rgba(0,0,0,.25);
-    }
+/* ========================================
+   HIDDEN ADMIN CONTENT
+======================================== */
 
-    .brand-text h1 {
-      color: white;
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: .5px;
-    }
+#adminPage {
+  display: none;
+}
 
-    .brand-text p {
-      color: #bbb;
-      font-size: 12px;
-      margin-top: 3px;
-    }
 
-    .admin-badge {
-      background: #c62828;
-      color: white;
-      padding: 7px 12px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: .5px;
-    }
+/* ========================================
+   OVERLAY
+======================================== */
 
-    /* =========================
-       MAIN
-    ========================== */
+.overlay {
+  position: fixed;
+  inset: 0;
 
-    .container {
-      width: 100%;
-      max-width: 850px;
-      margin: 30px auto 50px;
-      padding: 0 15px;
-    }
+  background:
+    rgba(0,0,0,0.78);
 
-    .intro {
-      text-align: center;
-      margin-bottom: 22px;
-    }
+  backdrop-filter: blur(8px);
 
-    .intro h2 {
-      font-size: 26px;
-      font-weight: 850;
-      color: #111;
-      margin-bottom: 7px;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    .intro h2 span {
-      color: #c62828;
-    }
+  padding: 20px;
 
-    .intro p {
-      color: #666;
-      font-size: 14px;
-      line-height: 1.6;
-    }
+  z-index: 9999;
+}
 
-    /* =========================
-       INFO CARD
-    ========================== */
 
-    .info-card {
-      background: white;
-      border-radius: 18px;
-      padding: 18px 20px;
-      margin-bottom: 18px;
-      box-shadow: 0 8px 30px rgba(0,0,0,.08);
-      border-left: 5px solid #2e7d32;
-    }
+/* ========================================
+   SECURITY WINDOW
+======================================== */
 
-    .info-title {
-      font-weight: 800;
-      margin-bottom: 7px;
-      color: #111;
-    }
+.security-box {
+  width: 100%;
+  max-width: 470px;
 
-    .info-text {
-      font-size: 13px;
-      line-height: 1.6;
-      color: #666;
-    }
+  background: #fff;
 
-    /* =========================
-       FORM CARD
-    ========================== */
+  border-radius: 22px;
 
-    .form-card {
-      background: white;
-      border-radius: 22px;
-      overflow: hidden;
-      box-shadow: 0 12px 40px rgba(0,0,0,.12);
-      border: 1px solid #eee;
-    }
+  overflow: hidden;
 
-    .form-top {
-      height: 8px;
-      background: linear-gradient(
-        90deg,
-        #6b4226 0%,
-        #111111 25%,
-        #c62828 50%,
-        #ffffff 70%,
-        #2e7d32 100%
-      );
-      border-bottom: 1px solid #ddd;
-    }
+  box-shadow:
+    0 25px 80px rgba(0,0,0,.45);
 
-    .form-wrapper {
-      width: 100%;
-      background: #fff;
-    }
+  animation: popup .25s ease;
+}
 
-    iframe {
-      display: block;
-      width: 100%;
-      min-height: 2071px;
-      border: 0;
-    }
+@keyframes popup {
 
-    /* =========================
-       FOOTER
-    ========================== */
+  from {
+    opacity: 0;
+    transform: scale(.92);
+  }
 
-    .footer {
-      text-align: center;
-      margin-top: 25px;
-      padding: 20px 10px;
-      color: #777;
-      font-size: 12px;
-    }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 
-    .footer strong {
-      color: #111;
-    }
+}
 
-    .footer-line {
-      width: 100px;
-      height: 3px;
-      margin: 0 auto 12px;
-      border-radius: 10px;
-      background: linear-gradient(
-        90deg,
-        #6b4226,
-        #c62828,
-        #2e7d32
-      );
-    }
 
-    /* =========================
-       MOBILE
-    ========================== */
+/* ========================================
+   SECURITY HEADER
+======================================== */
 
-    @media (max-width: 600px) {
+.security-header {
 
-      .header {
-        padding: 15px;
-      }
+  background: #111;
 
-      .header-inner {
-        align-items: center;
-      }
+  color: white;
 
-      .logo {
-        width: 42px;
-        height: 42px;
-        border-radius: 12px;
-        font-size: 15px;
-      }
+  padding: 18px 20px;
 
-      .brand-text h1 {
-        font-size: 17px;
-      }
+  display: flex;
 
-      .brand-text p {
-        font-size: 10px;
-      }
+  align-items: center;
 
-      .admin-badge {
-        padding: 6px 9px;
-        font-size: 9px;
-      }
+  gap: 13px;
 
-      .container {
-        margin-top: 22px;
-        padding: 0 10px;
-      }
+  position: relative;
+}
 
-      .intro h2 {
-        font-size: 22px;
-      }
+.security-header::after {
 
-      .intro p {
-        font-size: 13px;
-      }
+  content: "";
 
-      .info-card {
-        padding: 15px;
-        border-radius: 15px;
-      }
+  position: absolute;
 
-      .form-card {
-        border-radius: 16px;
-      }
+  bottom: 0;
+  left: 0;
 
-      iframe {
-        min-height: 2071px;
-      }
-    }
+  width: 100%;
+  height: 5px;
 
-  </style>
+  background:
+    linear-gradient(
+      90deg,
+      #6b4226,
+      #111,
+      #c62828,
+      #fff,
+      #2e7d32
+    );
+}
+
+.security-icon {
+
+  width: 48px;
+  height: 48px;
+
+  border-radius: 14px;
+
+  background: #c62828;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  font-size: 23px;
+
+  flex-shrink: 0;
+}
+
+.security-title {
+
+  font-size: 17px;
+
+  font-weight: 800;
+}
+
+.security-subtitle {
+
+  font-size: 11px;
+
+  color: #bbb;
+
+  margin-top: 3px;
+}
+
+
+/* ========================================
+   SECURITY BODY
+======================================== */
+
+.security-body {
+
+  padding: 25px 22px 22px;
+}
+
+.warning-title {
+
+  font-size: 21px;
+
+  font-weight: 850;
+
+  margin-bottom: 10px;
+
+  color: #111;
+}
+
+.warning-title span {
+
+  color: #c62828;
+}
+
+.warning-text {
+
+  color: #555;
+
+  font-size: 14px;
+
+  line-height: 1.65;
+
+  margin-bottom: 18px;
+}
+
+
+/* ========================================
+   NOTICE
+======================================== */
+
+.notice {
+
+  background: #fff8f8;
+
+  border: 1px solid #f0caca;
+
+  border-left: 5px solid #c62828;
+
+  border-radius: 12px;
+
+  padding: 13px 14px;
+
+  margin-bottom: 22px;
+
+  font-size: 12px;
+
+  line-height: 1.6;
+
+  color: #555;
+}
+
+.notice strong {
+
+  color: #111;
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.buttons {
+
+  display: flex;
+
+  gap: 10px;
+}
+
+.btn {
+
+  flex: 1;
+
+  border: none;
+
+  padding: 13px 12px;
+
+  border-radius: 12px;
+
+  font-size: 13px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition: .2s ease;
+}
+
+.btn:hover {
+
+  transform: translateY(-1px);
+}
+
+.btn-cancel {
+
+  background: #eee;
+
+  color: #333;
+}
+
+.btn-continue {
+
+  background: #111;
+
+  color: white;
+
+  box-shadow:
+    0 5px 15px rgba(0,0,0,.18);
+}
+
+
+/* ========================================
+   LOGIN WINDOW
+======================================== */
+
+.login-box {
+
+  width: 100%;
+
+  max-width: 400px;
+
+  background: white;
+
+  border-radius: 22px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 25px 80px rgba(0,0,0,.45);
+
+  animation: popup .25s ease;
+}
+
+.login-header {
+
+  background: #111;
+
+  padding: 25px 20px;
+
+  text-align: center;
+
+  color: white;
+
+  position: relative;
+}
+
+.login-header::after {
+
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 5px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #6b4226,
+      #111,
+      #c62828,
+      #fff,
+      #2e7d32
+    );
+}
+
+.login-logo {
+
+  width: 55px;
+  height: 55px;
+
+  margin: 0 auto 12px;
+
+  border-radius: 16px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6b4226,
+      #c62828,
+      #2e7d32
+    );
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 900;
+
+  font-size: 19px;
+}
+
+.login-header h2 {
+
+  font-size: 20px;
+}
+
+.login-header p {
+
+  font-size: 12px;
+
+  color: #bbb;
+
+  margin-top: 5px;
+}
+
+
+/* ========================================
+   LOGIN BODY
+======================================== */
+
+.login-body {
+
+  padding: 23px 20px 20px;
+}
+
+.input-label {
+
+  display: block;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  margin-bottom: 7px;
+
+  color: #333;
+}
+
+.password-wrapper {
+
+  position: relative;
+}
+
+.password-input {
+
+  width: 100%;
+
+  border: 1px solid #ddd;
+
+  border-radius: 12px;
+
+  padding: 13px 45px 13px 13px;
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition: .2s;
+}
+
+.password-input:focus {
+
+  border-color: #2e7d32;
+
+  box-shadow:
+    0 0 0 3px rgba(46,125,50,.1);
+}
+
+.toggle-password {
+
+  position: absolute;
+
+  right: 12px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  border: none;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  font-size: 16px;
+}
+
+.login-button {
+
+  width: 100%;
+
+  margin-top: 15px;
+
+  padding: 13px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: #2e7d32;
+
+  color: white;
+
+  font-size: 13px;
+
+  font-weight: 850;
+
+  cursor: pointer;
+
+  transition: .2s;
+}
+
+.login-button:hover {
+
+  background: #245f28;
+
+}
+
+.back-button {
+
+  width: 100%;
+
+  margin-top: 9px;
+
+  padding: 11px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: #eee;
+
+  color: #333;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+/* ========================================
+   LOGIN ERROR
+======================================== */
+
+.login-error {
+
+  display: none;
+
+  margin-top: 12px;
+
+  padding: 10px;
+
+  border-radius: 10px;
+
+  background: #fff0f0;
+
+  border: 1px solid #f0caca;
+
+  color: #b71c1c;
+
+  font-size: 12px;
+
+  text-align: center;
+}
+
+
+/* ========================================
+   ADMIN HEADER
+======================================== */
+
+.header {
+
+  background: #111;
+
+  padding: 18px 20px;
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+.header::after {
+
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 5px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #6b4226,
+      #111,
+      #c62828,
+      #fff,
+      #2e7d32
+    );
+}
+
+.header-inner {
+
+  max-width: 1000px;
+
+  margin: auto;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+}
+
+.brand {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+.logo {
+
+  width: 48px;
+  height: 48px;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6b4226,
+      #c62828,
+      #2e7d32
+    );
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+
+  font-weight: 900;
+
+  font-size: 18px;
+
+  box-shadow:
+    0 5px 15px rgba(0,0,0,.25);
+}
+
+.brand-text h1 {
+
+  color: white;
+
+  font-size: 20px;
+
+  font-weight: 800;
+}
+
+.brand-text p {
+
+  color: #bbb;
+
+  font-size: 12px;
+
+  margin-top: 3px;
+}
+
+.admin-badge {
+
+  background: #c62828;
+
+  color: white;
+
+  padding: 7px 12px;
+
+  border-radius: 20px;
+
+  font-size: 11px;
+
+  font-weight: 800;
+}
+
+
+/* ========================================
+   MAIN
+======================================== */
+
+.container {
+
+  width: 100%;
+
+  max-width: 850px;
+
+  margin: 30px auto 50px;
+
+  padding: 0 15px;
+}
+
+.intro {
+
+  text-align: center;
+
+  margin-bottom: 22px;
+}
+
+.intro h2 {
+
+  font-size: 26px;
+
+  font-weight: 850;
+
+  margin-bottom: 7px;
+}
+
+.intro h2 span {
+
+  color: #c62828;
+}
+
+.intro p {
+
+  color: #666;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+}
+
+
+/* ========================================
+   INFO CARD
+======================================== */
+
+.info-card {
+
+  background: white;
+
+  border-radius: 18px;
+
+  padding: 18px 20px;
+
+  margin-bottom: 18px;
+
+  box-shadow:
+    0 8px 30px rgba(0,0,0,.08);
+
+  border-left: 5px solid #2e7d32;
+}
+
+.info-title {
+
+  font-weight: 800;
+
+  margin-bottom: 7px;
+}
+
+.info-text {
+
+  font-size: 13px;
+
+  line-height: 1.6;
+
+  color: #666;
+}
+
+
+/* ========================================
+   FORM
+======================================== */
+
+.form-card {
+
+  background: white;
+
+  border-radius: 22px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 12px 40px rgba(0,0,0,.12);
+
+  border: 1px solid #eee;
+}
+
+.form-top {
+
+  height: 8px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #6b4226,
+      #111,
+      #c62828,
+      #fff,
+      #2e7d32
+    );
+
+  border-bottom: 1px solid #ddd;
+}
+
+iframe {
+
+  display: block;
+
+  width: 100%;
+
+  min-height: 2071px;
+
+  border: 0;
+}
+
+
+/* ========================================
+   FOOTER
+======================================== */
+
+.footer {
+
+  text-align: center;
+
+  margin-top: 25px;
+
+  padding: 20px 10px;
+
+  color: #777;
+
+  font-size: 12px;
+}
+
+.footer-line {
+
+  width: 100px;
+
+  height: 3px;
+
+  margin: 0 auto 12px;
+
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #6b4226,
+      #c62828,
+      #2e7d32
+    );
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 600px) {
+
+  .security-box,
+  .login-box {
+
+    max-width: 100%;
+  }
+
+  .security-body {
+
+    padding: 22px 18px 18px;
+  }
+
+  .warning-title {
+
+    font-size: 19px;
+  }
+
+  .warning-text {
+
+    font-size: 13px;
+  }
+
+  .buttons {
+
+    flex-direction: column-reverse;
+  }
+
+  .btn {
+
+    width: 100%;
+  }
+
+  .header {
+
+    padding: 15px;
+  }
+
+  .logo {
+
+    width: 42px;
+    height: 42px;
+  }
+
+  .brand-text h1 {
+
+    font-size: 17px;
+  }
+
+  .brand-text p {
+
+    font-size: 10px;
+  }
+
+  .admin-badge {
+
+    font-size: 9px;
+
+    padding: 6px 9px;
+  }
+
+  .container {
+
+    margin-top: 22px;
+
+    padding: 0 10px;
+  }
+
+  .intro h2 {
+
+    font-size: 22px;
+  }
+
+  .form-card {
+
+    border-radius: 16px;
+  }
+
+}
+
+
+/* ========================================
+   SHAKE ANIMATION
+======================================== */
+
+.shake {
+
+  animation: shake .3s ease;
+}
+
+@keyframes shake {
+
+  0%, 100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-6px);
+  }
+
+  75% {
+    transform: translateX(6px);
+  }
+
+}
+
+</style>
 </head>
+
 
 <body>
 
-  <!-- =========================
-       HEADER
-  ========================== -->
+
+<!-- ==================================================
+     SECURITY WARNING
+================================================== -->
+
+<div
+  class="overlay"
+  id="securityOverlay">
+
+  <div class="security-box">
+
+    <div class="security-header">
+
+      <div class="security-icon">
+        ⚠️
+      </div>
+
+      <div>
+
+        <div class="security-title">
+          Security Check
+        </div>
+
+        <div class="security-subtitle">
+          Masta Xul Admin Access
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="security-body">
+
+      <div class="warning-title">
+
+        Anda sedang memasuki
+        <span>kawasan pentadbiran.</span>
+
+      </div>
+
+
+      <div class="warning-text">
+
+        Halaman ini dikhaskan untuk pengurusan
+        produk Masta Xul Affiliate Shop.
+
+        Jika anda tidak sepatutnya berada di sini,
+        anda boleh keluar dengan selamat sekarang.
+
+      </div>
+
+
+      <div class="notice">
+
+        <strong>⚠️ Nota keselamatan:</strong><br>
+
+        Jangan teruskan jika anda tidak mempunyai
+        kebenaran untuk mengakses bahagian pentadbiran
+        ini.
+
+      </div>
+
+
+      <div class="buttons">
+
+        <button
+          class="btn btn-cancel"
+          onclick="exitAdmin()">
+
+          Batal & Keluar
+
+        </button>
+
+
+        <button
+          class="btn btn-continue"
+          onclick="showLogin()">
+
+          Teruskan
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- ==================================================
+     LOGIN
+================================================== -->
+
+<div
+  class="overlay"
+  id="loginOverlay"
+  style="display:none;">
+
+  <div
+    class="login-box"
+    id="loginBox">
+
+    <div class="login-header">
+
+      <div class="login-logo">
+        MX
+      </div>
+
+      <h2>
+        Admin Login
+      </h2>
+
+      <p>
+        Masta Xul Affiliate Shop
+      </p>
+
+    </div>
+
+
+    <div class="login-body">
+
+      <label class="input-label">
+
+        Password Admin
+
+      </label>
+
+
+      <div class="password-wrapper">
+
+        <input
+          type="password"
+          id="password"
+          class="password-input"
+          placeholder="Masukkan password"
+          autocomplete="off"
+          onkeydown="if(event.key==='Enter') checkPassword()">
+
+
+        <button
+          class="toggle-password"
+          onclick="togglePassword()"
+          type="button">
+
+          👁️
+
+        </button>
+
+      </div>
+
+
+      <div
+        class="login-error"
+        id="loginError">
+
+        ❌ Password salah. Sila cuba lagi.
+
+      </div>
+
+
+      <button
+        class="login-button"
+        onclick="checkPassword()">
+
+        🔐 Masuk Admin
+
+      </button>
+
+
+      <button
+        class="back-button"
+        onclick="backToWarning()">
+
+        ← Kembali
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- ==================================================
+     ADMIN PAGE
+================================================== -->
+
+<div id="adminPage">
+
 
   <header class="header">
 
@@ -317,11 +1175,19 @@
         </div>
 
         <div class="brand-text">
-          <h1>MASTA XUL</h1>
-          <p>Affiliate Shop Admin Panel</p>
+
+          <h1>
+            MASTA XUL
+          </h1>
+
+          <p>
+            Affiliate Shop Admin Panel
+          </p>
+
         </div>
 
       </div>
+
 
       <div class="admin-badge">
         ADMIN
@@ -332,11 +1198,9 @@
   </header>
 
 
-  <!-- =========================
-       MAIN
-  ========================== -->
 
   <main class="container">
+
 
     <div class="intro">
 
@@ -345,14 +1209,12 @@
       </h2>
 
       <p>
-        Gunakan borang di bawah untuk memasukkan produk baru
-        ke dalam Masta Xul Affiliate Shop.
+        Gunakan borang di bawah untuk memasukkan
+        produk baru ke dalam Masta Xul Affiliate Shop.
       </p>
 
     </div>
 
-
-    <!-- INFO -->
 
     <div class="info-card">
 
@@ -361,42 +1223,41 @@
       </div>
 
       <div class="info-text">
-        Pastikan semua maklumat produk seperti nama, harga,
-        kategori, gambar dan link affiliate diisi dengan betul
-        sebelum menghantar borang.
+
+        Pastikan semua maklumat produk seperti nama,
+        harga, kategori, gambar dan link affiliate
+        diisi dengan betul sebelum menghantar borang.
+
       </div>
 
     </div>
 
-
-    <!-- GOOGLE FORM -->
 
     <div class="form-card">
 
       <div class="form-top"></div>
 
-      <div class="form-wrapper">
 
-        <iframe
-          src="https://docs.google.com/forms/d/e/1FAIpQLSejxq1ZsFRPb-EEQbLm7WXYTlC5lMeOdNK1zyMiEZnYcNlL8w/viewform?embedded=true"
-          frameborder="0"
-          marginheight="0"
-          marginwidth="0">
-          Loading…
-        </iframe>
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLSejxq1ZsFRPb-EEQbLm7WXYTlC5lMeOdNK1zyMiEZnYcNlL8w/viewform?embedded=true"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0">
 
-      </div>
+        Loading…
+
+      </iframe>
 
     </div>
 
-
-    <!-- FOOTER -->
 
     <div class="footer">
 
       <div class="footer-line"></div>
 
-      <strong>MASTA XUL AFFILIATE SHOP</strong>
+      <strong>
+        MASTA XUL AFFILIATE SHOP
+      </strong>
 
       <br>
 
@@ -404,7 +1265,147 @@
 
     </div>
 
+
   </main>
+
+</div>
+
+
+
+<script>
+
+/* ==================================================
+   PASSWORD ADMIN
+================================================== */
+
+/*
+   PENTING:
+
+   Ini hanyalah password gate di bahagian depan.
+
+   Untuk keselamatan sebenar, password tidak patut
+   disimpan dalam JavaScript seperti ini.
+
+   Tukar password di bawah.
+*/
+
+const ADMIN_PASSWORD = "MastaXulAdmin2026";
+
+
+/* ==================================================
+   SECURITY WARNING
+================================================== */
+
+function showLogin() {
+
+  document.getElementById("securityOverlay").style.display = "none";
+
+  document.getElementById("loginOverlay").style.display = "flex";
+
+  setTimeout(function() {
+
+    document.getElementById("password").focus();
+
+  }, 200);
+
+}
+
+
+/* ==================================================
+   BACK TO WARNING
+================================================== */
+
+function backToWarning() {
+
+  document.getElementById("loginOverlay").style.display = "none";
+
+  document.getElementById("securityOverlay").style.display = "flex";
+
+}
+
+
+/* ==================================================
+   EXIT ADMIN
+================================================== */
+
+function exitAdmin() {
+
+  window.location.href = "https://www.mastaxul.my/";
+
+}
+
+
+/* ==================================================
+   PASSWORD CHECK
+================================================== */
+
+function checkPassword() {
+
+  const password =
+    document.getElementById("password").value;
+
+  const error =
+    document.getElementById("loginError");
+
+  const loginBox =
+    document.getElementById("loginBox");
+
+
+  if (password === ADMIN_PASSWORD) {
+
+    error.style.display = "none";
+
+    document.getElementById("loginOverlay").style.display = "none";
+
+    document.getElementById("adminPage").style.display = "block";
+
+    /*
+       Jangan simpan password dalam input
+    */
+
+    document.getElementById("password").value = "";
+
+  }
+
+  else {
+
+    error.style.display = "block";
+
+    loginBox.classList.remove("shake");
+
+    void loginBox.offsetWidth;
+
+    loginBox.classList.add("shake");
+
+  }
+
+}
+
+
+/* ==================================================
+   SHOW / HIDE PASSWORD
+================================================== */
+
+function togglePassword() {
+
+  const input =
+    document.getElementById("password");
+
+  if (input.type === "password") {
+
+    input.type = "text";
+
+  }
+
+  else {
+
+    input.type = "password";
+
+  }
+
+}
+
+</script>
 
 </body>
 </html>
