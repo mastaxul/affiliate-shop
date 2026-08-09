@@ -1,4 +1,6 @@
- <!DOCTYPE html>
+ PRODUK.HTML
+
+<!DOCTYPE html>
 <html lang="ms">
 <head>
   <meta charset="UTF-8">
@@ -103,7 +105,7 @@
 
 <script src="../menu.js"></script>
 <script>
-  const API_URL = "https://script.googleusercontent.com/macros/echo?user_content_key=AUkAhnRXlTDfa_XQPCWuDNJ8zs4c1fUtcdMjXsT_WqWk3ItvVUlKio6NMK3AXvmtGAXjW3sYhnWViYHkq1VThm7OYSEneTgowXe-pGWoZUmlF6eQIEqhDU5vC7Z_TDeHkoApHEmfR5RsEN3r3CUaPR7L2prrwewe-WI-7a5RYkbGi0oQpWM16UxuOa3WPPRlMbtiaU4YEzCtrP_ew6oPxrC4DaHJMKEwM6mUNEIv_9OcoyW92ujPx3e5LvGne-C5FJJeySmNbZWx_usQSGNnVuYmPGSVmdcWXQ&lib=MQkbIuvMnc2KNbjLPD-O3VbS5YZmqqtot";
+  const API_URL = "https://script.google.com/macros/s/AKfycbyMG70IM6KD4cmzbNLPZX6mxB4es-qZHwe9NjTa6UV99XdIM6R1DnXgdQKqnA4zV-43Ew/exec";
   const WEBSITE_URL = "https://mastaxul.my/shop/";
 
   function formatHarga(harga) {
@@ -179,13 +181,9 @@
       const terjual = produk.terjual ? `<div class="product-detail-sold">${produk.terjual} terjual</div>` : "";
       const harga = formatHarga(produk.harga);
 
-      const deskripsi = `
-  <div class="product-detail-desc">
-    <strong>DEBUG:</strong><br>
-    ID: ${produk.id}<br>
-    Deskripsi: ${produk.deskripsi || "UNDEFINED / KOSONG"}
-  </div>
-`;
+      const deskripsi = produk.deskripsi
+        ? `<div class="product-detail-desc">${produk.deskripsi}</div>`
+        : "";
 
       let buttons = "";
       if (produk.tiktok) buttons += `<a href="${produk.tiktok}" class="btn-tiktok" target="_blank" rel="noopener">Beli di TikTok</a>`;
@@ -271,3 +269,4 @@
 </script>
 </body>
 </html>
+
