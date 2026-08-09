@@ -1,7 +1,7 @@
 /* ========================================
    MASTA XUL AFFILIATE SHOP - /shop/
    Produk boleh diklik → produk.html?id=
-   Pagination dengan nombor halaman
+   Carian nama + ID | Pagination nombor
 ======================================== */
 
 const API_URL = "https://script.google.com/macros/s/AKfycbyMG70IM6KD4cmzbNLPZX6mxB4es-qZHwe9NjTa6UV99XdIM6R1DnXgdQKqnA4zV-43Ew/exec";
@@ -78,7 +78,6 @@ async function muatProduk(cuba = 1) {
     produkDipapar = [...semuaProduk];
     currentPage = 1;
 
-    // Sokong URL ?kategori= dan ?q=
     const params = new URLSearchParams(window.location.search);
     const kategoriURL = params.get("kategori");
     const cariURL = params.get("q");
@@ -143,6 +142,8 @@ function paparProduk(senarai) {
       ? p.gambar
       : "https://via.placeholder.com/400x300/f5f5f5/6B4423?text=Tiada+Gambar";
 
+    const namaSafe = (p.nama || "").replace(/'/g, "\\'");
+
     return `
       <div class="produk-card" onclick="window.location.href='produk.html?id=${p.id}'" style="cursor:pointer;">
         <div class="produk-img-wrapper">
@@ -161,9 +162,9 @@ function paparProduk(senarai) {
           </div>
 
           <div class="share-buttons" onclick="event.stopPropagation()">
-            <button class="btn-share btn-share-wa" onclick="shareProduk('${(p.nama || "").replace(/'/g, "\\'")}', '${formatHarga(p.harga)}', 'whatsapp')">WhatsApp</button>
-            <button class="btn-share btn-share-telegram" onclick="shareProduk('${(p.nama || "").replace(/'/g, "\\'")}', '${formatHarga(p.harga)}', 'telegram')">Telegram</button>
-            <button class="btn-share btn-share-other" onclick="shareProduk('${(p.nama || "").replace(/'/g, "\\'")}', '${formatHarga(p.harga)}', 'other')">Lain</button>
+            <button class="btn-share btn-share-wa" onclick="shareProduk('${namaSafe}', '${formatHarga(p.harga)}', 'whatsapp')">WhatsApp</button>
+            <button class="btn-share btn-share-telegram" onclick="shareProduk('${namaSafe}', '${formatHarga(p.harga)}', 'telegram')">Telegram</button>
+            <button class="btn-share btn-share-other" onclick="shareProduk('${namaSafe}', '${formatHarga(p.harga)}', 'other')">Lain</button>
           </div>
         </div>
       </div>
@@ -223,16 +224,19 @@ function filterProduk(kategori) {
 
   const keyword = document.getElementById("search").value.trim();
   if (keyword) {
-    produkDipapar = produkDipapar.filter(p =>
-      p.nama.toString().toLowerCase().includes(keyword.toLowerCase())
-    );
+    const kw = keyword.toLowerCase();
+    produkDipapar = produkDipapar.filter(p => {
+      const nama = (p.nama || "").toString().toLowerCase();
+      const id = (p.id || "").toString().toLowerCase();
+      return nama.includes(kw) || id.includes(kw);
+    });
   }
 
   currentPage = 1;
   paparProduk(produkDipapar);
 }
 
-// ========== CARIAN ==========
+// ========== CARIAN (nama + ID) ==========
 function cariProduk() {
   const keyword = document.getElementById("search").value.trim().toLowerCase();
   const butangAktif = document.querySelector(".menu button.active");
@@ -249,7 +253,11 @@ function cariProduk() {
   }
 
   if (keyword) {
-    hasil = hasil.filter(p => p.nama.toString().toLowerCase().includes(keyword));
+    hasil = hasil.filter(p => {
+      const nama = (p.nama || "").toString().toLowerCase();
+      const id = (p.id || "").toString().toLowerCase();
+      return nama.includes(keyword) || id.includes(keyword);
+    });
   }
 
   produkDipapar = hasil;
