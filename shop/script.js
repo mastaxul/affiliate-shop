@@ -1,6 +1,7 @@
 /* ========================================
    MASTA XUL AFFILIATE SHOP - /shop/
    Produk boleh diklik → produk.html?id=
+   Pagination dengan nombor halaman
 ======================================== */
 
 const API_URL = "https://script.google.com/macros/s/AKfycbyMG70IM6KD4cmzbNLPZX6mxB4es-qZHwe9NjTa6UV99XdIM6R1DnXgdQKqnA4zV-43Ew/exec";
@@ -19,7 +20,10 @@ function shareProduk(nama, harga, platform = "other") {
   if (platform === "whatsapp") {
     window.open(`https://wa.me/?text=${encoded}`, "_blank");
   } else if (platform === "telegram") {
-    window.open(`https://t.me/share/url?url=${encodeURIComponent(WEBSITE_URL)}&text=${encoded}`, "_blank");
+    window.open(
+      `https://t.me/share/url?url=${encodeURIComponent(WEBSITE_URL)}&text=${encoded}`,
+      "_blank"
+    );
   } else {
     if (navigator.share) {
       navigator.share({ title: nama, text: teks, url: WEBSITE_URL }).catch(err => console.log(err));
@@ -73,6 +77,22 @@ async function muatProduk(cuba = 1) {
     semuaProduk = data.filter(p => p.nama && p.nama.toString().trim() !== "");
     produkDipapar = [...semuaProduk];
     currentPage = 1;
+
+    // Sokong URL ?kategori= dan ?q=
+    const params = new URLSearchParams(window.location.search);
+    const kategoriURL = params.get("kategori");
+    const cariURL = params.get("q");
+
+    if (kategoriURL) {
+      filterProduk(kategoriURL);
+      return;
+    }
+    if (cariURL) {
+      document.getElementById("search").value = cariURL;
+      cariProduk();
+      return;
+    }
+
     paparProduk(produkDipapar);
 
   } catch (error) {
@@ -85,7 +105,7 @@ async function muatProduk(cuba = 1) {
   }
 }
 
-// ========== PAPAR PRODUK (boleh diklik) ==========
+// ========== PAPAR PRODUK ==========
 function paparProduk(senarai) {
   const container = document.getElementById("produk-list");
   const pagination = document.getElementById("pagination");
@@ -123,7 +143,6 @@ function paparProduk(senarai) {
       ? p.gambar
       : "https://via.placeholder.com/400x300/f5f5f5/6B4423?text=Tiada+Gambar";
 
-    // Seluruh kad boleh diklik ke halaman detail
     return `
       <div class="produk-card" onclick="window.location.href='produk.html?id=${p.id}'" style="cursor:pointer;">
         <div class="produk-img-wrapper">
@@ -142,19 +161,31 @@ function paparProduk(senarai) {
           </div>
 
           <div class="share-buttons" onclick="event.stopPropagation()">
-            <button class="btn-share btn-share-wa" onclick="shareProduk('${p.nama.replace(/'/g, "\\'")}', '${formatHarga(p.harga)}', 'whatsapp')">WhatsApp</button>
-            <button class="btn-share btn-share-telegram" onclick="shareProduk('${p.nama.replace(/'/g, "\\'")}', '${formatHarga(p.harga)}', 'telegram')">Telegram</button>
-            <button class="btn-share btn-share-other" onclick="shareProduk('${p.nama.replace(/'/g, "\\'")}', '${formatHarga(p.harga)}', 'other')">Lain</button>
+            <button class="btn-share btn-share-wa" onclick="shareProduk('${(p.nama || "").replace(/'/g, "\\'")}', '${formatHarga(p.harga)}', 'whatsapp')">WhatsApp</button>
+            <button class="btn-share btn-share-telegram" onclick="shareProduk('${(p.nama || "").replace(/'/g, "\\'")}', '${formatHarga(p.harga)}', 'telegram')">Telegram</button>
+            <button class="btn-share btn-share-other" onclick="shareProduk('${(p.nama || "").replace(/'/g, "\\'")}', '${formatHarga(p.harga)}', 'other')">Lain</button>
           </div>
         </div>
       </div>
     `;
   }).join("");
 
+  // Pagination + nombor halaman
   if (pagination) {
-    document.getElementById("pageInfo").textContent = `Halaman ${currentPage} dari ${totalPage}`;
-    document.getElementById("btnPrev").disabled = currentPage === 1;
-    document.getElementById("btnNext").disabled = currentPage === totalPage;
+    let nomborHTML = "";
+    for (let i = 1; i <= totalPage; i++) {
+      if (i === currentPage) {
+        nomborHTML += `<button class="page-num active" disabled>${i}</button>`;
+      } else {
+        nomborHTML += `<button class="page-num" onclick="pergiKePage(${i})">${i}</button>`;
+      }
+    }
+
+    pagination.innerHTML = `
+      <button onclick="tukarPage(-1)" id="btnPrev" ${currentPage === 1 ? "disabled" : ""}>← Previous</button>
+      <div class="page-numbers">${nomborHTML}</div>
+      <button onclick="tukarPage(1)" id="btnNext" ${currentPage === totalPage ? "disabled" : ""}>Next →</button>
+    `;
     pagination.style.display = totalPage > 1 ? "flex" : "none";
   }
 }
@@ -166,11 +197,18 @@ function tukarPage(arah) {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+function pergiKePage(nombor) {
+  currentPage = nombor;
+  paparProduk(produkDipapar);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 // ========== FILTER ==========
 function filterProduk(kategori) {
   document.querySelectorAll(".menu button").forEach(btn => btn.classList.remove("active"));
+
   const butangAktif = Array.from(document.querySelectorAll(".menu button"))
-    .find(btn => btn.textContent.trim() === kategori);
+    .find(btn => btn.textContent.trim().toLowerCase() === kategori.toLowerCase());
   if (butangAktif) butangAktif.classList.add("active");
 
   if (kategori === "Semua") {
