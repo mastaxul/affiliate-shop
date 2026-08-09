@@ -4,278 +4,269 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Produk | Masta Xul Affiliate Shop</title>
-  <meta name="description" content="Butiran produk dari Masta Xul Affiliate Shop">
   <link rel="stylesheet" href="../style.css">
-
   <style>
-    .product-detail {
-      max-width: 520px;
-      margin: 30px auto 80px;
-      padding: 0 16px;
-    }
-
+    .product-detail { max-width: 520px; margin: 20px auto 40px; padding: 0 16px; }
     .product-detail-card {
-      background: #FFFFFF;
-      border: 2px solid #6B4423;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 4px 16px rgba(107,68,35,0.12);
+      background: #fff; border: 2px solid #6B4423; border-radius: 16px;
+      overflow: hidden; box-shadow: 0 4px 16px rgba(107,68,35,0.12);
     }
-
-    .product-detail-img {
-      width: 100%;
-      max-height: 420px;
-      object-fit: cover;
-      background: #f5f5f5;
-      display: block;
-    }
-
-    .product-detail-body {
-      padding: 20px;
-    }
-
+    .product-detail-img { width: 100%; max-height: 420px; object-fit: cover; background: #f5f5f5; display: block; }
+    .product-detail-body { padding: 20px; }
     .product-detail-badge {
-      display: inline-block;
-      background: #D32F2F;
-      color: white;
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 6px;
-      margin-bottom: 12px;
+      display: inline-block; background: #D32F2F; color: #fff;
+      font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; margin-bottom: 12px;
     }
-
-    .product-detail-name {
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: #111111;
-      margin-bottom: 10px;
-      line-height: 1.35;
+    .product-detail-name { font-size: 1.35rem; font-weight: 700; color: #111; margin-bottom: 10px; line-height: 1.35; }
+    .product-detail-price { font-size: 1.6rem; font-weight: 700; color: #D32F2F; margin-bottom: 6px; }
+    .product-detail-sold { font-size: 0.9rem; color: #6B4423; margin-bottom: 14px; }
+    .product-detail-desc {
+      font-size: 0.95rem; color: #333; line-height: 1.6; margin-bottom: 18px;
+      white-space: pre-line; background: #faf7f4; padding: 12px 14px; border-radius: 10px;
     }
-
-    .product-detail-price {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #D32F2F;
-      margin-bottom: 6px;
-    }
-
-    .product-detail-sold {
-      font-size: 0.9rem;
-      color: #6B4423;
-      margin-bottom: 20px;
-    }
-
-    .product-detail-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
+    .product-detail-buttons { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
     .product-detail-buttons a {
-      display: block;
-      text-align: center;
-      padding: 14px;
-      border-radius: 10px;
-      font-weight: 600;
-      font-size: 1rem;
-      text-decoration: none;
-      color: #FFFFFF;
-      transition: 0.2s;
+      display: block; text-align: center; padding: 14px; border-radius: 10px;
+      font-weight: 600; font-size: 1rem; text-decoration: none; color: #fff;
     }
-
-    .btn-tiktok { background: #111111; }
-    .btn-shopee { background: #D32F2F; }
-    .btn-lazada { background: #6B4423; }
-
-    .btn-tiktok:hover { background: #6B4423; }
-    .btn-shopee:hover { background: #111111; }
-    .btn-lazada:hover { background: #D32F2F; }
-
-    /* Butang Kongsi */
-    .share-detail {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
+    .btn-tiktok { background: #111; } .btn-shopee { background: #D32F2F; } .btn-lazada { background: #6B4423; }
+    .share-detail { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
     .share-detail button {
-      display: block;
-      width: 100%;
-      padding: 13px;
-      border: none;
-      border-radius: 10px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      cursor: pointer;
-      color: #FFFFFF;
-      transition: 0.2s;
+      width: 100%; padding: 13px; border: none; border-radius: 10px;
+      font-weight: 600; font-size: 0.95rem; cursor: pointer; color: #fff;
     }
-
     .btn-kongsi-wa { background: #2E7D32; }
     .btn-kongsi-telegram { background: #0088cc; }
     .btn-kongsi-lain { background: #6B4423; }
+    .btn-salin { background: #111; }
+    .back-btn { display: block; text-align: center; color: #6B4423; text-decoration: none; font-weight: 600; margin-top: 8px; }
+    .loading-detail, .error-detail { text-align: center; padding: 60px 20px; color: #6B4423; }
 
-    .btn-kongsi-wa:hover { background: #1b5e20; }
-    .btn-kongsi-telegram:hover { background: #006699; }
-    .btn-kongsi-lain:hover { background: #111111; }
-
-    .back-btn {
-      display: block;
-      text-align: center;
-      margin-top: 10px;
-      color: #6B4423;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
+    /* Produk Berkaitan */
+    .related-section { max-width: 1100px; margin: 10px auto 60px; padding: 0 16px; }
+    .related-section h3 { margin-bottom: 16px; color: #111; font-size: 1.2rem; }
+    .related-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px;
     }
-
-    .back-btn:hover {
-      color: #D32F2F;
+    .related-card {
+      background: #fff; border: 2px solid #6B4423; border-radius: 12px; overflow: hidden;
+      cursor: pointer; transition: transform 0.2s;
     }
-
-    .loading-detail, .error-detail {
-      text-align: center;
-      padding: 60px 20px;
-      color: #6B4423;
+    .related-card:hover { transform: translateY(-3px); }
+    .related-card img { width: 100%; height: 130px; object-fit: cover; display: block; background: #f5f5f5; }
+    .related-card .info { padding: 10px; }
+    .related-card .nama {
+      font-size: 0.85rem; font-weight: 600; color: #111; margin-bottom: 4px;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
     }
+    .related-card .harga { font-size: 0.95rem; font-weight: 700; color: #D32F2F; }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="header-top">
-      <img src="https://i.ibb.co/SwpWGqrs/IMG-0606.png" class="logo" alt="Logo">
-    </div>
-    <h1>Masta Xul Affiliate Shop</h1>
-    <p>Butiran Produk</p>
-  </header>
-
-  <div class="product-detail" id="productDetail">
-    <div class="loading-detail">Memuatkan produk...</div>
+<header>
+  <div class="header-top">
+    <img src="https://i.ibb.co/SwpWGqrs/IMG-0606.png" class="logo" alt="Logo">
   </div>
+  <h1>Masta Xul Affiliate Shop</h1>
+  <p>Butiran Produk</p>
+</header>
 
-  <footer>
-    © 2026 Masta Xul Affiliate Shop
-  </footer>
+<!-- Menu & Search (sama macam /shop) -->
+<div class="menu">
+  <button class="active" onclick="pergiShop('Semua')">Semua</button>
+  <button onclick="pergiShop('Viral')">Viral</button>
+  <button onclick="pergiShop('Kesihatan')">Kesihatan</button>
+  <button onclick="pergiShop('Gadget')">Gadget</button>
+  <button onclick="pergiShop('Rumah')">Rumah</button>
+  <button onclick="pergiShop('Kecantikan')">Kecantikan</button>
+  <button onclick="pergiShop('Pertanian')">Pertanian</button>
+  <button onclick="pergiShop('Lelaki')">Lelaki</button>
+  <button onclick="pergiShop('Wanita')">Wanita</button>
+  <button onclick="pergiShop('Sukan')">Sukan</button>
+  <button onclick="pergiShop('Elektrik')">Elektrik</button>
+  <button onclick="pergiShop('Tumbuhan')">Tumbuhan</button>
+</div>
 
-  <script src="../menu.js"></script>
+<div class="search-box">
+  <input type="text" id="search" placeholder="Cari produk..." onkeydown="if(event.key==='Enter') cariKeShop()">
+</div>
 
-  <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbyMG70IM6KD4cmzbNLPZX6mxB4es-qZHwe9NjTa6UV99XdIM6R1DnXgdQKqnA4zV-43Ew/exec";
-    const WEBSITE_URL = "https://mastaxul.my/shop/";
+<div class="product-detail" id="productDetail">
+  <div class="loading-detail">Memuatkan produk...</div>
+</div>
 
-    function formatHarga(harga) {
-      if (harga === null || harga === undefined || harga === "") return "0.00";
-      let clean = harga.toString().replace(/rm/gi, "").replace(/\s/g, "").replace(/,/g, ".");
-      const num = parseFloat(clean);
-      return isNaN(num) ? "0.00" : num.toFixed(2);
-    }
+<div class="related-section" id="relatedSection" style="display:none;">
+  <h3>Produk Berkaitan</h3>
+  <div class="related-grid" id="relatedGrid"></div>
+</div>
 
-    function getQueryId() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get("id");
-    }
+<footer>© 2026 Masta Xul Affiliate Shop</footer>
 
-    function kongsiProduk(nama, harga, platform) {
-      const id = getQueryId();
-      const linkProduk = WEBSITE_URL + "produk.html?id=" + id;
-      const teks = `🔥 ${nama}\nHarga: RM ${harga}\n\nLihat produk ni di Masta Xul Affiliate Shop:\n${linkProduk}`;
-      const encoded = encodeURIComponent(teks);
+<script src="../menu.js"></script>
+<script>
+  const API_URL = "https://script.google.com/macros/s/AKfycbyMG70IM6KD4cmzbNLPZX6mxB4es-qZHwe9NjTa6UV99XdIM6R1DnXgdQKqnA4zV-43Ew/exec";
+  const WEBSITE_URL = "https://mastaxul.my/shop/";
 
-      if (platform === "whatsapp") {
-        window.open(`https://wa.me/?text=${encoded}`, "_blank");
-      } else if (platform === "telegram") {
-        window.open(`https://t.me/share/url?url=${encodeURIComponent(linkProduk)}&text=${encoded}`, "_blank");
+  function formatHarga(harga) {
+    if (harga === null || harga === undefined || harga === "") return "0.00";
+    let clean = harga.toString().replace(/rm/gi, "").replace(/\s/g, "").replace(/,/g, ".");
+    const num = parseFloat(clean);
+    return isNaN(num) ? "0.00" : num.toFixed(2);
+  }
+
+  function getQueryId() {
+    return new URLSearchParams(window.location.search).get("id");
+  }
+
+  function pergiShop(kategori) {
+    if (kategori === "Semua") window.location.href = "/shop/";
+    else window.location.href = "/shop/?kategori=" + encodeURIComponent(kategori);
+  }
+
+  function cariKeShop() {
+    const q = document.getElementById("search").value.trim();
+    if (q) window.location.href = "/shop/?q=" + encodeURIComponent(q);
+    else window.location.href = "/shop/";
+  }
+
+  function kongsiProduk(nama, harga, platform) {
+    const id = getQueryId();
+    const linkProduk = WEBSITE_URL + "produk.html?id=" + id;
+    const teks = `🔥 ${nama}\nHarga: RM ${harga}\n\nLihat produk:\n${linkProduk}`;
+    const encoded = encodeURIComponent(teks);
+
+    if (platform === "whatsapp") {
+      window.open(`https://wa.me/?text=${encoded}`, "_blank");
+    } else if (platform === "telegram") {
+      window.open(`https://t.me/share/url?url=${encodeURIComponent(linkProduk)}&text=${encoded}`, "_blank");
+    } else if (platform === "salin") {
+      navigator.clipboard.writeText(linkProduk).then(() => {
+        alert("Pautan produk telah disalin!");
+      }).catch(() => {
+        prompt("Salin pautan ini:", linkProduk);
+      });
+    } else {
+      if (navigator.share) {
+        navigator.share({ title: nama, text: teks, url: linkProduk }).catch(() => {});
       } else {
-        if (navigator.share) {
-          navigator.share({
-            title: nama,
-            text: teks,
-            url: linkProduk
-          }).catch(err => console.log(err));
-        } else {
-          navigator.clipboard.writeText(teks);
-          alert("Teks telah disalin! Anda boleh paste di media sosial.");
-        }
+        navigator.clipboard.writeText(teks);
+        alert("Teks telah disalin!");
       }
     }
+  }
 
-    async function muatProdukDetail() {
-      const container = document.getElementById("productDetail");
-      const id = getQueryId();
+  async function muatProdukDetail() {
+    const container = document.getElementById("productDetail");
+    const id = getQueryId();
 
-      if (!id) {
-        container.innerHTML = `<div class="error-detail">ID produk tidak dijumpai.<br><a href="/shop/" class="back-btn">← Kembali ke Shop</a></div>`;
+    if (!id) {
+      container.innerHTML = `<div class="error-detail">ID produk tidak dijumpai.<br><a href="/shop/" class="back-btn">← Kembali ke Shop</a></div>`;
+      return;
+    }
+
+    try {
+      const res = await fetch(API_URL + "?t=" + Date.now());
+      const data = await res.json();
+      const produk = data.find(p => String(p.id) === String(id));
+
+      if (!produk) {
+        container.innerHTML = `<div class="error-detail">Produk tidak dijumpai.<br><a href="/shop/" class="back-btn">← Kembali ke Shop</a></div>`;
         return;
       }
 
-      try {
-        const res = await fetch(API_URL + "?t=" + Date.now());
-        const data = await res.json();
-        const produk = data.find(p => String(p.id) === String(id));
+      document.title = `${produk.nama} | Masta Xul Affiliate Shop`;
 
-        if (!produk) {
-          container.innerHTML = `<div class="error-detail">Produk tidak dijumpai.<br><a href="/shop/" class="back-btn">← Kembali ke Shop</a></div>`;
-          return;
-        }
+      const badge = produk.badge ? `<span class="product-detail-badge">${produk.badge}</span>` : "";
+      const terjual = produk.terjual ? `<div class="product-detail-sold">${produk.terjual} terjual</div>` : "";
+      const harga = formatHarga(produk.harga);
+      const deskripsi = produk.deskripsi
+        ? `<div class="product-detail-desc">${produk.deskripsi}</div>`
+        : "";
 
-        document.title = `${produk.nama} | Masta Xul Affiliate Shop`;
+      let buttons = "";
+      if (produk.tiktok) buttons += `<a href="${produk.tiktok}" class="btn-tiktok" target="_blank" rel="noopener">Beli di TikTok</a>`;
+      if (produk.shopee) buttons += `<a href="${produk.shopee}" class="btn-shopee" target="_blank" rel="noopener">Beli di Shopee</a>`;
+      if (produk.lazada) buttons += `<a href="${produk.lazada}" class="btn-lazada" target="_blank" rel="noopener">Beli di Lazada</a>`;
 
-        const badge = produk.badge ? `<span class="product-detail-badge">${produk.badge}</span>` : "";
-        const terjual = produk.terjual ? `<div class="product-detail-sold">${produk.terjual} terjual</div>` : "";
-        const harga = formatHarga(produk.harga);
+      const gambar = produk.gambar || "https://via.placeholder.com/500x400/f5f5f5/6B4423?text=Tiada+Gambar";
+      const namaSafe = (produk.nama || "").replace(/'/g, "\\'");
 
-        let buttons = "";
-        if (produk.tiktok) buttons += `<a href="${produk.tiktok}" class="btn-tiktok" target="_blank" rel="noopener">Beli di TikTok</a>`;
-        if (produk.shopee) buttons += `<a href="${produk.shopee}" class="btn-shopee" target="_blank" rel="noopener">Beli di Shopee</a>`;
-        if (produk.lazada) buttons += `<a href="${produk.lazada}" class="btn-lazada" target="_blank" rel="noopener">Beli di Lazada</a>`;
-
-        const gambar = produk.gambar || "https://via.placeholder.com/500x400/f5f5f5/6B4423?text=Tiada+Gambar";
-        const namaSafe = (produk.nama || "").replace(/'/g, "\\'");
-
-        container.innerHTML = `
-          <div class="product-detail-card">
-            <img src="${gambar}" alt="${produk.nama}" class="product-detail-img"
-                 onerror="this.src='https://via.placeholder.com/500x400/f5f5f5/6B4423?text=Tiada+Gambar'">
-            
-            <div class="product-detail-body">
-              ${badge}
-              <h2 class="product-detail-name">${produk.nama}</h2>
-              <div class="product-detail-price">RM ${harga}</div>
-              ${terjual}
-
-              <div class="product-detail-buttons">
-                ${buttons || "<p>Tiada pautan pembelian buat masa ini.</p>"}
-              </div>
-
-              <div class="share-detail">
-                <button class="btn-kongsi-wa" onclick="kongsiProduk('${namaSafe}', '${harga}', 'whatsapp')">
-                  Kongsi Ke WhatsApp
-                </button>
-                <button class="btn-kongsi-telegram" onclick="kongsiProduk('${namaSafe}', '${harga}', 'telegram')">
-                  Kongsi Ke Telegram
-                </button>
-                <button class="btn-kongsi-lain" onclick="kongsiProduk('${namaSafe}', '${harga}', 'other')">
-                  Kongsi Ke Lain-lain
-                </button>
-              </div>
-
-              <a href="/shop/" class="back-btn">← Kembali ke Shop</a>
+      container.innerHTML = `
+        <div class="product-detail-card">
+          <img src="${gambar}" alt="${produk.nama}" class="product-detail-img"
+               onerror="this.src='https://via.placeholder.com/500x400/f5f5f5/6B4423?text=Tiada+Gambar'">
+          <div class="product-detail-body">
+            ${badge}
+            <h2 class="product-detail-name">${produk.nama}</h2>
+            <div class="product-detail-price">RM ${harga}</div>
+            ${terjual}
+            ${deskripsi}
+            <div class="product-detail-buttons">
+              ${buttons || "<p>Tiada pautan pembelian.</p>"}
             </div>
+            <div class="share-detail">
+              <button class="btn-kongsi-wa" onclick="kongsiProduk('${namaSafe}', '${harga}', 'whatsapp')">Kongsi Ke WhatsApp</button>
+              <button class="btn-kongsi-telegram" onclick="kongsiProduk('${namaSafe}', '${harga}', 'telegram')">Kongsi Ke Telegram</button>
+              <button class="btn-salin" onclick="kongsiProduk('${namaSafe}', '${harga}', 'salin')">Salin Pautan</button>
+              <button class="btn-kongsi-lain" onclick="kongsiProduk('${namaSafe}', '${harga}', 'other')">Kongsi Ke Lain-lain</button>
+            </div>
+            <a href="/shop/" class="back-btn">← Kembali ke Shop</a>
           </div>
-        `;
+        </div>
+      `;
 
-      } catch (err) {
-        console.error(err);
-        container.innerHTML = `<div class="error-detail">Gagal memuatkan produk.<br><a href="/shop/" class="back-btn">← Kembali ke Shop</a></div>`;
-      }
+      // Produk berkaitan
+      paparBerkaitan(data, produk);
+
+    } catch (err) {
+      console.error(err);
+      container.innerHTML = `<div class="error-detail">Gagal memuatkan produk.<br><a href="/shop/" class="back-btn">← Kembali ke Shop</a></div>`;
+    }
+  }
+
+  function paparBerkaitan(semua, semasa) {
+    const section = document.getElementById("relatedSection");
+    const grid = document.getElementById("relatedGrid");
+
+    const kategoriSemasa = (semasa.kategori || "").toString().toLowerCase().split(",").map(k => k.trim()).filter(Boolean);
+    const badgeSemasa = (semasa.badge || "").toString().toLowerCase().trim();
+
+    let berkaitan = semua.filter(p => {
+      if (String(p.id) === String(semasa.id)) return false;
+      if (!p.nama) return false;
+
+      const kat = (p.kategori || "").toString().toLowerCase().split(",").map(k => k.trim());
+      const samaKategori = kategoriSemasa.some(k => kat.includes(k));
+      const samaBadge = badgeSemasa && (p.badge || "").toString().toLowerCase().trim() === badgeSemasa;
+
+      return samaKategori || samaBadge;
+    });
+
+    // Ambil maksimum 6
+    berkaitan = berkaitan.slice(0, 6);
+
+    if (berkaitan.length === 0) {
+      section.style.display = "none";
+      return;
     }
 
-    document.addEventListener("DOMContentLoaded", muatProdukDetail);
-  </script>
+    section.style.display = "block";
+    grid.innerHTML = berkaitan.map(p => {
+      const gambar = p.gambar || "https://via.placeholder.com/200x130/f5f5f5/6B4423?text=No+Img";
+      return `
+        <div class="related-card" onclick="window.location.href='produk.html?id=${p.id}'">
+          <img src="${gambar}" alt="${p.nama}" onerror="this.src='https://via.placeholder.com/200x130/f5f5f5/6B4423?text=No+Img'">
+          <div class="info">
+            <div class="nama">${p.nama}</div>
+            <div class="harga">RM ${formatHarga(p.harga)}</div>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
 
+  document.addEventListener("DOMContentLoaded", muatProdukDetail);
+</script>
 </body>
 </html>
