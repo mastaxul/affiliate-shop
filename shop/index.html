@@ -3,124 +3,86 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shop | Masta Xul Affiliate Shop</title>
-  <meta name="description" content="Masta Xul Affiliate Shop - Produk viral TikTok, Shopee & Lazada.">
+
+  <title>Masta Xul Affiliate Shop | Produk Viral TikTok, Shopee & Lazada</title>
+
+  <meta name="description" content="Cari produk viral TikTok, Shopee dan Lazada dengan harga terbaik. Masta Xul Affiliate Shop - produk pilihan berkualiti.">
+  <meta name="keywords" content="produk viral tiktok, affiliate shopee, lazada malaysia, produk kesihatan, gadget murah, masta xul">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Masta Xul">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Masta Xul Affiliate Shop">
+  <meta property="og:description" content="Produk viral TikTok, Shopee & Lazada dengan harga terbaik.">
+  <meta property="og:image" content="https://i.ibb.co/wm5qmJX/IMG-0643.png">
+  <meta property="og:url" content="https://mastaxul.my/">
+  <meta property="og:type" content="website">
+
+ <!-- Bing Verification -->
+  <meta name="msvalidate.01" content="0D3F43A42C910C8228D4687C99E63603" />
+
   
-  <link rel="stylesheet" href="../style.css">
-
-  <style>
-    /* Hamburger Menu (backup jika style.css tak load) */
-    .header-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto 10px;
-      padding: 0 10px;
-    }
-    .menu-toggle {
-      background: none;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      padding: 8px;
-      z-index: 1001;
-    }
-    .menu-toggle span {
-      display: block;
-      width: 26px;
-      height: 3px;
-      background-color: #FFFFFF;
-      border-radius: 2px;
-    }
-    .side-menu {
-      position: fixed;
-      top: 0;
-      right: -280px;
-      width: 260px;
-      height: 100%;
-      background-color: #111111;
-      z-index: 1000;
-      padding: 80px 20px 20px;
-      transition: right 0.3s ease;
-      box-shadow: -4px 0 15px rgba(0,0,0,0.3);
-    }
-    .side-menu.open {
-      right: 0;
-    }
-    .side-menu a {
-      display: block;
-      color: #FFFFFF;
-      text-decoration: none;
-      padding: 14px 16px;
-      margin-bottom: 8px;
-      border-radius: 8px;
-      font-weight: 500;
-    }
-    .side-menu a:hover {
-      background-color: #6B4423;
-    }
-    .menu-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 999;
-      opacity: 0;
-      visibility: hidden;
-      transition: 0.3s;
-    }
-    .menu-overlay.open {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .shop-temp {
-      max-width: 600px;
-      margin: 60px auto;
-      padding: 0 16px;
-      text-align: center;
-    }
-    .shop-temp a {
-      display: inline-block;
-      margin-top: 20px;
-      background: #D32F2F;
-      color: white;
-      padding: 12px 24px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <header>
-    <div class="header-top">
-      <img src="https://i.ibb.co/SwpWGqrs/IMG-0606.png" class="logo" alt="Logo">
-      <!-- Butang hamburger akan ditambah oleh menu.js -->
-    </div>
-    <h1>Masta Xul Affiliate Shop</h1>
-    <p>Halaman Shop</p>
-  </header>
-
-  <div class="shop-temp">
-    <h2>Halaman Shop</h2>
-    <p>Ini halaman shop sementara. Sila kembali ke laman utama untuk melihat produk.</p>
-    <a href="/">← Kembali ke Laman Utama</a>
+<header>
+  <div class="header-top">
+    <img src="https://i.ibb.co/SwpWGqrs/IMG-0606.png" class="logo" alt="Logo">
+    <!-- Butang hamburger akan ditambah automatik oleh menu.js -->
   </div>
 
-  <footer>
-    © 2026 Masta Xul Affiliate Shop
-  </footer>
+  <h1>Masta Xul Affiliate Shop</h1>
+  <p>...</p>
+</header>
 
-  <!-- Menu.js -->
-  <script src="../menu.js"></script>
+<div class="menu">
+  <button class="active" onclick="filterProduk('Semua')">Semua</button>
+  <button onclick="filterProduk('Viral')">Viral</button>
+  <button onclick="filterProduk('Kesihatan')">Kesihatan</button>
+  <button onclick="filterProduk('Gadget')">Gadget</button>
+  <button onclick="filterProduk('Rumah')">Rumah</button>
+  <button onclick="filterProduk('Kecantikan')">Kecantikan</button>
+  <button onclick="filterProduk('Pertanian')">Pertanian</button>
+  <button onclick="filterProduk('Lelaki')">Lelaki</button>
+  <button onclick="filterProduk('Wanita')">Wanita</button>
+  <button onclick="filterProduk('Sukan')">Sukan</button>
+  <button onclick="filterProduk('Elektrik')">Elektrik</button>
+  <button onclick="filterProduk('Tumbuhan')">Tumbuhan</button>
+</div>
+
+<div class="search-box">
+  <input type="text" id="search" placeholder="Cari produk..." onkeyup="cariProduk()">
+</div>
+
+<div id="produk-list" class="produk-grid"></div>
+
+<!-- Pagination -->
+<div class="pagination" id="pagination">
+  <button onclick="tukarPage(-1)" id="btnPrev">← Previous</button>
+  <span id="pageInfo">Halaman 1</span>
+  <button onclick="tukarPage(1)" id="btnNext">Next →</button>
+</div>
+
+<footer>
+  © 2026 Masta Xul Affiliate Shop
+</footer>
+
+<!-- Butang Google Form Terapung -->
+<a href="https://forms.gle/rr3MzmniqZAtEPhm6" class="float-form" target="_blank" rel="noopener" title="Tambah Produk / Hubungi">
+  ✉️
+</a>
+
+<!-- Butang Back to Top -->
+<button onclick="scrollToTop()" class="back-to-top" id="backToTop" title="Back to Top">↑</button>
+
+<!-- WhatsApp Channel -->
+<a href="https://whatsapp.com/channel/0029VaHHLhNIt5rvXDSZl03Y" class="float-wa-channel" target="_blank" rel="noopener" title="Join WhatsApp Channel">
+  📢 Channel
+</a>
+
+<script src="script.js"></script>
+<script src="/menu.js"></script>
 
 </body>
 </html>
