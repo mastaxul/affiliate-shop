@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post | Masta Xul Affiliate Shop</title>
+  <meta name="description" content="Lihat post, video dan testimoni produk dari Masta Xul Affiliate Shop.">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .post-feed {
+      max-width: 520px;
+      margin: 30px auto 80px;
+      padding: 0 12px;
+    }
+
+    .post-card {
+      background: #FFFFFF;
+      border: 2px solid #6B4423;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(107,68,35,0.12);
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .post-header img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #111;
+    }
+
+    .post-header .info {
+      flex: 1;
+    }
+
+    .post-header .name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #111;
+    }
+
+    .post-header .time {
+      font-size: 0.8rem;
+      color: #6B4423;
+    }
+
+    .post-media {
+      width: 100%;
+      max-height: 420px;
+      object-fit: cover;
+      background: #f0f0f0;
+      display: block;
+    }
+
+    .post-media video {
+      width: 100%;
+      max-height: 420px;
+      background: #000;
+    }
+
+    .post-body {
+      padding: 14px 16px;
+    }
+
+    .post-tajuk {
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+      color: #111;
+    }
+
+    .post-caption {
+      font-size: 0.95rem;
+      color: #333;
+      line-height: 1.5;
+      margin-bottom: 14px;
+      white-space: pre-line;
+    }
+
+    .post-engagement {
+      display: flex;
+      gap: 18px;
+      margin-bottom: 14px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .eng-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: #555;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 0;
+      transition: color 0.2s;
+    }
+
+    .eng-btn:hover,
+    .eng-btn.active {
+      color: #D32F2F;
+    }
+
+    .post-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .post-buttons a {
+      display: block;
+      text-align: center;
+      padding: 11px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      color: #FFFFFF;
+    }
+
+    .btn-tiktok { background: #111111; }
+    .btn-shopee { background: #D32F2F; }
+    .btn-lazada { background: #6B4423; }
+
+    .btn-tiktok:hover { background: #6B4423; }
+    .btn-shopee:hover { background: #111111; }
+    .btn-lazada:hover { background: #D32F2F; }
+
+    .loading-post {
+      text-align: center;
+      padding: 60px 20px;
+      color: #6B4423;
+    }
+
+    .empty-post {
+      text-align: center;
+      padding: 60px 20px;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-top">
+      <img src="https://i.ibb.co/SwpWGqrs/IMG-0606.png" class="logo" alt="Logo">
+      <!-- Hamburger ditambah oleh menu.js -->
+    </div>
+    <h1>Masta Xul Affiliate Shop</h1>
+    <p>Post & Testimoni</p>
+  </header>
+
+  <div class="post-feed" id="postFeed">
+    <div class="loading-post">Memuatkan post...</div>
+  </div>
+
+  <footer>
+    © 2026 Masta Xul Affiliate Shop
+  </footer>
+
+  <script src="../menu.js"></script>
+  <script src="post.js"></script>
+
+</body>
+</html>
