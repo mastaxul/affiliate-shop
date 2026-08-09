@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Masta Xul Admin</title>
+
+<style>
+
+/* ========================================
+   RESET
+======================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f5f1eb 0%,
+      #ffffff 48%,
+      #edf5ee 100%
+    );
+
+  color: #111;
+  min-height: 100vh;
+}
+
+
+/* ========================================
+   HIDDEN ADMIN CONTENT
+======================================== */
+
+#adminPage {
+  display: none;
+}
+
+
+/* ========================================
+   OVERLAY
+======================================== */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+
+  background:
+    rgba(0,0,0,0.78);
+
+  backdrop-filter: blur(8px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  z-index: 9999;
+}
+
+
+/* ========================================
+   SECURITY WINDOW
+======================================== */
+
+.security-box {
+  width: 100%;
+  max-width: 470px;
+
+  background: #fff;
+
+  border-radius: 22px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 25px 80px rgba(0,0,0,.45);
+
+  animation: popup .25s ease;
+}
+
+@keyframes popup {
+
+  from {
+    opacity: 0;
+    transform: scale(.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+}
+
+
+/* ========================================
+   SECURITY HEADER
+======================================== */
+
+.security-header {
+
+  background: #111;
+
+  color: white;
+
+  padding: 18px 20px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  position: relative;
+}
+
+.security-header::after {
+
+  content: "";
+
+  position: absolute;
+
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  height: 5px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #6b4226,
+      #111,
+      #c62828,
+      #fff,
+      #2e7d32
+    );
+}
+
+.security-icon {
+
+  width: 48px;
+  height: 48px;
+
+  border-radius: 14px;
+
+  background: #c62828;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  font-size: 23px;
+
+  flex-shrink: 0;
+}
+
+.security-title {
+
+  font-size: 17px;
+
+  font-weight: 800;
+}
+
+.security-subtitle {
+
+  font-size: 11px;
+
+  color: #bbb;
+
+  margin-top: 3px;
+}
+
+
+/* ========================================
+   SECURITY BODY
+======================================== */
+
+.security-body {
+
+  padding: 25px 22px 22px;
+}
+
+.warning-title {
+
+  font-size: 21px;
+
+  font-weight: 850;
+
+  margin-bottom: 10px;
+
+  color: #111;
+}
+
+.warning-title span {
+
+  color: #c62828;
+}
+
+.warning-text {
+
+  color: #555;
+
+  font-size: 14px;
+
+  line-height: 1.65;
+
+  margin-bottom: 18px;
+}
+
+
+/* ========================================
+   NOTICE
+======================================== */
+
+.notice {
+
+  background: #fff8f8;
+
+  border: 1px solid #f0caca;
+
+  border-left: 5px solid #c62828;
+
+  border-radius: 12px;
+
+  padding: 13px 14px;
+
+  margin-bottom: 22px;
+
+  font-size: 12px;
+
+  line-height: 1.6;
+
+  color: #555;
+}
+
+.notice strong {
+
+  color: #111;
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.buttons {
+
+  display: flex;
+
+  gap: 10px;
+}
+
+.btn {
+
+  flex: 1;
+
+  border: none;
+
+  padding: 13px 12px;
+
+  border-radius: 12px;
+
+  font-size: 13px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition: .2s ease;
+}
+
+.btn:hover {
+
+  transform: translateY(-1px);
+}
+
+.btn-cancel {
+
+  background: #eee;
+
+  color: #333;
+}
+
+.btn-continue {
+
+  background: #111;
+
+  color: white;
+
+  box-shadow:
+    0 5px 15px rgba(0,0,0,.18);
+}
+
+
+/* ========================================
+   LOGIN WINDOW
+======================================== */
+
+.login-box {
+
+  width: 100%;
+
+  max-width: 400px;
+
+  background: white;
+
+  border-radius: 22px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 25px 80px rgba(0,0,0,.45);
+
+  animation: popup .25s ease;
+}
+
+.login-header {
+
+  background: #111;
+
+  padding: 25px 20px;
+
+  text-align: center;
+
+  color: white;
+
+  position: relative;
+}
+
+.login-header::after {
+
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 5px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #6b4226,
+      #111,
+      #c62828,
+      #fff,
+      #2e7d32
+    );
+}
+
+.login-logo {
+
+  width: 55px;
+  height: 55px;
+
+  margin: 0 auto 12px;
+
+  border-radius: 16px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6b4226,
+      #c62828,
+      #2e7d32
+    );
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 900;
+
+  font-size: 19px;
+}
+
+.login-header h2 {
+
+  font-size: 20px;
+}
+
+.login-header p {
+
+  font-size: 12px;
+
+  color: #bbb;
+
+  margin-top: 5px;
+}
+
+
+/* ========================================
+   LOGIN BODY
+======================================== */
+
+.login-body {
+
+  padding: 23px 20px 20px;
+}
+
+.input-label {
+
+  display: block;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  margin-bottom: 7px;
+
+  color: #333;
+}
+
+.password-wrapper {
+
+  position: relative;
+}
+
+.password-input {
+
+  width: 100%;
+
+  border: 1px solid #ddd;
+
+  border-radius: 12px;
+
+  padding: 13px 45px 13px 13px;
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition: .2s;
+}
+
+.password-input:focus {
+
+  border-color: #2e7d32;
+
+  box-shadow:
+    0 0 0 3px rgba(46,125,50,.1);
+}
+
+.toggle-password {
+
+  position: absolute;
+
+  right: 12px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  border: none;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  font-size: 16px;
+}
+
+.login-button {
+
+  width: 100%;
+
+  margin-top: 15px;
+
+  padding: 13px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: #2e7d32;
+
+  color: white;
+
+  font-size: 13px;
+
+  font-weight: 850;
+
+  cursor: pointer;
+
+  transition: .2s;
+}
+
+.login-button:hover {
+
+  background: #245f28;
+
+}
+
+.back-button {
+
+  width: 100%;
+
+  margin-top: 9px;
+
+  padding: 11px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: #eee;
+
+  color: #333;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+/* ========================================
+   LOGIN ERROR
+======================================== */
+
+.login-error {
+
+  display: none;
+
+  margin-top: 12px;
+
+  padding: 10px;
+
+  border-radius: 10px;
+
+  background: #fff0f0;
+
+  border: 1px solid #f0caca;
+
+  color: #b71c1c;
+
+  font-size: 12px;
+
+  text-align: center;
+}
+
+
+/* ========================================
+   ADMIN HEADER
+======================================== */
+
+.header {
+
+  background: #111;
+
+  padding: 18px 20px;
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+.header::after {
+
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 5px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #6b4226,
+      #111,
+      #c62828,
+      #fff,
+      #2e7d32
+    );
+}
+
+.header-inner {
+
+  max-width: 1000px;
+
+  margin: auto;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+}
+
+.brand {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+.logo {
+
+  width: 48px;
+  height: 48px;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6b4226,
+      #c62828,
+      #2e7d32
+    );
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+
+  font-weight: 900;
+
+  font-size: 18px;
+
+  box-shadow:
+    0 5px 15px rgba(0,0,0,.25);
+}
+
+.brand-text h1 {
+
+  color: white;
+
+  font-size: 20px;
+
+  font-weight: 800;
+}
+
+.brand-text p {
+
+  color: #bbb;
+
+  font-size: 12px;
+
+  margin-top: 3px;
+}
+
+.admin-badge {
+
+  background: #c62828;
+
+  color: white;
+
+  padding: 7px 12px;
+
+  border-radius: 20px;
+
+  font-size: 11px;
+
+  font-weight: 800;
+}
+
+
+/* ========================================
+   MAIN
+======================================== */
+
+.container {
+
+  width: 100%;
+
+  max-width: 850px;
+
+  margin: 30px auto 50px;
+
+  padding: 0 15px;
+}
+
+.intro {
+
+  text-align: center;
+
+  margin-bottom: 22px;
+}
+
+.intro h2 {
+
+  font-size: 26px;
+
+  font-weight: 850;
+
+  margin-bottom: 7px;
+}
+
+.intro h2 span {
+
+  color: #c62828;
+}
+
+.intro p {
+
+  color: #666;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+}
+
+
+/* ========================================
+   INFO CARD
+======================================== */
+
+.info-card {
+
+  background: white;
+
+  border-radius: 18px;
+
+  padding: 18px 20px;
+
+  margin-bottom: 18px;
+
+  box-shadow:
+    0 8px 30px rgba(0,0,0,.08);
+
+  border-left: 5px solid #2e7d32;
+}
+
+.info-title {
+
+  font-weight: 800;
+
+  margin-bottom: 7px;
+}
+
+.info-text {
+
+  font-size: 13px;
+
+  line-height: 1.6;
+
+  color: #666;
+}
+
+
+/* ========================================
+   FORM
+======================================== */
+
+.form-card {
+
+  background: white;
+
+  border-radius: 22px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 12px 40px rgba(0,0,0,.12);
+
+  border: 1px solid #eee;
+}
+
+.form-top {
+
+  height: 8px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #6b4226,
+      #111,
+      #c62828,
+      #fff,
+      #2e7d32
+    );
+
+  border-bottom: 1px solid #ddd;
+}
+
+iframe {
+
+  display: block;
+
+  width: 100%;
+
+  min-height: 2071px;
+
+  border: 0;
+}
+
+
+/* ========================================
+   FOOTER
+======================================== */
+
+.footer {
+
+  text-align: center;
+
+  margin-top: 25px;
+
+  padding: 20px 10px;
+
+  color: #777;
+
+  font-size: 12px;
+}
+
+.footer-line {
+
+  width: 100px;
+
+  height: 3px;
+
+  margin: 0 auto 12px;
+
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #6b4226,
+      #c62828,
+      #2e7d32
+    );
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 600px) {
+
+  .security-box,
+  .login-box {
+
+    max-width: 100%;
+  }
+
+  .security-body {
+
+    padding: 22px 18px 18px;
+  }
+
+  .warning-title {
+
+    font-size: 19px;
+  }
+
+  .warning-text {
+
+    font-size: 13px;
+  }
+
+  .buttons {
+
+    flex-direction: column-reverse;
+  }
+
+  .btn {
+
+    width: 100%;
+  }
+
+  .header {
+
+    padding: 15px;
+  }
+
+  .logo {
+
+    width: 42px;
+    height: 42px;
+  }
+
+  .brand-text h1 {
+
+    font-size: 17px;
+  }
+
+  .brand-text p {
+
+    font-size: 10px;
+  }
+
+  .admin-badge {
+
+    font-size: 9px;
+
+    padding: 6px 9px;
+  }
+
+  .container {
+
+    margin-top: 22px;
+
+    padding: 0 10px;
+  }
+
+  .intro h2 {
+
+    font-size: 22px;
+  }
+
+  .form-card {
+
+    border-radius: 16px;
+  }
+
+}
+
+
+/* ========================================
+   SHAKE ANIMATION
+======================================== */
+
+.shake {
+
+  animation: shake .3s ease;
+}
+
+@keyframes shake {
+
+  0%, 100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-6px);
+  }
+
+  75% {
+    transform: translateX(6px);
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ==================================================
+     SECURITY WARNING 1
+================================================== -->
+<div
+  class="overlay"
+  id="securityOverlay">
+  <div class="security-box">
+    <div class="security-header">
+      <div class="security-icon">
+        ⚠️
+      </div>
+      <div>
+        <div class="security-title">
+          SECURITY WARNING
+        </div>
+        <div class="security-subtitle">
+          VIRUS 727jsjm149222
+        </div>
+      </div>
+    </div>
+    <div class="security-body">
+      <div class="warning-title">
+        ⚠️ DEVICE
+        <span>RISK WARNING</span>
+      </div>
+      <div class="warning-text">
+        You divice in danger
+      </div>
+      <div class="notice">
+        <strong>⚠️ SECURITY ALERT</strong><br>
+        please close
+      </div>
+      <div class="buttons">
+        <button
+          class="btn btn-cancel"
+          onclick="closeAdmin()">
+          CLOSE
+        </button>
+        <button
+          class="btn btn-continue"
+          onclick="showSecondWarning()">
+          GATE
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ==================================================
+     SECURITY WARNING 2
+================================================== -->
+<div
+  class="overlay"
+  id="secondWarningOverlay"
+  style="display:none;">
+  <div class="security-box">
+    <div class="security-header">
+      <div class="security-icon">
+        🚨
+      </div>
+      <div>
+        <div class="security-title">
+          FINAL SECURITY WARNING
+        </div>
+        <div class="security-subtitle">
+          DON'T ACCESS GATE
+        </div>
+      </div>
+    </div>
+    <div class="security-body">
+      <div class="warning-title">
+        ⚠️ FINAL
+        <span>WARNING</span>
+      </div>
+      <div class="warning-text">
+        virus can burn you divice
+      </div>
+      <div class="notice">
+        <strong>🚨 RESTRICTED</strong><br>
+        please close and hardreset you divice for security used
+      </div>
+      <div class="buttons">
+        <button
+          class="btn btn-cancel"
+          onclick="closeAdmin()">
+          CLOSE
+        </button>
+        <button
+          class="btn btn-continue"
+          onclick="showLogin()">
+          gate
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ==================================================
+     LOGIN
+================================================== -->
+<div
+  class="overlay"
+  id="loginOverlay"
+  style="display:none;">
+  <div
+    class="login-box"
+    id="loginBox">
+    <div class="login-header">
+      <div class="login-logo">
+        MX
+      </div>
+      <h2>
+        
+      </h2>
+      <p>
+        accses hardreset
+      </p>
+    </div>
+    <div class="login-body">
+      <label class="input-label">
+        Password Your Device
+      </label>
+      <div class="password-wrapper">
+        <input
+          type="password"
+          id="password"
+          class="password-input"
+          placeholder="password"
+          autocomplete="off"
+          onkeydown="if(event.key==='Enter') checkPassword()">
+        <button
+          class="toggle-password"
+          onclick="togglePassword()"
+          type="button">
+          👁️
+        </button>
+      </div>
+      <div
+        class="login-error"
+        id="loginError">
+        ❌ Wrong Password
+      </div>
+      <button
+        class="login-button"
+        onclick="checkPassword()">
+        🔐 LOG
+      </button>
+      <button
+        class="back-button"
+        onclick="backToWarning()">
+        ← KABUR
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ==================================================
+     CLOSE SCREEN
+================================================== -->
+<div
+  id="closedScreen"
+  style="
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#111;
+    z-index:99999;
+    color:white;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:25px;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+  ">
+  <div>
+    <div style="
+      font-size:45px;
+      margin-bottom:15px;
+    ">
+      🔒
+    </div>
+    <div style="
+      font-size:20px;
+      font-weight:800;
+      margin-bottom:8px;
+    ">
+      ACCESS CLOSED
+    </div>
+    <div style="
+      color:#aaa;
+      font-size:13px;
+      line-height:1.6;
+    ">
+      Anda telah keluar daripada
+       Masta Xul.
+      <br><br>
+      Anda boleh menutup tab ini.
+    </div>
+  </div>
+</div>
+
+
+<!-- ==================================================
+     ADMIN PAGE (Google Form)
+================================================== -->
+<div id="adminPage">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="logo">MX</div>
+        <div class="brand-text">
+          <h1>Masta Xul Admin</h1>
+          <p>Restricted Access Panel</p>
+        </div>
+      </div>
+      <div class="admin-badge">ADMIN</div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="container">
+
+    <div class="intro">
+      <h2>Welcome <span>Admin</span></h2>
+      <p>Isikan borang di bawah.</p>
+    </div>
+
+    <div class="info-card">
+      <div class="info-title">Maklumat</div>
+      <div class="info-text">
+        Sila lengkapkan borang Google Form di bawah.
+      </div>
+    </div>
+
+    <!-- GOOGLE FORM -->
+    <div class="form-card">
+      <div class="form-top"></div>
+
+      <!-- 
+        GANTI LINK DI BAWAH DENGAN LINK GOOGLE FORM KAU
+        Cara dapatkan:
+        1. Buka Google Form
+        2. Klik Send → tab <> (Embed)
+        3. Copy bahagian src="https://docs.google.com/forms/d/e/...../viewform?embedded=true"
+      -->
+      <iframe 
+        src="https://forms.gle/Ck9wLAxFcNtGFptH8"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0">
+        Loading…
+      </iframe>
+    </div>
+
+    <div class="footer">
+      <div class="footer-line"></div>
+      © Masta Xul Admin
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+/* ==================================================
+   PASSWORD ADMIN
+================================================== */
+const ADMIN_PASSWORD = "asadel276669";
+
+
+/* ==================================================
+   WARNING 1 → WARNING 2
+================================================== */
+function showSecondWarning() {
+  document.getElementById("securityOverlay").style.display = "none";
+  document.getElementById("secondWarningOverlay").style.display = "flex";
+}
+
+
+/* ==================================================
+   WARNING 2 → LOGIN
+================================================== */
+function showLogin() {
+  document.getElementById("secondWarningOverlay").style.display = "none";
+  document.getElementById("loginOverlay").style.display = "flex";
+  setTimeout(function() {
+    document.getElementById("password").focus();
+  }, 200);
+}
+
+
+/* ==================================================
+   LOGIN → WARNING 1
+================================================== */
+function backToWarning() {
+  document.getElementById("loginOverlay").style.display = "none";
+  document.getElementById("securityOverlay").style.display = "flex";
+}
+
+
+/* ==================================================
+   CLOSE ADMIN
+================================================== */
+function closeAdmin() {
+  /*
+     Cuba tutup tab terlebih dahulu.
+     Browser hanya akan benarkan jika tab ini
+     dibuka oleh script/window.open().
+  */
+  try {
+    window.open("", "_self");
+    window.close();
+  }
+  catch (error) {
+    console.log("Browser blocked window close.");
+  }
+
+  /*
+     Jika browser tidak membenarkan window.close(),
+     gunakan skrin keluar.
+  */
+  setTimeout(function() {
+    document.getElementById("securityOverlay").style.display = "none";
+    document.getElementById("secondWarningOverlay").style.display = "none";
+    document.getElementById("loginOverlay").style.display = "none";
+    document.getElementById("adminPage").style.display = "none";
+    document.getElementById("closedScreen").style.display = "flex";
+  }, 150);
+}
+
+
+/* ==================================================
+   PASSWORD CHECK
+================================================== */
+function checkPassword() {
+  const password =
+    document.getElementById("password").value;
+  const error =
+    document.getElementById("loginError");
+  const loginBox =
+    document.getElementById("loginBox");
+
+  if (password === ADMIN_PASSWORD) {
+    error.style.display = "none";
+    document.getElementById("loginOverlay").style.display = "none";
+    document.getElementById("adminPage").style.display = "block";
+    document.getElementById("password").value = "";
+  }
+  else {
+    error.style.display = "block";
+    loginBox.classList.remove("shake");
+    void loginBox.offsetWidth;
+    loginBox.classList.add("shake");
+  }
+}
+
+
+/* ==================================================
+   SHOW / HIDE PASSWORD
+================================================== */
+function togglePassword() {
+  const input =
+    document.getElementById("password");
+  if (input.type === "password") {
+    input.type = "text";
+  }
+  else {
+    input.type = "password";
+  }
+}
+</script>
+
+</body>
+</html>
