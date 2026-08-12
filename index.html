@@ -18,62 +18,207 @@
   <meta property="og:url" content="https://mastaxul.my/">
   <meta property="og:type" content="website">
 
- <!-- Bing Verification -->
+  <!-- Bing Verification -->
   <meta name="msvalidate.01" content="0D3F43A42C910C8228D4687C99E63603" />
 
-  
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    .hero {
+      max-width: 720px;
+      margin: 40px auto 30px;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: 1.8rem;
+      color: #111111;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: #555;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .hero-btn-primary {
+      background: #D32F2F;
+      color: #FFFFFF;
+    }
+
+    .hero-btn-primary:hover {
+      background: #111111;
+    }
+
+    .hero-btn-secondary {
+      background: #FFFFFF;
+      color: #111111;
+      border: 2px solid #6B4423;
+    }
+
+    .hero-btn-secondary:hover {
+      background: #6B4423;
+      color: #FFFFFF;
+    }
+
+    .features {
+      max-width: 1000px;
+      margin: 20px auto 50px;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .feature-card {
+      background: #FFFFFF;
+      border: 2px solid #6B4423;
+      border-radius: 14px;
+      padding: 22px 18px;
+      text-align: center;
+    }
+
+    .feature-card .icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .feature-card h3 {
+      font-size: 1.05rem;
+      color: #111111;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    .cta-box {
+      max-width: 600px;
+      margin: 0 auto 60px;
+      padding: 28px 20px;
+      background: #111111;
+      color: #FFFFFF;
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    .cta-box h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+
+    .cta-box p {
+      opacity: 0.85;
+      margin-bottom: 18px;
+      font-size: 0.95rem;
+    }
+
+    .cta-box a {
+      display: inline-block;
+      background: #D32F2F;
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 12px 26px;
+      border-radius: 8px;
+      font-weight: 700;
+      transition: 0.2s;
+    }
+
+    .cta-box a:hover {
+      background: #2E7D32;
+    }
+
+    @media (max-width: 600px) {
+      .hero h2 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
 <header>
   <div class="header-top">
     <img src="https://i.ibb.co/SwpWGqrs/IMG-0606.png" class="logo" alt="Logo">
-    <!-- Butang hamburger akan ditambah automatik oleh menu.js -->
+    <!-- Hamburger ditambah oleh menu.js -->
   </div>
-
   <h1>Masta Xul Affiliate Shop</h1>
-  <p>...</p>
+  <p>Produk Pilihan Dengan Harga Terbaik</p>
 </header>
 
-<div class="menu">
-  <button class="active" onclick="filterProduk('Semua')">Semua</button>
-  <button onclick="filterProduk('Viral')">Viral</button>
-  <button onclick="filterProduk('Kesihatan')">Kesihatan</button>
-  <button onclick="filterProduk('Gadget')">Gadget</button>
-  <button onclick="filterProduk('Rumah')">Rumah</button>
-  <button onclick="filterProduk('Kecantikan')">Kecantikan</button>
-  <button onclick="filterProduk('Pertanian')">Pertanian</button>
-  <button onclick="filterProduk('Lelaki')">Lelaki</button>
-  <button onclick="filterProduk('Wanita')">Wanita</button>
-  <button onclick="filterProduk('Sukan')">Sukan</button>
-  <button onclick="filterProduk('Elektrik')">Elektrik</button>
-  <button onclick="filterProduk('Tumbuhan')">Tumbuhan</button>
-</div>
+<!-- Hero -->
+<section class="hero">
+  <h2>Temui Produk Viral TikTok, Shopee & Lazada di Satu Tempat</h2>
+  <p>
+    Kami pilih produk yang sedang trending, berkualiti dan berbaloi —
+    supaya anda tak perlu buang masa mencari satu per satu.
+  </p>
+  <div class="hero-buttons">
+    <a href="/shop/" class="hero-btn hero-btn-primary">🛒 Lihat Semua Produk</a>
+    <a href="/tentang/" class="hero-btn hero-btn-secondary">Tentang Kami</a>
+  </div>
+</section>
 
-<div class="search-box">
-  <input type="text" id="search" placeholder="Cari produk..." onkeyup="cariProduk()">
-</div>
+<!-- Features -->
+<section class="features">
+  <div class="feature-card">
+    <div class="icon">🔥</div>
+    <h3>Produk Viral</h3>
+    <p>Dipilih daripada trend TikTok Shop, Shopee dan Lazada yang sedang hangat.</p>
+  </div>
+  <div class="feature-card">
+    <div class="icon">💰</div>
+    <h3>Harga Terbaik</h3>
+    <p>Bandingkan dan terus beli di platform pilihan anda dengan satu klik.</p>
+  </div>
+  <div class="feature-card">
+    <div class="icon">⚡</div>
+    <h3>Mudah & Pantas</h3>
+    <p>Cari ikut kategori, badge atau kata kunci — terus jumpa produk yang sesuai.</p>
+  </div>
+  <div class="feature-card">
+    <div class="icon">✅</div>
+    <h3>Dipilih Semula</h3>
+    <p>Bukan semua produk masuk. Hanya yang ada permintaan dan nilai yang baik.</p>
+  </div>
+</section>
 
-<div id="produk-list" class="produk-grid"></div>
-
-<!-- Pagination -->
-<div class="pagination" id="pagination">
-  <button onclick="tukarPage(-1)" id="btnPrev">← Previous</button>
-  <span id="pageInfo">Halaman 1</span>
-  <button onclick="tukarPage(1)" id="btnNext">Next →</button>
-</div>
+<!-- CTA -->
+<section class="cta-box">
+  <h3>Sedia untuk beli-belah?</h3>
+  <p>Terokai senarai produk pilihan kami sekarang.</p>
+  <a href="/shop/">Pergi ke Shop →</a>
+</section>
 
 <footer>
   © 2026 Masta Xul Affiliate Shop
 </footer>
 
-<!-- Butang Google Form Terapung -->
-<a href="https://forms.gle/rr3MzmniqZAtEPhm6" class="float-form" target="_blank" rel="noopener" title="Tambah Produk / Hubungi">
-  ✉️
-</a>
-
-<!-- Butang Back to Top -->
+<!-- Back to Top -->
 <button onclick="scrollToTop()" class="back-to-top" id="backToTop" title="Back to Top">↑</button>
 
 <!-- WhatsApp Channel -->
@@ -81,8 +226,20 @@
   📢 Channel
 </a>
 
-<script src="script.js"></script>
-<script src="/menu.js"></script>
+<script src="menu.js"></script>
+<script>
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  window.addEventListener("scroll", () => {
+    const btn = document.getElementById("backToTop");
+    if (btn) {
+      if (window.scrollY > 300) btn.classList.add("show");
+      else btn.classList.remove("show");
+    }
+  });
+</script>
 
 </body>
 </html>
