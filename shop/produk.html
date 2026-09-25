@@ -154,6 +154,22 @@
     return isNaN(num) ? "0.00" : num.toFixed(2);
   }
 
+  // Escape untuk teks/attribute HTML (elak XSS dari data Sheet/Form)
+  function esc(str) {
+    return (str || "").toString().replace(/[&<>"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+  }
+
+  // Escape untuk letak dalam JS string literal ('...') sebelum di-esc() untuk attribute
+  function escJs(str) {
+    return (str || "").toString()
+      .replace(/\\/g, "\\\\")
+      .replace(/'/g, "\\'")
+      .replace(/\n/g, "\\n")
+      .replace(/\r/g, "");
+  }
+
   function getQueryId() {
     return new URLSearchParams(window.location.search).get("id");
   }
@@ -171,7 +187,7 @@
 
   function kongsiProduk(nama, harga, platform) {
     const id = getQueryId();
-    const linkProduk = WEBSITE_URL + "produk.html?id=" + id;
+    const linkProduk = WEBSITE_URL + "produk.html?id=" + encodeURIComponent(id);
     const teks = `🔥 ${nama}\nHarga: RM ${harga}\n\nLihat produk:\n${linkProduk}`;
     const encoded = encodeURIComponent(teks);
 
@@ -206,6 +222,7 @@
 
     try {
       const res = await fetch(API_URL + "?t=" + Date.now());
+      if (!res.ok) throw new Error("Network response not ok");
       const data = await res.json();
       const produk = data.find(p => String(p.id) === String(id));
 
@@ -214,31 +231,33 @@
         return;
       }
 
-      document.title = `${produk.nama} | Masta Xul Affiliate Shop`;
+      document.title = `${(produk.nama || "").toString()} | Masta Xul Affiliate Shop`;
 
-      const badge = produk.badge ? `<span class="product-detail-badge">${produk.badge}</span>` : "";
-      const terjual = produk.terjual ? `<div class="product-detail-sold">${produk.terjual} terjual</div>` : "";
+      const badge = produk.badge ? `<span class="product-detail-badge">${esc(produk.badge)}</span>` : "";
+      const terjual = produk.terjual ? `<div class="product-detail-sold">${esc(produk.terjual)} terjual</div>` : "";
       const harga = formatHarga(produk.harga);
       const teksDeskripsi = (produk.deskripsi || "").toString().trim();
       const deskripsi = teksDeskripsi
-        ? `<div class="product-detail-desc">${teksDeskripsi}</div>`
+        ? `<div class="product-detail-desc">${esc(teksDeskripsi)}</div>`
         : "";
 
       let buttons = "";
-      if (produk.tiktok) buttons += `<a href="${produk.tiktok}" class="btn-tiktok" target="_blank" rel="noopener">Beli di TikTok</a>`;
-      if (produk.shopee) buttons += `<a href="${produk.shopee}" class="btn-shopee" target="_blank" rel="noopener">Beli di Shopee</a>`;
-      if (produk.lazada) buttons += `<a href="${produk.lazada}" class="btn-lazada" target="_blank" rel="noopener">Beli di Lazada</a>`;
+      if (produk.tiktok) buttons += `<a href="${esc(produk.tiktok)}" class="btn-tiktok" target="_blank" rel="noopener">Beli di TikTok</a>`;
+      if (produk.shopee) buttons += `<a href="${esc(produk.shopee)}" class="btn-shopee" target="_blank" rel="noopener">Beli di Shopee</a>`;
+      if (produk.lazada) buttons += `<a href="${esc(produk.lazada)}" class="btn-lazada" target="_blank" rel="noopener">Beli di Lazada</a>`;
 
-      const gambar = produk.gambar || "https://via.placeholder.com/500x400/f5f5f5/6B4423?text=Tiada+Gambar";
-      const namaSafe = (produk.nama || "").replace(/'/g, "\\'");
+      const gambar = esc(produk.gambar || "https://via.placeholder.com/500x400/f5f5f5/6B4423?text=Tiada+Gambar");
+      // Dua lapis escape: escJs elak JS string pecah, esc elak HTML attribute pecah
+      const namaOnclick = esc(escJs(produk.nama || ""));
+      const hargaOnclick = esc(escJs(harga));
 
       container.innerHTML = `
         <div class="product-detail-card">
-          <img src="${gambar}" alt="${produk.nama}" class="product-detail-img"
+          <img src="${gambar}" alt="${esc(produk.nama)}" class="product-detail-img"
                onerror="this.src='https://via.placeholder.com/500x400/f5f5f5/6B4423?text=Tiada+Gambar'">
           <div class="product-detail-body">
             ${badge}
-            <h2 class="product-detail-name">${produk.nama}</h2>
+            <h2 class="product-detail-name">${esc(produk.nama)}</h2>
             <div class="product-detail-price">RM ${harga}</div>
             ${terjual}
             ${deskripsi}
@@ -246,10 +265,10 @@
               ${buttons || "<p>Tiada pautan pembelian.</p>"}
             </div>
             <div class="share-detail">
-              <button class="btn-kongsi-wa" onclick="kongsiProduk('${namaSafe}', '${harga}', 'whatsapp')">Kongsi Ke WhatsApp</button>
-              <button class="btn-kongsi-telegram" onclick="kongsiProduk('${namaSafe}', '${harga}', 'telegram')">Kongsi Ke Telegram</button>
-              <button class="btn-salin" onclick="kongsiProduk('${namaSafe}', '${harga}', 'salin')">Salin Pautan</button>
-              <button class="btn-kongsi-lain" onclick="kongsiProduk('${namaSafe}', '${harga}', 'other')">Kongsi Ke Lain-lain</button>
+              <button class="btn-kongsi-wa" onclick="kongsiProduk('${namaOnclick}', '${hargaOnclick}', 'whatsapp')">Kongsi Ke WhatsApp</button>
+              <button class="btn-kongsi-telegram" onclick="kongsiProduk('${namaOnclick}', '${hargaOnclick}', 'telegram')">Kongsi Ke Telegram</button>
+              <button class="btn-salin" onclick="kongsiProduk('${namaOnclick}', '${hargaOnclick}', 'salin')">Salin Pautan</button>
+              <button class="btn-kongsi-lain" onclick="kongsiProduk('${namaOnclick}', '${hargaOnclick}', 'other')">Kongsi Ke Lain-lain</button>
             </div>
             <a href="/shop/" class="back-btn">← Kembali ke Shop</a>
           </div>
