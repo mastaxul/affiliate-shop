@@ -55,6 +55,22 @@ function formatHarga(harga) {
   return isNaN(num) ? "0.00" : num.toFixed(2);
 }
 
+// Escape untuk teks/attribute HTML (elak XSS dari data Sheet/Form)
+function esc(str) {
+  return (str || "").toString().replace(/[&<>"']/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
+}
+
+// Escape untuk letak dalam JS string literal ('...') sebelum di-esc() untuk attribute
+function escJs(str) {
+  return (str || "").toString()
+    .replace(/\\/g, "\\\\")
+    .replace(/'/g, "\\'")
+    .replace(/\n/g, "\\n")
+    .replace(/\r/g, "");
+}
+
 // ========== LOAD PRODUK ==========
 async function muatProduk(cuba = 1) {
   const container = document.getElementById("produk-list");
@@ -124,36 +140,41 @@ function paparProduk(senarai) {
   const produkSekarang = senarai.slice(startIndex, endIndex);
 
   container.innerHTML = produkSekarang.map(p => {
-    const badge = p.badge ? `<span class="label-hot">${p.badge}</span>` : "";
-    const terjual = p.terjual ? `<div class="produk-terjual">${p.terjual} terjual</div>` : "";
+    const badge = p.badge ? `<span class="label-hot">${esc(p.badge)}</span>` : "";
+    const terjual = p.terjual ? `<div class="produk-terjual">${esc(p.terjual)} terjual</div>` : "";
 
     let butangHTML = "";
     if (p.tiktok && p.tiktok.toString().trim() !== "") {
-      butangHTML += `<a href="${p.tiktok}" class="btn-platform btn-tiktok" target="_blank" rel="noopener" onclick="event.stopPropagation()">Beli di TikTok</a>`;
+      butangHTML += `<a href="${esc(p.tiktok)}" class="btn-platform btn-tiktok" target="_blank" rel="noopener" onclick="event.stopPropagation()">Beli di TikTok</a>`;
     }
     if (p.shopee && p.shopee.toString().trim() !== "") {
-      butangHTML += `<a href="${p.shopee}" class="btn-platform btn-shopee" target="_blank" rel="noopener" onclick="event.stopPropagation()">Beli di Shopee</a>`;
+      butangHTML += `<a href="${esc(p.shopee)}" class="btn-platform btn-shopee" target="_blank" rel="noopener" onclick="event.stopPropagation()">Beli di Shopee</a>`;
     }
     if (p.lazada && p.lazada.toString().trim() !== "") {
-      butangHTML += `<a href="${p.lazada}" class="btn-platform btn-lazada" target="_blank" rel="noopener" onclick="event.stopPropagation()">Beli di Lazada</a>`;
+      butangHTML += `<a href="${esc(p.lazada)}" class="btn-platform btn-lazada" target="_blank" rel="noopener" onclick="event.stopPropagation()">Beli di Lazada</a>`;
     }
 
-    const gambar = (p.gambar && p.gambar.toString().trim() !== "")
-      ? p.gambar
-      : "https://via.placeholder.com/400x300/f5f5f5/6B4423?text=Tiada+Gambar";
+    const gambar = esc(
+      (p.gambar && p.gambar.toString().trim() !== "")
+        ? p.gambar
+        : "https://via.placeholder.com/400x300/f5f5f5/6B4423?text=Tiada+Gambar"
+    );
 
-    const namaSafe = (p.nama || "").replace(/'/g, "\\'");
+    // Dua lapis escape: escJs elak JS string pecah, esc elak HTML attribute pecah
+    const namaOnclick = esc(escJs(p.nama || ""));
+    const hargaOnclick = esc(escJs(formatHarga(p.harga)));
+    const idLink = encodeURIComponent(p.id || "");
 
     return `
-      <div class="produk-card" onclick="window.location.href='produk.html?id=${p.id}'" style="cursor:pointer;">
+      <div class="produk-card" onclick="window.location.href='produk.html?id=${idLink}'" style="cursor:pointer;">
         <div class="produk-img-wrapper">
-          <img src="${gambar}" alt="${p.nama}" class="produk-img" loading="lazy"
+          <img src="${gambar}" alt="${esc(p.nama)}" class="produk-img" loading="lazy"
                onerror="this.src='https://via.placeholder.com/400x300/f5f5f5/6B4423?text=Tiada+Gambar'">
         </div>
         
         <div class="produk-info">
           ${badge}
-          <h3 class="produk-nama">${p.nama}</h3>
+          <h3 class="produk-nama">${esc(p.nama)}</h3>
           <div class="produk-harga">RM ${formatHarga(p.harga)}</div>
           ${terjual}
 
@@ -162,9 +183,9 @@ function paparProduk(senarai) {
           </div>
 
           <div class="share-buttons" onclick="event.stopPropagation()">
-            <button class="btn-share btn-share-wa" onclick="shareProduk('${namaSafe}', '${formatHarga(p.harga)}', 'whatsapp')">WhatsApp</button>
-            <button class="btn-share btn-share-telegram" onclick="shareProduk('${namaSafe}', '${formatHarga(p.harga)}', 'telegram')">Telegram</button>
-            <button class="btn-share btn-share-other" onclick="shareProduk('${namaSafe}', '${formatHarga(p.harga)}', 'other')">Lain</button>
+            <button class="btn-share btn-share-wa" onclick="shareProduk('${namaOnclick}', '${hargaOnclick}', 'whatsapp')">WhatsApp</button>
+            <button class="btn-share btn-share-telegram" onclick="shareProduk('${namaOnclick}', '${hargaOnclick}', 'telegram')">Telegram</button>
+            <button class="btn-share btn-share-other" onclick="shareProduk('${namaOnclick}', '${hargaOnclick}', 'other')">Lain</button>
           </div>
         </div>
       </div>
