@@ -4,7 +4,7 @@
    Carian nama + ID | Pagination nombor
 ======================================== */
 
-const API_URL = "https://mastaxul.my/api/produk";
+const API_URL = "/api/produk";
 const WEBSITE_URL = "https://mastaxul.my/shop/";
 
 let semuaProduk = [];
