@@ -213,7 +213,7 @@
     }
   }
 
-  async function muatProdukDetail() {
+  async function muatProdukDetail(cuba = 1) {
     const container = document.getElementById("productDetail");
     const id = getQueryId();
 
@@ -229,6 +229,13 @@
       const produk = data.find(p => String(p.id) === String(id));
 
       if (!produk) {
+        // Produk baru mungkin belum sync sepenuhnya di semua lokasi Cloudflare —
+        // cuba beberapa kali dengan jeda sebelum give up
+        if (cuba < 4) {
+          container.innerHTML = `<div class="loading-detail">Memuatkan produk...</div>`;
+          setTimeout(() => muatProdukDetail(cuba + 1), 2000);
+          return;
+        }
         container.innerHTML = `<div class="error-detail">Produk tidak dijumpai.<br><a href="/shop/" class="back-btn">← Kembali ke Shop</a></div>`;
         return;
       }
@@ -281,6 +288,10 @@
 
     } catch (err) {
       console.error(err);
+      if (cuba < 3) {
+        setTimeout(() => muatProdukDetail(cuba + 1), 1500);
+        return;
+      }
       container.innerHTML = `<div class="error-detail">Gagal memuatkan produk.<br><a href="/shop/" class="back-btn">← Kembali ke Shop</a></div>`;
     }
   }
