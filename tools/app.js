@@ -123,10 +123,21 @@
   }
 
   function setupNav() {
-    $$(".nav-btn").forEach((btn) => {
-      btn.addEventListener("click", () => showPage(btn.dataset.nav));
+  $$(".nav-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const page = btn.dataset.nav;
+
+      // Home → ke laman utama website
+      if (page === "home") {
+        window.location.href = "https://www.mastaxul.my/";
+        return;
+      }
+
+      // Tools, Favorites, Settings → kekal dalam app
+      showPage(page);
     });
-  }
+  });
+}
 
   function setupInstall() {
     const btn = $("#btnInstall");
