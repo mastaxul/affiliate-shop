@@ -25,7 +25,7 @@
     h1 { font-size: 1.35rem; margin-bottom: 4px; text-align: center; }
     .sub { text-align: center; color: #6B4423; font-size: 0.9rem; margin-bottom: 22px; }
     label { display: block; font-weight: 600; font-size: 0.88rem; margin: 14px 0 6px; }
-    input, textarea {
+    input, textarea, select {
       width: 100%;
       padding: 12px 14px;
       border: 2px solid #6B4423;
@@ -33,8 +33,9 @@
       font-size: 1rem;
       outline: none;
       background: #fff;
+      font-family: inherit;
     }
-    input:focus, textarea:focus { border-color: #D32F2F; }
+    input:focus, textarea:focus, select:focus { border-color: #D32F2F; }
     textarea { min-height: 90px; resize: vertical; }
     .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     button[type="submit"] {
@@ -61,6 +62,7 @@
     }
     .msg.ok { display: block; background: #e8f5e9; color: #2E7D32; }
     .msg.err { display: block; background: #ffebee; color: #c62828; }
+    .msg.warn { display: block; background: #fff8e1; color: #8a6100; }
     .hint { font-size: 0.8rem; color: #888; margin-top: 4px; }
     .back {
       display: block;
@@ -95,44 +97,41 @@
       margin-top: 8px;
       color: #6B4423;
     }
+    .checkbox-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .chk {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 2px solid #6B4423;
+      border-radius: 20px;
+      padding: 7px 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: #fff;
+      margin: 0;
+    }
+    .chk input {
+      width: auto;
+      margin: 0;
+      accent-color: #D32F2F;
+    }
   </style>
 </head>
 <body>
 
-<div id="lockScreen" style="position:fixed;inset:0;background:rgba(17,17,17,0.92);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;">
-  <div style="background:#fff;border:2px solid #6B4423;border-radius:16px;padding:28px 22px;width:100%;max-width:340px;text-align:center;">
-    <h2 style="margin-bottom:8px;">🔒 Admin</h2>
-    <p style="color:#666;font-size:0.9rem;margin-bottom:14px;">Masukkan kod akses yang di hantar melalui app Outlook Authenticator</p>
-    <input type="password" id="pinInput" placeholder="Kod" style="width:100%;padding:12px;border:2px solid #6B4423;border-radius:10px;font-size:1.1rem;text-align:center;margin-bottom:12px;">
-    <button type="button" id="btnPin" style="width:100%;padding:12px;border:none;border-radius:10px;background:#D32F2F;color:#fff;font-weight:700;font-size:1rem;">Buka</button>
-    <p id="pinMsg" style="margin-top:10px;font-size:0.9rem;color:#c62828;"></p>
-  </div>
-</div>
-
-<script>
-  const ADMIN_PIN = "276669"; // <-- tukar kod anda
-
-  document.getElementById("btnPin").onclick = function () {
-    const val = document.getElementById("pinInput").value.trim();
-    if (val === ADMIN_PIN) {
-      document.getElementById("lockScreen").style.display = "none";
-    } else {
-      document.getElementById("pinMsg").textContent = "Kod salah";
-    }
-  };
-
-  document.getElementById("pinInput").addEventListener("keydown", function (e) {
-    if (e.key === "Enter") document.getElementById("btnPin").click();
-  });
-</script>
-  
   <div class="box">
     <h1>Dashboard Admin</h1>
     <p class="sub">Tambah produk · Upload gambar ImgBB</p>
 
     <form id="formProduk">
       <label>Password admin *</label>
-      <input type="password" id="password" required placeholder="Password">
+      <input type="password" id="password" required placeholder="Password" autocomplete="off">
 
       <label>ID (kosongkan = auto)</label>
       <input type="text" id="id" placeholder="Contoh: 31">
@@ -152,11 +151,33 @@
       </div>
 
       <label>Kategori</label>
-      <input type="text" id="kategori" placeholder="Rumah, Elektrik">
-      <p class="hint">Boleh lebih dari satu, asingkan dengan koma</p>
+      <div class="checkbox-grid" id="kategoriGrid">
+        <label class="chk"><input type="checkbox" value="Viral"> Viral</label>
+        <label class="chk"><input type="checkbox" value="Kesihatan"> Kesihatan</label>
+        <label class="chk"><input type="checkbox" value="Gadget"> Gadget</label>
+        <label class="chk"><input type="checkbox" value="Rumah"> Rumah</label>
+        <label class="chk"><input type="checkbox" value="Kecantikan"> Kecantikan</label>
+        <label class="chk"><input type="checkbox" value="Pertanian"> Pertanian</label>
+        <label class="chk"><input type="checkbox" value="Dapur"> Dapur</label>
+        <label class="chk"><input type="checkbox" value="Lelaki"> Lelaki</label>
+        <label class="chk"><input type="checkbox" value="Wanita"> Wanita</label>
+        <label class="chk"><input type="checkbox" value="Sukan"> Sukan</label>
+        <label class="chk"><input type="checkbox" value="Elektrik"> Elektrik</label>
+        <label class="chk"><input type="checkbox" value="Tumbuhan"> Tumbuhan</label>
+      </div>
+      <input type="text" id="kategoriLain" placeholder="Kategori lain (pisah dengan koma)" style="margin-top:10px;">
+      <p class="hint">Tanda mana-mana berkaitan. Kategori yang tiada dalam senarai boleh taip kat ruang atas (pisah dengan koma).</p>
 
       <label>Badge</label>
-      <input type="text" id="badge" placeholder="Hot / Viral">
+      <select id="badge">
+        <option value="">Tiada</option>
+        <option value="Hot">Hot</option>
+        <option value="Viral">Viral</option>
+        <option value="Terlaris">Terlaris</option>
+        <option value="Mantap">Mantap</option>
+        <option value="__lain__">Lain (taip sendiri)</option>
+      </select>
+      <input type="text" id="badgeLain" placeholder="Taip badge baru" style="display:none; margin-top:8px;">
 
       <label>Gambar produk</label>
       <div class="upload-box">
@@ -199,6 +220,14 @@
     const preview = document.getElementById("preview");
     const uploadStatus = document.getElementById("uploadStatus");
     const gambarInput = document.getElementById("gambar");
+    const badgeSelect = document.getElementById("badge");
+    const badgeLain = document.getElementById("badgeLain");
+
+    // Tunjuk/sorok ruang "taip sendiri" ikut pilihan badge
+    badgeSelect.addEventListener("change", () => {
+      badgeLain.style.display = badgeSelect.value === "__lain__" ? "block" : "none";
+      if (badgeSelect.value === "__lain__") badgeLain.focus();
+    });
 
     fileInput.addEventListener("change", async () => {
       const file = fileInput.files[0];
@@ -237,6 +266,25 @@
       btn.disabled = false;
     });
 
+    function ambilKategoriGabungan() {
+      const dipilih = Array.from(
+        document.querySelectorAll('#kategoriGrid input[type="checkbox"]:checked')
+      ).map(c => c.value);
+
+      const lain = document.getElementById("kategoriLain").value.trim();
+      if (lain) {
+        lain.split(",").map(s => s.trim()).filter(Boolean).forEach(k => {
+          if (!dipilih.includes(k)) dipilih.push(k);
+        });
+      }
+      return dipilih.join(", ");
+    }
+
+    function ambilBadge() {
+      if (badgeSelect.value === "__lain__") return badgeLain.value.trim();
+      return badgeSelect.value;
+    }
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       msg.className = "msg";
@@ -250,8 +298,8 @@
         nama: document.getElementById("nama").value.trim(),
         harga: document.getElementById("harga").value.trim(),
         terjual: document.getElementById("terjual").value.trim(),
-        kategori: document.getElementById("kategori").value.trim(),
-        badge: document.getElementById("badge").value.trim(),
+        kategori: ambilKategoriGabungan(),
+        badge: ambilBadge(),
         gambar: document.getElementById("gambar").value.trim(),
         tiktok: document.getElementById("tiktok").value.trim(),
         shopee: document.getElementById("shopee").value.trim(),
@@ -272,16 +320,18 @@
           form.reset();
           preview.style.display = "none";
           uploadStatus.textContent = "";
+          badgeLain.style.display = "none";
         } else {
           msg.className = "msg err";
           msg.textContent = "❌ " + (data.message || "Gagal");
         }
       } catch (err) {
-        msg.className = "msg ok";
-        msg.textContent = "✅ Dihantar. Sila semak sheet PRODUK.";
-        form.reset();
-        preview.style.display = "none";
-        uploadStatus.textContent = "";
+        // Tak dapat baca respons (contoh: isu rangkaian/CORS) — TAK bermakna
+        // semestinya gagal, tapi kita juga tak boleh confirm ia berjaya.
+        // Borang SENGAJA tidak di-reset supaya data tak hilang kalau perlu hantar semula.
+        console.error(err);
+        msg.className = "msg warn";
+        msg.textContent = "⚠️ Tidak dapat sahkan status penghantaran. Sila semak sheet PRODUK — kalau produk belum masuk, cuba hantar semula.";
       }
 
       btn.disabled = false;
