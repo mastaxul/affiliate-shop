@@ -283,16 +283,22 @@
   // Optional: respond to SKIP_WAITING in sw if extended later
   // For now reload on Update button is enough.
 
-  function init() {
-    renderAll();
-    bindToolClicks(document);
-    setupNav();
-    setupInstall();
-    setupIosModal();
-    setupOnlineStatus();
-    setupSettings();
-    registerSW();
-  }
+  function setupNav() {
+  $$(".nav-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const page = btn.dataset.nav;
+
+      // Home → ke laman utama website
+      if (page === "home") {
+        window.location.href = "https://www.mastaxul.my/";
+        return;
+      }
+
+      // Tools, Favorites, Settings → kekal dalam app
+      showPage(page);
+    });
+  });
+}
 
   document.addEventListener("DOMContentLoaded", init);
 })();
