@@ -29,7 +29,8 @@
 
   function isIosSafari() {
     const ua = navigator.userAgent || "";
-    const isIOS = /iPad|iPhone|iPod/.test(ua) ||
+    const isIOS =
+      /iPad|iPhone|iPod/.test(ua) ||
       (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
     const isSafari = /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS|Chrome/.test(ua);
     return isIOS && (isSafari || isIOS);
@@ -37,6 +38,7 @@
 
   function showToast(text, type) {
     const el = $("#toast");
+    if (!el) return;
     el.hidden = false;
     el.textContent = text;
     el.className = "toast" + (type ? " " + type : "");
@@ -68,9 +70,28 @@
   }
 
   function openTool(id) {
-    // Hook untuk fungsi sebenar kemudian
-    showToast(TOOLS.find((t) => t.id === id)?.name + " — coming soon");
-    // location.hash = "#tool/" + id;
+    // Tukar URL di sini bila tool sudah siap
+    const links = {
+      resit: "",
+      invoice: "",
+      minit: "",
+      surat: "",
+      kad: "",
+      qr: "",
+      electrical: "",
+      sawah: "",
+      affiliate: "https://www.mastaxul.my/shop/",
+      ai: ""
+    };
+
+    const url = links[id];
+    if (url) {
+      window.location.href = url;
+      return;
+    }
+
+    const tool = TOOLS.find((t) => t.id === id);
+    showToast((tool ? tool.name : "Tool") + " — coming soon");
   }
 
   function cardHTML(tool) {
@@ -123,25 +144,26 @@
   }
 
   function setupNav() {
-  $$(".nav-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const page = btn.dataset.nav;
+    $$(".nav-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const page = btn.dataset.nav;
 
-      // Home → ke laman utama website
-      if (page === "home") {
-        window.location.href = "https://www.mastaxul.my/";
-        return;
-      }
+        // Home → laman utama website
+        if (page === "home") {
+          window.location.href = "https://www.mastaxul.my/";
+          return;
+        }
 
-      // Tools, Favorites, Settings → kekal dalam app
-      showPage(page);
+        // Tools, Favorites, Settings → kekal dalam app
+        showPage(page);
+      });
     });
-  });
-}
+  }
 
   function setupInstall() {
     const btn = $("#btnInstall");
     const badge = $("#appBadge");
+    if (!btn || !badge) return;
 
     if (isStandalone()) {
       btn.hidden = true;
@@ -164,7 +186,6 @@
       showToast("✓ MastaXul dipasang");
     });
 
-    // iOS / browser tanpa beforeinstallprompt: tunjuk butang juga
     if (isIosSafari()) {
       btn.hidden = false;
     }
@@ -183,26 +204,32 @@
         openIosModal();
         return;
       }
-      // Browser lain tanpa prompt
       showToast("Guna menu browser → Install / Add to Home Screen");
     });
   }
 
   function openIosModal() {
     const modal = $("#iosModal");
+    if (!modal) return;
     modal.hidden = false;
-    $("#btnIosOk").focus();
+    const ok = $("#btnIosOk");
+    if (ok) ok.focus();
   }
 
   function closeIosModal() {
-    $("#iosModal").hidden = true;
+    const modal = $("#iosModal");
+    if (modal) modal.hidden = true;
   }
 
   function setupIosModal() {
-    $("#btnIosOk").addEventListener("click", closeIosModal);
-    $("#iosModal").addEventListener("click", (e) => {
-      if (e.target.hasAttribute("data-close-modal")) closeIosModal();
-    });
+    const ok = $("#btnIosOk");
+    const modal = $("#iosModal");
+    if (ok) ok.addEventListener("click", closeIosModal);
+    if (modal) {
+      modal.addEventListener("click", (e) => {
+        if (e.target.hasAttribute("data-close-modal")) closeIosModal();
+      });
+    }
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeIosModal();
     });
@@ -219,6 +246,8 @@
 
   function setupSettings() {
     const toggle = $("#toggleDark");
+    if (!toggle) return;
+
     const saved = localStorage.getItem("mx_theme");
     if (saved === "light") {
       document.documentElement.setAttribute("data-theme", "light");
@@ -238,11 +267,14 @@
       }
     });
 
-    $("#btnClearFav").addEventListener("click", () => {
-      setFavorites([]);
-      renderAll();
-      showToast("Favorites dikosongkan");
-    });
+    const clearBtn = $("#btnClearFav");
+    if (clearBtn) {
+      clearBtn.addEventListener("click", () => {
+        setFavorites([]);
+        renderAll();
+        showToast("Favorites dikosongkan");
+      });
+    }
   }
 
   function registerSW() {
@@ -256,23 +288,27 @@
           if (!worker) return;
           worker.addEventListener("statechange", () => {
             if (worker.state === "installed" && navigator.serviceWorker.controller) {
-              $("#updateBanner").hidden = false;
+              const banner = $("#updateBanner");
+              if (banner) banner.hidden = false;
             }
           });
         });
       })
       .catch((err) => console.warn("SW gagal:", err));
 
-    $("#btnUpdate").addEventListener("click", () => {
-      if (refreshing) return;
-      refreshing = true;
-      navigator.serviceWorker.getRegistration().then((reg) => {
-        if (reg && reg.waiting) {
-          reg.waiting.postMessage({ type: "SKIP_WAITING" });
-        }
-        window.location.reload();
+    const btnUpdate = $("#btnUpdate");
+    if (btnUpdate) {
+      btnUpdate.addEventListener("click", () => {
+        if (refreshing) return;
+        refreshing = true;
+        navigator.serviceWorker.getRegistration().then((reg) => {
+          if (reg && reg.waiting) {
+            reg.waiting.postMessage({ type: "SKIP_WAITING" });
+          }
+          window.location.reload();
+        });
       });
-    });
+    }
 
     navigator.serviceWorker.addEventListener("controllerchange", () => {
       if (refreshing) return;
@@ -280,25 +316,19 @@
     });
   }
 
-  // Optional: respond to SKIP_WAITING in sw if extended later
-  // For now reload on Update button is enough.
+  function init() {
+    renderAll();
+    bindToolClicks(document);
+    setupNav();
+    setupInstall();
+    setupIosModal();
+    setupOnlineStatus();
+    setupSettings();
+    registerSW();
 
-  function setupNav() {
-  $$(".nav-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const page = btn.dataset.nav;
-
-      // Home → ke laman utama website
-      if (page === "home") {
-        window.location.href = "https://www.mastaxul.my/";
-        return;
-      }
-
-      // Tools, Favorites, Settings → kekal dalam app
-      showPage(page);
-    });
-  });
-}
+    // Mula pada tab Tools
+    showPage("tools");
+  }
 
   document.addEventListener("DOMContentLoaded", init);
 })();
