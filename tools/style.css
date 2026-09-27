@@ -479,3 +479,29 @@ body {
 .page[hidden] {
   display: none !important;
 }
+
+<section id="page-home" class="page" data-page="home" hidden>
+  <div class="viewer-wrap">
+    <iframe
+      id="homeFrame"
+      class="viewer-frame"
+      title="MastaXul Home"
+      src="about:blank"
+    ></iframe>
+  </div>
+</section>
+
+<section id="page-viewer" class="page" data-page="viewer" hidden>
+  <div class="viewer-bar">
+    <button type="button" id="btnViewerBack" class="btn-viewer-back">← Kembali</button>
+    <span id="viewerTitle" class="viewer-title">Tool</span>
+  </div>
+  <div class="viewer-wrap">
+    <iframe
+      id="toolFrame"
+      class="viewer-frame"
+      title="Tool"
+      src="about:blank"
+    ></iframe>
+  </div>
+</section>
