@@ -97,6 +97,12 @@
       margin-top: 8px;
       color: #6B4423;
     }
+    .ocr-status {
+      font-size: 0.85rem;
+      margin-top: 6px;
+      color: #0088cc;
+      font-weight: 600;
+    }
     .checkbox-grid {
       display: flex;
       flex-wrap: wrap;
@@ -122,6 +128,7 @@
       accent-color: #D32F2F;
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 </head>
 <body>
 
@@ -130,6 +137,18 @@
     <p class="sub">Tambah produk · Upload gambar ImgBB</p>
 
     <form id="formProduk">
+      <label>Gambar produk</label>
+      <div class="upload-box">
+        <input type="file" id="fileGambar" accept="image/*">
+        <p class="hint">Pilih gambar → auto upload ke ImgBB + baca teks (OCR) untuk cadangan nama/badge/deskripsi</p>
+        <p class="upload-status" id="uploadStatus"></p>
+        <p class="ocr-status" id="ocrStatus"></p>
+        <img id="preview" class="preview" alt="Preview">
+      </div>
+
+      <label>Link gambar (auto / manual)</label>
+      <input type="url" id="gambar" placeholder="Akan diisi automatik selepas upload">
+
       <label>Password admin *</label>
       <input type="password" id="password" required placeholder="Password" autocomplete="off">
 
@@ -137,7 +156,7 @@
       <input type="text" id="id" placeholder="Contoh: 31">
 
       <label>Nama produk *</label>
-      <input type="text" id="nama" required placeholder="Nama produk">
+      <input type="text" id="nama" required placeholder="Nama produk (atau biar OCR cadangkan)">
 
       <div class="row">
         <div>
@@ -179,17 +198,6 @@
       </select>
       <input type="text" id="badgeLain" placeholder="Taip badge baru" style="display:none; margin-top:8px;">
 
-      <label>Gambar produk</label>
-      <div class="upload-box">
-        <input type="file" id="fileGambar" accept="image/*">
-        <p class="hint">Pilih gambar → auto upload ke ImgBB</p>
-        <p class="upload-status" id="uploadStatus"></p>
-        <img id="preview" class="preview" alt="Preview">
-      </div>
-
-      <label>Link gambar (auto / manual)</label>
-      <input type="url" id="gambar" placeholder="Akan diisi automatik selepas upload">
-
       <label>Link TikTok</label>
       <input type="url" id="tiktok" placeholder="https://...">
 
@@ -200,7 +208,7 @@
       <input type="url" id="lazada" placeholder="https://...">
 
       <label>Deskripsi</label>
-      <textarea id="deskripsi" placeholder="Penerangan produk..."></textarea>
+      <textarea id="deskripsi" placeholder="Penerangan produk... (atau biar OCR cadangkan draf)"></textarea>
 
       <button type="submit" id="btnSubmit">Tambah Produk</button>
     </form>
@@ -222,12 +230,78 @@
     const gambarInput = document.getElementById("gambar");
     const badgeSelect = document.getElementById("badge");
     const badgeLain = document.getElementById("badgeLain");
+    const ocrStatus = document.getElementById("ocrStatus");
+    const namaInput = document.getElementById("nama");
+    const deskripsiInput = document.getElementById("deskripsi");
 
     // Tunjuk/sorok ruang "taip sendiri" ikut pilihan badge
     badgeSelect.addEventListener("change", () => {
       badgeLain.style.display = badgeSelect.value === "__lain__" ? "block" : "none";
       if (badgeSelect.value === "__lain__") badgeLain.focus();
     });
+
+    // ===== OCR: baca teks dari gambar, cadangkan nama/badge/deskripsi =====
+    // Heuristik ringkas: baris dengan font PALING BESAR dianggap nama produk
+    // (biasa nama/brand ditulis paling besar pada kotak). Baki teks jadi draf
+    // deskripsi. Cari kata kunci untuk cadangan badge. Kategori TIDAK cuba
+    // diteka — kotak produk jarang tulis terus nama kategori e-commerce.
+    async function jalankanOCR(file) {
+      ocrStatus.textContent = "🔍 Membaca teks dari gambar (OCR)... mungkin ambil beberapa saat";
+      try {
+        const worker = await Tesseract.createWorker("eng+msa");
+        const { data } = await worker.recognize(file);
+        await worker.terminate();
+
+        const baris = (data.lines || [])
+          .map(l => ({ text: (l.text || "").trim(), height: l.bbox ? (l.bbox.y1 - l.bbox.y0) : 0 }))
+          .filter(l => l.text.length > 1);
+
+        if (baris.length === 0) {
+          ocrStatus.textContent = "ℹ️ Tiada teks dikesan dalam gambar — sila isi manual.";
+          return;
+        }
+
+        // Baris paling besar = cadangan nama produk
+        const barisTerbesar = baris.reduce((a, b) => (b.height > a.height ? b : a));
+
+        // Isi nama HANYA kalau field masih kosong (elak overwrite apa yang admin dah taip)
+        if (!namaInput.value.trim()) {
+          namaInput.value = barisTerbesar.text;
+        }
+
+        // Baki baris jadi draf deskripsi
+        const bakiText = baris
+          .filter(l => l !== barisTerbesar)
+          .map(l => l.text)
+          .join("\n");
+        if (!deskripsiInput.value.trim() && bakiText) {
+          deskripsiInput.value = bakiText;
+        }
+
+        // Cari kata kunci badge
+        const semuaText = baris.map(l => l.text).join(" ").toLowerCase();
+        const petaBadge = [
+          ["viral", "Viral"],
+          ["best seller", "Terlaris"],
+          ["terlaris", "Terlaris"],
+          ["hot", "Hot"],
+          ["mantap", "Mantap"]
+        ];
+        if (!badgeSelect.value) {
+          for (const [kw, val] of petaBadge) {
+            if (semuaText.includes(kw)) {
+              badgeSelect.value = val;
+              break;
+            }
+          }
+        }
+
+        ocrStatus.textContent = "✅ OCR siap — sila semak & edit cadangan nama/deskripsi/badge sebelum hantar.";
+      } catch (err) {
+        console.error("OCR gagal:", err);
+        ocrStatus.textContent = "⚠️ OCR gagal jalan — sila isi nama/deskripsi/badge manual.";
+      }
+    }
 
     fileInput.addEventListener("change", async () => {
       const file = fileInput.files[0];
@@ -238,31 +312,38 @@
       preview.style.display = "block";
 
       uploadStatus.textContent = "⏳ Sedang upload ke ImgBB...";
+      ocrStatus.textContent = "";
       btn.disabled = true;
 
-      try {
-        const formData = new FormData();
-        formData.append("image", file);
+      // Upload ImgBB dan OCR jalan SERENTAK (tak tunggu satu sama lain)
+      const uploadPromise = (async () => {
+        try {
+          const formData = new FormData();
+          formData.append("image", file);
 
-        const res = await fetch("https://api.imgbb.com/1/upload?key=" + IMGBB_API_KEY, {
-          method: "POST",
-          body: formData
-        });
+          const res = await fetch("https://api.imgbb.com/1/upload?key=" + IMGBB_API_KEY, {
+            method: "POST",
+            body: formData
+          });
 
-        const data = await res.json();
+          const data = await res.json();
 
-        if (data.success && data.data && data.data.url) {
-          gambarInput.value = data.data.url;
-          uploadStatus.textContent = "✅ Upload berjaya";
-        } else {
-          uploadStatus.textContent = "❌ Upload gagal. Cuba lagi / paste link manual.";
-          console.log(data);
+          if (data.success && data.data && data.data.url) {
+            gambarInput.value = data.data.url;
+            uploadStatus.textContent = "✅ Upload berjaya";
+          } else {
+            uploadStatus.textContent = "❌ Upload gagal. Cuba lagi / paste link manual.";
+            console.log(data);
+          }
+        } catch (err) {
+          console.error(err);
+          uploadStatus.textContent = "❌ Ralat upload. Paste link manual jika perlu.";
         }
-      } catch (err) {
-        console.error(err);
-        uploadStatus.textContent = "❌ Ralat upload. Paste link manual jika perlu.";
-      }
+      })();
 
+      const ocrPromise = jalankanOCR(file);
+
+      await Promise.all([uploadPromise, ocrPromise]);
       btn.disabled = false;
     });
 
@@ -316,11 +397,21 @@
 
         if (data.ok) {
           msg.className = "msg ok";
-          msg.textContent = "✅ " + data.message + " (ID: " + data.id + ")";
+          msg.textContent = "✅ " + data.message + " (ID: " + data.id + ") — menyegerak cache...";
           form.reset();
           preview.style.display = "none";
           uploadStatus.textContent = "";
+          ocrStatus.textContent = "";
           badgeLain.style.display = "none";
+
+          // Auto-sync ke Cloudflare KV supaya produk terus muncul tanpa tunggu cron 10 minit
+          try {
+            await fetch("/api/produk/refresh");
+            msg.textContent = "✅ " + data.message + " (ID: " + data.id + ") — cache disegerak, boleh terus share!";
+          } catch (refreshErr) {
+            console.error("Refresh cache gagal:", refreshErr);
+            msg.textContent = "✅ " + data.message + " (ID: " + data.id + ") — tapi cache gagal disegerak automatik, produk akan muncul dalam ~10 minit.";
+          }
         } else {
           msg.className = "msg err";
           msg.textContent = "❌ " + (data.message || "Gagal");
