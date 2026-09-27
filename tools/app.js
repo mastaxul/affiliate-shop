@@ -14,6 +14,20 @@
     { id: "ai", emoji: "🤖", name: "AI Tools" }
   ];
 
+  // Link tool — kosong = coming soon
+  const TOOL_LINKS = {
+    resit: "",
+    invoice: "",
+    minit: "",
+    surat: "",
+    kad: "",
+    qr: "",
+    electrical: "",
+    sawah: "",
+    affiliate: "https://www.mastaxul.my/shop/",
+    ai: ""
+  };
+
   const $ = (sel) => document.querySelector(sel);
   const $$ = (sel) => Array.from(document.querySelectorAll(sel));
 
@@ -70,27 +84,18 @@
   }
 
   function openTool(id) {
-    // Tukar URL di sini bila tool sudah siap
-    const links = {
-      resit: "",
-      invoice: "",
-      minit: "",
-      surat: "",
-      kad: "",
-      qr: "",
-      electrical: "",
-      sawah: "",
-      affiliate: "https://www.mastaxul.my/shop/",
-      ai: ""
-    };
+    const url = TOOL_LINKS[id];
+    const tool = TOOLS.find((t) => t.id === id);
 
-    const url = links[id];
     if (url) {
-      window.location.href = url;
+      const frame = $("#toolFrame");
+      const title = $("#viewerTitle");
+      if (frame) frame.src = url;
+      if (title) title.textContent = tool ? tool.name : "Tool";
+      showPage("viewer");
       return;
     }
 
-    const tool = TOOLS.find((t) => t.id === id);
     showToast((tool ? tool.name : "Tool") + " — coming soon");
   }
 
@@ -139,7 +144,9 @@
       p.classList.toggle("active", on);
     });
     $$(".nav-btn").forEach((b) => {
-      b.classList.toggle("active", b.dataset.nav === name);
+      // Viewer bukan tab — highlight Tools
+      const navName = name === "viewer" ? "tools" : name;
+      b.classList.toggle("active", b.dataset.nav === navName);
     });
   }
 
@@ -148,15 +155,31 @@
       btn.addEventListener("click", () => {
         const page = btn.dataset.nav;
 
-        // Home → laman utama website
+        // Home → papar homepage dalam iframe (menu bawah kekal)
         if (page === "home") {
-          window.location.href = "https://www.mastaxul.my/";
+          const frame = $("#homeFrame");
+          if (frame) {
+            const current = frame.getAttribute("src") || "";
+            if (!current.includes("mastaxul.my")) {
+              frame.src = "https://www.mastaxul.my/";
+            }
+          }
+          showPage("home");
           return;
         }
 
-        // Tools, Favorites, Settings → kekal dalam app
         showPage(page);
       });
+    });
+  }
+
+  function setupViewerBack() {
+    const back = $("#btnViewerBack");
+    if (!back) return;
+    back.addEventListener("click", () => {
+      const frame = $("#toolFrame");
+      if (frame) frame.src = "about:blank";
+      showPage("tools");
     });
   }
 
@@ -320,6 +343,7 @@
     renderAll();
     bindToolClicks(document);
     setupNav();
+    setupViewerBack();
     setupInstall();
     setupIosModal();
     setupOnlineStatus();
