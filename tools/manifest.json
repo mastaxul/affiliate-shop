@@ -3,7 +3,7 @@
   "short_name": "MastaXul",
   "description": "Tools digital mudah untuk kerja harian",
   "start_url": "/tools/",
-  "scope": "/tools/",
+  "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "theme_color": "#111111",
