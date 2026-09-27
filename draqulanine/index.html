@@ -128,7 +128,6 @@
       accent-color: #D32F2F;
     }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 </head>
 <body>
 
@@ -218,7 +217,6 @@
   </div>
 
   <script>
-    const IMGBB_API_KEY = "2f15c5f61169e03e49246930bcecbfc8";
     const API_URL = "https://script.google.com/macros/s/AKfycbx5tijI4QHYTNap-YEN5i9-ZGfDIZ1IcGqUsZNi32s9gtOT9sIV0GcsUPzPka4srYujRA/exec";
 
     const form = document.getElementById("formProduk");
@@ -240,66 +238,62 @@
       if (badgeSelect.value === "__lain__") badgeLain.focus();
     });
 
-    // ===== OCR: baca teks dari gambar, cadangkan nama/badge/deskripsi =====
-    // Heuristik ringkas: baris dengan font PALING BESAR dianggap nama produk
-    // (biasa nama/brand ditulis paling besar pada kotak). Baki teks jadi draf
-    // deskripsi. Cari kata kunci untuk cadangan badge. Kategori TIDAK cuba
-    // diteka — kotak produk jarang tulis terus nama kategori e-commerce.
+    // Tukar File jadi base64 (untuk hantar ke Gemini melalui Worker)
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const base64 = reader.result.split(",")[1];
+          resolve({ base64, mimeType: file.type || "image/jpeg" });
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // ===== OCR/Analisis AI: hantar gambar ke Worker (yang panggil Gemini dengan
+    // API key tersembunyi), dapatkan cadangan nama/badge/kategori/deskripsi =====
     async function jalankanOCR(file) {
-      ocrStatus.textContent = "🔍 Membaca teks dari gambar (OCR)... mungkin ambil beberapa saat";
+      ocrStatus.textContent = "🔍 Menganalisis gambar dengan AI... mungkin ambil beberapa saat";
       try {
-        const worker = await Tesseract.createWorker("eng+msa");
-        const { data } = await worker.recognize(file);
-        await worker.terminate();
+        const { base64, mimeType } = await fileToBase64(file);
 
-        const baris = (data.lines || [])
-          .map(l => ({ text: (l.text || "").trim(), height: l.bbox ? (l.bbox.y1 - l.bbox.y0) : 0 }))
-          .filter(l => l.text.length > 1);
+        const res = await fetch("/api/ocr-gemini", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ imageBase64: base64, mimeType })
+        });
+        const result = await res.json();
 
-        if (baris.length === 0) {
-          ocrStatus.textContent = "ℹ️ Tiada teks dikesan dalam gambar — sila isi manual.";
+        if (!result.ok || !result.data) {
+          ocrStatus.textContent = "⚠️ AI tak dapat analisis gambar — sila isi manual.";
           return;
         }
 
-        // Baris paling besar = cadangan nama produk
-        const barisTerbesar = baris.reduce((a, b) => (b.height > a.height ? b : a));
+        const cadangan = result.data;
 
-        // Isi nama HANYA kalau field masih kosong (elak overwrite apa yang admin dah taip)
-        if (!namaInput.value.trim()) {
-          namaInput.value = barisTerbesar.text;
+        // Isi field HANYA kalau masih kosong (elak overwrite apa yang admin dah taip)
+        if (!namaInput.value.trim() && cadangan.nama) {
+          namaInput.value = cadangan.nama;
+        }
+        if (!deskripsiInput.value.trim() && cadangan.deskripsi) {
+          deskripsiInput.value = cadangan.deskripsi;
+        }
+        if (!badgeSelect.value && cadangan.badge) {
+          const adaOption = Array.from(badgeSelect.options).some(o => o.value === cadangan.badge);
+          if (adaOption) badgeSelect.value = cadangan.badge;
+        }
+        if (cadangan.kategori_cadangan) {
+          const checkbox = document.querySelector(
+            '#kategoriGrid input[value="' + cadangan.kategori_cadangan.replace(/"/g, '') + '"]'
+          );
+          if (checkbox && !checkbox.checked) checkbox.checked = true;
         }
 
-        // Baki baris jadi draf deskripsi
-        const bakiText = baris
-          .filter(l => l !== barisTerbesar)
-          .map(l => l.text)
-          .join("\n");
-        if (!deskripsiInput.value.trim() && bakiText) {
-          deskripsiInput.value = bakiText;
-        }
-
-        // Cari kata kunci badge
-        const semuaText = baris.map(l => l.text).join(" ").toLowerCase();
-        const petaBadge = [
-          ["viral", "Viral"],
-          ["best seller", "Terlaris"],
-          ["terlaris", "Terlaris"],
-          ["hot", "Hot"],
-          ["mantap", "Mantap"]
-        ];
-        if (!badgeSelect.value) {
-          for (const [kw, val] of petaBadge) {
-            if (semuaText.includes(kw)) {
-              badgeSelect.value = val;
-              break;
-            }
-          }
-        }
-
-        ocrStatus.textContent = "✅ OCR siap — sila semak & edit cadangan nama/deskripsi/badge sebelum hantar.";
+        ocrStatus.textContent = "✅ Analisis AI siap — sila semak & edit cadangan sebelum hantar.";
       } catch (err) {
-        console.error("OCR gagal:", err);
-        ocrStatus.textContent = "⚠️ OCR gagal jalan — sila isi nama/deskripsi/badge manual.";
+        console.error("OCR Gemini gagal:", err);
+        ocrStatus.textContent = "⚠️ Analisis AI gagal jalan — sila isi manual.";
       }
     }
 
@@ -311,25 +305,24 @@
       preview.src = localURL;
       preview.style.display = "block";
 
-      uploadStatus.textContent = "⏳ Sedang upload ke ImgBB...";
+      uploadStatus.textContent = "⏳ Sedang upload gambar...";
       ocrStatus.textContent = "";
       btn.disabled = true;
 
-      // Upload ImgBB dan OCR jalan SERENTAK (tak tunggu satu sama lain)
+      // Upload gambar dan analisis AI jalan SERENTAK (tak tunggu satu sama lain)
       const uploadPromise = (async () => {
         try {
           const formData = new FormData();
           formData.append("image", file);
 
-          const res = await fetch("https://api.imgbb.com/1/upload?key=" + IMGBB_API_KEY, {
+          const res = await fetch("/api/upload-gambar", {
             method: "POST",
             body: formData
           });
-
           const data = await res.json();
 
-          if (data.success && data.data && data.data.url) {
-            gambarInput.value = data.data.url;
+          if (data.success && data.url) {
+            gambarInput.value = data.url;
             uploadStatus.textContent = "✅ Upload berjaya";
           } else {
             uploadStatus.textContent = "❌ Upload gagal. Cuba lagi / paste link manual.";
