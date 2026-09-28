@@ -136,10 +136,13 @@
     <p class="sub">Tambah produk · Upload gambar ImgBB</p>
 
     <form id="formProduk">
+      <label>Password admin *</label>
+      <input type="password" id="password" required placeholder="Isi dulu sebelum upload gambar" autocomplete="off">
+
       <label>Gambar produk</label>
       <div class="upload-box">
         <input type="file" id="fileGambar" accept="image/*">
-        <p class="hint">Pilih gambar → auto upload ke ImgBB + baca teks (OCR) untuk cadangan nama/badge/deskripsi</p>
+        <p class="hint">Isi password dulu → pilih gambar → auto upload + analisis AI untuk cadangan nama/badge/kategori/deskripsi</p>
         <p class="upload-status" id="uploadStatus"></p>
         <p class="ocr-status" id="ocrStatus"></p>
         <img id="preview" class="preview" alt="Preview">
@@ -147,9 +150,6 @@
 
       <label>Link gambar (auto / manual)</label>
       <input type="url" id="gambar" placeholder="Akan diisi automatik selepas upload">
-
-      <label>Password admin *</label>
-      <input type="password" id="password" required placeholder="Password" autocomplete="off">
 
       <label>ID (kosongkan = auto)</label>
       <input type="text" id="id" placeholder="Contoh: 31">
@@ -253,7 +253,7 @@
 
     // ===== OCR/Analisis AI: hantar gambar ke Worker (yang panggil Gemini dengan
     // API key tersembunyi), dapatkan cadangan nama/badge/kategori/deskripsi =====
-    async function jalankanOCR(file) {
+    async function jalankanOCR(file, password) {
       ocrStatus.textContent = "🔍 Menganalisis gambar dengan AI... mungkin ambil beberapa saat";
       try {
         const { base64, mimeType } = await fileToBase64(file);
@@ -261,10 +261,14 @@
         const res = await fetch("/api/ocr-gemini", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ imageBase64: base64, mimeType })
+          body: JSON.stringify({ password, imageBase64: base64, mimeType })
         });
         const result = await res.json();
 
+        if (res.status === 401) {
+          ocrStatus.textContent = "❌ Password salah — analisis AI tak dijalankan.";
+          return;
+        }
         if (!result.ok || !result.data) {
           ocrStatus.textContent = "⚠️ AI tak dapat analisis gambar — sila isi manual.";
           return;
@@ -301,6 +305,14 @@
       const file = fileInput.files[0];
       if (!file) return;
 
+      // Password wajib diisi DULU — Worker tolak upload/OCR tanpa password betul
+      const password = document.getElementById("password").value.trim();
+      if (!password) {
+        uploadStatus.textContent = "🔒 Sila isi password admin dulu, kemudian pilih gambar semula.";
+        fileInput.value = "";
+        return;
+      }
+
       const localURL = URL.createObjectURL(file);
       preview.src = localURL;
       preview.style.display = "block";
@@ -313,6 +325,7 @@
       const uploadPromise = (async () => {
         try {
           const formData = new FormData();
+          formData.append("password", password);
           formData.append("image", file);
 
           const res = await fetch("/api/upload-gambar", {
@@ -321,7 +334,9 @@
           });
           const data = await res.json();
 
-          if (data.success && data.url) {
+          if (res.status === 401) {
+            uploadStatus.textContent = "❌ Password salah — gambar tak dimuat naik.";
+          } else if (data.success && data.url) {
             gambarInput.value = data.url;
             uploadStatus.textContent = "✅ Upload berjaya";
           } else {
@@ -334,7 +349,7 @@
         }
       })();
 
-      const ocrPromise = jalankanOCR(file);
+      const ocrPromise = jalankanOCR(file, password);
 
       await Promise.all([uploadPromise, ocrPromise]);
       btn.disabled = false;
@@ -391,7 +406,10 @@
         if (data.ok) {
           msg.className = "msg ok";
           msg.textContent = "✅ " + data.message + " (ID: " + data.id + ") — menyegerak cache...";
+          const passwordAsal = payload.password;
           form.reset();
+          // Kekalkan password dalam borang — perlu untuk upload/OCR produk seterusnya
+          document.getElementById("password").value = passwordAsal;
           preview.style.display = "none";
           uploadStatus.textContent = "";
           ocrStatus.textContent = "";
@@ -399,7 +417,10 @@
 
           // Auto-sync ke Cloudflare KV supaya produk terus muncul tanpa tunggu cron 10 minit
           try {
-            await fetch("/api/produk/refresh");
+            const refreshRes = await fetch("/api/produk/refresh", {
+              headers: { "X-Admin-Pass": passwordAsal }
+            });
+            if (!refreshRes.ok) throw new Error("Refresh status " + refreshRes.status);
             msg.textContent = "✅ " + data.message + " (ID: " + data.id + ") — cache disegerak, boleh terus share!";
           } catch (refreshErr) {
             console.error("Refresh cache gagal:", refreshErr);
