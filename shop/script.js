@@ -13,20 +13,23 @@ let currentPage = 1;
 const produkPerPage = 20;
 
 // ========== SHARE PRODUK ==========
-function shareProduk(nama, harga, platform = "other") {
-  const teks = `🔥 ${nama}\nHarga: RM ${harga}\n\nLihat produk ni di Masta Xul Affiliate Shop:\n${WEBSITE_URL}`;
+// Kongsi pautan halaman produk (produk.html?id=...) — sama seperti butang kongsi di
+// halaman detail — supaya preview WhatsApp/FB/Telegram papar gambar & nama produk itu.
+function shareProduk(id, nama, harga, platform = "other") {
+  const linkProduk = WEBSITE_URL + "produk.html?id=" + encodeURIComponent(id);
+  const teks = `🔥 ${nama}\nHarga: RM ${harga}\n\nLihat produk:\n${linkProduk}`;
   const encoded = encodeURIComponent(teks);
 
   if (platform === "whatsapp") {
     window.open(`https://wa.me/?text=${encoded}`, "_blank");
   } else if (platform === "telegram") {
     window.open(
-      `https://t.me/share/url?url=${encodeURIComponent(WEBSITE_URL)}&text=${encoded}`,
+      `https://t.me/share/url?url=${encodeURIComponent(linkProduk)}&text=${encoded}`,
       "_blank"
     );
   } else {
     if (navigator.share) {
-      navigator.share({ title: nama, text: teks, url: WEBSITE_URL }).catch(err => console.log(err));
+      navigator.share({ title: nama, text: teks, url: linkProduk }).catch(err => console.log(err));
     } else {
       navigator.clipboard.writeText(teks);
       alert("Teks telah disalin!");
@@ -139,6 +142,7 @@ function paparProduk(senarai) {
     // Dua lapis escape: escJs elak JS string pecah, esc elak HTML attribute pecah
     const namaOnclick = esc(escJs(p.nama || ""));
     const hargaOnclick = esc(escJs(formatHarga(p.harga)));
+    const idOnclick = esc(escJs(p.id || ""));
     const idLink = encodeURIComponent(p.id || "");
 
     return `
@@ -159,9 +163,9 @@ function paparProduk(senarai) {
           </div>
 
           <div class="share-buttons" onclick="event.stopPropagation()">
-            <button class="btn-share btn-share-wa" onclick="shareProduk('${namaOnclick}', '${hargaOnclick}', 'whatsapp')">WhatsApp</button>
-            <button class="btn-share btn-share-telegram" onclick="shareProduk('${namaOnclick}', '${hargaOnclick}', 'telegram')">Telegram</button>
-            <button class="btn-share btn-share-other" onclick="shareProduk('${namaOnclick}', '${hargaOnclick}', 'other')">Lain</button>
+            <button class="btn-share btn-share-wa" onclick="shareProduk('${idOnclick}', '${namaOnclick}', '${hargaOnclick}', 'whatsapp')">WhatsApp</button>
+            <button class="btn-share btn-share-telegram" onclick="shareProduk('${idOnclick}', '${namaOnclick}', '${hargaOnclick}', 'telegram')">Telegram</button>
+            <button class="btn-share btn-share-other" onclick="shareProduk('${idOnclick}', '${namaOnclick}', '${hargaOnclick}', 'other')">Lain</button>
           </div>
         </div>
       </div>
