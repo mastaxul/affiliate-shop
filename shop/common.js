@@ -13,6 +13,23 @@ const API_URL = "/api/produk";
 // Pautan asas untuk kongsi produk
 const WEBSITE_URL = "https://mastaxul.my/shop/";
 
+// ========== PADAN KATEGORI ==========
+// True kalau produk masuk kategori yang dipilih pada menu.
+// Khas "Viral": padan kategori ATAU badge, sebab kebanyakan produk viral
+// ditanda melalui badge (bukan kategori).
+function padanKategori(p, kategori) {
+  const k = (kategori || "").toString().trim().toLowerCase();
+  if (!k || k === "semua") return true;
+
+  const senarai = (p.kategori || "").toString().toLowerCase().split(",").map(x => x.trim());
+  if (senarai.includes(k)) return true;
+
+  if (k === "viral") {
+    return (p.badge || "").toString().trim().toLowerCase() === "viral";
+  }
+  return false;
+}
+
 // ========== FORMAT HARGA ==========
 function formatHarga(harga) {
   if (harga === null || harga === undefined || harga === "") return "0.00";
