@@ -212,11 +212,7 @@ function filterProduk(kategori) {
   if (kategori === "Semua") {
     produkDipapar = [...semuaProduk];
   } else {
-    produkDipapar = semuaProduk.filter(p => {
-      if (!p.kategori) return false;
-      const senaraiKategori = p.kategori.toString().toLowerCase().split(",").map(k => k.trim());
-      return senaraiKategori.includes(kategori.toLowerCase());
-    });
+    produkDipapar = semuaProduk.filter(p => padanKategori(p, kategori));
   }
 
   const keyword = document.getElementById("search").value.trim();
@@ -242,11 +238,7 @@ function cariProduk() {
   let hasil = [...semuaProduk];
 
   if (kategoriAktif !== "Semua") {
-    hasil = hasil.filter(p => {
-      if (!p.kategori) return false;
-      const senaraiKategori = p.kategori.toString().toLowerCase().split(",").map(k => k.trim());
-      return senaraiKategori.includes(kategoriAktif.toLowerCase());
-    });
+    hasil = hasil.filter(p => padanKategori(p, kategoriAktif));
   }
 
   if (keyword) {
