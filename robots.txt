@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Jangan index halaman admin
+Disallow: /draqualinine/
+Disallow: /tools/kulit/
+
 Sitemap: https://mastaxul.my/sitemap.xml
