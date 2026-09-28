@@ -4,8 +4,8 @@
    Carian nama + ID | Pagination nombor
 ======================================== */
 
-const API_URL = "/api/produk";
-const WEBSITE_URL = "https://mastaxul.my/shop/";
+// Nota: API_URL, WEBSITE_URL, formatHarga(), esc(), escJs() datang dari common.js
+// (mesti dimuatkan sebelum fail ni dalam index.html)
 
 let semuaProduk = [];
 let produkDipapar = [];
@@ -46,30 +46,6 @@ window.addEventListener("scroll", () => {
     else btn.classList.remove("show");
   }
 });
-
-// ========== FORMAT HARGA ==========
-function formatHarga(harga) {
-  if (harga === null || harga === undefined || harga === "") return "0.00";
-  let clean = harga.toString().replace(/rm/gi, "").replace(/\s/g, "").replace(/,/g, ".");
-  const num = parseFloat(clean);
-  return isNaN(num) ? "0.00" : num.toFixed(2);
-}
-
-// Escape untuk teks/attribute HTML (elak XSS dari data Sheet/Form)
-function esc(str) {
-  return (str || "").toString().replace(/[&<>"']/g, c => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-  }[c]));
-}
-
-// Escape untuk letak dalam JS string literal ('...') sebelum di-esc() untuk attribute
-function escJs(str) {
-  return (str || "").toString()
-    .replace(/\\/g, "\\\\")
-    .replace(/'/g, "\\'")
-    .replace(/\n/g, "\\n")
-    .replace(/\r/g, "");
-}
 
 // ========== LOAD PRODUK ==========
 async function muatProduk(cuba = 1) {
