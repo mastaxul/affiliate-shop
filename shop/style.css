@@ -529,3 +529,67 @@ footer {
     font-size: 0.8rem;
   }
 }
+
+/* ========== HEADER BACKGROUND BERGERAK ========== */
+.shop-header {
+  position: relative;
+  overflow: hidden;
+  background-color: #111111;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 0;
+  min-height: 160px;
+}
+
+.header-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.header-bg-track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  animation: headerScroll 40s linear infinite;
+}
+
+.header-bg-track img {
+  width: 160px;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+  opacity: 0.55;
+  filter: saturate(0.9);
+}
+
+.header-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.82) 50%,
+    rgba(0, 0, 0, 0.88) 100%
+  );
+}
+
+.header-content {
+  position: relative;
+  z-index: 2;
+  padding: 20px 16px 24px;
+}
+
+@keyframes headerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Pause bila user prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  .header-bg-track {
+    animation: none;
+  }
+}
