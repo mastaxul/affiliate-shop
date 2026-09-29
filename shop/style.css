@@ -532,64 +532,97 @@ footer {
 
 /* ========== HEADER BACKGROUND BERGERAK ========== */
 .shop-header {
-  position: relative;
-  overflow: hidden;
-  background-color: #111111;
+  position: relative !important;
+  overflow: hidden !important;
+  background-color: #111111 !important;
   color: #FFFFFF;
   text-align: center;
-  padding: 0;
-  min-height: 160px;
+  padding: 0 !important;
+  height: 170px;
+  min-height: 170px;
+  max-height: 170px;
 }
 
-.header-bg {
-  position: absolute;
-  inset: 0;
+.shop-header .header-bg {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 0;
   overflow: hidden;
+  pointer-events: none;
 }
 
-.header-bg-track {
+.shop-header .header-bg-track {
   display: flex;
+  height: 170px;
   width: max-content;
-  height: 100%;
-  animation: headerScroll 40s linear infinite;
+  animation: headerScroll 45s linear infinite;
+  will-change: transform;
 }
 
-.header-bg-track img {
-  width: 160px;
-  height: 100%;
-  object-fit: cover;
+.shop-header .header-bg-track img {
+  width: 140px !important;
+  height: 170px !important;
+  max-width: 140px !important;
+  max-height: 170px !important;
+  object-fit: cover !important;
   flex-shrink: 0;
-  opacity: 0.55;
-  filter: saturate(0.9);
+  opacity: 0.5;
+  display: block;
+  border: none;
+  margin: 0;
+  padding: 0;
 }
 
-.header-overlay {
-  position: absolute;
-  inset: 0;
+.shop-header .header-overlay {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 1;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.75) 0%,
-    rgba(0, 0, 0, 0.82) 50%,
-    rgba(0, 0, 0, 0.88) 100%
-  );
+  background: rgba(0, 0, 0, 0.78);
+  pointer-events: none;
 }
 
-.header-content {
-  position: relative;
+.shop-header .header-content {
+  position: relative !important;
   z-index: 2;
-  padding: 20px 16px 24px;
+  padding: 16px 16px 18px;
+  height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.shop-header .header-top {
+  margin-bottom: 4px;
+}
+
+.shop-header .logo {
+  width: 52px;
+  height: 52px;
+}
+
+.shop-header h1 {
+  font-size: 1.25rem;
+  margin: 4px 0 2px;
+}
+
+.shop-header p {
+  font-size: 0.85rem;
+  margin: 0;
 }
 
 @keyframes headerScroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
-/* Pause bila user prefer less motion */
 @media (prefers-reduced-motion: reduce) {
-  .header-bg-track {
+  .shop-header .header-bg-track {
     animation: none;
   }
 }
