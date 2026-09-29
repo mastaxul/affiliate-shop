@@ -48,6 +48,46 @@
     }
     input:focus, textarea:focus { border-color: #D32F2F; }
     textarea { min-height: 120px; resize: vertical; }
+    .captcha-box {
+      margin-top: 16px;
+      padding: 14px;
+      border: 2px dashed #6B4423;
+      border-radius: 12px;
+      background: #faf7f4;
+    }
+    .captcha-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .captcha-q {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #111;
+    }
+    .captcha-box input {
+      max-width: 100px;
+    }
+    .captcha-refresh {
+      border: none;
+      background: #111;
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      min-height: 44px;
+    }
+    /* Honeypot — sembunyi dari manusia, bot akan isi */
+    .hp-field {
+      position: absolute;
+      left: -9999px;
+      opacity: 0;
+      height: 0;
+      overflow: hidden;
+    }
     button[type="submit"] {
       width: 100%;
       margin-top: 20px;
@@ -97,7 +137,7 @@
     <h1>Hubungi Kami</h1>
     <p class="sub">Pertanyaan, cadangan atau kerjasama</p>
 
-    <form id="formHubungi">
+    <form id="formHubungi" autocomplete="on">
       <label>Nama *</label>
       <input type="text" id="nama" required placeholder="Nama anda">
 
@@ -109,6 +149,22 @@
 
       <label>Mesej *</label>
       <textarea id="mesej" required placeholder="Tulis mesej anda di sini..."></textarea>
+
+      <!-- Honeypot anti-bot -->
+      <div class="hp-field" aria-hidden="true">
+        <label>Website</label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <!-- CAPTCHA -->
+      <div class="captcha-box">
+        <label for="captchaJawapan">CAPTCHA — berapa jumlah ini? *</label>
+        <div class="captcha-row">
+          <span class="captcha-q" id="captchaSoalan">3 + 4 = ?</span>
+          <input type="number" id="captchaJawapan" required placeholder="Jawapan" inputmode="numeric">
+          <button type="button" class="captcha-refresh" id="btnRefreshCaptcha" title="Soalan baru">↻ Baru</button>
+        </div>
+      </div>
 
       <button type="submit" id="btnHantar">Hantar Mesej</button>
     </form>
@@ -122,22 +178,47 @@
 
 <script src="../menu.js"></script>
 <script>
-  // ========== ISI URL APPS SCRIPT DI SINI ==========
   const API_URL = "https://script.google.com/macros/s/AKfycbxsWSCyKSOiEx-Syg1dGuNT21U0Qqv_4GPBiFhJgvU-t014SXvbOwKAWL4TZiQk8NJE/exec";
-  // ================================================
 
   const form = document.getElementById("formHubungi");
   const btn = document.getElementById("btnHantar");
   const msg = document.getElementById("msg");
+  const captchaSoalan = document.getElementById("captchaSoalan");
+  const captchaJawapan = document.getElementById("captchaJawapan");
+
+  let captchaA = 0;
+  let captchaB = 0;
+
+  function buatCaptcha() {
+    captchaA = Math.floor(Math.random() * 8) + 2; // 2–9
+    captchaB = Math.floor(Math.random() * 8) + 2;
+    captchaSoalan.textContent = captchaA + " + " + captchaB + " = ?";
+    captchaJawapan.value = "";
+  }
+
+  document.getElementById("btnRefreshCaptcha").addEventListener("click", buatCaptcha);
+  buatCaptcha();
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     msg.className = "msg";
     msg.textContent = "";
 
-    if (!API_URL || API_URL.includes("LETAK_URL")) {
+    // Bot honeypot
+    if (document.getElementById("website").value.trim() !== "") {
+      msg.className = "msg ok";
+      msg.textContent = "Mesej dihantar. Terima kasih!";
+      form.reset();
+      buatCaptcha();
+      return;
+    }
+
+    // Semak CAPTCHA
+    const jawapan = parseInt(captchaJawapan.value, 10);
+    if (jawapan !== captchaA + captchaB) {
       msg.className = "msg err";
-      msg.textContent = "API belum diset. Sila isi API_URL.";
+      msg.textContent = "CAPTCHA salah. Sila cuba lagi.";
+      buatCaptcha();
       return;
     }
 
@@ -148,7 +229,8 @@
       nama: document.getElementById("nama").value.trim(),
       emel: document.getElementById("emel").value.trim(),
       telefon: document.getElementById("telefon").value.trim(),
-      mesej: document.getElementById("mesej").value.trim()
+      mesej: document.getElementById("mesej").value.trim(),
+      captchaOk: true
     };
 
     try {
@@ -160,17 +242,19 @@
 
       if (data.ok) {
         msg.className = "msg ok";
-        msg.textContent = data.message || "Berjaya dihantar!";
+        msg.textContent = data.message || "Mesej berjaya dihantar. Terima kasih!";
         form.reset();
+        buatCaptcha();
       } else {
         msg.className = "msg err";
         msg.textContent = data.message || "Gagal menghantar.";
+        buatCaptcha();
       }
     } catch (err) {
-      // Kadang Apps Script sukar baca response — semak Sheet/emel
       msg.className = "msg ok";
       msg.textContent = "Mesej dihantar. Kami akan respond secepat mungkin.";
       form.reset();
+      buatCaptcha();
     }
 
     btn.disabled = false;
