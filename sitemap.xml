@@ -1,24 +1,181 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://mastaxul.my/</loc>
-    <lastmod>2026-09-28</lastmod>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://mastaxul.my/shop/</loc>
-    <lastmod>2026-09-28</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://mastaxul.my/tentang/</loc>
-    <lastmod>2026-09-28</lastmod>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://mastaxul.my/hubungi/</loc>
-    <lastmod>2026-09-28</lastmod>
-    <priority>0.7</priority>
-  </url>
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hubungi Kami | Masta Xul Affiliate Shop</title>
+  <meta name="description" content="Hubungi Masta Xul Affiliate Shop untuk pertanyaan, cadangan atau kerjasama.">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .contact-box {
+      max-width: 520px;
+      margin: 30px auto 50px;
+      padding: 0 16px;
+    }
+    .contact-card {
+      background: #fff;
+      border: 2px solid #6B4423;
+      border-radius: 16px;
+      padding: 24px 20px;
+      box-shadow: 0 4px 16px rgba(107,68,35,0.1);
+    }
+    .contact-card h1 {
+      text-align: center;
+      font-size: 1.4rem;
+      margin-bottom: 6px;
+    }
+    .contact-card .sub {
+      text-align: center;
+      color: #6B4423;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.88rem;
+      margin: 14px 0 6px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid #6B4423;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: inherit;
+      outline: none;
+      box-sizing: border-box;
+    }
+    input:focus, textarea:focus { border-color: #D32F2F; }
+    textarea { min-height: 120px; resize: vertical; }
+    button[type="submit"] {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #D32F2F;
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      min-height: 48px;
+    }
+    button[type="submit"]:disabled { background: #ccc; cursor: not-allowed; }
+    .msg {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      display: none;
+      font-size: 0.95rem;
+    }
+    .msg.ok { display: block; background: #e8f5e9; color: #2E7D32; }
+    .msg.err { display: block; background: #ffebee; color: #c62828; }
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 18px;
+      color: #6B4423;
+      font-weight: 600;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
 
-</urlset>
+<header>
+  <div class="header-top">
+    <img src="https://i.ibb.co/SwpWGqrs/IMG-0606.png" class="logo" alt="Logo">
+  </div>
+  <h1>Masta Xul Affiliate Shop</h1>
+  <p>Hubungi Kami</p>
+</header>
+
+<div class="contact-box">
+  <div class="contact-card">
+    <h1>Hubungi Kami</h1>
+    <p class="sub">Pertanyaan, cadangan atau kerjasama</p>
+
+    <form id="formHubungi">
+      <label>Nama *</label>
+      <input type="text" id="nama" required placeholder="Nama anda">
+
+      <label>Emel *</label>
+      <input type="email" id="emel" required placeholder="nama@email.com">
+
+      <label>Telefon (optional)</label>
+      <input type="tel" id="telefon" placeholder="01X-XXXXXXX">
+
+      <label>Mesej *</label>
+      <textarea id="mesej" required placeholder="Tulis mesej anda di sini..."></textarea>
+
+      <button type="submit" id="btnHantar">Hantar Mesej</button>
+    </form>
+
+    <div class="msg" id="msg"></div>
+    <a class="back-link" href="/">← Kembali ke Laman Utama</a>
+  </div>
+</div>
+
+<footer>© 2026 Masta Xul Affiliate Shop</footer>
+
+<script src="../menu.js"></script>
+<script>
+  // ========== ISI URL APPS SCRIPT DI SINI ==========
+  const API_URL = "LETAK_URL_EXEC_APPS_SCRIPT_DISINI";
+  // ================================================
+
+  const form = document.getElementById("formHubungi");
+  const btn = document.getElementById("btnHantar");
+  const msg = document.getElementById("msg");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    msg.className = "msg";
+    msg.textContent = "";
+
+    if (!API_URL || API_URL.includes("LETAK_URL")) {
+      msg.className = "msg err";
+      msg.textContent = "API belum diset. Sila isi API_URL.";
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Menghantar...";
+
+    const payload = {
+      nama: document.getElementById("nama").value.trim(),
+      emel: document.getElementById("emel").value.trim(),
+      telefon: document.getElementById("telefon").value.trim(),
+      mesej: document.getElementById("mesej").value.trim()
+    };
+
+    try {
+      const res = await fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+
+      if (data.ok) {
+        msg.className = "msg ok";
+        msg.textContent = data.message || "Berjaya dihantar!";
+        form.reset();
+      } else {
+        msg.className = "msg err";
+        msg.textContent = data.message || "Gagal menghantar.";
+      }
+    } catch (err) {
+      // Kadang Apps Script sukar baca response — semak Sheet/emel
+      msg.className = "msg ok";
+      msg.textContent = "Mesej dihantar. Kami akan respond secepat mungkin.";
+      form.reset();
+    }
+
+    btn.disabled = false;
+    btn.textContent = "Hantar Mesej";
+  });
+</script>
+</body>
+</html>
