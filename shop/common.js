@@ -7,9 +7,16 @@
    MESTI dimuatkan SEBELUM script.js / script inline produk.html.
 ======================================== */
 
+// Endpoint senarai produk (dibaca dari Cloudflare KV melalui Worker)
 const API_URL = "/api/produk";
+
+// Pautan asas untuk kongsi produk
 const WEBSITE_URL = "https://mastaxul.my/shop/";
 
+// ========== PADAN KATEGORI ==========
+// True kalau produk masuk kategori yang dipilih pada menu.
+// Khas "Viral": padan kategori ATAU badge, sebab kebanyakan produk viral
+// ditanda melalui badge (bukan kategori).
 function padanKategori(p, kategori) {
   const k = (kategori || "").toString().trim().toLowerCase();
   if (!k || k === "semua") return true;
@@ -23,6 +30,7 @@ function padanKategori(p, kategori) {
   return false;
 }
 
+// ========== FORMAT HARGA ==========
 function formatHarga(harga) {
   if (harga === null || harga === undefined || harga === "") return "0.00";
   let clean = harga.toString().replace(/rm/gi, "").replace(/\s/g, "").replace(/,/g, ".");
@@ -30,35 +38,18 @@ function formatHarga(harga) {
   return isNaN(num) ? "0.00" : num.toFixed(2);
 }
 
+// Escape untuk teks/attribute HTML (elak XSS dari data Sheet/Form)
 function esc(str) {
   return (str || "").toString().replace(/[&<>"']/g, c => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
   }[c]));
 }
 
+// Escape untuk letak dalam JS string literal ('...') sebelum di-esc() untuk attribute
 function escJs(str) {
   return (str || "").toString()
     .replace(/\\/g, "\\\\")
     .replace(/'/g, "\\'")
     .replace(/\n/g, "\\n")
     .replace(/\r/g, "");
-}
-
-// Cara 2: proxy melalui Worker /shop/img?id= → Save As = MastaXul_ID.jpg
-function mediaUrl(id, fallback) {
-  const fid = (id || "").toString().trim();
-  const placeholder = (fallback && fallback.toString().trim())
-    ? fallback.toString().trim()
-    : "https://via.placeholder.com/400x300/f5f5f5/6B4423?text=Tiada+Gambar";
-  if (!fid) return placeholder;
-  return "/shop/img?id=" + encodeURIComponent(fid);
-}
-
-// Cara 1: alt text berbrand + ID
-function altProduk(id, nama) {
-  const n = (nama || "Produk").toString().trim();
-  const fid = (id || "").toString().trim();
-  return fid
-    ? ("MastaXul_" + fid + " - " + n + " | Masta Xul Affiliate Shop")
-    : (n + " | Masta Xul Affiliate Shop");
 }
