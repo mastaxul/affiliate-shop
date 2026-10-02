@@ -6,7 +6,6 @@
   <title>Produk | Masta Xul Affiliate Shop</title>
   <meta name="description" content="Lihat produk pilihan di Masta Xul Affiliate Shop - TikTok, Shopee & Lazada.">
 
-  <!-- Open Graph (untuk WhatsApp, Facebook, Telegram) -->
   <meta property="og:title" content="Masta Xul Affiliate Shop">
   <meta property="og:description" content="Produk viral TikTok, Shopee & Lazada dengan harga terbaik.">
   <meta property="og:image" content="https://i.ibb.co/wm5qmJX/IMG-0643.png">
@@ -16,7 +15,6 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Masta Xul Affiliate Shop">
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Masta Xul Affiliate Shop">
   <meta name="twitter:description" content="Produk viral TikTok, Shopee & Lazada dengan harga terbaik.">
@@ -81,7 +79,6 @@
     .loading-detail, .error-detail {
       text-align: center; padding: 60px 20px; color: #6B4423;
     }
-
     .related-section { max-width: 1100px; margin: 10px auto 60px; padding: 0 16px; }
     .related-section h3 { margin-bottom: 16px; color: #111; font-size: 1.2rem; }
     .related-grid {
@@ -108,7 +105,7 @@
 
 <header>
   <div class="header-top">
-    <img src="https://i.ibb.co/SwpWGqrs/IMG-0606.png" class="logo" alt="Logo">
+    <img src="https://i.ibb.co/SwpWGqrs/IMG-0606.png" class="logo" alt="Logo Masta Xul Affiliate Shop">
   </div>
   <h1>Masta Xul Affiliate Shop</h1>
   <p>Butiran Produk</p>
@@ -150,7 +147,8 @@
 <script src="../menu.js"></script>
 <script src="common.js"></script>
 <script>
-  // Nota: API_URL, WEBSITE_URL, formatHarga(), esc(), escJs() datang dari common.js
+  const PLACEHOLDER_DETAIL = "https://via.placeholder.com/500x400/f5f5f5/6B4423?text=Tiada+Gambar";
+  const PLACEHOLDER_RELATED = "https://via.placeholder.com/200x130/f5f5f5/6B4423?text=No+Img";
 
   function getQueryId() {
     return new URLSearchParams(window.location.search).get("id");
@@ -165,6 +163,11 @@
     const q = document.getElementById("search").value.trim();
     if (q) window.location.href = "/shop/?q=" + encodeURIComponent(q);
     else window.location.href = "/shop/";
+  }
+
+  function setMeta(selector, attr, value) {
+    const el = document.querySelector(selector);
+    if (el) el.setAttribute(attr, value);
   }
 
   function kongsiProduk(nama, harga, platform) {
@@ -209,8 +212,6 @@
       const produk = data.find(p => String(p.id) === String(id));
 
       if (!produk) {
-        // Produk baru mungkin belum sync sepenuhnya di semua lokasi Cloudflare —
-        // cuba beberapa kali dengan jeda sebelum give up
         if (cuba < 4) {
           container.innerHTML = `<div class="loading-detail">Memuatkan produk...</div>`;
           setTimeout(() => muatProdukDetail(cuba + 1), 2000);
@@ -220,12 +221,58 @@
         return;
       }
 
-      document.title = `${(produk.nama || "").toString()} | Masta Xul Affiliate Shop`;
+      const idSafe = String(produk.id || id);
+      const namaSafe = (produk.nama || "").toString();
+      const harga = formatHarga(produk.harga);
+      const teksDeskripsi = (produk.deskripsi || "").toString().trim();
+      const descMeta = teksDeskripsi
+        ? (teksDeskripsi.length > 150 ? teksDeskripsi.slice(0, 150) + "..." : teksDeskripsi)
+        : ("Harga RM " + harga + " - Masta Xul Affiliate Shop");
+
+      const gambarAsal = (produk.gambar || "").toString().trim();
+      const gambarProxy = mediaUrl(idSafe, gambarAsal || PLACEHOLDER_DETAIL);
+      const altText = altProduk(idSafe, namaSafe);
+      const pageUrl = WEBSITE_URL + "produk.html?id=" + encodeURIComponent(idSafe);
+      const gambarAbs = gambarProxy.startsWith("http")
+        ? gambarProxy
+        : ("https://mastaxul.my" + gambarProxy);
+
+      document.title = namaSafe + " | Masta Xul Affiliate Shop";
+
+      setMeta('meta[name="description"]', "content", descMeta);
+      setMeta('meta[property="og:title"]', "content", namaSafe + " | Masta Xul Affiliate Shop");
+      setMeta('meta[property="og:description"]', "content", descMeta);
+      setMeta('meta[property="og:image"]', "content", gambarAbs);
+      setMeta('meta[property="og:url"]', "content", pageUrl);
+      setMeta('meta[name="twitter:title"]', "content", namaSafe + " | Masta Xul Affiliate Shop");
+      setMeta('meta[name="twitter:description"]', "content", descMeta);
+      setMeta('meta[name="twitter:image"]', "content", gambarAbs);
+
+      let ld = document.getElementById("product-jsonld");
+      if (ld) ld.remove();
+      ld = document.createElement("script");
+      ld.type = "application/ld+json";
+      ld.id = "product-jsonld";
+      ld.textContent = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": namaSafe,
+        "image": [gambarAbs],
+        "description": descMeta,
+        "sku": idSafe,
+        "brand": { "@type": "Brand", "name": "Masta Xul Affiliate Shop" },
+        "offers": {
+          "@type": "Offer",
+          "url": pageUrl,
+          "priceCurrency": "MYR",
+          "price": harga,
+          "availability": "https://schema.org/InStock"
+        }
+      });
+      document.head.appendChild(ld);
 
       const badge = produk.badge ? `<span class="product-detail-badge">${esc(produk.badge)}</span>` : "";
       const terjual = produk.terjual ? `<div class="product-detail-sold">${esc(produk.terjual)} terjual</div>` : "";
-      const harga = formatHarga(produk.harga);
-      const teksDeskripsi = (produk.deskripsi || "").toString().trim();
       const deskripsi = teksDeskripsi
         ? `<div class="product-detail-desc">${esc(teksDeskripsi)}</div>`
         : "";
@@ -235,18 +282,18 @@
       if (produk.shopee) buttons += `<a href="${esc(produk.shopee)}" class="btn-shopee" target="_blank" rel="noopener">Beli di Shopee</a>`;
       if (produk.lazada) buttons += `<a href="${esc(produk.lazada)}" class="btn-lazada" target="_blank" rel="noopener">Beli di Lazada</a>`;
 
-      const gambar = esc(produk.gambar || "https://via.placeholder.com/500x400/f5f5f5/6B4423?text=Tiada+Gambar");
-      // Dua lapis escape: escJs elak JS string pecah, esc elak HTML attribute pecah
-      const namaOnclick = esc(escJs(produk.nama || ""));
+      const gambar = esc(gambarProxy);
+      const altEsc = esc(altText);
+      const namaOnclick = esc(escJs(namaSafe));
       const hargaOnclick = esc(escJs(harga));
 
       container.innerHTML = `
         <div class="product-detail-card">
-          <img src="${gambar}" alt="${esc(produk.nama)}" class="product-detail-img"
-               onerror="this.src='https://via.placeholder.com/500x400/f5f5f5/6B4423?text=Tiada+Gambar'">
+          <img src="${gambar}" alt="${altEsc}" title="${altEsc}" class="product-detail-img"
+               onerror="this.onerror=null;this.src='${PLACEHOLDER_DETAIL}'">
           <div class="product-detail-body">
             ${badge}
-            <h2 class="product-detail-name">${esc(produk.nama)}</h2>
+            <h2 class="product-detail-name">${esc(namaSafe)}</h2>
             <div class="product-detail-price">RM ${harga}</div>
             ${terjual}
             ${deskripsi}
@@ -303,11 +350,14 @@
 
     section.style.display = "block";
     grid.innerHTML = berkaitan.map(p => {
-      const gambar = esc(p.gambar || "https://via.placeholder.com/200x130/f5f5f5/6B4423?text=No+Img");
+      const adaGambar = p.gambar && p.gambar.toString().trim() !== "";
+      const gambar = esc(adaGambar ? mediaUrl(p.id, p.gambar) : PLACEHOLDER_RELATED);
+      const altR = esc(altProduk(p.id, p.nama));
       const idLink = encodeURIComponent(p.id || "");
       return `
         <div class="related-card" onclick="window.location.href='produk.html?id=${idLink}'">
-          <img src="${gambar}" alt="${esc(p.nama)}" onerror="this.src='https://via.placeholder.com/200x130/f5f5f5/6B4423?text=No+Img'">
+          <img src="${gambar}" alt="${altR}" title="${altR}"
+               onerror="this.onerror=null;this.src='${PLACEHOLDER_RELATED}'">
           <div class="info">
             <div class="nama">${esc(p.nama)}</div>
             <div class="harga">RM ${formatHarga(p.harga)}</div>
