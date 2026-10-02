@@ -2,19 +2,20 @@
    MASTA XUL AFFILIATE SHOP - /shop/
    Produk boleh diklik → produk.html?id=
    Carian nama + ID | Pagination nombor
+   Gambar melalui /shop/img?id= (Worker proxy)
 ======================================== */
 
-// Nota: API_URL, WEBSITE_URL, formatHarga(), esc(), escJs() datang dari common.js
-// (mesti dimuatkan sebelum fail ni dalam index.html)
+// Nota: API_URL, WEBSITE_URL, formatHarga(), esc(), escJs(),
+//       mediaUrl(), altProduk(), padanKategori() datang dari common.js
 
 let semuaProduk = [];
 let produkDipapar = [];
 let currentPage = 1;
 const produkPerPage = 20;
 
+const PLACEHOLDER_IMG = "https://via.placeholder.com/400x300/f5f5f5/6B4423?text=Tiada+Gambar";
+
 // ========== SHARE PRODUK ==========
-// Kongsi pautan halaman produk (produk.html?id=...) — sama seperti butang kongsi di
-// halaman detail — supaya preview WhatsApp/FB/Telegram papar gambar & nama produk itu.
 function shareProduk(id, nama, harga, platform = "other") {
   const linkProduk = WEBSITE_URL + "produk.html?id=" + encodeURIComponent(id);
   const teks = `🔥 ${nama}\nHarga: RM ${harga}\n\nLihat produk:\n${linkProduk}`;
@@ -133,13 +134,10 @@ function paparProduk(senarai) {
       butangHTML += `<a href="${esc(p.lazada)}" class="btn-platform btn-lazada" target="_blank" rel="noopener" onclick="event.stopPropagation()">Beli di Lazada</a>`;
     }
 
-    const gambar = esc(
-      (p.gambar && p.gambar.toString().trim() !== "")
-        ? p.gambar
-        : "https://via.placeholder.com/400x300/f5f5f5/6B4423?text=Tiada+Gambar"
-    );
+    const adaGambar = p.gambar && p.gambar.toString().trim() !== "";
+    const gambar = esc(adaGambar ? mediaUrl(p.id, p.gambar) : PLACEHOLDER_IMG);
+    const altText = esc(altProduk(p.id, p.nama));
 
-    // Dua lapis escape: escJs elak JS string pecah, esc elak HTML attribute pecah
     const namaOnclick = esc(escJs(p.nama || ""));
     const hargaOnclick = esc(escJs(formatHarga(p.harga)));
     const idOnclick = esc(escJs(p.id || ""));
@@ -148,10 +146,10 @@ function paparProduk(senarai) {
     return `
       <div class="produk-card" onclick="window.location.href='produk.html?id=${idLink}'" style="cursor:pointer;">
         <div class="produk-img-wrapper">
-          <img src="${gambar}" alt="${esc(p.nama)}" class="produk-img" loading="lazy"
-               onerror="this.src='https://via.placeholder.com/400x300/f5f5f5/6B4423?text=Tiada+Gambar'">
+          <img src="${gambar}" alt="${altText}" title="${altText}" class="produk-img" loading="lazy"
+               onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}'">
         </div>
-        
+
         <div class="produk-info">
           ${badge}
           <h3 class="produk-nama">${esc(p.nama)}</h3>
@@ -172,7 +170,6 @@ function paparProduk(senarai) {
     `;
   }).join("");
 
-  // Pagination + nombor halaman
   if (pagination) {
     let nomborHTML = "";
     for (let i = 1; i <= totalPage; i++) {
@@ -192,7 +189,6 @@ function paparProduk(senarai) {
   }
 }
 
-// ========== TUKAR PAGE ==========
 function tukarPage(arah) {
   currentPage += arah;
   paparProduk(produkDipapar);
@@ -205,7 +201,6 @@ function pergiKePage(nombor) {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-// ========== FILTER ==========
 function filterProduk(kategori) {
   document.querySelectorAll(".menu button").forEach(btn => btn.classList.remove("active"));
 
@@ -233,7 +228,6 @@ function filterProduk(kategori) {
   paparProduk(produkDipapar);
 }
 
-// ========== CARIAN (nama + ID) ==========
 function cariProduk() {
   const keyword = document.getElementById("search").value.trim().toLowerCase();
   const butangAktif = document.querySelector(".menu button.active");
@@ -258,7 +252,6 @@ function cariProduk() {
   paparProduk(produkDipapar);
 }
 
-// ========== MULAKAN ==========
 document.addEventListener("DOMContentLoaded", () => {
   muatProduk();
 });
