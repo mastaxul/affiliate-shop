@@ -273,7 +273,7 @@
 
       container.innerHTML = `
         <div class="product-detail-card">
-          <img src="${gambar}" alt="${esc(produk.nama)}" class="product-detail-img"
+          <img src="${gambar}" alt="${esc(altGambarProduk(produk))}" class="product-detail-img"
                onerror="this.src='https://via.placeholder.com/500x400/f5f5f5/6B4423?text=Tiada+Gambar'">
           <div class="product-detail-body">
             ${badge}
@@ -340,7 +340,7 @@
       const idLink = encodeURIComponent(p.id || "");
       return `
         <div class="related-card" onclick="window.location.href='produk.html?id=${idLink}'">
-          <img src="${gambar}" alt="${esc(p.nama)}" onerror="this.src='https://via.placeholder.com/200x130/f5f5f5/6B4423?text=No+Img'">
+          <img src="${gambar}" alt="${esc(altGambarProduk(p))}" onerror="this.src='https://via.placeholder.com/200x130/f5f5f5/6B4423?text=No+Img'">
           <div class="info">
             <div class="nama">${esc(p.nama)}</div>
             <div class="harga">RM ${formatHarga(p.harga)}</div>
