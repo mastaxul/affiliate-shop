@@ -148,7 +148,7 @@ function paparProduk(senarai) {
     return `
       <div class="produk-card" onclick="window.location.href='produk.html?id=${idLink}'" style="cursor:pointer;">
         <div class="produk-img-wrapper">
-          <img src="${gambar}" alt="${esc(p.nama)}" class="produk-img" loading="lazy"
+          <img src="${gambar}" alt="${esc(altGambarProduk(p))}" class="produk-img" loading="lazy"
                onerror="this.src='https://via.placeholder.com/400x300/f5f5f5/6B4423?text=Tiada+Gambar'">
         </div>
         
