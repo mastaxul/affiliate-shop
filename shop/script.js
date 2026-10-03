@@ -135,7 +135,7 @@ function paparProduk(senarai) {
 
     const gambar = esc(
       (p.gambar && p.gambar.toString().trim() !== "")
-        ? p.gambar
+        ? `/shop/img?id=${encodeURIComponent(p.id)}`
         : "https://via.placeholder.com/400x300/f5f5f5/6B4423?text=Tiada+Gambar"
     );
 
