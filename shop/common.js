@@ -38,6 +38,14 @@ function formatHarga(harga) {
   return isNaN(num) ? "0.00" : num.toFixed(2);
 }
 
+// Alt text lebih kukuh untuk SEO/accessibility — sertakan jenama + ID produk.
+// Nota: hasil ni teks MENTAH — wrap dengan esc() di tempat ia disisip ke HTML.
+function altGambarProduk(p) {
+  const nama = (p && p.nama ? p.nama : "Produk").toString().trim();
+  const id = p && p.id !== undefined && p.id !== null ? p.id : "";
+  return `MastaXul_${id} - ${nama} | Masta Xul`;
+}
+
 // Escape untuk teks/attribute HTML (elak XSS dari data Sheet/Form)
 function esc(str) {
   return (str || "").toString().replace(/[&<>"']/g, c => ({
