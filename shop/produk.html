@@ -230,12 +230,43 @@
         ? `<div class="product-detail-desc">${esc(teksDeskripsi)}</div>`
         : "";
 
+      const adaGambar = (produk.gambar || "").toString().trim() !== "";
+      const gambar = esc(adaGambar
+        ? `/shop/img?id=${encodeURIComponent(produk.id)}`
+        : "https://via.placeholder.com/500x400/f5f5f5/6B4423?text=Tiada+Gambar");
+
+      // Schema.org Product — bagitahu Google terus: gambar, harga, nama produk ini
+      // milik "Masta Xul Affiliate Shop", di laman ini. Tolong carian Google Images
+      // dan Google Shopping kaitkan gambar dengan website betul-betul.
+      const skripLama = document.getElementById("schemaProduk");
+      if (skripLama) skripLama.remove();
+      const dataSchema = {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": produk.nama || "",
+        "description": teksDeskripsi || (produk.nama || ""),
+        "brand": { "@type": "Brand", "name": "Masta Xul Affiliate Shop" },
+        "offers": {
+          "@type": "Offer",
+          "url": `https://mastaxul.my/shop/produk.html?id=${encodeURIComponent(produk.id)}`,
+          "priceCurrency": "MYR",
+          "price": formatHarga(produk.harga),
+          "availability": "https://schema.org/InStock"
+        }
+      };
+      if (adaGambar) {
+        dataSchema.image = `https://mastaxul.my/shop/img?id=${encodeURIComponent(produk.id)}`;
+      }
+      const skripSchema = document.createElement("script");
+      skripSchema.type = "application/ld+json";
+      skripSchema.id = "schemaProduk";
+      skripSchema.textContent = JSON.stringify(dataSchema);
+      document.head.appendChild(skripSchema);
+
       let buttons = "";
       if (produk.tiktok) buttons += `<a href="${esc(produk.tiktok)}" class="btn-tiktok" target="_blank" rel="noopener">Beli di TikTok</a>`;
       if (produk.shopee) buttons += `<a href="${esc(produk.shopee)}" class="btn-shopee" target="_blank" rel="noopener">Beli di Shopee</a>`;
       if (produk.lazada) buttons += `<a href="${esc(produk.lazada)}" class="btn-lazada" target="_blank" rel="noopener">Beli di Lazada</a>`;
-
-      const gambar = esc(produk.gambar || "https://via.placeholder.com/500x400/f5f5f5/6B4423?text=Tiada+Gambar");
       // Dua lapis escape: escJs elak JS string pecah, esc elak HTML attribute pecah
       const namaOnclick = esc(escJs(produk.nama || ""));
       const hargaOnclick = esc(escJs(harga));
@@ -303,7 +334,9 @@
 
     section.style.display = "block";
     grid.innerHTML = berkaitan.map(p => {
-      const gambar = esc(p.gambar || "https://via.placeholder.com/200x130/f5f5f5/6B4423?text=No+Img");
+      const gambar = esc((p.gambar || "").toString().trim()
+        ? `/shop/img?id=${encodeURIComponent(p.id)}`
+        : "https://via.placeholder.com/200x130/f5f5f5/6B4423?text=No+Img");
       const idLink = encodeURIComponent(p.id || "");
       return `
         <div class="related-card" onclick="window.location.href='produk.html?id=${idLink}'">
