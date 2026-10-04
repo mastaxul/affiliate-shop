@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview UFO Background</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background-color: #030308;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: sans-serif;
+      color: #fff;
+    }
+
+    .preview-title {
+      text-align: center;
+      z-index: 10;
+      color: #94a3b8;
+      pointer-events: none;
+    }
+
+    /* Container Kapal UFO */
+    .ufo-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 140px;
+      height: 90px;
+      z-index: 2;
+      pointer-events: none;
+      filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.6));
+      animation: flyAcross 12s linear infinite;
+    }
+
+    /* SVG UFO */
+    .ufo-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Lampu Kelip UFO */
+    .ufo-light-1 { animation: pulse 0.8s infinite alternate; }
+    .ufo-light-2 { animation: pulse 0.8s infinite alternate 0.2s; }
+    .ufo-light-3 { animation: pulse 0.8s infinite alternate 0.4s; }
+
+    /* Animasi Kelipan Lampu */
+    @keyframes pulse {
+      0% { opacity: 0.3; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* Animasi Pergerakan UFO Merentasi Skrin */
+    @keyframes flyAcross {
+      0% {
+        transform: translate(-160px, 25vh) rotate(-4deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.9;
+      }
+      30% {
+        transform: translate(30vw, 18vh) rotate(3deg);
+      }
+      60% {
+        transform: translate(65vw, 32vh) rotate(-2deg);
+      }
+      90% {
+        opacity: 0.9;
+      }
+      100% {
+        transform: translate(105vw, 20vh) rotate(4deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="preview-title">
+    <h2>Pratonton Animasi UFO</h2>
+    <p>UFO sedang melayang di latar belakang...</p>
+  </div>
+
+  <!-- Kapal UFO (SVG Design) -->
+  <div class="ufo-container">
+    <svg class="ufo-svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Gradient Cahaya Beam -->
+        <linearGradient id="beamGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.5" />
+          <stop offset="100%" stop-color="#4ade80" stop-opacity="0" />
+        </linearGradient>
+
+        <!-- Gradient Kubah Glass -->
+        <linearGradient id="domeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.8" />
+          <stop offset="100%" stop-color="#a855f7" stop-opacity="0.2" />
+        </linearGradient>
+      </defs>
+
+      <!-- Pancaran Cahaya Bawah (Tractor Beam) -->
+      <polygon points="70,60 130,60 170,120 30,120" fill="url(#beamGrad)" />
+
+      <!-- Kubah Atas -->
+      <path d="M 65 48 A 35 25 0 0 1 135 48 Z" fill="url(#domeGrad)" stroke="#38bdf8" stroke-width="1.5"/>
+
+      <!-- Badan Saucer Utama -->
+      <ellipse cx="100" cy="52" rx="75" ry="14" fill="#0f172a" stroke="#a855f7" stroke-width="2.5"/>
+
+      <!-- Rim Bawah -->
+      <ellipse cx="100" cy="56" rx="50" ry="7" fill="#1e293b"/>
+
+      <!-- Lampu Neon Bawah UFO -->
+      <circle cx="40" cy="53" r="3.5" fill="#38bdf8" class="ufo-light-1"/>
+      <circle cx="70" cy="57" r="3.5" fill="#4ade80" class="ufo-light-2"/>
+      <circle cx="100" cy="58" r="4" fill="#a855f7" class="ufo-light-3"/>
+      <circle cx="130" cy="57" r="3.5" fill="#4ade80" class="ufo-light-2"/>
+      <circle cx="160" cy="53" r="3.5" fill="#38bdf8" class="ufo-light-1"/>
+    </svg>
+  </div>
+
+</body>
+</html>
