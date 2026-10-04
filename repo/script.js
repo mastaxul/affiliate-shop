@@ -14,6 +14,7 @@ const interval = setInterval(() => {
       loaderOverlay.style.opacity = '0';
       loaderOverlay.style.visibility = 'hidden';
       mainContent.classList.add('visible');
+      kemaskiniKedudukanAlien(); // Inisialisasi kedudukan alien pointer selepas load
     }, 400);
   }
   loadingPercent.innerText = progress + '%';
@@ -31,6 +32,7 @@ window.addEventListener('resize', () => {
   width = canvas.width = window.innerWidth;
   height = canvas.height = window.innerHeight;
   initStars();
+  kemaskiniKedudukanAlien();
 });
 
 // Bintang Galaksi
@@ -151,7 +153,53 @@ function animate() {
 initStars();
 animate();
 
-// --- 3. LOGIK BORANG HUBUNGI & GOOGLE APPS SCRIPT ---
+// --- 3. 👾 LOGIK ALIEN MENU POINTER (NAVIGASI AKTIF SAAT SCROLL) ---
+const navItems = document.querySelectorAll('.nav-item');
+const sections = document.querySelectorAll('section');
+const alienPointer = document.getElementById('alienPointer');
+const alienSpeech = document.getElementById('alienSpeech');
+const mainNavbar = document.getElementById('mainNavbar');
+
+function kemaskiniKedudukanAlien() {
+  const activeLink = document.querySelector('.nav-item.active');
+  if (activeLink && alienPointer && mainNavbar) {
+    const navRect = mainNavbar.getBoundingClientRect();
+    const linkRect = activeLink.getBoundingClientRect();
+
+    // Kira offset posisi X supaya alien sentiasa terbang di atas menu pilihan
+    const offsetLeft = linkRect.left - navRect.left + (linkRect.width / 2) - (alienPointer.offsetWidth / 2);
+    alienPointer.style.transform = `translateX(${offsetLeft}px)`;
+    
+    // Kemaskini teks pada belon ucapan alien
+    if (alienSpeech) {
+      alienSpeech.textContent = activeLink.textContent;
+    }
+  }
+}
+
+window.addEventListener('scroll', () => {
+  let currentSection = '';
+
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop - 150;
+    const sectionHeight = section.clientHeight;
+    if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+      currentSection = section.getAttribute('id');
+    }
+  });
+
+  if (currentSection) {
+    navItems.forEach(item => {
+      item.classList.remove('active');
+      if (item.getAttribute('data-section') === currentSection) {
+        item.classList.add('active');
+      }
+    });
+    kemaskiniKedudukanAlien();
+  }
+});
+
+// --- 4. LOGIK BORANG HUBUNGI & GOOGLE APPS SCRIPT ---
 const API_URL = "https://script.google.com/macros/s/AKfycbxsWSCyKSOiEx-Syg1dGuNT21U0Qqv_4GPBiFhJgvU-t014SXvbOwKAWL4TZiQk8NJE/exec";
 
 const formHubungi = document.getElementById("formHubungi");
@@ -165,7 +213,7 @@ let captchaA = 0;
 let captchaB = 0;
 
 function buatCaptcha() {
-  captchaA = Math.floor(Math.random() * 8) + 2; // 2–9
+  captchaA = Math.floor(Math.random() * 8) + 2;
   captchaB = Math.floor(Math.random() * 8) + 2;
   if (captchaSoalan) {
     captchaSoalan.textContent = captchaA + " + " + captchaB + " = ?";
@@ -187,7 +235,6 @@ if (formHubungi) {
     msgContainer.className = "msg";
     msgContainer.textContent = "";
 
-    // Semakan Bot Honeypot
     const honeypotVal = document.getElementById("website").value.trim();
     if (honeypotVal !== "") {
       msgContainer.className = "msg ok";
@@ -197,7 +244,6 @@ if (formHubungi) {
       return;
     }
 
-    // Semakan CAPTCHA Matematik
     const jawapanUser = parseInt(captchaJawapan.value, 10);
     if (jawapanUser !== captchaA + captchaB) {
       msgContainer.className = "msg err";
@@ -246,7 +292,7 @@ if (formHubungi) {
   });
 }
 
-// --- 4. LOGIK MUZIK PLAYER (AUTOPLAY & FALLBACK) ---
+// --- 5. LOGIK MUZIK PLAYER (AUTOPLAY & FALLBACK) ---
 const bgMusic = document.getElementById('bgMusic');
 const btnMusicToggle = document.getElementById('btnMusicToggle');
 const musicIcon = document.getElementById('musicIcon');
@@ -264,7 +310,6 @@ if (bgMusic && btnMusicToggle) {
     }
   }
 
-  // Fungsi memulakan muzik pada interaksi pertama
   function mulaMuzikAtasInteraksi() {
     bgMusic.play().then(() => {
       kemaskiniUIMuzik(true);
@@ -279,11 +324,9 @@ if (bgMusic && btnMusicToggle) {
     window.removeEventListener('keydown', mulaMuzikAtasInteraksi);
   }
 
-  // Percubaan 1: Main terus jika pelayar benarkan
   bgMusic.play().then(() => {
     kemaskiniUIMuzik(true);
   }).catch(() => {
-    // Percubaan 2: Jika disekat, tunggu apa-apa sentuhan/klik/skrol pertama pengguna
     kemaskiniUIMuzik(false);
     window.addEventListener('click', mulaMuzikAtasInteraksi);
     window.addEventListener('touchstart', mulaMuzikAtasInteraksi);
@@ -291,10 +334,9 @@ if (bgMusic && btnMusicToggle) {
     window.addEventListener('keydown', mulaMuzikAtasInteraksi);
   });
 
-  // Kawalan Manual melalui Butang Floating
   btnMusicToggle.addEventListener('click', (e) => {
     e.stopPropagation();
-    bersihkanListener(); // Elakkan konflik jika pengguna klik butang terus
+    bersihkanListener();
     if (bgMusic.paused) {
       bgMusic.play();
       kemaskiniUIMuzik(true);
