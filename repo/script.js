@@ -252,7 +252,6 @@ const btnMusicToggle = document.getElementById('btnMusicToggle');
 const musicIcon = document.getElementById('musicIcon');
 
 if (bgMusic && btnMusicToggle) {
-  // Tetapkan kelantangan audio (0.3 = 30% supaya selesa didengar)
   bgMusic.volume = 0.3;
 
   function kemaskiniUIMuzik(isPlaying) {
@@ -265,35 +264,37 @@ if (bgMusic && btnMusicToggle) {
     }
   }
 
-  // Fungsi percubaan mainkan muzik
-  function cubaAutoplay() {
+  // Fungsi memulakan muzik pada interaksi pertama
+  function mulaMuzikAtasInteraksi() {
     bgMusic.play().then(() => {
       kemaskiniUIMuzik(true);
-    }).catch(() => {
-      // Jika sekat oleh pelayar, tunggu interaksi/klik pertama pengguna di mana-mana
-      kemaskiniUIMuzik(false);
-      
-      const aktivkanAudioAtasInteraksi = () => {
-        bgMusic.play().then(() => {
-          kemaskiniUIMuzik(true);
-        }).catch(() => {});
-
-        // Buang listener selepas pertama kali diaktifkan
-        document.removeEventListener('click', aktivkanAudioAtasInteraksi);
-        document.removeEventListener('touchstart', aktivkanAudioAtasInteraksi);
-      };
-
-      document.addEventListener('click', aktivkanAudioAtasInteraksi);
-      document.addEventListener('touchstart', aktivkanAudioAtasInteraksi);
-    });
+      bersihkanListener();
+    }).catch(() => {});
   }
 
-  // Jalankan percubaan autoplay
-  cubaAutoplay();
+  function bersihkanListener() {
+    window.removeEventListener('click', mulaMuzikAtasInteraksi);
+    window.removeEventListener('touchstart', mulaMuzikAtasInteraksi);
+    window.removeEventListener('scroll', mulaMuzikAtasInteraksi);
+    window.removeEventListener('keydown', mulaMuzikAtasInteraksi);
+  }
+
+  // Percubaan 1: Main terus jika pelayar benarkan
+  bgMusic.play().then(() => {
+    kemaskiniUIMuzik(true);
+  }).catch(() => {
+    // Percubaan 2: Jika disekat, tunggu apa-apa sentuhan/klik/skrol pertama pengguna
+    kemaskiniUIMuzik(false);
+    window.addEventListener('click', mulaMuzikAtasInteraksi);
+    window.addEventListener('touchstart', mulaMuzikAtasInteraksi);
+    window.addEventListener('scroll', mulaMuzikAtasInteraksi, { once: true });
+    window.addEventListener('keydown', mulaMuzikAtasInteraksi);
+  });
 
   // Kawalan Manual melalui Butang Floating
   btnMusicToggle.addEventListener('click', (e) => {
-    e.stopPropagation(); // Elak mengganggu event klik halaman
+    e.stopPropagation();
+    bersihkanListener(); // Elakkan konflik jika pengguna klik butang terus
     if (bgMusic.paused) {
       bgMusic.play();
       kemaskiniUIMuzik(true);
@@ -303,4 +304,3 @@ if (bgMusic && btnMusicToggle) {
     }
   });
 }
-
