@@ -27,20 +27,66 @@
   <!-- Canvas Latar Belakang Galaksi & Kilat -->
   <canvas id="galaxyCanvas"></canvas>
 
+  <!-- 🛸 ANIMASI 1: UFO Terbang di Latar Belakang -->
+  <div class="ufo-background-container">
+    <svg class="ufo-svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="beamGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.5" />
+          <stop offset="100%" stop-color="#4ade80" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="domeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.8" />
+          <stop offset="100%" stop-color="#a855f7" stop-opacity="0.2" />
+        </linearGradient>
+      </defs>
+      <polygon points="70,60 130,60 170,120 30,120" fill="url(#beamGrad)" />
+      <path d="M 65 48 A 35 25 0 0 1 135 48 Z" fill="url(#domeGrad)" stroke="#38bdf8" stroke-width="1.5"/>
+      <ellipse cx="100" cy="52" rx="75" ry="14" fill="#0f172a" stroke="#a855f7" stroke-width="2.5"/>
+      <ellipse cx="100" cy="56" rx="50" ry="7" fill="#1e293b"/>
+      <circle cx="40" cy="53" r="3.5" fill="#38bdf8" class="ufo-light-1"/>
+      <circle cx="70" cy="57" r="3.5" fill="#4ade80" class="ufo-light-2"/>
+      <circle cx="100" cy="58" r="4" fill="#a855f7" class="ufo-light-3"/>
+      <circle cx="130" cy="57" r="3.5" fill="#4ade80" class="ufo-light-2"/>
+      <circle cx="160" cy="53" r="3.5" fill="#38bdf8" class="ufo-light-1"/>
+    </svg>
+  </div>
+
   <!-- Container Utama -->
   <div class="content-wrapper" id="main-content">
     <!-- Navigation Bar -->
-    <nav class="navbar">
+    <nav class="navbar" id="mainNavbar">
       <div class="logo">
         <span class="logo-text">Masta Xul</span>
       </div>
-      <ul class="nav-links">
-        <li><a href="#hero">Utama</a></li>
-        <li><a href="#about">Tentang</a></li>
-        <li><a href="#projects">Projek</a></li>
-        <li><a href="#skills">Kemahiran</a></li>
-        <li><a href="#contact">Hubungi</a></li>
+      <ul class="nav-links" id="navLinksList">
+        <li><a href="#hero" class="nav-item active" data-section="hero">Utama</a></li>
+        <li><a href="#about" class="nav-item" data-section="about">Tentang</a></li>
+        <li><a href="#projects" class="nav-item" data-section="projects">Projek</a></li>
+        <li><a href="#skills" class="nav-item" data-section="skills">Kemahiran</a></li>
+        <li><a href="#contact" class="nav-item" data-section="contact">Hubungi</a></li>
       </ul>
+
+      <!-- 👾 ANIMASI 2: Alien Pointer Menu (Petunjuk Navigasi) -->
+      <div class="alien-pointer" id="alienPointer">
+        <div class="alien-speech" id="alienSpeech">Utama</div>
+        <svg class="alien-mini-svg" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="50" cy="50" rx="38" ry="10" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+          <path d="M 30 48 A 20 18 0 0 1 70 48 Z" fill="rgba(56, 189, 248, 0.4)" stroke="#38bdf8" stroke-width="1.5"/>
+          <!-- Kepala Makhluk Asing Comel -->
+          <circle cx="50" cy="42" r="7" fill="#4ade80"/>
+          <circle cx="47" cy="40" r="2.5" fill="#000"/>
+          <circle cx="53" cy="40" r="2.5" fill="#000"/>
+          <circle cx="48" cy="39" r="0.8" fill="#fff"/>
+          <circle cx="54" cy="39" r="0.8" fill="#fff"/>
+          <!-- Lampu Bawah Alien Pointer -->
+          <circle cx="30" cy="52" r="2" fill="#4ade80"/>
+          <circle cx="50" cy="54" r="2.5" fill="#a855f7"/>
+          <circle cx="70" cy="52" r="2" fill="#4ade80"/>
+          <!-- Cahaya Petunjuk Bawah -->
+          <polygon points="40,55 60,55 70,75 30,75" fill="rgba(74, 222, 128, 0.25)"/>
+        </svg>
+      </div>
     </nav>
 
     <!-- Hero Section -->
@@ -221,13 +267,9 @@
     </footer>
   </div>
 
-  <script src="script.js"></script>
-
   <!-- Floating Music Player Widget -->
   <div class="music-player-widget">
-    <!-- Gantikan src di bawah dengan pautan fail MP3 anda -->
     <audio id="bgMusic" loop src="music.mp3"></audio>
-    
     <button id="btnMusicToggle" class="music-btn" title="Mainkan / Hentikan Muzik">
       <i class="fas fa-music" id="musicIcon"></i>
       <span class="sound-wave">
@@ -236,6 +278,6 @@
     </button>
   </div>
 
-  
+  <script src="script.js"></script>
 </body>
 </html>
