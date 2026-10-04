@@ -245,3 +245,62 @@ if (formHubungi) {
     btnHantar.textContent = "Hantar Mesej";
   });
 }
+
+// --- 4. LOGIK MUZIK PLAYER (AUTOPLAY & FALLBACK) ---
+const bgMusic = document.getElementById('bgMusic');
+const btnMusicToggle = document.getElementById('btnMusicToggle');
+const musicIcon = document.getElementById('musicIcon');
+
+if (bgMusic && btnMusicToggle) {
+  // Tetapkan kelantangan audio (0.3 = 30% supaya selesa didengar)
+  bgMusic.volume = 0.3;
+
+  function kemaskiniUIMuzik(isPlaying) {
+    if (isPlaying) {
+      btnMusicToggle.classList.add('playing');
+      musicIcon.className = 'fas fa-pause';
+    } else {
+      btnMusicToggle.classList.remove('playing');
+      musicIcon.className = 'fas fa-music';
+    }
+  }
+
+  // Fungsi percubaan mainkan muzik
+  function cubaAutoplay() {
+    bgMusic.play().then(() => {
+      kemaskiniUIMuzik(true);
+    }).catch(() => {
+      // Jika sekat oleh pelayar, tunggu interaksi/klik pertama pengguna di mana-mana
+      kemaskiniUIMuzik(false);
+      
+      const aktivkanAudioAtasInteraksi = () => {
+        bgMusic.play().then(() => {
+          kemaskiniUIMuzik(true);
+        }).catch(() => {});
+
+        // Buang listener selepas pertama kali diaktifkan
+        document.removeEventListener('click', aktivkanAudioAtasInteraksi);
+        document.removeEventListener('touchstart', aktivkanAudioAtasInteraksi);
+      };
+
+      document.addEventListener('click', aktivkanAudioAtasInteraksi);
+      document.addEventListener('touchstart', aktivkanAudioAtasInteraksi);
+    });
+  }
+
+  // Jalankan percubaan autoplay
+  cubaAutoplay();
+
+  // Kawalan Manual melalui Butang Floating
+  btnMusicToggle.addEventListener('click', (e) => {
+    e.stopPropagation(); // Elak mengganggu event klik halaman
+    if (bgMusic.paused) {
+      bgMusic.play();
+      kemaskiniUIMuzik(true);
+    } else {
+      bgMusic.pause();
+      kemaskiniUIMuzik(false);
+    }
+  });
+}
+
