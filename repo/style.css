@@ -5,6 +5,10 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: #030308;
   color: #ffffff;
@@ -86,12 +90,54 @@ body {
   pointer-events: none;
 }
 
+/* 🛸 ANIMASI 1: UFO Terbang di Latar Belakang */
+.ufo-background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 130px;
+  height: 85px;
+  z-index: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.6));
+  animation: ufoFlyAcross 14s linear infinite;
+}
+
+.ufo-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.ufo-light-1 { animation: pulseLight 0.8s infinite alternate; }
+.ufo-light-2 { animation: pulseLight 0.8s infinite alternate 0.2s; }
+.ufo-light-3 { animation: pulseLight 0.8s infinite alternate 0.4s; }
+
+@keyframes pulseLight {
+  0% { opacity: 0.3; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes ufoFlyAcross {
+  0% {
+    transform: translate(-160px, 20vh) rotate(-5deg);
+    opacity: 0;
+  }
+  8% { opacity: 0.85; }
+  35% { transform: translate(30vw, 12vh) rotate(3deg); }
+  65% { transform: translate(65vw, 28vh) rotate(-3deg); }
+  92% { opacity: 0.85; }
+  100% {
+    transform: translate(105vw, 18vh) rotate(5deg);
+    opacity: 0;
+  }
+}
+
 .content-wrapper {
   max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
   position: relative;
-  z-index: 1;
+  z-index: 2;
   opacity: 0;
   transition: opacity 1s ease;
 }
@@ -112,16 +158,16 @@ body {
   margin-bottom: 30px;
 }
 
-/* Navbar */
+/* Navbar & 👾 ANIMASI 2: Alien Nav Pointer */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 25px;
-  background: rgba(8, 12, 24, 0.8);
-  backdrop-filter: blur(10px);
+  background: rgba(8, 12, 24, 0.85);
+  backdrop-filter: blur(12px);
   border-radius: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.2);
   margin-bottom: 30px;
   position: sticky;
   top: 20px;
@@ -140,17 +186,65 @@ body {
   display: flex;
   list-style: none;
   gap: 20px;
+  position: relative;
 }
 
 .nav-links a {
   color: #cbd5e1;
   text-decoration: none;
   font-size: 0.95rem;
-  transition: color 0.3s;
+  padding: 6px 12px;
+  border-radius: 15px;
+  transition: color 0.3s, background 0.3s;
+  position: relative;
+  z-index: 2;
 }
 
+.nav-links a.active,
 .nav-links a:hover {
   color: #38bdf8;
+  font-weight: 600;
+}
+
+/* Petunjuk Alien yang Mengekor / Menunjuk Menu */
+.alien-pointer {
+  position: absolute;
+  top: -35px;
+  left: 0;
+  width: 60px;
+  height: 50px;
+  pointer-events: none;
+  z-index: 10;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  filter: drop-shadow(0 0 8px rgba(74, 222, 128, 0.8));
+}
+
+.alien-speech {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid #4ade80;
+  color: #4ade80;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 2px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+  box-shadow: 0 0 10px rgba(74, 222, 128, 0.4);
+  margin-bottom: -2px;
+  animation: floatMini 2s infinite ease-in-out alternate;
+}
+
+.alien-mini-svg {
+  width: 50px;
+  height: 40px;
+  animation: floatMini 2s infinite ease-in-out alternate;
+}
+
+@keyframes floatMini {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-4px); }
 }
 
 /* Hero Section */
@@ -591,7 +685,6 @@ body {
   box-shadow: 0 0 20px rgba(74, 222, 128, 0.5);
 }
 
-/* Gelombang Animasi Suara Apabila Muzik Dimainkan */
 .sound-wave {
   display: none;
   align-items: flex-end;
@@ -621,4 +714,23 @@ body {
 @keyframes wave {
   0% { height: 3px; }
   100% { height: 12px; }
+}
+
+/* Responsif Telefon Bimbit */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 12px;
+    padding: 15px;
+  }
+  .nav-links {
+    gap: 8px;
+  }
+  .nav-links a {
+    font-size: 0.85rem;
+    padding: 4px 8px;
+  }
+  .alien-pointer {
+    display: none; /* Sembunyikan pointer alien pada skrin kecil untuk mengelakkan halangan */
+  }
 }
