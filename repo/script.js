@@ -1,6 +1,26 @@
-/**
- * Moving Galaxy Animation using HTML5 Canvas
- */
+// --- 1. KONTROL LOADING SCREEN ---
+const loaderOverlay = document.getElementById('loader-overlay');
+const loadingPercent = document.getElementById('loading-percent');
+const progressBar = document.getElementById('progress-bar');
+const mainContent = document.getElementById('main-content');
+
+let progress = 0;
+const interval = setInterval(() => {
+  progress += Math.floor(Math.random() * 5) + 2;
+  if (progress >= 100) {
+    progress = 100;
+    clearInterval(interval);
+    setTimeout(() => {
+      loaderOverlay.style.opacity = '0';
+      loaderOverlay.style.visibility = 'hidden';
+      mainContent.classList.add('visible');
+    }, 400);
+  }
+  loadingPercent.innerText = progress + '%';
+  progressBar.style.width = progress + '%';
+}, 50);
+
+// --- 2. CANVAS GALAKSI & ANIMASI KILAT (LIGHTNING) ---
 const canvas = document.getElementById('galaxyCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -13,91 +33,120 @@ window.addEventListener('resize', () => {
   initStars();
 });
 
-// Tetapan Galaksi
+// Bintang
 const stars = [];
-const numStars = 800;
-const galaxyCenterX = () => width / 2;
-const galaxyCenterY = () => height / 2;
-
 class Star {
-  constructor() {
-    this.reset();
-  }
-
+  constructor() { this.reset(); }
   reset() {
-    // Sudut rawak dan jarak dari pusat galaksi
-    this.angle = Math.random() * Math.PI * 2;
-    this.distance = Math.random() * (Math.max(width, height) * 0.6);
-    this.speed = (0.0005 + Math.random() * 0.001) * (1 - this.distance / (Math.max(width, height) * 0.7));
-    this.radius = Math.random() * 1.5 + 0.3;
-    
-    // Warna galaksi (Cyan, Purple, Pink, White)
-    const colors = [
-      '#00f2fe', '#4facfe', '#9b51e0', '#ff007f', '#ffffff', '#a18cd1'
-    ];
-    this.color = colors[Math.floor(Math.random() * colors.length)];
+    this.x = Math.random() * width;
+    this.y = Math.random() * height;
+    this.radius = Math.random() * 1.2 + 0.3;
     this.alpha = Math.random() * 0.8 + 0.2;
+    this.color = ['#38bdf8', '#818cf8', '#ffffff'][Math.floor(Math.random() * 3)];
   }
-
-  update() {
-    // Rotasi mengelilingi pusat
-    this.angle += this.speed;
-  }
-
   draw() {
-    // Kira posisi berputar (spiral galaxy effect)
-    const x = galaxyCenterX() + Math.cos(this.angle) * this.distance;
-    const y = galaxyCenterY() + Math.sin(this.angle) * (this.distance * 0.5); // 3D tilt
-
     ctx.beginPath();
-    ctx.arc(x, y, this.radius, 0, Math.PI * 2);
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
     ctx.fillStyle = this.color;
     ctx.globalAlpha = this.alpha;
-    ctx.shadowBlur = this.radius > 1 ? 8 : 0;
-    ctx.shadowColor = this.color;
     ctx.fill();
-    ctx.shadowBlur = 0; // Reset
   }
 }
 
 function initStars() {
   stars.length = 0;
-  for (let i = 0; i < numStars; i++) {
-    stars.push(new Star());
+  for (let i = 0; i < 500; i++) stars.push(new Star());
+}
+
+// LOGIK KILATAN (LIGHTNING)
+class Lightning {
+  constructor(startX, startY, endX, endY) {
+    this.startX = startX;
+    this.startY = startY;
+    this.endX = endX;
+    this.endY = endY;
+    this.segments = [];
+    this.life = 1.0;
+    this.generateSegments();
+  }
+
+  generateSegments() {
+    let x = this.startX;
+    let y = this.startY;
+    this.segments.push({ x, y });
+
+    const steps = 25;
+    const dx = (this.endX - this.startX) / steps;
+    const dy = (this.endY - this.startY) / steps;
+
+    for (let i = 0; i < steps; i++) {
+      x += dx + (Math.random() - 0.5) * 35;
+      y += dy + (Math.random() - 0.5) * 20;
+      this.segments.push({ x, y });
+    }
+    this.segments.push({ x: this.endX, y: this.endY });
+  }
+
+  update() {
+    this.life -= 0.08;
+  }
+
+  draw() {
+    if (this.life <= 0) return;
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(this.segments[0].x, this.segments[0].y);
+
+    for (let i = 1; i < this.segments.length; i++) {
+      ctx.lineTo(this.segments[i].x, this.segments[i].y);
+    }
+
+    // Glowing Neon Blue
+    ctx.strokeStyle = `rgba(186, 230, 253, ${this.life})`;
+    ctx.lineWidth = 2.5;
+    ctx.shadowColor = '#38bdf8';
+    ctx.shadowBlur = 25;
+    ctx.stroke();
+
+    // Teras Putih Terang
+    ctx.strokeStyle = `rgba(255, 255, 255, ${this.life})`;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.restore();
   }
 }
 
-// Melukis Cahaya Nebula Pusat Galaksi
-function drawNebula() {
-  const cx = galaxyCenterX();
-  const cy = galaxyCenterY();
+let currentLightning = null;
 
-  const gradient = ctx.createRadialGradient(cx, cy, 10, cx, cy, Math.max(width, height) * 0.4);
-  gradient.addColorStop(0, 'rgba(155, 81, 224, 0.25)');
-  gradient.addColorStop(0.4, 'rgba(0, 242, 254, 0.12)');
-  gradient.addColorStop(0.8, 'rgba(10, 14, 30, 0.05)');
-  gradient.addColorStop(1, 'transparent');
+function triggerLightning() {
+  const startX = width * 0.5 + (Math.random() - 0.5) * 200;
+  const startY = 0;
+  const endX = width * 0.5 + (Math.random() - 0.5) * 300;
+  const endY = height;
 
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, width, height);
+  currentLightning = new Lightning(startX, startY, endX, endY);
 }
 
-// Loop Animasi 60FPS
+// Kilat muncul secara berkala
+setInterval(() => {
+  if (Math.random() < 0.7) triggerLightning();
+}, 1500);
+
+triggerLightning();
+
 function animate() {
   ctx.clearRect(0, 0, width, height);
-  
-  // Nebula Latar
-  drawNebula();
+  stars.forEach(star => star.draw());
 
-  // Bintang Galaksi
-  stars.forEach(star => {
-    star.update();
-    star.draw();
-  });
+  if (currentLightning) {
+    currentLightning.draw();
+    currentLightning.update();
+    if (currentLightning.life <= 0) currentLightning = null;
+  }
 
   requestAnimationFrame(animate);
 }
 
-// Jalankan
 initStars();
 animate();
