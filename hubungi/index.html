@@ -3,263 +3,224 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hubungi Kami | Masta Xul Affiliate Shop</title>
-  <meta name="description" content="Hubungi Masta Xul Affiliate Shop untuk pertanyaan, cadangan atau kerjasama.">
-  <link rel="stylesheet" href="../style.css">
-  <style>
-    .contact-box {
-      max-width: 520px;
-      margin: 30px auto 50px;
-      padding: 0 16px;
-    }
-    .contact-card {
-      background: #fff;
-      border: 2px solid #6B4423;
-      border-radius: 16px;
-      padding: 24px 20px;
-      box-shadow: 0 4px 16px rgba(107,68,35,0.1);
-    }
-    .contact-card h1 {
-      text-align: center;
-      font-size: 1.4rem;
-      margin-bottom: 6px;
-    }
-    .contact-card .sub {
-      text-align: center;
-      color: #6B4423;
-      font-size: 0.95rem;
-      margin-bottom: 20px;
-    }
-    label {
-      display: block;
-      font-weight: 600;
-      font-size: 0.88rem;
-      margin: 14px 0 6px;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 12px 14px;
-      border: 2px solid #6B4423;
-      border-radius: 10px;
-      font-size: 1rem;
-      font-family: inherit;
-      outline: none;
-      box-sizing: border-box;
-    }
-    input:focus, textarea:focus { border-color: #D32F2F; }
-    textarea { min-height: 120px; resize: vertical; }
-    .captcha-box {
-      margin-top: 16px;
-      padding: 14px;
-      border: 2px dashed #6B4423;
-      border-radius: 12px;
-      background: #faf7f4;
-    }
-    .captcha-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .captcha-q {
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: #111;
-    }
-    .captcha-box input {
-      max-width: 100px;
-    }
-    .captcha-refresh {
-      border: none;
-      background: #111;
-      color: #fff;
-      padding: 10px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      font-weight: 600;
-      min-height: 44px;
-    }
-    /* Honeypot — sembunyi dari manusia, bot akan isi */
-    .hp-field {
-      position: absolute;
-      left: -9999px;
-      opacity: 0;
-      height: 0;
-      overflow: hidden;
-    }
-    button[type="submit"] {
-      width: 100%;
-      margin-top: 20px;
-      padding: 14px;
-      border: none;
-      border-radius: 10px;
-      background: #D32F2F;
-      color: #fff;
-      font-size: 1.05rem;
-      font-weight: 700;
-      cursor: pointer;
-      min-height: 48px;
-    }
-    button[type="submit"]:disabled { background: #ccc; cursor: not-allowed; }
-    .msg {
-      margin-top: 14px;
-      padding: 12px;
-      border-radius: 8px;
-      text-align: center;
-      display: none;
-      font-size: 0.95rem;
-    }
-    .msg.ok { display: block; background: #e8f5e9; color: #2E7D32; }
-    .msg.err { display: block; background: #ffebee; color: #c62828; }
-    .back-link {
-      display: block;
-      text-align: center;
-      margin-top: 18px;
-      color: #6B4423;
-      font-weight: 600;
-      text-decoration: none;
-    }
-  </style>
+  <title>Masta Xul | Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-<header>
-  <div class="header-top">
-    <img src="https://i.ibb.co/SwpWGqrs/IMG-0606.png" class="logo" alt="Logo">
-  </div>
-  <h1>Masta Xul Affiliate Shop</h1>
-  <p>Hubungi Kami</p>
-</header>
-
-<div class="contact-box">
-  <div class="contact-card">
-    <h1>Hubungi Kami</h1>
-    <p class="sub">Pertanyaan, cadangan atau kerjasama</p>
-
-    <form id="formHubungi" autocomplete="on">
-      <label>Nama *</label>
-      <input type="text" id="nama" required placeholder="Nama anda">
-
-      <label>Emel *</label>
-      <input type="email" id="emel" required placeholder="nama@email.com">
-
-      <label>Telefon (optional)</label>
-      <input type="tel" id="telefon" placeholder="01X-XXXXXXX">
-
-      <label>Mesej *</label>
-      <textarea id="mesej" required placeholder="Tulis mesej anda di sini..."></textarea>
-
-      <!-- Honeypot anti-bot -->
-      <div class="hp-field" aria-hidden="true">
-        <label>Website</label>
-        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+  <!-- Loading / Welcome Screen -->
+  <div id="loader-overlay">
+    <div class="loader-content">
+      <h1 class="welcome-title">Welcome To My<br><span class="highlight-blue">Portfolio Website</span></h1>
+      <div class="loading-status">
+        <span>Loading</span>
+        <span id="loading-percent">0%</span>
       </div>
+      <div class="progress-bar-container">
+        <div id="progress-bar"></div>
+      </div>
+    </div>
+  </div>
 
-      <!-- CAPTCHA -->
-      <div class="captcha-box">
-        <label for="captchaJawapan">CAPTCHA — berapa jumlah ini? *</label>
-        <div class="captcha-row">
-          <span class="captcha-q" id="captchaSoalan">3 + 4 = ?</span>
-          <input type="number" id="captchaJawapan" required placeholder="Jawapan" inputmode="numeric">
-          <button type="button" class="captcha-refresh" id="btnRefreshCaptcha" title="Soalan baru">↻ Baru</button>
+  <!-- Canvas Latar Belakang Galaksi & Kilat -->
+  <canvas id="galaxyCanvas"></canvas>
+
+  <!-- Container Utama -->
+  <div class="content-wrapper" id="main-content">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+      <div class="logo">
+        <span class="logo-text">Masta Xul</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#hero">Utama</a></li>
+        <li><a href="#about">Tentang</a></li>
+        <li><a href="#projects">Projek</a></li>
+        <li><a href="#skills">Kemahiran</a></li>
+        <li><a href="#contact">Hubungi</a></li>
+      </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section glass-card">
+      <div class="hero-content">
+        <div class="profile-img-container">
+          <img src="https://i.ibb.co/s93HdjPp/8-C91-AD94-DDE3-42-BD-BA89-12-D3-CCE6-D82-D.jpg" alt="Gambar Profil Masta Xul" class="profile-img" id="profileImage">
+        </div>
+        <h1>Hai, Saya <span class="highlight">Masta Xul</span></h1>
+        <p class="tagline">Petani 🌱 | Usahawan Digital 💻 | Tech Enthusiast 🍎<br>
+          Seorang pencipta dan pemikir dari Malaysia yang menggabungkan pertanian,
+          teknologi, kreativiti dan keusahawanan dalam satu perjalanan. 
+          Daripada sawah dan kebun kepada pembangunan web, automasi, 
+          AI dan teknologi pintar — sentiasa mencari cara baharu untuk 
+          mengubah idea menjadi sesuatu yang nyata dan berguna.
+        </p>
+        <div class="hero-buttons">
+          <a href="#projects" class="btn btn-primary">Lihat Projek</a>
+          <a href="#contact" class="btn btn-outline">Hubungi Saya</a>
         </div>
       </div>
+    </section>
 
-      <button type="submit" id="btnHantar">Hantar Mesej</button>
-    </form>
+    <!-- About Section -->
+    <section id="about" class="section glass-card">
+      <h2><i class="fas fa-user"></i> Tentang Saya</h2>
+      <div class="about-content">
+        <p>
+          Website ini dibangunkan sebagai platform peribadi untuk berkongsi projek, 
+          pengalaman, idea dan hasil kerja dalam bidang pertanian serta teknologi. 
+          Ia menggabungkan pengalaman dunia sebenar dengan teknologi digital, inovasi
+          dan kreativiti dalam satu ruang yang mudah diakses.
+        </p>
+        <div class="info-grid">
+          <div class="info-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span><strong>Lokasi:</strong> Selangor, Malaysia</span>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-envelope"></i>
+            <span><strong>E-mel:</strong> masta.xul@outlook.com</span>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-briefcase"></i>
+            <span><strong>Status:</strong> Saya sangat cepat belajar</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <div class="msg" id="msg"></div>
-    <a class="back-link" href="/">← Kembali ke Laman Utama</a>
+    <!-- Projects Section -->
+    <section id="projects" class="section glass-card">
+      <h2><i class="fas fa-project-diagram"></i> Projek Saya</h2>
+      <div class="projects-grid">
+        <!-- Projek 1 -->
+        <div class="project-card">
+          <img src="https://i.ibb.co/XfYJg0Vk/41682-B18-AA27-4-E70-9-D83-0-A848662-C86-F.png" alt="Projek Affiliate" class="project-img">
+          <div class="project-info">
+            <h3>Affiliate</h3>
+            <p>Bantu saya dengan perniagaan affiliate. Temui perbezaan harga barang di tiga platform ini.</p>
+            <div class="project-tags">
+              <span class="tag">TikTok</span>
+              <span class="tag">Shopee</span>
+              <span class="tag">Lazada</span>
+            </div>
+            <a href="https://www.mastaxul.my/shop/" target="_blank" class="project-link">Lihat Shop <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Projek 2 -->
+        <div class="project-card">
+          <img src="https://via.placeholder.com/300x180/203a43/ffffff?text=Pertanian+Pintar" alt="Projek Pertanian" class="project-img">
+          <div class="project-info">
+            <h3>Inovasi Pertanian & Agrotech</h3>
+            <p>Eksperimen dan aplikasi teknologi dalam pengurusan sawah padi serta pertanian mampan.</p>
+            <div class="project-tags">
+              <span class="tag">Agrotech</span>
+              <span class="tag">Sawah Padi</span>
+            </div>
+            <a href="#" class="project-link">Akan Datang <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Projek 3 -->
+        <div class="project-card">
+          <img src="https://via.placeholder.com/300x180/2c5364/ffffff?text=Automasi+%26+AI" alt="Projek AI" class="project-img">
+          <div class="project-info">
+            <h3>Automasi & Alat AI</h3>
+            <p>Pembangunan sistem automasi ringkas dan integrasi alatan AI untuk produktiviti harian.</p>
+            <div class="project-tags">
+              <span class="tag">AI</span>
+              <span class="tag">Automasi</span>
+            </div>
+            <a href="#" class="project-link">Akan Datang <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section glass-card">
+      <h2><i class="fas fa-laptop-code"></i> Kemahiran</h2>
+      <div class="skills-container">
+        <div class="skill-badge"><i class="fas fa-seedling"></i> Agrotech & Sawah</div>
+        <div class="skill-badge"><i class="fab fa-html5"></i> HTML5</div>
+        <div class="skill-badge"><i class="fab fa-css3-alt"></i> CSS3</div>
+        <div class="skill-badge"><i class="fab fa-js"></i> JavaScript</div>
+        <div class="skill-badge"><i class="fab fa-github"></i> GitHub</div>
+        <div class="skill-badge"><i class="fas fa-bolt"></i> Vercel Deploy</div>
+        <div class="skill-badge"><i class="fas fa-robot"></i> AI Prompting</div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section glass-card">
+      <h2><i class="fas fa-paper-plane"></i> Hubungi Saya</h2>
+      <p class="contact-sub">Pertanyaan, cadangan atau sebarang bentuk kerjasama — hantarkan mesej anda di bawah.</p>
+
+      <form id="formHubungi" class="contact-form" autocomplete="on">
+        <div class="form-group">
+          <label for="nama">Nama *</label>
+          <input type="text" id="nama" required placeholder="Nama anda">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="emel">E-mel *</label>
+            <input type="email" id="emel" required placeholder="nama@email.com">
+          </div>
+          <div class="form-group">
+            <label for="telefon">Nombor Telefon (pilihan)</label>
+            <input type="tel" id="telefon" placeholder="01X-XXXXXXX">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="mesej">Mesej *</label>
+          <textarea id="mesej" required placeholder="Tulis mesej anda di sini..."></textarea>
+        </div>
+
+        <!-- Honeypot anti-bot -->
+        <div class="hp-field" aria-hidden="true">
+          <label for="website">Website</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+
+        <!-- CAPTCHA Box -->
+        <div class="captcha-box">
+          <label for="captchaJawapan"><i class="fas fa-shield-alt"></i> CAPTCHA — Berapa jumlah ini? *</label>
+          <div class="captcha-row">
+            <span class="captcha-q" id="captchaSoalan">3 + 4 = ?</span>
+            <input type="number" id="captchaJawapan" required placeholder="Jawapan" inputmode="numeric">
+            <button type="button" class="captcha-refresh" id="btnRefreshCaptcha" title="Soalan baru"><i class="fas fa-sync-alt"></i> Baru</button>
+          </div>
+        </div>
+
+        <button type="submit" id="btnHantar" class="btn btn-primary btn-submit">Hantar Mesej</button>
+      </form>
+
+      <div class="msg" id="msg"></div>
+
+      <hr class="contact-divider">
+
+      <!-- Pautan Media Sosial -->
+      <div class="contact-socials-wrapper">
+        <p>Atau hubungi terus melalui platform sosial:</p>
+        <div class="contact-socials">
+          <a href="mailto:masta.xul@outlook.com" class="social-icon" title="E-mel Direct"><i class="fas fa-envelope"></i></a>
+          <a href="https://github.com" target="_blank" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.mastaxul.my/shop/" target="_blank" class="social-icon" title="Website Shop"><i class="fas fa-shopping-bag"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2026 Masta Xul. Hak Cipta Terpelihara.</p>
+    </footer>
   </div>
-</div>
 
-<footer>© 2026 Masta Xul Affiliate Shop</footer>
-
-<script src="../menu.js"></script>
-<script>
-  const API_URL = "https://script.google.com/macros/s/AKfycbxsWSCyKSOiEx-Syg1dGuNT21U0Qqv_4GPBiFhJgvU-t014SXvbOwKAWL4TZiQk8NJE/exec";
-
-  const form = document.getElementById("formHubungi");
-  const btn = document.getElementById("btnHantar");
-  const msg = document.getElementById("msg");
-  const captchaSoalan = document.getElementById("captchaSoalan");
-  const captchaJawapan = document.getElementById("captchaJawapan");
-
-  let captchaA = 0;
-  let captchaB = 0;
-
-  function buatCaptcha() {
-    captchaA = Math.floor(Math.random() * 8) + 2; // 2–9
-    captchaB = Math.floor(Math.random() * 8) + 2;
-    captchaSoalan.textContent = captchaA + " + " + captchaB + " = ?";
-    captchaJawapan.value = "";
-  }
-
-  document.getElementById("btnRefreshCaptcha").addEventListener("click", buatCaptcha);
-  buatCaptcha();
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    msg.className = "msg";
-    msg.textContent = "";
-
-    // Bot honeypot
-    if (document.getElementById("website").value.trim() !== "") {
-      msg.className = "msg ok";
-      msg.textContent = "Mesej dihantar. Terima kasih!";
-      form.reset();
-      buatCaptcha();
-      return;
-    }
-
-    // Semak CAPTCHA
-    const jawapan = parseInt(captchaJawapan.value, 10);
-    if (jawapan !== captchaA + captchaB) {
-      msg.className = "msg err";
-      msg.textContent = "CAPTCHA salah. Sila cuba lagi.";
-      buatCaptcha();
-      return;
-    }
-
-    btn.disabled = true;
-    btn.textContent = "Menghantar...";
-
-    const payload = {
-      nama: document.getElementById("nama").value.trim(),
-      emel: document.getElementById("emel").value.trim(),
-      telefon: document.getElementById("telefon").value.trim(),
-      mesej: document.getElementById("mesej").value.trim(),
-      captchaOk: true
-    };
-
-    try {
-      const res = await fetch(API_URL, {
-        method: "POST",
-        body: JSON.stringify(payload)
-      });
-      const data = await res.json();
-
-      if (data.ok) {
-        msg.className = "msg ok";
-        msg.textContent = data.message || "Mesej berjaya dihantar. Terima kasih!";
-        form.reset();
-        buatCaptcha();
-      } else {
-        msg.className = "msg err";
-        msg.textContent = data.message || "Gagal menghantar.";
-        buatCaptcha();
-      }
-    } catch (err) {
-      msg.className = "msg ok";
-      msg.textContent = "Mesej dihantar. Kami akan respond secepat mungkin.";
-      form.reset();
-      buatCaptcha();
-    }
-
-    btn.disabled = false;
-    btn.textContent = "Hantar Mesej";
-  });
-</script>
+  <script src="script.js"></script>
 </body>
 </html>
