@@ -1,5 +1,5 @@
 // =========================================================
-// 1. LOGIK LOADING SCREEN (MULA INTEGRASI DENGAN ANIMASI UFO)
+// 1. LOGIK LOADING SCREEN (ANIMASI UFO SEQUENCE)
 // =========================================================
 const loaderOverlay = document.getElementById('loader-overlay');
 const loadingPercent = document.getElementById('loading-percent');
@@ -7,7 +7,7 @@ const progressBar = document.getElementById('progress-bar');
 const mainContent = document.getElementById('main-content');
 
 let progress = 0;
-// Beri sedikit penangguhan (delay) supaya animasi UFO & Teks Welcome sempat siap dipaparkan
+
 setTimeout(() => {
   const interval = setInterval(() => {
     progress += Math.floor(Math.random() * 6) + 3;
@@ -18,13 +18,13 @@ setTimeout(() => {
         loaderOverlay.style.opacity = '0';
         loaderOverlay.style.visibility = 'hidden';
         mainContent.classList.add('visible');
-        kemaskiniKedudukanAlien(); // Kemaskini kedudukan Alien Pointer
+        kemaskiniKedudukanAlien();
       }, 500);
     }
     if (loadingPercent) loadingPercent.innerText = progress + '%';
     if (progressBar) progressBar.style.width = progress + '%';
   }, 45);
-}, 1800); // 1.8s selari dengan animasi kemunculan UFO & Beam
+}, 1800);
 
 // =========================================================
 // 2. CANVAS GALAKSI & KILAT
@@ -148,7 +148,7 @@ initStars();
 animate();
 
 // =========================================================
-// 3. LOGIK PEMBAIKAN ALIEN POINTER NAVIGASI MENU
+// 3. LOGIK ALIEN POINTER NAVIGASI MENU
 // =========================================================
 const navItems = document.querySelectorAll('.nav-item');
 const sections = document.querySelectorAll('section');
@@ -156,14 +156,12 @@ const alienPointer = document.getElementById('alienPointer');
 const alienSpeech = document.getElementById('alienSpeech');
 const navLinksList = document.getElementById('navLinksList');
 
-// Fungsi mengira kedudukan Alien Pointer tepat di atas menu pilihan
 function kemaskiniKedudukanAlien() {
   const activeLink = document.querySelector('.nav-item.active');
   if (activeLink && alienPointer && navLinksList) {
     const parentRect = navLinksList.getBoundingClientRect();
     const linkRect = activeLink.getBoundingClientRect();
 
-    // Kira offset jarak mendatar dari tepi bekas parent
     const offsetLeft = linkRect.left - parentRect.left + (linkRect.width / 2) - (alienPointer.offsetWidth / 2);
     
     alienPointer.style.transform = `translateX(${offsetLeft}px)`;
@@ -174,13 +172,11 @@ function kemaskiniKedudukanAlien() {
   }
 }
 
-// Kemaskini menu aktif semasa pengguna menatal (scroll) menggunakan getBoundingClientRect
 function kemaskiniActiveSectionScroll() {
   let currentSection = '';
 
   sections.forEach(section => {
     const rect = section.getBoundingClientRect();
-    // Jika bahagian berada di sekitar kawasan tengah skrin
     if (rect.top <= window.innerHeight * 0.45 && rect.bottom >= window.innerHeight * 0.25) {
       currentSection = section.getAttribute('id');
     }
@@ -197,7 +193,6 @@ function kemaskiniActiveSectionScroll() {
   }
 }
 
-// Acara Klik pada pautan Navigasi
 navItems.forEach(item => {
   item.addEventListener('click', function () {
     navItems.forEach(link => link.classList.remove('active'));
@@ -209,9 +204,9 @@ navItems.forEach(item => {
 window.addEventListener('scroll', kemaskiniActiveSectionScroll);
 
 // =========================================================
-// 4. LOGIK BORANG HUBUNGI & CAPTCHA
+// 4. LOGIK BORANG HUBUNGI & CAPTCHA (PEMBAIKAN API URL)
 // =========================================================
-const API_URL = "[https://script.google.com/macros/s/AKfycbxsWSCyKSOiEx-Syg1dGuNT21U0Qqv_4GPBiFhJgvU-t014SXvbOwKAWL4TZiQk8NJE/exec](https://script.google.com/macros/s/AKfycbxsWSCyKSOiEx-Syg1dGuNT21U0Qqv_4GPBiFhJgvU-t014SXvbOwKAWL4TZiQk8NJE/exec)";
+const API_URL = "https://script.google.com/macros/s/AKfycbxsWSCyKSOiEx-Syg1dGuNT21U0Qqv_4GPBiFhJgvU-t014SXvbOwKAWL4TZiQk8NJE/exec";
 
 const formHubungi = document.getElementById("formHubungi");
 const btnHantar = document.getElementById("btnHantar");
