@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Masta Xul | Website</title>
+  <title>Masta Xul | Portal Rasmi</title>
   <link rel="stylesheet" href="style.css">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -11,10 +11,10 @@
 <body>
 
   <!-- Loading Screen dengan Animasi UFO Sequence -->
-  <div id="loader-overlay">
+  <div id="loader-overlay" aria-label="Loading Screen">
     <div class="loader-content">
       
-      <!-- Kapal UFO Loading yang Terbang Masuk & Memancarkan Cahaya -->
+      <!-- Kapal UFO Loading -->
       <div class="loader-ufo-wrapper">
         <svg class="loader-ufo-svg" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -39,7 +39,7 @@
         <div class="loader-beam"></div>
       </div>
 
-      <!-- Teks Welcome (Muncul Selepas Beam Hidup) -->
+      <!-- Teks Welcome -->
       <h1 class="welcome-title">Welcome To <br><span class="highlight-blue">Masta Xul</span></h1>
 
       <div class="loading-status">
@@ -78,6 +78,7 @@
 
   <!-- Container Utama -->
   <div class="content-wrapper" id="main-content">
+    
     <!-- Navigation Bar -->
     <nav class="navbar" id="mainNavbar">
       <div class="logo">
@@ -90,6 +91,7 @@
           <li><a href="https://www.mastaxul.my/shop/" target="_blank" rel="noopener noreferrer" class="nav-item">Shop</a></li>
           <li><a href="#about" class="nav-item" data-section="about">Tentang</a></li>
           <li><a href="#projects" class="nav-item" data-section="projects">Projek</a></li>
+          <li><a href="#recommended-gallery" class="nav-item" data-section="recommended-gallery">Galeri</a></li>
           <li><a href="#skills" class="nav-item" data-section="skills">Kemahiran</a></li>
           <li><a href="#contact" class="nav-item" data-section="contact">Hubungi</a></li>
 
@@ -99,17 +101,14 @@
             <svg class="alien-mini-svg" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
               <ellipse cx="50" cy="50" rx="38" ry="10" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
               <path d="M 30 48 A 20 18 0 0 1 70 48 Z" fill="rgba(56, 189, 248, 0.4)" stroke="#38bdf8" stroke-width="1.5"/>
-              <!-- Kepala Alien -->
               <circle cx="50" cy="42" r="7" fill="#4ade80"/>
               <circle cx="47" cy="40" r="2.5" fill="#000"/>
               <circle cx="53" cy="40" r="2.5" fill="#000"/>
               <circle cx="48" cy="39" r="0.8" fill="#fff"/>
               <circle cx="54" cy="39" r="0.8" fill="#fff"/>
-              <!-- Lampu Alien -->
               <circle cx="30" cy="52" r="2" fill="#4ade80"/>
               <circle cx="50" cy="54" r="2.5" fill="#a855f7"/>
               <circle cx="70" cy="52" r="2" fill="#4ade80"/>
-              <!-- Cahaya Bawah -->
               <polygon points="40,55 60,55 70,75 30,75" fill="rgba(74, 222, 128, 0.3)"/>
             </svg>
           </div>
@@ -190,89 +189,70 @@
     </section>
 
     <!-- Gallery Section / Kemahiran Produk -->
-<section id="recommended-gallery" class="section glass-card">
-  <h2><i class="fas fa-shopping-bag"></i> Galeri Barangan & Alatan</h2>
-  <p class="gallery-subtitle">Sentuh atau klik pada gambar untuk terus ke aplikasi Shopee</p>
+    <section id="recommended-gallery" class="section glass-card">
+      <h2><i class="fas fa-shopping-bag"></i> Galeri Barangan & Alatan</h2>
+      <p class="gallery-subtitle">Sentuh atau klik pada gambar untuk terus ke aplikasi Shopee</p>
 
-  <div class="carousel-container">
-    <div class="carousel-spinner">
-      
-      <!-- 1. iPad Keyboard -->
-      <a href="https://s.shopee.com.my/4LJu05UwPu" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 1;">
-        <img src="https://i.ibb.co/rKJB06H1/IMG-2236.jpg" alt="iPad Keyboard">
-        <div class="card-info">
-          <span>iPad Keyboard</span>
+      <div class="carousel-container">
+        <div class="carousel-spinner">
+          
+          <!-- 1. iPad Keyboard -->
+          <a href="https://s.shopee.com.my/4LJu05UwPu" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 1;">
+            <img src="https://i.ibb.co/rKJB06H1/IMG-2236.jpg" alt="iPad Keyboard">
+            <div class="card-info"><span>iPad Keyboard</span></div>
+          </a>
+
+          <!-- 2. Lego Apple Watch Strap -->
+          <a href="https://s.shopee.com.my/2qV6DUFllX" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 2;">
+            <img src="https://i.ibb.co/vxGxdt2R/IMG-2237.jpg" alt="Lego Apple Watch Strap">
+            <div class="card-info"><span>Lego Apple Watch Strap</span></div>
+          </a>
+
+          <!-- 3. Vacuum Cordless -->
+          <a href="https://s.shopee.com.my/1qcZ1t0SIu" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 3;">
+            <img src="https://i.ibb.co/9HVLx4Lm/IMG-2238.jpg" alt="Vacuum Cordless">
+            <div class="card-info"><span>Vacuum Cordless</span></div>
+          </a>
+
+          <!-- 4. Apple Watch Strap Tactical -->
+          <a href="https://s.shopee.com.my/113S2UvSHl" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 4;">
+            <img src="https://i.ibb.co/N2N5Rw8P/IMG-2239.jpg" alt="Apple Watch Strap Tactical">
+            <div class="card-info"><span>Apple Watch Strap Tactical</span></div>
+          </a>
+
+          <!-- 5. Magna M20 Powerbank -->
+          <a href="https://s.shopee.com.my/6VOOarXHjM" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 5;">
+            <img src="https://i.ibb.co/xNXJ021/IMG-2240.jpg" alt="Magna M20 Powerbank">
+            <div class="card-info"><span>Magna M20 Powerbank</span></div>
+          </a>
+
+          <!-- 6. Mr.molec Racun Serangga Organic -->
+          <a href="https://s.shopee.com.my/3Vkn1YMTT8" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 6;">
+            <img src="https://i.ibb.co/LzVMLjYx/IMG-2241.jpg" alt="Mr.molec Racun Serangga Organic">
+            <div class="card-info"><span>Mr.molec Racun Serangga Organic</span></div>
+          </a>
+
+          <!-- 7. Soil Meter 4 in 1 -->
+          <a href="https://s.shopee.com.my/3Vkn1YMTT8" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 7;">
+            <img src="https://i.ibb.co/DHfsvBWb/IMG-2242.jpg" alt="Soil Meter 4 in 1">
+            <div class="card-info"><span>Soil Meter 4 in 1</span></div>
+          </a>
+
+          <!-- 8. Smart Plug Apple Homekit -->
+          <a href="https://s.shopee.com.my/7VGvnBjGpB" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 8;">
+            <img src="https://i.ibb.co/LDLfF1hj/IMG-2243.jpg" alt="Smart Plug Apple Homekit">
+            <div class="card-info"><span>Smart Plug Apple Homekit</span></div>
+          </a>
+
+          <!-- 9. Ugreen Cable Type C to Lightning -->
+          <a href="https://s.shopee.com.my/1qcZ33viR4" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 9;">
+            <img src="https://i.ibb.co/Wv4zGtSj/IMG-2244.jpg" alt="Ugreen Cable Type C to Lightning">
+            <div class="card-info"><span>Ugreen Cable Type C to Lightning</span></div>
+          </a>
+
         </div>
-      </a>
-
-      <!-- 2. Lego Apple Watch Strap -->
-      <a href="https://s.shopee.com.my/2qV6DUFllX" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 2;">
-        <img src="https://i.ibb.co/vxGxdt2R/IMG-2237.jpg" alt="Lego Apple Watch Strap">
-        <div class="card-info">
-          <span>Lego Apple Watch Strap</span>
-        </div>
-      </a>
-
-      <!-- 3. Vacuum Cordless -->
-      <a href="https://s.shopee.com.my/1qcZ1t0SIu" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 3;">
-        <img src="https://i.ibb.co/9HVLx4Lm/IMG-2238.jpg" alt="Vacuum Cordless">
-        <div class="card-info">
-          <span>Vacuum Cordless</span>
-        </div>
-      </a>
-
-      <!-- 4. Apple Watch Strap Tactical -->
-      <a href="https://s.shopee.com.my/113S2UvSHl" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 4;">
-        <img src="https://i.ibb.co/N2N5Rw8P/IMG-2239.jpg" alt="Apple Watch Strap Tactical">
-        <div class="card-info">
-          <span>Apple Watch Strap Tactical</span>
-        </div>
-      </a>
-
-      <!-- 5. Magna M20 Powerbank -->
-      <a href="https://s.shopee.com.my/6VOOarXHjM" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 5;">
-        <img src="https://i.ibb.co/xNXJ021/IMG-2240.jpg" alt="Magna M20 Powerbank">
-        <div class="card-info">
-          <span>Magna M20 Powerbank</span>
-        </div>
-      </a>
-
-      <!-- 6. Mr.molec Racun Serangga Organic -->
-      <a href="https://s.shopee.com.my/3Vkn1YMTT8" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 6;">
-        <img src="https://i.ibb.co/LzVMLjYx/IMG-2241.jpg" alt="Mr.molec Racun Serangga Organic">
-        <div class="card-info">
-          <span>Mr.molec Racun Serangga Organic</span>
-        </div>
-      </a>
-
-      <!-- 7. Soil Meter 4 in 1 -->
-      <a href="https://s.shopee.com.my/3Vkn1YMTT8" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 7;">
-        <img src="https://i.ibb.co/DHfsvBWb/IMG-2242.jpg" alt="Soil Meter 4 in 1">
-        <div class="card-info">
-          <span>Soil Meter 4 in 1</span>
-        </div>
-      </a>
-
-      <!-- 8. Smart Plug Apple Homekit -->
-      <a href="https://s.shopee.com.my/7VGvnBjGpB" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 8;">
-        <img src="https://i.ibb.co/LDLfF1hj/IMG-2243.jpg" alt="Smart Plug Apple Homekit">
-        <div class="card-info">
-          <span>Smart Plug Apple Homekit</span>
-        </div>
-      </a>
-
-      <!-- 9. Ugreen Cable Type C to Lightning -->
-      <a href="https://s.shopee.com.my/1qcZ33viR4" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 9;">
-        <img src="https://i.ibb.co/Wv4zGtSj/IMG-2244.jpg" alt="Ugreen Cable Type C to Lightning">
-        <div class="card-info">
-          <span>Ugreen Cable Type C to Lightning</span>
-        </div>
-      </a>
-
-    </div>
-  </div>
-</section>
-
+      </div>
+    </section>
 
     <!-- Skills Section -->
     <section id="skills" class="section glass-card">
@@ -315,6 +295,7 @@
           <textarea id="mesej" required placeholder="Tulis mesej anda di sini..."></textarea>
         </div>
 
+        <!-- Honeypot anti-spam field -->
         <div class="hp-field" aria-hidden="true">
           <label for="website">Website</label>
           <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
@@ -357,7 +338,7 @@
   <!-- Music Widget -->
   <div class="music-player-widget">
     <audio id="bgMusic" loop src="Budak%20Kacamata%20-%20Bintang%20(Official%20Music%20Video).mp3"></audio>
-    <button id="btnMusicToggle" class="music-btn" title="Mainkan / Hentikan Muzik">
+    <button id="btnMusicToggle" class="music-btn" title="Mainkan / Hentikan Muzik" aria-label="Toggle Muzik">
       <i class="fas fa-music" id="musicIcon"></i>
       <span class="sound-wave">
         <span></span><span></span><span></span>
