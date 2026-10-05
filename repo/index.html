@@ -10,10 +10,38 @@
 </head>
 <body>
 
-  <!-- Loading / Welcome Screen -->
+  <!-- Loading Screen dengan Animasi UFO Sequence -->
   <div id="loader-overlay">
     <div class="loader-content">
+      
+      <!-- Kapal UFO Loading yang Terbang Masuk & Memancarkan Cahaya -->
+      <div class="loader-ufo-wrapper">
+        <svg class="loader-ufo-svg" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="loaderDomeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.9" />
+              <stop offset="100%" stop-color="#a855f7" stop-opacity="0.3" />
+            </linearGradient>
+          </defs>
+          <!-- Kubah Glass UFO -->
+          <path d="M 65 45 A 35 25 0 0 1 135 45 Z" fill="url(#loaderDomeGrad)" stroke="#38bdf8" stroke-width="1.5"/>
+          <!-- Badan UFO -->
+          <ellipse cx="100" cy="50" rx="75" ry="14" fill="#0f172a" stroke="#a855f7" stroke-width="2.5"/>
+          <ellipse cx="100" cy="54" rx="50" ry="7" fill="#1e293b"/>
+          <!-- Lampu UFO -->
+          <circle cx="40" cy="51" r="3" fill="#38bdf8"/>
+          <circle cx="70" cy="55" r="3" fill="#4ade80"/>
+          <circle cx="100" cy="56" r="3.5" fill="#a855f7"/>
+          <circle cx="130" cy="55" r="3" fill="#4ade80"/>
+          <circle cx="160" cy="51" r="3" fill="#38bdf8"/>
+        </svg>
+        <!-- Cahaya Beam Bawah UFO -->
+        <div class="loader-beam"></div>
+      </div>
+
+      <!-- Teks Welcome (Muncul Selepas Beam Hidup) -->
       <h1 class="welcome-title">Welcome To <br><span class="highlight-blue">Masta Xul</span></h1>
+
       <div class="loading-status">
         <span>Loading</span>
         <span id="loading-percent">0%</span>
@@ -27,7 +55,7 @@
   <!-- Canvas Latar Belakang Galaksi & Kilat -->
   <canvas id="galaxyCanvas"></canvas>
 
-  <!-- 🛸 ANIMASI 1: UFO Terbang di Latar Belakang -->
+  <!-- UFO Terbang di Latar Belakang -->
   <div class="ufo-background-container">
     <svg class="ufo-svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -35,20 +63,16 @@
           <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.5" />
           <stop offset="100%" stop-color="#4ade80" stop-opacity="0" />
         </linearGradient>
-        <linearGradient id="domeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.8" />
-          <stop offset="100%" stop-color="#a855f7" stop-opacity="0.2" />
-        </linearGradient>
       </defs>
       <polygon points="70,60 130,60 170,120 30,120" fill="url(#beamGrad)" />
-      <path d="M 65 48 A 35 25 0 0 1 135 48 Z" fill="url(#domeGrad)" stroke="#38bdf8" stroke-width="1.5"/>
+      <path d="M 65 48 A 35 25 0 0 1 135 48 Z" fill="rgba(56, 189, 248, 0.5)" stroke="#38bdf8" stroke-width="1.5"/>
       <ellipse cx="100" cy="52" rx="75" ry="14" fill="#0f172a" stroke="#a855f7" stroke-width="2.5"/>
       <ellipse cx="100" cy="56" rx="50" ry="7" fill="#1e293b"/>
-      <circle cx="40" cy="53" r="3.5" fill="#38bdf8" class="ufo-light-1"/>
-      <circle cx="70" cy="57" r="3.5" fill="#4ade80" class="ufo-light-2"/>
-      <circle cx="100" cy="58" r="4" fill="#a855f7" class="ufo-light-3"/>
-      <circle cx="130" cy="57" r="3.5" fill="#4ade80" class="ufo-light-2"/>
-      <circle cx="160" cy="53" r="3.5" fill="#38bdf8" class="ufo-light-1"/>
+      <circle cx="40" cy="53" r="3.5" fill="#38bdf8"/>
+      <circle cx="70" cy="57" r="3.5" fill="#4ade80"/>
+      <circle cx="100" cy="58" r="4" fill="#a855f7"/>
+      <circle cx="130" cy="57" r="3.5" fill="#4ade80"/>
+      <circle cx="160" cy="53" r="3.5" fill="#38bdf8"/>
     </svg>
   </div>
 
@@ -59,33 +83,36 @@
       <div class="logo">
         <span class="logo-text">Masta Xul</span>
       </div>
-      <ul class="nav-links" id="navLinksList">
-        <li><a href="#hero" class="nav-item active" data-section="hero">Utama</a></li>
-        <li><a href="#about" class="nav-item" data-section="about">Tentang</a></li>
-        <li><a href="#projects" class="nav-item" data-section="projects">Projek</a></li>
-        <li><a href="#skills" class="nav-item" data-section="skills">Kemahiran</a></li>
-        <li><a href="#contact" class="nav-item" data-section="contact">Hubungi</a></li>
-      </ul>
 
-      <!-- 👾 ANIMASI 2: Alien Pointer Menu (Petunjuk Navigasi) -->
-      <div class="alien-pointer" id="alienPointer">
-        <div class="alien-speech" id="alienSpeech">Utama</div>
-        <svg class="alien-mini-svg" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="50" cy="50" rx="38" ry="10" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
-          <path d="M 30 48 A 20 18 0 0 1 70 48 Z" fill="rgba(56, 189, 248, 0.4)" stroke="#38bdf8" stroke-width="1.5"/>
-          <!-- Kepala Makhluk Asing Comel -->
-          <circle cx="50" cy="42" r="7" fill="#4ade80"/>
-          <circle cx="47" cy="40" r="2.5" fill="#000"/>
-          <circle cx="53" cy="40" r="2.5" fill="#000"/>
-          <circle cx="48" cy="39" r="0.8" fill="#fff"/>
-          <circle cx="54" cy="39" r="0.8" fill="#fff"/>
-          <!-- Lampu Bawah Alien Pointer -->
-          <circle cx="30" cy="52" r="2" fill="#4ade80"/>
-          <circle cx="50" cy="54" r="2.5" fill="#a855f7"/>
-          <circle cx="70" cy="52" r="2" fill="#4ade80"/>
-          <!-- Cahaya Petunjuk Bawah -->
-          <polygon points="40,55 60,55 70,75 30,75" fill="rgba(74, 222, 128, 0.25)"/>
-        </svg>
+      <div class="nav-wrapper">
+        <ul class="nav-links" id="navLinksList">
+          <li><a href="#hero" class="nav-item active" data-section="hero">Utama</a></li>
+          <li><a href="#about" class="nav-item" data-section="about">Tentang</a></li>
+          <li><a href="#projects" class="nav-item" data-section="projects">Projek</a></li>
+          <li><a href="#skills" class="nav-item" data-section="skills">Kemahiran</a></li>
+          <li><a href="#contact" class="nav-item" data-section="contact">Hubungi</a></li>
+
+          <!-- Alien Pointer Navigasi Menu -->
+          <div class="alien-pointer" id="alienPointer">
+            <div class="alien-speech" id="alienSpeech">Utama</div>
+            <svg class="alien-mini-svg" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="50" cy="50" rx="38" ry="10" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+              <path d="M 30 48 A 20 18 0 0 1 70 48 Z" fill="rgba(56, 189, 248, 0.4)" stroke="#38bdf8" stroke-width="1.5"/>
+              <!-- Kepala Alien -->
+              <circle cx="50" cy="42" r="7" fill="#4ade80"/>
+              <circle cx="47" cy="40" r="2.5" fill="#000"/>
+              <circle cx="53" cy="40" r="2.5" fill="#000"/>
+              <circle cx="48" cy="39" r="0.8" fill="#fff"/>
+              <circle cx="54" cy="39" r="0.8" fill="#fff"/>
+              <!-- Lampu Alien -->
+              <circle cx="30" cy="52" r="2" fill="#4ade80"/>
+              <circle cx="50" cy="54" r="2.5" fill="#a855f7"/>
+              <circle cx="70" cy="52" r="2" fill="#4ade80"/>
+              <!-- Cahaya Bawah -->
+              <polygon points="40,55 60,55 70,75 30,75" fill="rgba(74, 222, 128, 0.3)"/>
+            </svg>
+          </div>
+        </ul>
       </div>
     </nav>
 
@@ -93,15 +120,12 @@
     <section id="hero" class="hero-section glass-card">
       <div class="hero-content">
         <div class="profile-img-container">
-          <img src="https://i.ibb.co/s93HdjPp/8-C91-AD94-DDE3-42-BD-BA89-12-D3-CCE6-D82-D.jpg" alt="Gambar Profil Masta Xul" class="profile-img" id="profileImage">
+          <img src="https://i.ibb.co/s93HdjPp/8-C91-AD94-DDE3-42-BD-BA89-12-D3-CCE6-D82-D.jpg" alt="Gambar Profil Masta Xul" class="profile-img">
         </div>
         <h1>Hai, Saya <span class="highlight">Masta Xul</span></h1>
         <p class="tagline">Petani 🌱 | Usahawan Digital 💻 | Tech Enthusiast 🍎<br>
           Seorang pencipta dan pemikir dari Malaysia yang menggabungkan pertanian,
-          teknologi, kreativiti dan keusahawanan dalam satu perjalanan. 
-          Daripada sawah dan kebun kepada pembangunan web, automasi, 
-          AI dan teknologi pintar — sentiasa mencari cara baharu untuk 
-          mengubah idea menjadi sesuatu yang nyata dan berguna.
+          teknologi, kreativiti dan keusahawanan dalam satu perjalanan.
         </p>
         <div class="hero-buttons">
           <a href="#projects" class="btn btn-primary">Lihat Projek</a>
@@ -116,23 +140,12 @@
       <div class="about-content">
         <p>
           Website ini dibangunkan sebagai platform peribadi untuk berkongsi projek, 
-          pengalaman, idea dan hasil kerja dalam bidang pertanian serta teknologi. 
-          Ia menggabungkan pengalaman dunia sebenar dengan teknologi digital, inovasi
-          dan kreativiti dalam satu ruang yang mudah diakses.
+          pengalaman, idea dan hasil kerja dalam bidang pertanian serta teknologi.
         </p>
         <div class="info-grid">
-          <div class="info-item">
-            <i class="fas fa-map-marker-alt"></i>
-            <span><strong>Lokasi:</strong> Selangor, Malaysia</span>
-          </div>
-          <div class="info-item">
-            <i class="fas fa-envelope"></i>
-            <span><strong>E-mel:</strong> masta.xul@outlook.com</span>
-          </div>
-          <div class="info-item">
-            <i class="fas fa-briefcase"></i>
-            <span><strong>Status:</strong> Bujanger</span>
-          </div>
+          <div class="info-item"><i class="fas fa-map-marker-alt"></i> <span><strong>Lokasi:</strong> Selangor, Malaysia</span></div>
+          <div class="info-item"><i class="fas fa-envelope"></i> <span><strong>E-mel:</strong> masta.xul@outlook.com</span></div>
+          <div class="info-item"><i class="fas fa-briefcase"></i> <span><strong>Status:</strong> Bujanger</span></div>
         </div>
       </div>
     </section>
@@ -141,45 +154,34 @@
     <section id="projects" class="section glass-card">
       <h2><i class="fas fa-project-diagram"></i> Projek</h2>
       <div class="projects-grid">
-        <!-- Projek 1 -->
         <div class="project-card">
           <img src="https://i.ibb.co/XfYJg0Vk/41682-B18-AA27-4-E70-9-D83-0-A848662-C86-F.png" alt="Projek Affiliate" class="project-img">
           <div class="project-info">
             <h3>Affiliate</h3>
             <p>Bantu saya dengan perniagaan affiliate. Temui perbezaan harga barang di tiga platform ini.</p>
             <div class="project-tags">
-              <span class="tag">TikTok</span>
-              <span class="tag">Shopee</span>
-              <span class="tag">Lazada</span>
+              <span class="tag">TikTok</span><span class="tag">Shopee</span><span class="tag">Lazada</span>
             </div>
             <a href="https://www.mastaxul.my/shop/" target="_blank" class="project-link">Lihat Shop <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
 
-        <!-- Projek 2 -->
         <div class="project-card">
           <img src="https://via.placeholder.com/300x180/203a43/ffffff?text=Pertanian+Pintar" alt="Projek Pertanian" class="project-img">
           <div class="project-info">
             <h3>Inovasi Pertanian & Agrotech</h3>
             <p>Eksperimen dan aplikasi teknologi dalam pengurusan sawah padi serta pertanian mampan.</p>
-            <div class="project-tags">
-              <span class="tag">Agrotech</span>
-              <span class="tag">Sawah Padi</span>
-            </div>
+            <div class="project-tags"><span class="tag">Agrotech</span><span class="tag">Sawah Padi</span></div>
             <a href="#" class="project-link">Akan Datang <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
 
-        <!-- Projek 3 -->
         <div class="project-card">
           <img src="https://via.placeholder.com/300x180/2c5364/ffffff?text=Automasi+%26+AI" alt="Projek AI" class="project-img">
           <div class="project-info">
             <h3>Automasi & Alat AI</h3>
             <p>Pembangunan sistem automasi ringkas dan integrasi alatan AI untuk produktiviti harian.</p>
-            <div class="project-tags">
-              <span class="tag">AI</span>
-              <span class="tag">Automasi</span>
-            </div>
+            <div class="project-tags"><span class="tag">AI</span><span class="tag">Automasi</span></div>
             <a href="#" class="project-link">Akan Datang <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
@@ -227,13 +229,11 @@
           <textarea id="mesej" required placeholder="Tulis mesej anda di sini..."></textarea>
         </div>
 
-        <!-- Honeypot anti-bot -->
         <div class="hp-field" aria-hidden="true">
           <label for="website">Website</label>
           <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
         </div>
 
-        <!-- CAPTCHA Box -->
         <div class="captcha-box">
           <label for="captchaJawapan"><i class="fas fa-shield-alt"></i> CAPTCHA — Berapa jumlah ini? *</label>
           <div class="captcha-row">
@@ -250,7 +250,6 @@
 
       <hr class="contact-divider">
 
-      <!-- Pautan Media Sosial -->
       <div class="contact-socials-wrapper">
         <p>Atau hubungi terus melalui platform sosial:</p>
         <div class="contact-socials">
@@ -261,13 +260,12 @@
       </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
       <p>&copy; 2026 Masta Xul. Hak Cipta Terpelihara.</p>
     </footer>
   </div>
 
-  <!-- Floating Music Player Widget -->
+  <!-- Music Widget -->
   <div class="music-player-widget">
     <audio id="bgMusic" loop src="music.mp3"></audio>
     <button id="btnMusicToggle" class="music-btn" title="Mainkan / Hentikan Muzik">
