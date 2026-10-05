@@ -1,27 +1,34 @@
-// --- 1. SIMULASI LOADING SCREEN (0% -> 100%) ---
+// =========================================================
+// 1. LOGIK LOADING SCREEN (MULA INTEGRASI DENGAN ANIMASI UFO)
+// =========================================================
 const loaderOverlay = document.getElementById('loader-overlay');
 const loadingPercent = document.getElementById('loading-percent');
 const progressBar = document.getElementById('progress-bar');
 const mainContent = document.getElementById('main-content');
 
 let progress = 0;
-const interval = setInterval(() => {
-  progress += Math.floor(Math.random() * 6) + 2;
-  if (progress >= 100) {
-    progress = 100;
-    clearInterval(interval);
-    setTimeout(() => {
-      loaderOverlay.style.opacity = '0';
-      loaderOverlay.style.visibility = 'hidden';
-      mainContent.classList.add('visible');
-      kemaskiniKedudukanAlien(); // Inisialisasi kedudukan alien pointer selepas load
-    }, 400);
-  }
-  loadingPercent.innerText = progress + '%';
-  progressBar.style.width = progress + '%';
-}, 50);
+// Beri sedikit penangguhan (delay) supaya animasi UFO & Teks Welcome sempat siap dipaparkan
+setTimeout(() => {
+  const interval = setInterval(() => {
+    progress += Math.floor(Math.random() * 6) + 3;
+    if (progress >= 100) {
+      progress = 100;
+      clearInterval(interval);
+      setTimeout(() => {
+        loaderOverlay.style.opacity = '0';
+        loaderOverlay.style.visibility = 'hidden';
+        mainContent.classList.add('visible');
+        kemaskiniKedudukanAlien(); // Kemaskini kedudukan Alien Pointer
+      }, 500);
+    }
+    if (loadingPercent) loadingPercent.innerText = progress + '%';
+    if (progressBar) progressBar.style.width = progress + '%';
+  }, 45);
+}, 1800); // 1.8s selari dengan animasi kemunculan UFO & Beam
 
-// --- 2. CANVAS GALAKSI & ANIMASI KILAT (LIGHTNING EFFECT) ---
+// =========================================================
+// 2. CANVAS GALAKSI & KILAT
+// =========================================================
 const canvas = document.getElementById('galaxyCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -35,7 +42,6 @@ window.addEventListener('resize', () => {
   kemaskiniKedudukanAlien();
 });
 
-// Bintang Galaksi
 const stars = [];
 class Star {
   constructor() { this.reset(); }
@@ -57,10 +63,9 @@ class Star {
 
 function initStars() {
   stars.length = 0;
-  for (let i = 0; i < 500; i++) stars.push(new Star());
+  for (let i = 0; i < 400; i++) stars.push(new Star());
 }
 
-// Logik Penjanaan Kilatan (Lightning Bolt)
 class Lightning {
   constructor(startX, startY, endX, endY) {
     this.startX = startX;
@@ -89,21 +94,16 @@ class Lightning {
     this.segments.push({ x: this.endX, y: this.endY });
   }
 
-  update() {
-    this.life -= 0.08;
-  }
+  update() { this.life -= 0.08; }
 
   draw() {
     if (this.life <= 0) return;
-
     ctx.save();
     ctx.beginPath();
     ctx.moveTo(this.segments[0].x, this.segments[0].y);
-
     for (let i = 1; i < this.segments.length; i++) {
       ctx.lineTo(this.segments[i].x, this.segments[i].y);
     }
-
     ctx.strokeStyle = `rgba(186, 230, 253, ${this.life})`;
     ctx.lineWidth = 2.5;
     ctx.shadowColor = '#38bdf8';
@@ -113,7 +113,6 @@ class Lightning {
     ctx.strokeStyle = `rgba(255, 255, 255, ${this.life})`;
     ctx.lineWidth = 1;
     ctx.stroke();
-
     ctx.restore();
   }
 }
@@ -125,17 +124,12 @@ function triggerLightning() {
   const startY = 0;
   const endX = width * 0.5 + (Math.random() - 0.5) * 300;
   const endY = height;
-
   currentLightning = new Lightning(startX, startY, endX, endY);
 }
 
 setInterval(() => {
-  if (Math.random() < 0.7) {
-    triggerLightning();
-  }
-}, 1500);
-
-triggerLightning();
+  if (Math.random() < 0.7) triggerLightning();
+}, 1800);
 
 function animate() {
   ctx.clearRect(0, 0, width, height);
@@ -153,37 +147,41 @@ function animate() {
 initStars();
 animate();
 
-// --- 3. 👾 LOGIK ALIEN MENU POINTER (NAVIGASI AKTIF SAAT SCROLL) ---
+// =========================================================
+// 3. LOGIK PEMBAIKAN ALIEN POINTER NAVIGASI MENU
+// =========================================================
 const navItems = document.querySelectorAll('.nav-item');
 const sections = document.querySelectorAll('section');
 const alienPointer = document.getElementById('alienPointer');
 const alienSpeech = document.getElementById('alienSpeech');
-const mainNavbar = document.getElementById('mainNavbar');
+const navLinksList = document.getElementById('navLinksList');
 
+// Fungsi mengira kedudukan Alien Pointer tepat di atas menu pilihan
 function kemaskiniKedudukanAlien() {
   const activeLink = document.querySelector('.nav-item.active');
-  if (activeLink && alienPointer && mainNavbar) {
-    const navRect = mainNavbar.getBoundingClientRect();
+  if (activeLink && alienPointer && navLinksList) {
+    const parentRect = navLinksList.getBoundingClientRect();
     const linkRect = activeLink.getBoundingClientRect();
 
-    // Kira offset posisi X supaya alien sentiasa terbang di atas menu pilihan
-    const offsetLeft = linkRect.left - navRect.left + (linkRect.width / 2) - (alienPointer.offsetWidth / 2);
-    alienPointer.style.transform = `translateX(${offsetLeft}px)`;
+    // Kira offset jarak mendatar dari tepi bekas parent
+    const offsetLeft = linkRect.left - parentRect.left + (linkRect.width / 2) - (alienPointer.offsetWidth / 2);
     
-    // Kemaskini teks pada belon ucapan alien
+    alienPointer.style.transform = `translateX(${offsetLeft}px)`;
+
     if (alienSpeech) {
       alienSpeech.textContent = activeLink.textContent;
     }
   }
 }
 
-window.addEventListener('scroll', () => {
+// Kemaskini menu aktif semasa pengguna menatal (scroll) menggunakan getBoundingClientRect
+function kemaskiniActiveSectionScroll() {
   let currentSection = '';
 
   sections.forEach(section => {
-    const sectionTop = section.offsetTop - 150;
-    const sectionHeight = section.clientHeight;
-    if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+    const rect = section.getBoundingClientRect();
+    // Jika bahagian berada di sekitar kawasan tengah skrin
+    if (rect.top <= window.innerHeight * 0.45 && rect.bottom >= window.innerHeight * 0.25) {
       currentSection = section.getAttribute('id');
     }
   });
@@ -197,10 +195,23 @@ window.addEventListener('scroll', () => {
     });
     kemaskiniKedudukanAlien();
   }
+}
+
+// Acara Klik pada pautan Navigasi
+navItems.forEach(item => {
+  item.addEventListener('click', function () {
+    navItems.forEach(link => link.classList.remove('active'));
+    this.classList.add('active');
+    kemaskiniKedudukanAlien();
+  });
 });
 
-// --- 4. LOGIK BORANG HUBUNGI & GOOGLE APPS SCRIPT ---
-const API_URL = "https://script.google.com/macros/s/AKfycbxsWSCyKSOiEx-Syg1dGuNT21U0Qqv_4GPBiFhJgvU-t014SXvbOwKAWL4TZiQk8NJE/exec";
+window.addEventListener('scroll', kemaskiniActiveSectionScroll);
+
+// =========================================================
+// 4. LOGIK BORANG HUBUNGI & CAPTCHA
+// =========================================================
+const API_URL = "[https://script.google.com/macros/s/AKfycbxsWSCyKSOiEx-Syg1dGuNT21U0Qqv_4GPBiFhJgvU-t014SXvbOwKAWL4TZiQk8NJE/exec](https://script.google.com/macros/s/AKfycbxsWSCyKSOiEx-Syg1dGuNT21U0Qqv_4GPBiFhJgvU-t014SXvbOwKAWL4TZiQk8NJE/exec)";
 
 const formHubungi = document.getElementById("formHubungi");
 const btnHantar = document.getElementById("btnHantar");
@@ -215,18 +226,11 @@ let captchaB = 0;
 function buatCaptcha() {
   captchaA = Math.floor(Math.random() * 8) + 2;
   captchaB = Math.floor(Math.random() * 8) + 2;
-  if (captchaSoalan) {
-    captchaSoalan.textContent = captchaA + " + " + captchaB + " = ?";
-  }
-  if (captchaJawapan) {
-    captchaJawapan.value = "";
-  }
+  if (captchaSoalan) captchaSoalan.textContent = captchaA + " + " + captchaB + " = ?";
+  if (captchaJawapan) captchaJawapan.value = "";
 }
 
-if (btnRefreshCaptcha) {
-  btnRefreshCaptcha.addEventListener("click", buatCaptcha);
-}
-
+if (btnRefreshCaptcha) btnRefreshCaptcha.addEventListener("click", buatCaptcha);
 buatCaptcha();
 
 if (formHubungi) {
@@ -272,12 +276,12 @@ if (formHubungi) {
 
       if (data.ok) {
         msgContainer.className = "msg ok";
-        msgContainer.textContent = data.message || "Mesej berjaya dihantar. Terima kasih!";
+        msgContainer.textContent = data.message || "Mesej berjaya dihantar!";
         formHubungi.reset();
         buatCaptcha();
       } else {
         msgContainer.className = "msg err";
-        msgContainer.textContent = data.message || "Gagal menghantar mesej. Sila cuba lagi.";
+        msgContainer.textContent = data.message || "Gagal menghantar mesej.";
         buatCaptcha();
       }
     } catch (err) {
@@ -292,7 +296,9 @@ if (formHubungi) {
   });
 }
 
-// --- 5. LOGIK MUZIK PLAYER (AUTOPLAY & FALLBACK) ---
+// =========================================================
+// 5. MUZIK PLAYER
+// =========================================================
 const bgMusic = document.getElementById('bgMusic');
 const btnMusicToggle = document.getElementById('btnMusicToggle');
 const musicIcon = document.getElementById('musicIcon');
@@ -321,7 +327,6 @@ if (bgMusic && btnMusicToggle) {
     window.removeEventListener('click', mulaMuzikAtasInteraksi);
     window.removeEventListener('touchstart', mulaMuzikAtasInteraksi);
     window.removeEventListener('scroll', mulaMuzikAtasInteraksi);
-    window.removeEventListener('keydown', mulaMuzikAtasInteraksi);
   }
 
   bgMusic.play().then(() => {
@@ -331,7 +336,6 @@ if (bgMusic && btnMusicToggle) {
     window.addEventListener('click', mulaMuzikAtasInteraksi);
     window.addEventListener('touchstart', mulaMuzikAtasInteraksi);
     window.addEventListener('scroll', mulaMuzikAtasInteraksi, { once: true });
-    window.addEventListener('keydown', mulaMuzikAtasInteraksi);
   });
 
   btnMusicToggle.addEventListener('click', (e) => {
