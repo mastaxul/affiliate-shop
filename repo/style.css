@@ -17,14 +17,16 @@ body {
   position: relative;
 }
 
-/* Skrin Loading Overlay */
+/* =========================================================
+   1. LOADING SCREEN & ANIMASI UFO TERBANG + BEAM LIGHT
+   ========================================================= */
 #loader-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(3, 3, 8, 0.88);
+  background-color: #030308;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,15 +38,56 @@ body {
   text-align: center;
   max-width: 90%;
   width: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+/* Container UFO Loading */
+.loader-ufo-wrapper {
+  position: relative;
+  width: 140px;
+  height: 70px;
+  margin-bottom: 10px;
+  /* FASA 1: Kapal UFO terbang masuk dari kiri skrin */
+  animation: ufoFlyIn 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.loader-ufo-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.8));
+}
+
+/* FASA 2: Pancaran Cahaya Beam Bawah UFO */
+.loader-beam {
+  position: absolute;
+  top: 52px;
+  left: 50%;
+  transform: translateX(-50%) scaleY(0);
+  transform-origin: top center;
+  width: 220px;
+  height: 90px;
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.6) 0%, rgba(74, 222, 128, 0.2) 60%, rgba(56, 189, 248, 0) 100%);
+  clip-path: polygon(35% 0%, 65% 0%, 100% 100%, 0% 100%);
+  opacity: 0;
+  /* Animasi Beam Hidup Selepas UFO Sampai (delay 1.2s) */
+  animation: beamTurnOn 0.6s ease-out 1.2s forwards;
+  pointer-events: none;
+}
+
+/* FASA 3: Teks Welcome Muncul Dari Cahaya Beam */
 .welcome-title {
   font-size: 2.2rem;
   font-weight: 700;
   color: #ffffff;
   line-height: 1.3;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   letter-spacing: 1px;
+  opacity: 0;
+  transform: translateY(-10px) scale(0.9);
+  /* Animasi Teks Keluar Selepas Beam Hidup (delay 1.7s) */
+  animation: welcomeTextReveal 0.8s ease-out 1.7s forwards;
 }
 
 .highlight-blue {
@@ -56,10 +99,13 @@ body {
 .loading-status {
   display: flex;
   justify-content: space-between;
+  width: 100%;
   font-size: 0.95rem;
   color: #94a3b8;
   margin-bottom: 10px;
   font-weight: 600;
+  opacity: 0;
+  animation: fadeInProgress 0.5s ease-out 2.0s forwards;
 }
 
 .progress-bar-container {
@@ -69,6 +115,8 @@ body {
   border-radius: 4px;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+  opacity: 0;
+  animation: fadeInProgress 0.5s ease-out 2.0s forwards;
 }
 
 #progress-bar {
@@ -79,7 +127,47 @@ body {
   transition: width 0.1s linear;
 }
 
-/* Canvas Latar Belakang (Galaksi & Kilat) */
+/* KEYFRAMES ANIMATION LOADING */
+@keyframes ufoFlyIn {
+  0% {
+    transform: translateX(-500px) translateY(-50px) rotate(-15deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes beamTurnOn {
+  0% {
+    transform: translateX(-50%) scaleY(0);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-50%) scaleY(1);
+    opacity: 1;
+  }
+}
+
+@keyframes welcomeTextReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeInProgress {
+  to { opacity: 1; }
+}
+
+/* =========================================================
+   2. CANVAS GALAKSI & BACKGROUND UFO
+   ========================================================= */
 #galaxyCanvas {
   position: fixed;
   top: 0;
@@ -90,7 +178,6 @@ body {
   pointer-events: none;
 }
 
-/* 🛸 ANIMASI 1: UFO Terbang di Latar Belakang */
 .ufo-background-container {
   position: fixed;
   top: 0;
@@ -108,28 +195,13 @@ body {
   height: 100%;
 }
 
-.ufo-light-1 { animation: pulseLight 0.8s infinite alternate; }
-.ufo-light-2 { animation: pulseLight 0.8s infinite alternate 0.2s; }
-.ufo-light-3 { animation: pulseLight 0.8s infinite alternate 0.4s; }
-
-@keyframes pulseLight {
-  0% { opacity: 0.3; transform: scale(0.8); }
-  100% { opacity: 1; transform: scale(1.2); }
-}
-
 @keyframes ufoFlyAcross {
-  0% {
-    transform: translate(-160px, 20vh) rotate(-5deg);
-    opacity: 0;
-  }
+  0% { transform: translate(-160px, 20vh) rotate(-5deg); opacity: 0; }
   8% { opacity: 0.85; }
   35% { transform: translate(30vw, 12vh) rotate(3deg); }
   65% { transform: translate(65vw, 28vh) rotate(-3deg); }
   92% { opacity: 0.85; }
-  100% {
-    transform: translate(105vw, 18vh) rotate(5deg);
-    opacity: 0;
-  }
+  100% { transform: translate(105vw, 18vh) rotate(5deg); opacity: 0; }
 }
 
 .content-wrapper {
@@ -146,7 +218,6 @@ body {
   opacity: 1;
 }
 
-/* Glassmorphism Cards */
 .glass-card {
   background: rgba(10, 15, 30, 0.65);
   backdrop-filter: blur(12px);
@@ -158,7 +229,9 @@ body {
   margin-bottom: 30px;
 }
 
-/* Navbar & 👾 ANIMASI 2: Alien Nav Pointer */
+/* =========================================================
+   3. NAVBAR & ALIEN POINTER MENU (BAIK PULIH PERGERAKAN)
+   ========================================================= */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -182,10 +255,14 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
+.nav-wrapper {
+  position: relative;
+}
+
 .nav-links {
   display: flex;
   list-style: none;
-  gap: 20px;
+  gap: 15px;
   position: relative;
 }
 
@@ -193,11 +270,12 @@ body {
   color: #cbd5e1;
   text-decoration: none;
   font-size: 0.95rem;
-  padding: 6px 12px;
+  padding: 6px 14px;
   border-radius: 15px;
   transition: color 0.3s, background 0.3s;
   position: relative;
   z-index: 2;
+  display: inline-block;
 }
 
 .nav-links a.active,
@@ -206,16 +284,16 @@ body {
   font-weight: 600;
 }
 
-/* Petunjuk Alien yang Mengekor / Menunjuk Menu */
+/* Alien Pointer yang Bergerak Ikut Target Link */
 .alien-pointer {
   position: absolute;
-  top: -35px;
+  top: -42px;
   left: 0;
   width: 60px;
   height: 50px;
   pointer-events: none;
   z-index: 10;
-  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -223,7 +301,7 @@ body {
 }
 
 .alien-speech {
-  background: rgba(15, 23, 42, 0.9);
+  background: rgba(15, 23, 42, 0.95);
   border: 1px solid #4ade80;
   color: #4ade80;
   font-size: 0.7rem;
@@ -247,7 +325,9 @@ body {
   100% { transform: translateY(-4px); }
 }
 
-/* Hero Section */
+/* =========================================================
+   4. HERO & SECTIONS LAIN
+   ========================================================= */
 .hero-section {
   text-align: center;
   padding: 50px 20px;
@@ -321,7 +401,6 @@ body {
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* Section Common */
 .section h2 {
   font-size: 1.8rem;
   margin-bottom: 20px;
@@ -331,7 +410,6 @@ body {
   gap: 10px;
 }
 
-/* About Section */
 .about-content p {
   line-height: 1.7;
   color: #e2e8f0;
@@ -357,7 +435,6 @@ body {
   color: #38bdf8;
 }
 
-/* Projects Section */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -422,7 +499,6 @@ body {
   gap: 6px;
 }
 
-/* Skills Section */
 .skills-container {
   display: flex;
   flex-wrap: wrap;
@@ -440,7 +516,6 @@ body {
   gap: 8px;
 }
 
-/* Contact Section & Form Style */
 .contact-sub {
   color: #cbd5e1;
   margin-bottom: 25px;
@@ -553,10 +628,6 @@ body {
   transition: background 0.3s;
 }
 
-.captcha-refresh:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
 .btn-submit {
   width: 100%;
   border: none;
@@ -564,12 +635,6 @@ body {
   font-size: 1rem;
   padding: 14px;
   margin-top: 10px;
-}
-
-.btn-submit:disabled {
-  background: #475569;
-  cursor: not-allowed;
-  box-shadow: none;
 }
 
 .msg {
@@ -603,21 +668,9 @@ body {
   margin: 30px 0 20px;
 }
 
-.contact-socials-wrapper {
-  text-align: center;
-}
-
-.contact-socials-wrapper p {
-  font-size: 0.9rem;
-  color: #94a3b8;
-  margin-bottom: 12px;
-}
-
-.contact-socials {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-}
+.contact-socials-wrapper { text-align: center; }
+.contact-socials-wrapper p { font-size: 0.9rem; color: #94a3b8; margin-bottom: 12px; }
+.contact-socials { display: flex; gap: 15px; justify-content: center; }
 
 .social-icon {
   width: 45px;
@@ -640,7 +693,6 @@ body {
   box-shadow: 0 0 15px #38bdf8;
 }
 
-/* Footer */
 .footer {
   text-align: center;
   padding: 20px 0;
@@ -648,7 +700,6 @@ body {
   font-size: 0.85rem;
 }
 
-/* Floating Music Player Widget */
 .music-player-widget {
   position: fixed;
   bottom: 25px;
@@ -674,11 +725,6 @@ body {
   position: relative;
 }
 
-.music-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 25px rgba(56, 189, 248, 0.7);
-}
-
 .music-btn.playing {
   border-color: #4ade80;
   color: #4ade80;
@@ -695,9 +741,7 @@ body {
   right: 8px;
 }
 
-.music-btn.playing .sound-wave {
-  display: flex;
-}
+.music-btn.playing .sound-wave { display: flex; }
 
 .sound-wave span {
   width: 2px;
@@ -716,21 +760,9 @@ body {
   100% { height: 12px; }
 }
 
-/* Responsif Telefon Bimbit */
 @media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    gap: 12px;
-    padding: 15px;
-  }
-  .nav-links {
-    gap: 8px;
-  }
-  .nav-links a {
-    font-size: 0.85rem;
-    padding: 4px 8px;
-  }
-  .alien-pointer {
-    display: none; /* Sembunyikan pointer alien pada skrin kecil untuk mengelakkan halangan */
-  }
+  .navbar { flex-direction: column; gap: 12px; padding: 15px; }
+  .nav-links { gap: 6px; }
+  .nav-links a { font-size: 0.85rem; padding: 4px 8px; }
+  .alien-pointer { display: none; }
 }
