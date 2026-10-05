@@ -33,6 +33,8 @@
   <!-- Bing Verification -->
   <meta name="msvalidate.01" content="0D3F43A42C910C8228D4687C99E63603" />
 
+  <link rel="canonical" href="https://mastaxul.my/">
+
   <link rel="stylesheet" href="style.css">
 
   <style>
@@ -170,6 +172,35 @@
       }
     }
   </style>
+
+  <!-- Structured data: bantu Google faham "Masta Xul" sebagai jenama/entiti,
+       dan daftarkan carian /shop/?q= sebagai sitelinks search box berpotensi -->
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Masta Xul Affiliate Shop",
+      "alternateName": "Masta Xul",
+      "url": "https://mastaxul.my/",
+      "logo": "https://i.ibb.co/SwpWGqrs/IMG-0606.png",
+      "sameAs": [
+        "https://whatsapp.com/channel/0029VaHHLhNIt5rvXDSZl03Y"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Masta Xul Affiliate Shop",
+      "url": "https://mastaxul.my/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://mastaxul.my/shop/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ]
+  </script>
 </head>
 <body>
 
