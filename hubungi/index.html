@@ -3,224 +3,234 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Masta Xul | Portfolio</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>Hubungi Kami | Masta Xul Affiliate Shop</title>
+  <meta name="description" content="Hubungi Masta Xul Affiliate Shop. Hantar pertanyaan, cadangan atau kerjasama melalui borang ini.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://mastaxul.my/hubungi/">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .contact-wrap {
+      max-width: 520px;
+      margin: 30px auto 60px;
+      padding: 0 16px;
+    }
+    .contact-wrap h1 {
+      text-align: center;
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+      color: #111;
+    }
+    .contact-sub {
+      text-align: center;
+      color: #6B4423;
+      margin-bottom: 28px;
+      font-size: 0.95rem;
+    }
+    .contact-form {
+      background: #fff;
+      border: 2px solid #6B4423;
+      border-radius: 14px;
+      padding: 24px 20px;
+    }
+    .contact-form label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      color: #111;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid #6B4423;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: inherit;
+      margin-bottom: 16px;
+      outline: none;
+      background: #fff;
+      color: #111;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: #D32F2F;
+    }
+    .contact-form textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .captcha-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .captcha-q {
+      background: #111;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 1px;
+    }
+    .captcha-box input {
+      width: 100px;
+      margin-bottom: 0;
+    }
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: #D32F2F;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn-submit:hover {
+      background: #111;
+    }
+    .btn-submit:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    .form-msg {
+      text-align: center;
+      margin-top: 14px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: none;
+    }
+    .form-msg.ok { color: #2E7D32; display: block; }
+    .form-msg.err { color: #D32F2F; display: block; }
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 24px;
+      color: #6B4423;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .back-link:hover { color: #D32F2F; }
+  </style>
 </head>
 <body>
 
-  <!-- Loading / Welcome Screen -->
-  <div id="loader-overlay">
-    <div class="loader-content">
-      <h1 class="welcome-title">Welcome To My<br><span class="highlight-blue">Portfolio Website</span></h1>
-      <div class="loading-status">
-        <span>Loading</span>
-        <span id="loading-percent">0%</span>
-      </div>
-      <div class="progress-bar-container">
-        <div id="progress-bar"></div>
-      </div>
+<header>
+  <div class="header-top">
+    <img src="https://i.ibb.co/SwpWGqrs/IMG-0606.png" class="logo" alt="Logo">
+    <!-- Butang hamburger ditambah oleh menu.js -->
+  </div>
+  <h1>Masta Xul Affiliate Shop</h1>
+  <p>Hubungi Kami</p>
+</header>
+
+<div class="contact-wrap">
+  <h1>Hubungi Kami</h1>
+  <p class="contact-sub">Pertanyaan, cadangan atau kerjasama — isi borang di bawah.</p>
+
+  <form class="contact-form" id="contactForm">
+    <label for="nama">Nama</label>
+    <input type="text" id="nama" name="nama" required maxlength="80" placeholder="Nama anda" autocomplete="name">
+
+    <label for="email">E-mel / Telefon</label>
+    <input type="text" id="email" name="email" required maxlength="100" placeholder="Emel atau nombor telefon" autocomplete="email">
+
+    <label for="mesej">Mesej</label>
+    <textarea id="mesej" name="mesej" required maxlength="2000" placeholder="Tulis mesej anda di sini..."></textarea>
+
+    <label>Captcha</label>
+    <div class="captcha-box">
+      <span class="captcha-q" id="captchaQ">?</span>
+      <input type="number" id="captchaA" required placeholder="Jawapan" inputmode="numeric">
     </div>
-  </div>
 
-  <!-- Canvas Latar Belakang Galaksi & Kilat -->
-  <canvas id="galaxyCanvas"></canvas>
+    <button type="submit" class="btn-submit" id="btnSubmit">Hantar Mesej</button>
+    <p class="form-msg" id="formMsg"></p>
+  </form>
 
-  <!-- Container Utama -->
-  <div class="content-wrapper" id="main-content">
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-      <div class="logo">
-        <span class="logo-text">Masta Xul</span>
-      </div>
-      <ul class="nav-links">
-        <li><a href="#hero">Utama</a></li>
-        <li><a href="#about">Tentang</a></li>
-        <li><a href="#projects">Projek</a></li>
-        <li><a href="#skills">Kemahiran</a></li>
-        <li><a href="#contact">Hubungi</a></li>
-      </ul>
-    </nav>
+  <a href="/" class="back-link">← Kembali ke Laman Utama</a>
+</div>
 
-    <!-- Hero Section -->
-    <section id="hero" class="hero-section glass-card">
-      <div class="hero-content">
-        <div class="profile-img-container">
-          <img src="https://i.ibb.co/s93HdjPp/8-C91-AD94-DDE3-42-BD-BA89-12-D3-CCE6-D82-D.jpg" alt="Gambar Profil Masta Xul" class="profile-img" id="profileImage">
-        </div>
-        <h1>Hai, Saya <span class="highlight">Masta Xul</span></h1>
-        <p class="tagline">Petani 🌱 | Usahawan Digital 💻 | Tech Enthusiast 🍎<br>
-          Seorang pencipta dan pemikir dari Malaysia yang menggabungkan pertanian,
-          teknologi, kreativiti dan keusahawanan dalam satu perjalanan. 
-          Daripada sawah dan kebun kepada pembangunan web, automasi, 
-          AI dan teknologi pintar — sentiasa mencari cara baharu untuk 
-          mengubah idea menjadi sesuatu yang nyata dan berguna.
-        </p>
-        <div class="hero-buttons">
-          <a href="#projects" class="btn btn-primary">Lihat Projek</a>
-          <a href="#contact" class="btn btn-outline">Hubungi Saya</a>
-        </div>
-      </div>
-    </section>
+<footer>
+  © 2026 Masta Xul Affiliate Shop
+</footer>
 
-    <!-- About Section -->
-    <section id="about" class="section glass-card">
-      <h2><i class="fas fa-user"></i> Tentang Saya</h2>
-      <div class="about-content">
-        <p>
-          Website ini dibangunkan sebagai platform peribadi untuk berkongsi projek, 
-          pengalaman, idea dan hasil kerja dalam bidang pertanian serta teknologi. 
-          Ia menggabungkan pengalaman dunia sebenar dengan teknologi digital, inovasi
-          dan kreativiti dalam satu ruang yang mudah diakses.
-        </p>
-        <div class="info-grid">
-          <div class="info-item">
-            <i class="fas fa-map-marker-alt"></i>
-            <span><strong>Lokasi:</strong> Selangor, Malaysia</span>
-          </div>
-          <div class="info-item">
-            <i class="fas fa-envelope"></i>
-            <span><strong>E-mel:</strong> masta.xul@outlook.com</span>
-          </div>
-          <div class="info-item">
-            <i class="fas fa-briefcase"></i>
-            <span><strong>Status:</strong> Saya sangat cepat belajar</span>
-          </div>
-        </div>
-      </div>
-    </section>
+<script src="../menu.js"></script>
+<script>
+  // ========== APPS SCRIPT WEB APP ==========
+  const FORM_API = "https://script.google.com/macros/s/AKfycbxsWSCyKSOiEx-Syg1dGuNT21U0Qqv_4GPBiFhJgvU-t014SXvbOwKAWL4TZiQk8NJE/exec";
 
-    <!-- Projects Section -->
-    <section id="projects" class="section glass-card">
-      <h2><i class="fas fa-project-diagram"></i> Projek Saya</h2>
-      <div class="projects-grid">
-        <!-- Projek 1 -->
-        <div class="project-card">
-          <img src="https://i.ibb.co/XfYJg0Vk/41682-B18-AA27-4-E70-9-D83-0-A848662-C86-F.png" alt="Projek Affiliate" class="project-img">
-          <div class="project-info">
-            <h3>Affiliate</h3>
-            <p>Bantu saya dengan perniagaan affiliate. Temui perbezaan harga barang di tiga platform ini.</p>
-            <div class="project-tags">
-              <span class="tag">TikTok</span>
-              <span class="tag">Shopee</span>
-              <span class="tag">Lazada</span>
-            </div>
-            <a href="https://www.mastaxul.my/shop/" target="_blank" class="project-link">Lihat Shop <i class="fas fa-arrow-right"></i></a>
-          </div>
-        </div>
+  let captchaJawapan = 0;
 
-        <!-- Projek 2 -->
-        <div class="project-card">
-          <img src="https://via.placeholder.com/300x180/203a43/ffffff?text=Pertanian+Pintar" alt="Projek Pertanian" class="project-img">
-          <div class="project-info">
-            <h3>Inovasi Pertanian & Agrotech</h3>
-            <p>Eksperimen dan aplikasi teknologi dalam pengurusan sawah padi serta pertanian mampan.</p>
-            <div class="project-tags">
-              <span class="tag">Agrotech</span>
-              <span class="tag">Sawah Padi</span>
-            </div>
-            <a href="#" class="project-link">Akan Datang <i class="fas fa-arrow-right"></i></a>
-          </div>
-        </div>
+  function buatCaptcha() {
+    const a = Math.floor(Math.random() * 9) + 1;
+    const b = Math.floor(Math.random() * 9) + 1;
+    captchaJawapan = a + b;
+    document.getElementById("captchaQ").textContent = a + " + " + b + " = ?";
+    document.getElementById("captchaA").value = "";
+  }
 
-        <!-- Projek 3 -->
-        <div class="project-card">
-          <img src="https://via.placeholder.com/300x180/2c5364/ffffff?text=Automasi+%26+AI" alt="Projek AI" class="project-img">
-          <div class="project-info">
-            <h3>Automasi & Alat AI</h3>
-            <p>Pembangunan sistem automasi ringkas dan integrasi alatan AI untuk produktiviti harian.</p>
-            <div class="project-tags">
-              <span class="tag">AI</span>
-              <span class="tag">Automasi</span>
-            </div>
-            <a href="#" class="project-link">Akan Datang <i class="fas fa-arrow-right"></i></a>
-          </div>
-        </div>
-      </div>
-    </section>
+  buatCaptcha();
 
-    <!-- Skills Section -->
-    <section id="skills" class="section glass-card">
-      <h2><i class="fas fa-laptop-code"></i> Kemahiran</h2>
-      <div class="skills-container">
-        <div class="skill-badge"><i class="fas fa-seedling"></i> Agrotech & Sawah</div>
-        <div class="skill-badge"><i class="fab fa-html5"></i> HTML5</div>
-        <div class="skill-badge"><i class="fab fa-css3-alt"></i> CSS3</div>
-        <div class="skill-badge"><i class="fab fa-js"></i> JavaScript</div>
-        <div class="skill-badge"><i class="fab fa-github"></i> GitHub</div>
-        <div class="skill-badge"><i class="fas fa-bolt"></i> Vercel Deploy</div>
-        <div class="skill-badge"><i class="fas fa-robot"></i> AI Prompting</div>
-      </div>
-    </section>
+  document.getElementById("contactForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-    <!-- Contact Section -->
-    <section id="contact" class="section glass-card">
-      <h2><i class="fas fa-paper-plane"></i> Hubungi Saya</h2>
-      <p class="contact-sub">Pertanyaan, cadangan atau sebarang bentuk kerjasama — hantarkan mesej anda di bawah.</p>
+    const msg = document.getElementById("formMsg");
+    const btn = document.getElementById("btnSubmit");
+    msg.className = "form-msg";
+    msg.textContent = "";
 
-      <form id="formHubungi" class="contact-form" autocomplete="on">
-        <div class="form-group">
-          <label for="nama">Nama *</label>
-          <input type="text" id="nama" required placeholder="Nama anda">
-        </div>
+    const jawapan = parseInt(document.getElementById("captchaA").value, 10);
+    if (jawapan !== captchaJawapan) {
+      msg.textContent = "Captcha salah. Sila cuba lagi.";
+      msg.className = "form-msg err";
+      buatCaptcha();
+      return;
+    }
 
-        <div class="form-row">
-          <div class="form-group">
-            <label for="emel">E-mel *</label>
-            <input type="email" id="emel" required placeholder="nama@email.com">
-          </div>
-          <div class="form-group">
-            <label for="telefon">Nombor Telefon (pilihan)</label>
-            <input type="tel" id="telefon" placeholder="01X-XXXXXXX">
-          </div>
-        </div>
+    const nama = document.getElementById("nama").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const mesej = document.getElementById("mesej").value.trim();
 
-        <div class="form-group">
-          <label for="mesej">Mesej *</label>
-          <textarea id="mesej" required placeholder="Tulis mesej anda di sini..."></textarea>
-        </div>
+    if (!nama || !email || !mesej) {
+      msg.textContent = "Sila isi semua ruangan.";
+      msg.className = "form-msg err";
+      return;
+    }
 
-        <!-- Honeypot anti-bot -->
-        <div class="hp-field" aria-hidden="true">
-          <label for="website">Website</label>
-          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
-        </div>
+    btn.disabled = true;
+    btn.textContent = "Menghantar...";
 
-        <!-- CAPTCHA Box -->
-        <div class="captcha-box">
-          <label for="captchaJawapan"><i class="fas fa-shield-alt"></i> CAPTCHA — Berapa jumlah ini? *</label>
-          <div class="captcha-row">
-            <span class="captcha-q" id="captchaSoalan">3 + 4 = ?</span>
-            <input type="number" id="captchaJawapan" required placeholder="Jawapan" inputmode="numeric">
-            <button type="button" class="captcha-refresh" id="btnRefreshCaptcha" title="Soalan baru"><i class="fas fa-sync-alt"></i> Baru</button>
-          </div>
-        </div>
+    try {
+      // text/plain elak preflight CORS dengan Apps Script
+      const res = await fetch(FORM_API, {
+        method: "POST",
+        mode: "cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ nama, email, mesej })
+      });
 
-        <button type="submit" id="btnHantar" class="btn btn-primary btn-submit">Hantar Mesej</button>
-      </form>
-
-      <div class="msg" id="msg"></div>
-
-      <hr class="contact-divider">
-
-      <!-- Pautan Media Sosial -->
-      <div class="contact-socials-wrapper">
-        <p>Atau hubungi terus melalui platform sosial:</p>
-        <div class="contact-socials">
-          <a href="mailto:masta.xul@outlook.com" class="social-icon" title="E-mel Direct"><i class="fas fa-envelope"></i></a>
-          <a href="https://github.com" target="_blank" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
-          <a href="https://www.mastaxul.my/shop/" target="_blank" class="social-icon" title="Website Shop"><i class="fas fa-shopping-bag"></i></a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <p>&copy; 2026 Masta Xul. Hak Cipta Terpelihara.</p>
-    </footer>
-  </div>
-
-  <script src="script.js"></script>
+      // Apps Script sering return redirect; anggap berjaya jika tiada network error
+      msg.textContent = "Mesej berjaya dihantar. Terima kasih!";
+      msg.className = "form-msg ok";
+      document.getElementById("contactForm").reset();
+      buatCaptcha();
+    } catch (err) {
+      console.error(err);
+      msg.textContent = "Gagal menghantar. Sila cuba lagi atau hubungi melalui WhatsApp Channel.";
+      msg.className = "form-msg err";
+      buatCaptcha();
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Hantar Mesej";
+    }
+  });
+</script>
 </body>
 </html>
