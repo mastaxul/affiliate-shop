@@ -1,468 +1,1859 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webmaster SEO Checker</title>
-  <meta name="description" content="Semak Facebook Debugger, Google Search Console, Bing Webmaster, Open Graph, Canonical, Robots.txt dan Sitemap.">
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f5f7fb;
-      color: #18202a;
-    }
-    .container {
-      width: min(100% - 30px, 900px);
-      margin: 40px auto;
-    }
-    .header {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-    .header h1 {
-      margin: 0;
-      font-size: 30px;
-    }
-    .header p {
-      color: #667085;
-      margin-top: 8px;
-    }
-    .card {
-      background: white;
-      border-radius: 18px;
-      padding: 22px;
-      margin-bottom: 18px;
-      box-shadow: 0 8px 30px rgba(0,0,0,.06);
-    }
-    .input-row {
-      display: flex;
-      gap: 10px;
-    }
-    input {
-      flex: 1;
-      min-width: 0;
-      padding: 15px;
-      border: 1px solid #d0d5dd;
-      border-radius: 12px;
-      font-size: 16px;
-      outline: none;
-    }
-    input:focus {
-      border-color: #4f7cff;
-    }
-    button {
-      border: 0;
-      border-radius: 12px;
-      padding: 14px 20px;
-      background: #111827;
-      color: white;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    button:hover {
-      opacity: .9;
-    }
-    .clear-btn {
-      background: #e5e7eb;
-      color: #111827;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-    }
-    .tool {
-      border: 1px solid #e5e7eb;
-      border-radius: 15px;
-      padding: 17px;
-      background: #fff;
-    }
-    .tool h3 {
-      margin: 0 0 7px;
-      font-size: 17px;
-    }
-    .tool p {
-      margin: 0 0 14px;
-      color: #667085;
-      font-size: 13px;
-      line-height: 1.5;
-    }
-    .tool button {
-      width: 100%;
-      background: #f1f3f5;
-      color: #111827;
-      border: 1px solid #e5e7eb;
-    }
-    .tool button:hover {
-      background: #e9ecef;
-    }
-    .status {
-      margin-top: 15px;
-      padding: 13px;
-      border-radius: 10px;
-      background: #f8fafc;
-      color: #475467;
-      font-size: 14px;
-      display: none;
-    }
-    .url-box {
-      background: #f8fafc;
-      padding: 12px;
-      border-radius: 10px;
-      word-break: break-all;
-      font-size: 13px;
-      color: #475467;
-      margin-top: 12px;
-    }
-    .success {
-      color: #067647;
-    }
-    .warning {
-      color: #b54708;
-    }
-    .footer {
-      text-align: center;
-      color: #98a2b3;
-      font-size: 12px;
-      margin-top: 30px;
-    }
-    @media(max-width: 650px) {
-      .input-row {
-        flex-direction: column;
-      }
-      .grid {
-        grid-template-columns: 1fr;
-      }
-      button {
-        width: 100%;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0f14">
+<title>MastaXul Webmaster Manager V3</title>
+<style>
+:root{
+  --bg:#080b10;
+  --panel:#10151d;
+  --panel2:#151c26;
+  --border:#27313d;
+  --text:#f2f5f8;
+  --muted:#8d9aaa;
+  --accent:#5ee7a5;
+  --blue:#63a4ff;
+  --yellow:#ffd166;
+  --red:#ff6b6b;
+  --green:#45e08a;
+  --shadow:0 15px 45px rgba(0,0,0,.35);
+}
+*{
+  box-sizing:border-box;
+}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at top right,#132033 0,#080b10 38%);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+button,input,textarea{
+  font:inherit;
+}
+button{
+  cursor:pointer;
+}
+.app{
+  max-width:1400px;
+  margin:auto;
+  padding:18px;
+}
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:18px;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.logo{
+  width:46px;
+  height:46px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#5ee7a5,#63a4ff);
+  color:#06100b;
+  font-weight:900;
+}
+h1{
+  margin:0;
+  font-size:21px;
+}
+.subtitle{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:3px;
+}
+.status{
+  padding:8px 12px;
+  border:1px solid var(--border);
+  border-radius:999px;
+  color:var(--muted);
+  background:#0d1219;
+  font-size:12px;
+}
+nav{
+  display:flex;
+  gap:8px;
+  overflow:auto;
+  padding-bottom:5px;
+  margin-bottom:18px;
+}
+.nav-btn{
+  white-space:nowrap;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--muted);
+  padding:10px 14px;
+  border-radius:10px;
+}
+.nav-btn.active{
+  color:#06100b;
+  background:var(--accent);
+  border-color:var(--accent);
+  font-weight:700;
+}
+.tab{
+  display:none;
+}
+.tab.active{
+  display:block;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:15px;
+}
+.card{
+  grid-column:span 12;
+  background:rgba(16,21,29,.94);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:17px;
+  box-shadow:var(--shadow);
+}
+.card.half{
+  grid-column:span 6;
+}
+.card.third{
+  grid-column:span 4;
+}
+.card-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:13px;
+}
+.card-title h2{
+  font-size:16px;
+  margin:0;
+}
+label{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  margin-bottom:7px;
+}
+input,textarea,select{
+  width:100%;
+  border:1px solid var(--border);
+  background:#0b1016;
+  color:var(--text);
+  border-radius:10px;
+  padding:12px;
+  outline:none;
+}
+input:focus,textarea:focus,select:focus{
+  border-color:var(--accent);
+}
+textarea{
+  min-height:180px;
+  resize:vertical;
+}
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:12px;
+}
+.btn{
+  border:1px solid var(--border);
+  background:#151c26;
+  color:var(--text);
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:600;
+}
+.btn:hover{
+  filter:brightness(1.15);
+}
+.btn.primary{
+  background:var(--accent);
+  color:#06100b;
+  border-color:var(--accent);
+}
+.btn.blue{
+  background:#162b47;
+  border-color:#244a78;
+}
+.btn.danger{
+  background:#321619;
+  border-color:#6b252c;
+  color:#ffb0b0;
+}
+.btn.small{
+  padding:7px 10px;
+  font-size:12px;
+}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+.stat{
+  background:var(--panel2);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:13px;
+}
+.stat-number{
+  font-size:25px;
+  font-weight:800;
+}
+.stat-label{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+.score-wrap{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:15px;
+}
+.score{
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:
+    radial-gradient(circle at center,#10151d 57%,transparent 58%),
+    conic-gradient(var(--accent) var(--score,0%),#252d37 0);
+  font-size:35px;
+  font-weight:900;
+}
+.score small{
+  display:block;
+  text-align:center;
+  font-size:11px;
+  color:var(--muted);
+  font-weight:500;
+}
+.result-list{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.result{
+  display:grid;
+  grid-template-columns:30px 1fr auto;
+  gap:10px;
+  align-items:center;
+  background:#0d131a;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:11px;
+}
+.result-icon{
+  font-size:18px;
+}
+.result-name{
+  font-weight:700;
+  font-size:13px;
+}
+.result-meaning{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+.badge{
+  border-radius:999px;
+  padding:5px 8px;
+  font-size:10px;
+  font-weight:800;
+}
+.pass{
+  background:rgba(69,224,138,.13);
+  color:var(--green);
+}
+.warn{
+  background:rgba(255,209,102,.13);
+  color:var(--yellow);
+}
+.fail{
+  background:rgba(255,107,107,.13);
+  color:var(--red);
+}
+.info{
+  background:rgba(99,164,255,.13);
+  color:var(--blue);
+}
+.table-wrap{
+  overflow:auto;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:760px;
+}
+th,td{
+  text-align:left;
+  padding:11px;
+  border-bottom:1px solid var(--border);
+  font-size:12px;
+}
+th{
+  color:var(--muted);
+  font-weight:600;
+}
+.url-cell{
+  max-width:390px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.empty{
+  text-align:center;
+  padding:30px;
+  color:var(--muted);
+}
+.muted{
+  color:var(--muted);
+}
+.warning-box{
+  padding:12px;
+  border-radius:10px;
+  background:#211b0c;
+  border:1px solid #55451b;
+  color:#ffe7a0;
+  font-size:12px;
+  line-height:1.6;
+}
+.danger-box{
+  padding:12px;
+  border-radius:10px;
+  background:#261114;
+  border:1px solid #5e252c;
+  color:#ffb4b4;
+  font-size:12px;
+  line-height:1.6;
+}
+.code{
+  background:#070a0e;
+  border:1px solid var(--border);
+  padding:10px;
+  border-radius:9px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:11px;
+  overflow:auto;
+}
+footer{
+  text-align:center;
+  color:var(--muted);
+  font-size:11px;
+  padding:25px 0 10px;
+}
+@media(max-width:800px){
+  .card.half,
+  .card.third{
+    grid-column:span 12;
+  }
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+  header{
+    align-items:flex-start;
+  }
+}
+@media(max-width:500px){
+  .app{
+    padding:11px;
+  }
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+  .result{
+    grid-template-columns:25px 1fr;
+  }
+  .result .badge{
+    grid-column:2;
+    width:max-content;
+  }
+}
+</style>
 </head>
 <body>
-<div class="container">
-  <div class="header">
-    <h1>🔍 Webmaster SEO Checker</h1>
-    <p>Satu URL → semua tool SEO penting</p>
-  </div>
-  <!-- INPUT -->
-  <div class="card">
-    <label><strong>Masukkan URL website</strong></label>
-    <div class="input-row" style="margin-top:10px;">
-      <input
-        id="urlInput"
-        type="url"
-        placeholder="https://mastaxul.my/shop/produk.html?id=2"
-        autocomplete="off"
-      >
-      <button onclick="generateTools()">
-        🚀 Check URL
-      </button>
-      <button class="clear-btn" onclick="clearAll()">
-        Clear
-      </button>
-    </div>
-    <div id="status" class="status"></div>
-    <div id="currentURL" class="url-box" style="display:none;"></div>
-  </div>
-  <!-- TOOLS -->
-  <div class="card">
-    <h2>🌐 Webmaster Tools</h2>
-    <div class="grid">
-      <!-- FACEBOOK -->
-      <div class="tool">
-        <h3>🔵 Facebook Debugger</h3>
-        <p>
-          Semak Open Graph, thumbnail, title,
-          description dan Facebook cache.
-        </p>
-        <button onclick="openTool('facebook')">
-          Open Facebook Debugger
-        </button>
-      </div>
-      <!-- GOOGLE -->
-      <div class="tool">
-        <h3>🔴 Google Search Console</h3>
-        <p>
-          Buka URL Inspection Google untuk
-          memeriksa status indexing URL.
-        </p>
-        <button onclick="openTool('google')">
-          Open Google Search Console
-        </button>
-      </div>
-      <!-- BING -->
-      <div class="tool">
-        <h3>🟢 Bing Webmaster</h3>
-        <p>
-          Buka Bing Webmaster Tools untuk
-          pemeriksaan URL dan indexing.
-        </p>
-        <button onclick="openTool('bing')">
-          Open Bing Webmaster
-        </button>
-      </div>
-      <!-- OPEN GRAPH -->
-      <div class="tool">
-        <h3>🟣 Open Graph</h3>
-        <p>
-          Buka URL Facebook Debugger untuk
-          melihat OG title, image dan description.
-        </p>
-        <button onclick="openTool('og')">
-          Check Open Graph
-        </button>
-      </div>
-      <!-- CANONICAL -->
-      <div class="tool">
-        <h3>🟠 Canonical</h3>
-        <p>
-          Buka halaman website untuk pemeriksaan
-          canonical URL melalui source HTML.
-        </p>
-        <button onclick="openTool('canonical')">
-          Check Canonical
-        </button>
-      </div>
-      <!-- ROBOTS -->
-      <div class="tool">
-        <h3>🤖 Robots.txt</h3>
-        <p>
-          Automatik bina URL robots.txt
-          berdasarkan domain yang dimasukkan.
-        </p>
-        <button onclick="openTool('robots')">
-          Open Robots.txt
-        </button>
-      </div>
-      <!-- SITEMAP -->
-      <div class="tool">
-        <h3>🗺️ Sitemap</h3>
-        <p>
-          Automatik bina URL sitemap.xml
-          berdasarkan domain website.
-        </p>
-        <button onclick="openTool('sitemap')">
-          Open Sitemap
-        </button>
-      </div>
-      <!-- SOURCE -->
-      <div class="tool">
-        <h3>📄 Page Source</h3>
-        <p>
-          Buka halaman asal untuk memeriksa
-          meta tag, OG dan canonical secara manual.
-        </p>
-        <button onclick="openTool('source')">
-          Open Page
-        </button>
-      </div>
+<div class="app">
+<header>
+  <div class="brand">
+    <div class="logo">MX</div>
+    <div>
+      <h1>MastaXul Webmaster Manager</h1>
+      <div class="subtitle">SEO • Open Graph • Webmaster • Bulk Audit</div>
     </div>
   </div>
-  <!-- QUICK LINKS -->
-  <div class="card">
-    <h2>⚡ Quick Tools</h2>
-    <div class="grid">
-      <div class="tool">
-        <h3>🔎 Google Search</h3>
-        <p>Cari URL di Google.</p>
-        <button onclick="openTool('search')">
-          Search Google
-        </button>
-      </div>
-      <div class="tool">
-        <h3>🟦 Bing Search</h3>
-        <p>Cari URL di Bing.</p>
-        <button onclick="openTool('bingsearch')">
-          Search Bing
-        </button>
-      </div>
-    </div>
+  <div class="status" id="apiStatus">
+    ● Checking API...
   </div>
-  <div class="footer">
-    Webmaster SEO Checker • HTML + CSS + JavaScript
+</header>
+<nav>
+  <button class="nav-btn active" data-tab="dashboard">Dashboard</button>
+  <button class="nav-btn" data-tab="bulk">Bulk URL</button>
+  <button class="nav-btn" data-tab="history">History</button>
+  <button class="nav-btn" data-tab="settings">Settings</button>
+  <button class="nav-btn" data-tab="help">Maksud Error</button>
+</nav>
+<!-- ============================= -->
+<!-- DASHBOARD -->
+<!-- ============================= -->
+<section class="tab active" id="dashboard">
+<div class="grid">
+<div class="card">
+<div class="card-title">
+  <h2>🔍 Audit URL</h2>
+</div>
+<label>URL website</label>
+<input
+  id="singleURL"
+  type="url"
+  placeholder="https://mastaxul.my/"
+>
+<div class="actions">
+<button
+  class="btn primary"
+  onclick="auditSingle()"
+>
+  🔍 Audit URL
+</button>
+<button
+  class="btn"
+  onclick="openCurrent()"
+>
+  🌐 Buka
+</button>
+<button
+  class="btn"
+  onclick="openFacebook()"
+>
+  📘 Facebook Debugger
+</button>
+<button
+  class="btn"
+  onclick="openGoogle()"
+>
+  🔎 Google Search Console
+</button>
+<button
+  class="btn"
+  onclick="openBing()"
+>
+  🟦 Bing Webmaster
+</button>
+</div>
+</div>
+<div class="card third">
+<div class="score-wrap">
+<div class="score" id="scoreCircle" style="--score:0%">
+  <div>
+    <span id="scoreValue">0</span>
+    <small>SEO SCORE</small>
   </div>
 </div>
+</div>
+</div>
+<div class="card third">
+<div class="card-title">
+  <h2>📊 Status</h2>
+</div>
+<div class="stats">
+<div class="stat">
+  <div class="stat-number" id="passCount">0</div>
+  <div class="stat-label">PASS</div>
+</div>
+<div class="stat">
+  <div class="stat-number" id="warnCount">0</div>
+  <div class="stat-label">WARNING</div>
+</div>
+<div class="stat">
+  <div class="stat-number" id="failCount">0</div>
+  <div class="stat-label">ERROR</div>
+</div>
+<div class="stat">
+  <div class="stat-number" id="infoCount">0</div>
+  <div class="stat-label">INFO</div>
+</div>
+</div>
+</div>
+<div class="card half">
+<div class="card-title">
+  <h2>🧪 SEO Check</h2>
+</div>
+<div id="seoResults" class="result-list">
+  <div class="empty">
+    Masukkan URL dan tekan Audit.
+  </div>
+</div>
+</div>
+<div class="card half">
+<div class="card-title">
+  <h2>🌐 Open Graph</h2>
+</div>
+<div id="ogResults" class="result-list">
+  <div class="empty">
+    Belum ada data.
+  </div>
+</div>
+</div>
+<div class="card">
+<div class="card-title">
+  <h2>⚡ Quick Tools</h2>
+</div>
+<div class="actions">
+<button class="btn" onclick="openRobots()">
+  🤖 robots.txt
+</button>
+<button class="btn" onclick="openSitemap()">
+  🗺️ sitemap.xml
+</button>
+<button class="btn" onclick="copyReport()">
+  📋 Copy Report
+</button>
+<button class="btn danger" onclick="hardReset()">
+  🧹 Hard Reset
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- ============================= -->
+<!-- BULK -->
+<!-- ============================= -->
+<section class="tab" id="bulk">
+<div class="grid">
+<div class="card">
+<div class="card-title">
+  <h2>🚀 Bulk URL Audit</h2>
+</div>
+<div class="warning-box">
+  Masukkan satu URL untuk setiap baris.
+  Maksimum 50 URL untuk satu proses.
+</div>
+<br>
+<textarea
+  id="bulkInput"
+  placeholder="https://mastaxul.my/
+https://mastaxul.my/produk-1
+https://mastaxul.my/produk-2"
+></textarea>
+<div class="actions">
+<button
+  class="btn primary"
+  onclick="bulkAudit()"
+>
+  🚀 Audit Semua
+</button>
+<button
+  class="btn"
+  onclick="clearBulk()"
+>
+  🧹 Kosongkan
+</button>
+<button
+  class="btn"
+  onclick="openAllFacebook()"
+>
+  📘 Facebook Semua
+</button>
+</div>
+</div>
+<div class="card">
+<div class="card-title">
+  <h2>📊 Bulk Result</h2>
+  <span
+    class="muted"
+    id="bulkStatus"
+  >
+    0 URL
+  </span>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>URL</th>
+<th>Score</th>
+<th>HTTP</th>
+<th>HTTPS</th>
+<th>Title</th>
+<th>Meta</th>
+<th>OG Image</th>
+<th>Response</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody id="bulkTable">
+<tr>
+<td colspan="9" class="empty">
+Belum ada audit.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<!-- ============================= -->
+<!-- HISTORY -->
+<!-- ============================= -->
+<section class="tab" id="history">
+<div class="card">
+<div class="card-title">
+<h2>🕘 Audit History</h2>
+<button
+  class="btn danger small"
+  onclick="clearHistory()"
+>
+  Clear History
+</button>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Masa</th>
+<th>URL</th>
+<th>Score</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="historyTable">
+<tr>
+<td colspan="5" class="empty">
+Tiada history.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- ============================= -->
+<!-- SETTINGS -->
+<!-- ============================= -->
+<section class="tab" id="settings">
+<div class="grid">
+<div class="card half">
+<div class="card-title">
+  <h2>⚙️ Project Settings</h2>
+</div>
+<label>Nama projek</label>
+<input
+  id="projectName"
+  placeholder="MastaXul Webmaster"
+>
+<br><br>
+<label>Default Domain</label>
+<input
+  id="defaultDomain"
+  placeholder="https://mastaxul.my"
+>
+<br><br>
+<label>Google Property</label>
+<input
+  id="googleProperty"
+  placeholder="https://mastaxul.my/"
+>
+<br><br>
+<label>Bing Site</label>
+<input
+  id="bingSite"
+  placeholder="https://mastaxul.my/"
+>
+<br>
+<button
+  class="btn primary"
+  onclick="saveSettings()"
+>
+  💾 Simpan Settings
+</button>
+</div>
+<div class="card half">
+<div class="card-title">
+  <h2>🔐 Privacy & Storage</h2>
+</div>
+<label>
+<input
+  type="checkbox"
+  id="saveHistory"
+  style="width:auto"
+>
+ Simpan Audit History
+</label>
+<br>
+<label>
+<input
+  type="checkbox"
+  id="saveSettings"
+  style="width:auto"
+>
+ Simpan Settings
+</label>
+<br>
+<div class="danger-box">
+<strong>Hard Reset</strong><br><br>
+Hard Reset akan cuba memadam data yang
+MastaXul boleh kawal dalam browser ini:
+<br><br>
+• localStorage<br>
+• sessionStorage<br>
+• cookies domain semasa<br>
+• Cache Storage<br>
+• Service Worker<br>
+• History audit<br>
+• Settings dashboard
+<br><br>
+<strong>
+Ia tidak boleh memadam cookie/cache global Safari,
+Chrome atau Firefox.
+</strong>
+</div>
+<br>
+<button
+  class="btn danger"
+  onclick="hardReset()"
+>
+  🧨 HARD RESET MASTAXUL
+</button>
+</div>
+<div class="card">
+<div class="card-title">
+  <h2>🔌 API Connection</h2>
+</div>
+<div class="code">
+https://mastaxul-webmaster-api.2ulfpv.workers.dev
+</div>
+<br>
+<div id="apiDetails" class="muted">
+Checking...
+</div>
+</div>
+</div>
+</section>
+<!-- ============================= -->
+<!-- HELP -->
+<!-- ============================= -->
+<section class="tab" id="help">
+<div class="grid">
+<div class="card">
+<div class="card-title">
+<h2>📖 Maksud Status</h2>
+</div>
+<div class="result-list">
+<div class="result">
+<div class="result-icon">🟢</div>
+<div>
+<div class="result-name">PASS</div>
+<div class="result-meaning">
+Pemeriksaan berjaya dan elemen tersebut berada dalam keadaan baik.
+</div>
+</div>
+</div>
+<div class="result">
+<div class="result-icon">🟡</div>
+<div>
+<div class="result-name">WARNING</div>
+<div class="result-meaning">
+Ada elemen yang belum optimum tetapi biasanya tidak menyebabkan website gagal.
+</div>
+</div>
+</div>
+<div class="result">
+<div class="result-icon">🔴</div>
+<div>
+<div class="result-name">ERROR</div>
+<div class="result-meaning">
+Masalah yang patut diperiksa kerana boleh menjejaskan SEO, indexing atau paparan.
+</div>
+</div>
+</div>
+<div class="result">
+<div class="result-icon">ℹ️</div>
+<div>
+<div class="result-name">INFO</div>
+<div class="result-meaning">
+Maklumat tambahan yang tidak semestinya merupakan masalah.
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="card half">
+<h2>Canonical</h2>
+<p class="muted">
+Canonical memberitahu search engine URL utama bagi sesuatu halaman.
+Ia membantu mengurangkan masalah duplicate content.
+</p>
+<h2>Meta Description</h2>
+<p class="muted">
+Penerangan ringkas halaman yang boleh digunakan search engine
+untuk membantu menghasilkan snippet.
+</p>
+<h2>OG Image</h2>
+<p class="muted">
+Imej yang digunakan apabila URL dikongsi di Facebook,
+WhatsApp atau platform sosial yang menyokong Open Graph.
+</p>
+</div>
+<div class="card half">
+<h2>Robots / noindex</h2>
+<p class="muted">
+Jika halaman mempunyai <b>noindex</b>, search engine diarahkan
+supaya tidak memasukkan halaman tersebut ke dalam index.
+</p>
+<h2>JSON-LD</h2>
+<p class="muted">
+Data berstruktur yang membantu search engine memahami kandungan
+seperti Product, Article, Organization dan lain-lain.
+</p>
+<h2>HTTP Status</h2>
+<p class="muted">
+200 biasanya menunjukkan halaman berjaya diakses.
+404 bermaksud halaman tidak dijumpai.
+500 menunjukkan masalah server.
+</p>
+</div>
+<div class="card">
+<h2>⚠️ CORS</h2>
+<p class="muted">
+Versi V3 menggunakan Cloudflare Worker sebagai backend.
+Ini mengurangkan masalah CORS yang berlaku apabila browser cuba
+membaca website lain secara terus.
+</p>
+</div>
+</div>
+</section>
+<footer>
+MastaXul Webmaster Manager V3 • Powered by Cloudflare Worker
+</footer>
+</div>
 <script>
-let targetURL = "";
-/* =========================
-   GET URL
-========================= */
-function getURL() {
-  let input = document.getElementById("urlInput").value.trim();
-  if (!input) {
-    showStatus("⚠️ Masukkan URL terlebih dahulu.", "warning");
-    return null;
-  }
-  /*
-   * Tambah https jika user masukkan
-   * mastaxul.my sahaja
-   */
-  if (!/^https?:\/\//i.test(input)) {
-    input = "https://" + input;
-  }
-  try {
-    const parsed = new URL(input);
-    if (!["http:", "https:"].includes(parsed.protocol)) {
-      throw new Error();
+const API =
+"https://mastaxul-webmaster-api.2ulfpv.workers.dev";
+let currentResult = null;
+let bulkResults = [];
+// ========================================
+// TAB SYSTEM
+// ========================================
+document.querySelectorAll(".nav-btn")
+.forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".nav-btn")
+      .forEach(x => x.classList.remove("active"));
+    document.querySelectorAll(".tab")
+      .forEach(x => x.classList.remove("active"));
+    button.classList.add("active");
+    document
+      .getElementById(button.dataset.tab)
+      .classList.add("active");
+  });
+});
+// ========================================
+// API STATUS
+// ========================================
+async function checkAPI(){
+  const status =
+    document.getElementById("apiStatus");
+  const details =
+    document.getElementById("apiDetails");
+  try{
+    const response =
+      await fetch(API + "/");
+    const data =
+      await response.json();
+    if(data.ok){
+      status.textContent =
+        "● API Online";
+      status.style.color =
+        "var(--green)";
+      if(details){
+        details.textContent =
+          `${data.service} • v${data.version} • ${data.status}`;
+      }
+    }else{
+      throw new Error("API offline");
     }
-    targetURL = parsed.href;
-    return parsed;
-  } catch (error) {
-    showStatus("❌ URL tidak sah.", "warning");
-    return null;
+  }catch(error){
+    status.textContent =
+      "● API Offline";
+    status.style.color =
+      "var(--red)";
+    if(details){
+      details.textContent =
+        "Tidak dapat menyambung ke Worker.";
+    }
   }
 }
-/* =========================
-   GENERATE
-========================= */
-function generateTools() {
-  const parsed = getURL();
-  if (!parsed) return;
-  document.getElementById("currentURL").style.display = "block";
-  document.getElementById("currentURL").innerHTML =
-    "🎯 URL dipilih:<br><strong>" +
-    escapeHTML(targetURL) +
-    "</strong>";
-  showStatus(
-    "✅ URL berjaya disediakan. Pilih mana-mana tool di bawah.",
-    "success"
+checkAPI();
+// ========================================
+// SINGLE AUDIT
+// ========================================
+async function auditSingle(){
+  const input =
+    document.getElementById("singleURL");
+  const url =
+    input.value.trim();
+  if(!url){
+    alert("Masukkan URL dahulu.");
+    return;
+  }
+  setStatus("● Auditing...");
+  try{
+    const response =
+      await fetch(API + "/audit", {
+        method:"POST",
+        headers:{
+          "Content-Type":
+            "application/json"
+        },
+        body:JSON.stringify({
+          url
+        })
+      });
+    const data =
+      await response.json();
+    if(!data.ok){
+      throw new Error(
+        data.message ||
+        data.error ||
+        "Audit gagal"
+      );
+    }
+    currentResult =
+      data.result;
+    renderSingle(currentResult);
+    saveAuditHistory(currentResult);
+    setStatus("● API Online");
+  }catch(error){
+    setStatus("● Audit Error");
+    alert(
+      "Audit gagal:\n\n" +
+      error.message
+    );
+  }
+}
+// ========================================
+// RENDER SINGLE
+// ========================================
+function renderSingle(result){
+  const score =
+    result.seo?.score || 0;
+  document
+    .getElementById("scoreValue")
+    .textContent = score;
+  document
+    .getElementById("scoreCircle")
+    .style.setProperty(
+      "--score",
+      score + "%"
+    );
+  const checks = [];
+  const http =
+    result.http;
+  checks.push({
+    name:"HTTP Status",
+    pass:
+      http.status >= 200 &&
+      http.status < 400,
+    info:
+      `${http.status} • ${result.responseTime} ms`,
+    meaning:
+      http.status >= 200 &&
+      http.status < 400
+      ? "Halaman berjaya diakses oleh Worker."
+      : "Server memberikan status HTTP yang perlu diperiksa."
+  });
+  checks.push({
+    name:"HTTPS",
+    pass:
+      result.security?.https,
+    info:
+      result.security?.https
+      ? "HTTPS aktif"
+      : "HTTP",
+    meaning:
+      result.security?.https
+      ? "Sambungan HTTPS aktif."
+      : "Website belum menggunakan HTTPS."
+  });
+  checks.push({
+    name:"Title",
+    pass:
+      result.seo?.title?.exists,
+    info:
+      result.seo?.title?.value ||
+      "Tiada title",
+    meaning:
+      result.seo?.title?.exists
+      ? "Halaman mempunyai title."
+      : "Tambah tag <title>."
+  });
+  const titleLength =
+    result.seo?.title?.length || 0;
+  checks.push({
+    name:"Title Length",
+    pass:
+      titleLength >= 30 &&
+      titleLength <= 65,
+    info:
+      `${titleLength} aksara`,
+    meaning:
+      "Title yang terlalu pendek atau panjang mungkin kurang optimum."
+  });
+  const description =
+    result.seo?.description;
+  checks.push({
+    name:"Meta Description",
+    pass:
+      description?.exists,
+    info:
+      description?.exists
+      ? `${description.length} aksara`
+      : "Tiada",
+    meaning:
+      description?.exists
+      ? "Meta description dijumpai."
+      : "Tambah meta description."
+  });
+  checks.push({
+    name:"Canonical",
+    pass:
+      result.seo?.canonical?.exists,
+    info:
+      result.seo?.canonical?.value ||
+      "Tiada",
+    meaning:
+      result.seo?.canonical?.exists
+      ? "Canonical dijumpai."
+      : "Canonical boleh membantu mengelakkan duplicate URL."
+  });
+  checks.push({
+    name:"Viewport",
+    pass:
+      result.seo?.viewport?.exists,
+    info:
+      result.seo?.viewport?.exists
+      ? "Ada"
+      : "Tiada",
+    meaning:
+      "Viewport penting untuk paparan mobile."
+  });
+  checks.push({
+    name:"H1",
+    pass:
+      result.seo?.h1?.count === 1,
+    info:
+      `${result.seo?.h1?.count || 0} H1`,
+    meaning:
+      "Sebaiknya halaman mempunyai satu H1 utama."
+  });
+  checks.push({
+    name:"JSON-LD",
+    pass:
+      result.seo?.jsonLd?.count > 0,
+    info:
+      `${result.seo?.jsonLd?.count || 0} schema`,
+    meaning:
+      "JSON-LD membantu search engine memahami struktur kandungan."
+  });
+  checks.push({
+    name:"Favicon",
+    pass:
+      result.seo?.favicon,
+    info:
+      result.seo?.favicon
+      ? "Ada"
+      : "Tiada",
+    meaning:
+      "Favicon membantu identiti website dalam browser."
+  });
+  checks.push({
+    name:"Robots / Noindex",
+    pass:
+      !result.seo?.robots?.noindex,
+    info:
+      result.seo?.robots?.value ||
+      "Tiada robots meta",
+    meaning:
+      result.seo?.robots?.noindex
+      ? "AMARAN: halaman mempunyai noindex."
+      : "Tiada arahan noindex dikesan."
+  });
+  renderChecks(
+    document.getElementById("seoResults"),
+    checks
+  );
+  const ogChecks = [
+    {
+      name:"OG Title",
+      pass:
+        !!result.openGraph?.title,
+      info:
+        result.openGraph?.title ||
+        "Tiada",
+      meaning:
+        "Digunakan sebagai tajuk ketika URL dikongsi."
+    },
+    {
+      name:"OG Description",
+      pass:
+        !!result.openGraph?.description,
+      info:
+        result.openGraph?.description ||
+        "Tiada",
+      meaning:
+        "Penerangan ketika URL dikongsi."
+    },
+    {
+      name:"OG Image",
+      pass:
+        !!result.openGraph?.image,
+      info:
+        result.openGraph?.image ||
+        "Tiada",
+      meaning:
+        "Imej utama untuk social sharing."
+    },
+    {
+      name:"OG URL",
+      pass:
+        !!result.openGraph?.url,
+      info:
+        result.openGraph?.url ||
+        "Tiada",
+      meaning:
+        "URL canonical untuk Open Graph."
+    }
+  ];
+  renderChecks(
+    document.getElementById("ogResults"),
+    ogChecks
+  );
+  updateStats(
+    checks,
+    ogChecks
   );
 }
-/* =========================
-   OPEN TOOLS
-========================= */
-function openTool(tool) {
-  if (!targetURL) {
-    const parsed = getURL();
-    if (!parsed) return;
-  }
-  const encoded = encodeURIComponent(targetURL);
-  let url = "";
-  switch (tool) {
-    /* FACEBOOK */
-    case "facebook":
-      url =
-        "https://developers.facebook.com/tools/debug/?q=" +
-        encoded;
-      break;
-    /* GOOGLE SEARCH CONSOLE */
-    case "google":
-      /*
-       * URL Inspection Google.
-       * User perlu login dan mempunyai
-       * akses kepada property tersebut.
-       */
-      url =
-        "https://search.google.com/search-console/inspect?resource_id=" +
-        encodeURIComponent(
-          getOrigin(targetURL)
-        ) +
-        "&id=" +
-        encoded;
-      break;
-    /* BING */
-    case "bing":
-      url =
-        "https://www.bing.com/webmasters/home";
-      break;
-    /* OPEN GRAPH */
-    case "og":
-      url =
-        "https://developers.facebook.com/tools/debug/?q=" +
-        encoded;
-      break;
-    /* CANONICAL */
-    case "canonical":
-      url = targetURL;
-      break;
-    /* ROBOTS */
-    case "robots":
-      url =
-        getOrigin(targetURL) +
-        "/robots.txt";
-      break;
-    /* SITEMAP */
-    case "sitemap":
-      url =
-        getOrigin(targetURL) +
-        "/sitemap.xml";
-      break;
-    /* PAGE */
-    case "source":
-      url = targetURL;
-      break;
-    /* GOOGLE SEARCH */
-    case "search":
-      url =
-        "https://www.google.com/search?q=" +
-        encoded;
-      break;
-    /* BING SEARCH */
-    case "bingsearch":
-      url =
-        "https://www.bing.com/search?q=" +
-        encoded;
-      break;
-  }
-  if (url) {
-    window.open(url, "_blank", "noopener,noreferrer");
-  }
-}
-/* =========================
-   GET ORIGIN
-========================= */
-function getOrigin(url) {
-  try {
-    return new URL(url).origin;
-  } catch {
-    return "";
-  }
-}
-/* =========================
-   STATUS
-========================= */
-function showStatus(message, type) {
-  const box = document.getElementById("status");
-  box.style.display = "block";
-  box.className = "status " + type;
-  box.textContent = message;
-}
-/* =========================
-   CLEAR
-========================= */
-function clearAll() {
-  document.getElementById("urlInput").value = "";
-  document.getElementById("currentURL").style.display = "none";
-  document.getElementById("status").style.display = "none";
-  targetURL = "";
-}
-/* =========================
-   ESCAPE HTML
-========================= */
-function escapeHTML(str) {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
-/* =========================
-   ENTER KEY
-========================= */
-document
-  .getElementById("urlInput")
-  .addEventListener("keydown", function(event) {
-    if (event.key === "Enter") {
-      generateTools();
-    }
+// ========================================
+// RENDER CHECKS
+// ========================================
+function renderChecks(container, checks){
+  container.innerHTML = "";
+  checks.forEach(check => {
+    const div =
+      document.createElement("div");
+    let state =
+      check.pass
+      ? "pass"
+      : "warn";
+    let icon =
+      check.pass
+      ? "🟢"
+      : "🟡";
+    div.className =
+      "result";
+    div.innerHTML = `
+      <div class="result-icon">
+        ${icon}
+      </div>
+      <div>
+        <div class="result-name">
+          ${escapeHTML(check.name)}
+        </div>
+        <div class="result-meaning">
+          ${escapeHTML(check.meaning)}
+        </div>
+      </div>
+      <div class="badge ${state}">
+        ${escapeHTML(check.info)}
+      </div>
+    `;
+    container.appendChild(div);
   });
+}
+// ========================================
+// STATS
+// ========================================
+function updateStats(seo,og){
+  const all =
+    [...seo,...og];
+  const pass =
+    all.filter(x => x.pass).length;
+  const warn =
+    all.filter(x => !x.pass).length;
+  document.getElementById(
+    "passCount"
+  ).textContent = pass;
+  document.getElementById(
+    "warnCount"
+  ).textContent = warn;
+  document.getElementById(
+    "failCount"
+  ).textContent = warn > 0 ? 1 : 0;
+  document.getElementById(
+    "infoCount"
+  ).textContent =
+    currentResult?.http?.status || 0;
+}
+// ========================================
+// BULK AUDIT
+// ========================================
+async function bulkAudit(){
+  const input =
+    document.getElementById("bulkInput")
+      .value;
+  let urls =
+    input
+      .split(/\r?\n/)
+      .map(x => x.trim())
+      .filter(Boolean);
+  urls =
+    [...new Set(urls)]
+      .slice(0,50);
+  if(!urls.length){
+    alert("Masukkan sekurang-kurangnya satu URL.");
+    return;
+  }
+  const status =
+    document.getElementById("bulkStatus");
+  status.textContent =
+    `Auditing ${urls.length} URL...`;
+  try{
+    const response =
+      await fetch(
+        API + "/bulk-audit",
+        {
+          method:"POST",
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+          body:JSON.stringify({
+            urls
+          })
+        }
+      );
+    const data =
+      await response.json();
+    if(!data.ok){
+      throw new Error(
+        data.message ||
+        data.error ||
+        "Bulk audit gagal"
+      );
+    }
+    bulkResults =
+      data.results || [];
+    renderBulkTable(
+      bulkResults
+    );
+    status.textContent =
+      `${bulkResults.length} URL selesai`;
+    bulkResults.forEach(
+      saveAuditHistory
+    );
+  }catch(error){
+    status.textContent =
+      "Bulk audit gagal";
+    alert(
+      "Bulk audit gagal:\n\n" +
+      error.message
+    );
+  }
+}
+// ========================================
+// BULK TABLE
+// ========================================
+function renderBulkTable(results){
+  const table =
+    document.getElementById(
+      "bulkTable"
+    );
+  table.innerHTML = "";
+  results.forEach(result => {
+    const tr =
+      document.createElement("tr");
+    if(result.success === false){
+      tr.innerHTML = `
+        <td class="url-cell">
+          ${escapeHTML(result.url)}
+        </td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>
+          <span class="badge fail">
+            ERROR
+          </span>
+        </td>
+      `;
+      table.appendChild(tr);
+      return;
+    }
+    const score =
+      result.seo?.score ?? 0;
+    const scoreClass =
+      score >= 80
+      ? "pass"
+      : score >= 60
+      ? "warn"
+      : "fail";
+    tr.innerHTML = `
+      <td class="url-cell">
+        ${escapeHTML(result.url)}
+      </td>
+      <td>
+        <span class="badge ${scoreClass}">
+          ${score}
+        </span>
+      </td>
+      <td>
+        ${result.http?.status ?? "—"}
+      </td>
+      <td>
+        ${result.security?.https
+          ? "🟢"
+          : "🔴"}
+      </td>
+      <td>
+        ${result.seo?.title?.exists
+          ? "🟢"
+          : "🔴"}
+      </td>
+      <td>
+        ${result.seo?.description?.exists
+          ? "🟢"
+          : "🔴"}
+      </td>
+      <td>
+        ${result.openGraph?.image
+          ? "🟢"
+          : "🟡"}
+      </td>
+      <td>
+        ${result.responseTime ?? "—"} ms
+      </td>
+      <td>
+        <span class="badge ${scoreClass}">
+          ${score >= 80
+            ? "GOOD"
+            : score >= 60
+            ? "CHECK"
+            : "FIX"}
+        </span>
+      </td>
+    `;
+    table.appendChild(tr);
+  });
+}
+// ========================================
+// HISTORY
+// ========================================
+function saveAuditHistory(result){
+  if(
+    localStorage.getItem(
+      "mx_save_history"
+    ) === "false"
+  ) return;
+  let history =
+    JSON.parse(
+      localStorage.getItem(
+        "mx_history"
+      ) || "[]"
+    );
+  history.unshift({
+    time:
+      new Date().toLocaleString(),
+    url:
+      result.url,
+    score:
+      result.seo?.score ?? 0,
+    status:
+      result.http?.status ?? "ERROR"
+  });
+  history =
+    history.slice(0,50);
+  localStorage.setItem(
+    "mx_history",
+    JSON.stringify(history)
+  );
+  renderHistory();
+}
+function renderHistory(){
+  const table =
+    document.getElementById(
+      "historyTable"
+    );
+  const history =
+    JSON.parse(
+      localStorage.getItem(
+        "mx_history"
+      ) || "[]"
+    );
+  if(!history.length){
+    table.innerHTML = `
+      <tr>
+        <td colspan="5" class="empty">
+          Tiada history.
+        </td>
+      </tr>
+    `;
+    return;
+  }
+  table.innerHTML = "";
+  history.forEach((item,index) => {
+    const tr =
+      document.createElement("tr");
+    const cls =
+      item.score >= 80
+      ? "pass"
+      : item.score >= 60
+      ? "warn"
+      : "fail";
+    tr.innerHTML = `
+      <td>
+        ${escapeHTML(item.time)}
+      </td>
+      <td class="url-cell">
+        ${escapeHTML(item.url)}
+      </td>
+      <td>
+        <span class="badge ${cls}">
+          ${item.score}
+        </span>
+      </td>
+      <td>
+        ${item.status}
+      </td>
+      <td>
+        <button
+          class="btn small"
+          onclick="reuseURL(${index})"
+        >
+          Gunakan
+        </button>
+      </td>
+    `;
+    table.appendChild(tr);
+  });
+}
+function reuseURL(index){
+  const history =
+    JSON.parse(
+      localStorage.getItem(
+        "mx_history"
+      ) || "[]"
+    );
+  const item =
+    history[index];
+  if(!item) return;
+  document.getElementById(
+    "singleURL"
+  ).value = item.url;
+  switchTab("dashboard");
+}
+function clearHistory(){
+  localStorage.removeItem(
+    "mx_history"
+  );
+  renderHistory();
+}
+// ========================================
+// SETTINGS
+// ========================================
+function saveSettings(){
+  const data = {
+    projectName:
+      document.getElementById(
+        "projectName"
+      ).value,
+    defaultDomain:
+      document.getElementById(
+        "defaultDomain"
+      ).value,
+    googleProperty:
+      document.getElementById(
+        "googleProperty"
+      ).value,
+    bingSite:
+      document.getElementById(
+        "bingSite"
+      ).value
+  };
+  localStorage.setItem(
+    "mx_settings",
+    JSON.stringify(data)
+  );
+  localStorage.setItem(
+    "mx_save_history",
+    document.getElementById(
+      "saveHistory"
+    ).checked
+      ? "true"
+      : "false"
+  );
+  alert("Settings berjaya disimpan.");
+}
+function loadSettings(){
+  const data =
+    JSON.parse(
+      localStorage.getItem(
+        "mx_settings"
+      ) || "{}"
+    );
+  document.getElementById(
+    "projectName"
+  ).value =
+    data.projectName ||
+    "MastaXul Webmaster";
+  document.getElementById(
+    "defaultDomain"
+  ).value =
+    data.defaultDomain ||
+    "https://mastaxul.my";
+  document.getElementById(
+    "googleProperty"
+  ).value =
+    data.googleProperty ||
+    "https://mastaxul.my/";
+  document.getElementById(
+    "bingSite"
+  ).value =
+    data.bingSite ||
+    "https://mastaxul.my/";
+  document.getElementById(
+    "saveHistory"
+  ).checked =
+    localStorage.getItem(
+      "mx_save_history"
+    ) !== "false";
+}
+// ========================================
+// HARD RESET
+// ========================================
+async function hardReset(){
+  const ok =
+    confirm(
+      "HARD RESET MASTAXUL?\n\n" +
+      "Ini akan cuba memadam:\n" +
+      "• Settings\n" +
+      "• History\n" +
+      "• localStorage\n" +
+      "• sessionStorage\n" +
+      "• Cookies domain semasa\n" +
+      "• Cache Storage\n" +
+      "• Service Worker\n\n" +
+      "Data Safari/Chrome global TIDAK boleh dipadam oleh website.\n\n" +
+      "Teruskan?"
+    );
+  if(!ok) return;
+  // localStorage
+  try{
+    localStorage.clear();
+  }catch(e){}
+  // sessionStorage
+  try{
+    sessionStorage.clear();
+  }catch(e){}
+  // Cookies yang boleh dicapai
+  try{
+    document.cookie
+      .split(";")
+      .forEach(cookie => {
+        const name =
+          cookie
+            .split("=")[0]
+            .trim();
+        document.cookie =
+          name +
+          "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+      });
+  }catch(e){}
+  // Cache Storage
+  try{
+    if("caches" in window){
+      const keys =
+        await caches.keys();
+      await Promise.all(
+        keys.map(
+          key =>
+            caches.delete(key)
+        )
+      );
+    }
+  }catch(e){}
+  // Service Worker
+  try{
+    if(
+      "serviceWorker" in navigator
+    ){
+      const registrations =
+        await navigator
+          .serviceWorker
+          .getRegistrations();
+      await Promise.all(
+        registrations.map(
+          registration =>
+            registration.unregister()
+        )
+      );
+    }
+  }catch(e){}
+  alert(
+    "Hard Reset selesai.\n\n" +
+    "Sekarang halaman akan dimuat semula."
+  );
+  location.reload();
+}
+// ========================================
+// OPEN TOOLS
+// ========================================
+function getURL(){
+  return document.getElementById(
+    "singleURL"
+  ).value.trim();
+}
+function openCurrent(){
+  const url =
+    getURL();
+  if(!url){
+    alert("Masukkan URL dahulu.");
+    return;
+  }
+  window.open(
+    url,
+    "_blank"
+  );
+}
+function openFacebook(){
+  const url =
+    getURL();
+  if(!url){
+    alert("Masukkan URL dahulu.");
+    return;
+  }
+  window.open(
+    "https://developers.facebook.com/tools/debug/?q=" +
+    encodeURIComponent(url),
+    "_blank"
+  );
+}
+function openGoogle(){
+  const url =
+    getURL();
+  if(!url){
+    alert("Masukkan URL dahulu.");
+    return;
+  }
+  window.open(
+    "https://search.google.com/search-console/inspect?resource_id=" +
+    encodeURIComponent(
+      getDefaultProperty(url)
+    ) +
+    "&id=" +
+    encodeURIComponent(url),
+    "_blank"
+  );
+}
+function openBing(){
+  window.open(
+    "https://www.bing.com/webmasters/",
+    "_blank"
+  );
+}
+function openRobots(){
+  const url =
+    getURL();
+  if(!url){
+    alert("Masukkan URL dahulu.");
+    return;
+  }
+  const parsed =
+    new URL(url);
+  window.open(
+    parsed.origin +
+    "/robots.txt",
+    "_blank"
+  );
+}
+function openSitemap(){
+  const url =
+    getURL();
+  if(!url){
+    alert("Masukkan URL dahulu.");
+    return;
+  }
+  const parsed =
+    new URL(url);
+  window.open(
+    parsed.origin +
+    "/sitemap.xml",
+    "_blank"
+  );
+}
+function openAllFacebook(){
+  const urls =
+    document.getElementById(
+      "bulkInput"
+    ).value
+      .split(/\r?\n/)
+      .map(x => x.trim())
+      .filter(Boolean)
+      .slice(0,20);
+  if(!urls.length){
+    alert("Masukkan URL dahulu.");
+    return;
+  }
+  urls.forEach(url => {
+    window.open(
+      "https://developers.facebook.com/tools/debug/?q=" +
+      encodeURIComponent(url),
+      "_blank"
+    );
+  });
+}
+// ========================================
+// COPY REPORT
+// ========================================
+async function copyReport(){
+  if(!currentResult){
+    alert("Audit URL dahulu.");
+    return;
+  }
+  const r =
+    currentResult;
+  const text = `
+MastaXul Webmaster Report
+URL:
+${r.url}
+SEO Score:
+${r.seo?.score ?? 0}/100
+HTTP:
+${r.http?.status ?? "-"}
+HTTPS:
+${r.security?.https ? "YES" : "NO"}
+Title:
+${r.seo?.title?.value || "NONE"}
+Meta Description:
+${r.seo?.description?.value || "NONE"}
+Canonical:
+${r.seo?.canonical?.value || "NONE"}
+Robots:
+${r.seo?.robots?.value || "NONE"}
+Noindex:
+${r.seo?.robots?.noindex ? "YES" : "NO"}
+H1:
+${r.seo?.h1?.count ?? 0}
+JSON-LD:
+${r.seo?.jsonLd?.count ?? 0}
+OG Title:
+${r.openGraph?.title || "NONE"}
+OG Description:
+${r.openGraph?.description || "NONE"}
+OG Image:
+${r.openGraph?.image || "NONE"}
+Response Time:
+${r.responseTime ?? "-"} ms
+`;
+  try{
+    await navigator.clipboard.writeText(
+      text.trim()
+    );
+    alert("Report berjaya disalin.");
+  }catch(e){
+    alert("Tidak dapat copy report.");
+  }
+}
+// ========================================
+// HELPERS
+// ========================================
+function getDefaultProperty(url){
+  try{
+    const saved =
+      JSON.parse(
+        localStorage.getItem(
+          "mx_settings"
+        ) || "{}"
+      );
+    if(saved.googleProperty)
+      return saved.googleProperty;
+    return new URL(url).origin + "/";
+  }catch(e){
+    return url;
+  }
+}
+function switchTab(name){
+  document.querySelectorAll(
+    ".nav-btn"
+  ).forEach(button => {
+    button.classList.toggle(
+      "active",
+      button.dataset.tab === name
+    );
+  });
+  document.querySelectorAll(
+    ".tab"
+  ).forEach(tab => {
+    tab.classList.toggle(
+      "active",
+      tab.id === name
+    );
+  });
+}
+function setStatus(text){
+  const element =
+    document.getElementById(
+      "apiStatus"
+    );
+  element.textContent =
+    text;
+}
+function clearBulk(){
+  document.getElementById(
+    "bulkInput"
+  ).value = "";
+  document.getElementById(
+    "bulkTable"
+  ).innerHTML = `
+    <tr>
+      <td colspan="9" class="empty">
+        Belum ada audit.
+      </td>
+    </tr>
+  `;
+  document.getElementById(
+    "bulkStatus"
+  ).textContent =
+    "0 URL";
+}
+function escapeHTML(value){
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+// ========================================
+// INIT
+// ========================================
+loadSettings();
+renderHistory();
 </script>
 </body>
 </html>
