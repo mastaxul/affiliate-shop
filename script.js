@@ -345,3 +345,22 @@ if (bgMusic && btnMusicToggle) {
     }
   });
 }
+
+
+@media (prefers-reduced-motion: reduce) {
+  .loader-ufo-wrapper,
+  .loader-beam,
+  .welcome-title,
+  .loading-status,
+  .progress-bar-container,
+  .ufo-background-container,
+  .carousel-spinner,
+  .alien-speech,
+  .alien-mini-svg,
+  .music-btn.playing {
+    animation: none !important;
+  }
+  .carousel-spinner:hover {
+    animation-play-state: paused;
+  }
+}
