@@ -2,49 +2,60 @@
 <html lang="ms">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0b0f14">
-<title>MastaXul Webmaster Manager V3</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080b12">
+<title>MastaXul Webmaster Manager V4.2</title>
 <style>
 :root{
-  --bg:#080b10;
-  --panel:#10151d;
-  --panel2:#151c26;
-  --border:#27313d;
-  --text:#f2f5f8;
-  --muted:#8d9aaa;
-  --accent:#5ee7a5;
-  --blue:#63a4ff;
-  --yellow:#ffd166;
-  --red:#ff6b6b;
-  --green:#45e08a;
-  --shadow:0 15px 45px rgba(0,0,0,.35);
+  --bg:#080b12;
+  --panel:#111722;
+  --panel2:#151c29;
+  --border:#263044;
+  --text:#f5f7fb;
+  --muted:#9ca8bb;
+  --accent:#6ea8ff;
+  --accent2:#8b7cff;
+  --green:#35d07f;
+  --yellow:#f4c95d;
+  --red:#ff6577;
+  --blue:#55b9ff;
+  --shadow:0 12px 40px rgba(0,0,0,.28);
+  --radius:18px;
 }
 *{
   box-sizing:border-box;
 }
+html{
+  scroll-behavior:smooth;
+}
 body{
   margin:0;
-  background:
-    radial-gradient(circle at top right,#132033 0,#080b10 38%);
+  background:var(--bg);
   color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
 }
-button,input,textarea{
+button,
+input,
+textarea,
+select{
   font:inherit;
 }
 button{
   cursor:pointer;
+}
+a{
+  color:inherit;
 }
 .app{
   max-width:1400px;
   margin:auto;
   padding:18px;
 }
-header{
+/* HEADER */
+.header{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   gap:15px;
   margin-bottom:18px;
 }
@@ -59,105 +70,153 @@ header{
   border-radius:14px;
   display:grid;
   place-items:center;
-  background:linear-gradient(135deg,#5ee7a5,#63a4ff);
-  color:#06100b;
+  background:linear-gradient(135deg,#5f8cff,#8d6cff);
   font-weight:900;
+  font-size:19px;
+  box-shadow:0 8px 25px rgba(90,120,255,.25);
 }
-h1{
+.brand h1{
   margin:0;
-  font-size:21px;
+  font-size:20px;
 }
-.subtitle{
+.brand small{
+  display:block;
   color:var(--muted);
-  font-size:12px;
   margin-top:3px;
 }
-.status{
-  padding:8px 12px;
+.version{
+  padding:6px 10px;
   border:1px solid var(--border);
   border-radius:999px;
   color:var(--muted);
-  background:#0d1219;
   font-size:12px;
 }
-nav{
+/* NAV */
+.nav{
   display:flex;
   gap:8px;
   overflow:auto;
-  padding-bottom:5px;
-  margin-bottom:18px;
+  padding-bottom:8px;
+  margin-bottom:15px;
+  scrollbar-width:none;
 }
-.nav-btn{
-  white-space:nowrap;
+.nav::-webkit-scrollbar{
+  display:none;
+}
+.nav button{
+  flex:0 0 auto;
   border:1px solid var(--border);
   background:var(--panel);
   color:var(--muted);
-  padding:10px 14px;
-  border-radius:10px;
+  border-radius:12px;
+  padding:10px 13px;
 }
-.nav-btn.active{
-  color:#06100b;
-  background:var(--accent);
-  border-color:var(--accent);
-  font-weight:700;
+.nav button.active{
+  background:var(--panel2);
+  color:var(--text);
+  border-color:#4a5b80;
 }
-.tab{
+/* SECTIONS */
+.section{
   display:none;
 }
-.tab.active{
+.section.active{
   display:block;
+}
+/* CARDS */
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:18px;
+  box-shadow:var(--shadow);
+  margin-bottom:16px;
+}
+.card h2,
+.card h3{
+  margin:0 0 7px;
+}
+.card p{
+  color:var(--muted);
 }
 .grid{
   display:grid;
   grid-template-columns:repeat(12,1fr);
-  gap:15px;
+  gap:16px;
 }
-.card{
-  grid-column:span 12;
-  background:rgba(16,21,29,.94);
+.col-12{grid-column:span 12}
+.col-8{grid-column:span 8}
+.col-6{grid-column:span 6}
+.col-4{grid-column:span 4}
+@media(max-width:900px){
+  .col-8,
+  .col-6,
+  .col-4{
+    grid-column:span 12;
+  }
+}
+/* INPUT */
+.input,
+textarea,
+select{
+  width:100%;
+  background:#0b1019;
+  color:var(--text);
   border:1px solid var(--border);
-  border-radius:16px;
-  padding:17px;
-  box-shadow:var(--shadow);
+  border-radius:12px;
+  padding:12px 13px;
+  outline:none;
 }
-.card.half{
-  grid-column:span 6;
+.input:focus,
+textarea:focus,
+select:focus{
+  border-color:#5574a8;
 }
-.card.third{
-  grid-column:span 4;
-}
-.card-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin-bottom:13px;
-}
-.card-title h2{
-  font-size:16px;
-  margin:0;
+textarea{
+  min-height:130px;
+  resize:vertical;
 }
 label{
   display:block;
   color:var(--muted);
-  font-size:12px;
+  font-size:13px;
   margin-bottom:7px;
 }
-input,textarea,select{
-  width:100%;
+/* BUTTONS */
+.btn{
   border:1px solid var(--border);
-  background:#0b1016;
+  background:#171f2e;
   color:var(--text);
-  border-radius:10px;
-  padding:12px;
-  outline:none;
+  border-radius:12px;
+  padding:11px 14px;
+  font-weight:650;
 }
-input:focus,textarea:focus,select:focus{
-  border-color:var(--accent);
+.btn:hover{
+  filter:brightness(1.12);
 }
-textarea{
-  min-height:180px;
-  resize:vertical;
+.btn.primary{
+  background:#315fb5;
+  border-color:#4779d0;
+}
+.btn.success{
+  background:#165d3c;
+  border-color:#24865a;
+}
+.btn.warning{
+  background:#594a1d;
+  border-color:#806c28;
+}
+.btn.danger{
+  background:#5c2630;
+  border-color:#8c3b49;
+}
+.btn.blue{
+  background:#124f73;
+  border-color:#247da9;
+}
+.btn:disabled{
+  opacity:.45;
+  cursor:not-allowed;
 }
 .actions{
   display:flex;
@@ -165,1683 +224,864 @@ textarea{
   gap:9px;
   margin-top:12px;
 }
-.btn{
-  border:1px solid var(--border);
-  background:#151c26;
-  color:var(--text);
-  padding:10px 14px;
-  border-radius:10px;
-  font-weight:600;
-}
-.btn:hover{
-  filter:brightness(1.15);
-}
-.btn.primary{
-  background:var(--accent);
-  color:#06100b;
-  border-color:var(--accent);
-}
-.btn.blue{
-  background:#162b47;
-  border-color:#244a78;
-}
-.btn.danger{
-  background:#321619;
-  border-color:#6b252c;
-  color:#ffb0b0;
-}
-.btn.small{
-  padding:7px 10px;
-  font-size:12px;
-}
-.stats{
+/* DASHBOARD */
+.stat-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:10px;
+  gap:12px;
+}
+@media(max-width:700px){
+  .stat-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
 }
 .stat{
-  background:var(--panel2);
+  background:#0d131e;
   border:1px solid var(--border);
-  border-radius:12px;
-  padding:13px;
-}
-.stat-number{
-  font-size:25px;
-  font-weight:800;
-}
-.stat-label{
-  color:var(--muted);
-  font-size:11px;
-  margin-top:3px;
-}
-.score-wrap{
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  border-radius:15px;
   padding:15px;
 }
+.stat strong{
+  display:block;
+  font-size:25px;
+  margin-bottom:4px;
+}
+.stat span{
+  color:var(--muted);
+  font-size:12px;
+}
+/* SCORE */
+.score-wrap{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
 .score{
-  width:150px;
-  height:150px;
+  width:115px;
+  height:115px;
   border-radius:50%;
   display:grid;
   place-items:center;
-  background:
-    radial-gradient(circle at center,#10151d 57%,transparent 58%),
-    conic-gradient(var(--accent) var(--score,0%),#252d37 0);
-  font-size:35px;
-  font-weight:900;
+  background:conic-gradient(
+    var(--green) var(--score,0%),
+    #252d3a 0
+  );
+  position:relative;
 }
-.score small{
-  display:block;
-  text-align:center;
-  font-size:11px;
-  color:var(--muted);
-  font-weight:500;
+.score::after{
+  content:"";
+  position:absolute;
+  inset:10px;
+  background:var(--panel);
+  border-radius:50%;
 }
-.result-list{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-.result{
-  display:grid;
-  grid-template-columns:30px 1fr auto;
-  gap:10px;
-  align-items:center;
-  background:#0d131a;
-  border:1px solid var(--border);
-  border-radius:10px;
-  padding:11px;
-}
-.result-icon{
-  font-size:18px;
-}
-.result-name{
-  font-weight:700;
-  font-size:13px;
-}
-.result-meaning{
-  color:var(--muted);
-  font-size:11px;
-  margin-top:3px;
-}
-.badge{
-  border-radius:999px;
-  padding:5px 8px;
-  font-size:10px;
+.score span{
+  position:relative;
+  z-index:2;
+  font-size:26px;
   font-weight:800;
 }
-.pass{
-  background:rgba(69,224,138,.13);
-  color:var(--green);
+/* CHECKS */
+.check{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  padding:12px 0;
+  border-bottom:1px solid #1e2735;
 }
-.warn{
-  background:rgba(255,209,102,.13);
-  color:var(--yellow);
+.check:last-child{
+  border-bottom:0;
 }
-.fail{
-  background:rgba(255,107,107,.13);
-  color:var(--red);
+.dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  margin-top:5px;
+  flex:0 0 auto;
 }
-.info{
-  background:rgba(99,164,255,.13);
-  color:var(--blue);
+.dot.pass{background:var(--green)}
+.dot.warn{background:var(--yellow)}
+.dot.fail{background:var(--red)}
+.dot.info{background:var(--blue)}
+.check-title{
+  font-weight:700;
 }
+.check-msg{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:3px;
+  word-break:break-word;
+}
+/* TABLE */
 .table-wrap{
   overflow:auto;
 }
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:760px;
+  min-width:700px;
 }
-th,td{
-  text-align:left;
-  padding:11px;
+th,
+td{
+  padding:11px 10px;
   border-bottom:1px solid var(--border);
-  font-size:12px;
+  text-align:left;
+  font-size:13px;
 }
 th{
   color:var(--muted);
   font-weight:600;
 }
-.url-cell{
-  max-width:390px;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  border-radius:999px;
+  padding:5px 9px;
+  font-size:11px;
+  font-weight:700;
 }
-.empty{
-  text-align:center;
-  padding:30px;
-  color:var(--muted);
+.badge.green{
+  background:#123b29;
+  color:#70e5a1;
 }
-.muted{
-  color:var(--muted);
+.badge.yellow{
+  background:#403619;
+  color:#f2d477;
 }
-.warning-box{
+.badge.red{
+  background:#481f28;
+  color:#ff8794;
+}
+.badge.blue{
+  background:#12384d;
+  color:#69c9ff;
+}
+.badge.gray{
+  background:#242b36;
+  color:#b9c2d0;
+}
+/* BING */
+.bing-status{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:12px 0;
+}
+.status-light{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#677386;
+}
+.status-light.on{
+  background:var(--green);
+  box-shadow:0 0 12px rgba(53,208,127,.6);
+}
+.site-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
   padding:12px;
-  border-radius:10px;
-  background:#211b0c;
-  border:1px solid #55451b;
-  color:#ffe7a0;
-  font-size:12px;
-  line-height:1.6;
-}
-.danger-box{
-  padding:12px;
-  border-radius:10px;
-  background:#261114;
-  border:1px solid #5e252c;
-  color:#ffb4b4;
-  font-size:12px;
-  line-height:1.6;
-}
-.code{
-  background:#070a0e;
   border:1px solid var(--border);
-  padding:10px;
-  border-radius:9px;
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:11px;
-  overflow:auto;
+  border-radius:13px;
+  margin-bottom:9px;
+  background:#0c121b;
 }
-footer{
-  text-align:center;
+.site-item small{
   color:var(--muted);
-  font-size:11px;
-  padding:25px 0 10px;
+  display:block;
+  margin-top:3px;
 }
-@media(max-width:800px){
-  .card.half,
-  .card.third{
-    grid-column:span 12;
-  }
-  .stats{
-    grid-template-columns:repeat(2,1fr);
-  }
-  header{
+@media(max-width:650px){
+  .site-item{
     align-items:flex-start;
+    flex-direction:column;
   }
 }
-@media(max-width:500px){
-  .app{
-    padding:11px;
-  }
-  .stats{
-    grid-template-columns:1fr 1fr;
-  }
-  .result{
-    grid-template-columns:25px 1fr;
-  }
-  .result .badge{
-    grid-column:2;
-    width:max-content;
-  }
+/* LOG */
+.log{
+  background:#070a10;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px;
+  min-height:90px;
+  max-height:260px;
+  overflow:auto;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:12px;
+  white-space:pre-wrap;
+  color:#b7c4d8;
+}
+/* TOAST */
+#toast{
+  position:fixed;
+  left:50%;
+  bottom:20px;
+  transform:translateX(-50%) translateY(20px);
+  background:#17202e;
+  border:1px solid #344158;
+  color:white;
+  padding:12px 16px;
+  border-radius:12px;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:9999;
+  max-width:90%;
+  text-align:center;
+}
+#toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+/* LOADING */
+.loading{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.spinner{
+  width:15px;
+  height:15px;
+  border:2px solid #6b7890;
+  border-top-color:white;
+  border-radius:50%;
+  animation:spin .7s linear infinite;
+}
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+/* EMPTY */
+.empty{
+  color:var(--muted);
+  text-align:center;
+  padding:28px 10px;
+}
+/* FOOTER */
+.footer{
+  text-align:center;
+  color:#697589;
+  font-size:12px;
+  padding:25px 0 10px;
 }
 </style>
 </head>
 <body>
 <div class="app">
-<header>
+<header class="header">
   <div class="brand">
     <div class="logo">MX</div>
     <div>
       <h1>MastaXul Webmaster Manager</h1>
-      <div class="subtitle">SEO • Open Graph • Webmaster • Bulk Audit</div>
+      <small>SEO • Sitemap • Bing • Webmaster Tools</small>
     </div>
   </div>
-  <div class="status" id="apiStatus">
-    ● Checking API...
+  <div class="version">
+    V4.2
   </div>
 </header>
-<nav>
-  <button class="nav-btn active" data-tab="dashboard">Dashboard</button>
-  <button class="nav-btn" data-tab="bulk">Bulk URL</button>
-  <button class="nav-btn" data-tab="history">History</button>
-  <button class="nav-btn" data-tab="settings">Settings</button>
-  <button class="nav-btn" data-tab="help">Maksud Error</button>
+<nav class="nav">
+  <button class="nav-btn active" data-section="dashboard">
+    🏠 Dashboard
+  </button>
+  <button class="nav-btn" data-section="audit">
+    🔍 Audit
+  </button>
+  <button class="nav-btn" data-section="sitemap">
+    🗺️ Sitemap
+  </button>
+  <button class="nav-btn" data-section="bulk">
+    📦 Bulk
+  </button>
+  <button class="nav-btn" data-section="bing">
+    🔵 Bing
+  </button>
+  <button class="nav-btn" data-section="history">
+    🕘 History
+  </button>
+  <button class="nav-btn" data-section="settings">
+    ⚙️ Settings
+  </button>
+  <button class="nav-btn" data-section="help">
+    ❓ Help
+  </button>
 </nav>
-<!-- ============================= -->
-<!-- DASHBOARD -->
-<!-- ============================= -->
-<section class="tab active" id="dashboard">
-<div class="grid">
-<div class="card">
-<div class="card-title">
-  <h2>🔍 Audit URL</h2>
-</div>
-<label>URL website</label>
-<input
-  id="singleURL"
-  type="url"
-  placeholder="https://mastaxul.my/"
->
-<div class="actions">
-<button
-  class="btn primary"
-  onclick="auditSingle()"
->
-  🔍 Audit URL
-</button>
-<button
-  class="btn"
-  onclick="openCurrent()"
->
-  🌐 Buka
-</button>
-<button
-  class="btn"
-  onclick="openFacebook()"
->
-  📘 Facebook Debugger
-</button>
-<button
-  class="btn"
-  onclick="openGoogle()"
->
-  🔎 Google Search Console
-</button>
-<button
-  class="btn"
-  onclick="openBing()"
->
-  🟦 Bing Webmaster
-</button>
-</div>
-</div>
-<div class="card third">
-<div class="score-wrap">
-<div class="score" id="scoreCircle" style="--score:0%">
-  <div>
-    <span id="scoreValue">0</span>
-    <small>SEO SCORE</small>
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+<section id="dashboard" class="section active">
+  <div class="card">
+    <h2>Webmaster Dashboard</h2>
+    <p>
+      Pusat kawalan SEO untuk audit website,
+      sitemap, bulk URL dan Bing Webmaster.
+    </p>
+    <div class="stat-grid">
+      <div class="stat">
+        <strong id="dashAudits">0</strong>
+        <span>Audit</span>
+      </div>
+      <div class="stat">
+        <strong id="dashUrls">0</strong>
+        <span>URL diproses</span>
+      </div>
+      <div class="stat">
+        <strong id="dashBing">—</strong>
+        <span>Bing</span>
+      </div>
+      <div class="stat">
+        <strong id="dashLast">—</strong>
+        <span>Audit terakhir</span>
+      </div>
+    </div>
   </div>
-</div>
-</div>
-</div>
-<div class="card third">
-<div class="card-title">
-  <h2>📊 Status</h2>
-</div>
-<div class="stats">
-<div class="stat">
-  <div class="stat-number" id="passCount">0</div>
-  <div class="stat-label">PASS</div>
-</div>
-<div class="stat">
-  <div class="stat-number" id="warnCount">0</div>
-  <div class="stat-label">WARNING</div>
-</div>
-<div class="stat">
-  <div class="stat-number" id="failCount">0</div>
-  <div class="stat-label">ERROR</div>
-</div>
-<div class="stat">
-  <div class="stat-number" id="infoCount">0</div>
-  <div class="stat-label">INFO</div>
-</div>
-</div>
-</div>
-<div class="card half">
-<div class="card-title">
-  <h2>🧪 SEO Check</h2>
-</div>
-<div id="seoResults" class="result-list">
-  <div class="empty">
-    Masukkan URL dan tekan Audit.
+  <div class="grid">
+    <div class="col-8">
+      <div class="card">
+        <h3>⚡ Quick Audit</h3>
+        <label>URL website</label>
+        <input
+          id="quickUrl"
+          class="input"
+          type="url"
+          placeholder="https://mastaxul.my/"
+        >
+        <div class="actions">
+          <button
+            class="btn primary"
+            onclick="runQuickAudit()"
+          >
+            🔍 Audit
+          </button>
+          <button
+            class="btn"
+            onclick="openTool('https://developers.facebook.com/tools/debug/')"
+          >
+            Facebook Debugger
+          </button>
+          <button
+            class="btn"
+            onclick="openTool('https://search.google.com/search-console')"
+          >
+            Google Search Console
+          </button>
+          <button
+            class="btn"
+            onclick="openTool('https://www.bing.com/webmasters/')"
+          >
+            Bing Webmaster
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+        <h3>🔵 Bing</h3>
+        <div class="bing-status">
+          <span
+            id="dashBingLight"
+            class="status-light"
+          ></span>
+          <span id="dashBingText">
+            Checking...
+          </span>
+        </div>
+        <button
+          class="btn blue"
+          onclick="showSection('bing')"
+        >
+          Buka Bing Manager
+        </button>
+      </div>
+    </div>
   </div>
-</div>
-</div>
-<div class="card half">
-<div class="card-title">
-  <h2>🌐 Open Graph</h2>
-</div>
-<div id="ogResults" class="result-list">
-  <div class="empty">
-    Belum ada data.
+</section>
+<!-- =====================================================
+     AUDIT
+===================================================== -->
+<section id="audit" class="section">
+  <div class="card">
+    <h2>🔍 SEO Audit</h2>
+    <p>
+      Audit teknikal dan SEO asas sesuatu URL.
+    </p>
+    <label>URL</label>
+    <input
+      id="auditUrl"
+      class="input"
+      type="url"
+      placeholder="https://mastaxul.my/"
+    >
+    <div class="actions">
+      <button
+        id="auditBtn"
+        class="btn primary"
+        onclick="runAudit()"
+      >
+        🔍 Run Audit
+      </button>
+      <button
+        class="btn"
+        onclick="clearAudit()"
+      >
+        Clear
+      </button>
+    </div>
   </div>
-</div>
-</div>
-<div class="card">
-<div class="card-title">
-  <h2>⚡ Quick Tools</h2>
-</div>
-<div class="actions">
-<button class="btn" onclick="openRobots()">
-  🤖 robots.txt
-</button>
-<button class="btn" onclick="openSitemap()">
-  🗺️ sitemap.xml
-</button>
-<button class="btn" onclick="copyReport()">
-  📋 Copy Report
-</button>
-<button class="btn danger" onclick="hardReset()">
-  🧹 Hard Reset
-</button>
-</div>
-</div>
-</div>
+  <div id="auditResult"></div>
 </section>
-<!-- ============================= -->
-<!-- BULK -->
-<!-- ============================= -->
-<section class="tab" id="bulk">
-<div class="grid">
-<div class="card">
-<div class="card-title">
-  <h2>🚀 Bulk URL Audit</h2>
-</div>
-<div class="warning-box">
-  Masukkan satu URL untuk setiap baris.
-  Maksimum 50 URL untuk satu proses.
-</div>
-<br>
-<textarea
-  id="bulkInput"
-  placeholder="https://mastaxul.my/
-https://mastaxul.my/produk-1
-https://mastaxul.my/produk-2"
-></textarea>
-<div class="actions">
-<button
-  class="btn primary"
-  onclick="bulkAudit()"
->
-  🚀 Audit Semua
-</button>
-<button
-  class="btn"
-  onclick="clearBulk()"
->
-  🧹 Kosongkan
-</button>
-<button
-  class="btn"
-  onclick="openAllFacebook()"
->
-  📘 Facebook Semua
-</button>
-</div>
-</div>
-<div class="card">
-<div class="card-title">
-  <h2>📊 Bulk Result</h2>
-  <span
-    class="muted"
-    id="bulkStatus"
-  >
-    0 URL
-  </span>
-</div>
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>URL</th>
-<th>Score</th>
-<th>HTTP</th>
-<th>HTTPS</th>
-<th>Title</th>
-<th>Meta</th>
-<th>OG Image</th>
-<th>Response</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody id="bulkTable">
-<tr>
-<td colspan="9" class="empty">
-Belum ada audit.
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
+<!-- =====================================================
+     SITEMAP
+===================================================== -->
+<section id="sitemap" class="section">
+  <div class="card">
+    <h2>🗺️ Sitemap Crawler</h2>
+    <p>
+      Baca sitemap.xml atau sitemap index dan
+      keluarkan URL untuk audit atau submission Bing.
+    </p>
+    <label>Sitemap URL</label>
+    <input
+      id="sitemapUrl"
+      class="input"
+      type="url"
+      placeholder="https://mastaxul.my/sitemap.xml"
+    >
+    <div class="actions">
+      <button
+        id="sitemapBtn"
+        class="btn primary"
+        onclick="crawlSitemap()"
+      >
+        🗺️ Crawl Sitemap
+      </button>
+      <button
+        class="btn"
+        onclick="useDefaultSitemap()"
+      >
+        Gunakan Domain Default
+      </button>
+    </div>
+  </div>
+  <div id="sitemapResult"></div>
 </section>
-<!-- ============================= -->
-<!-- HISTORY -->
-<!-- ============================= -->
-<section class="tab" id="history">
-<div class="card">
-<div class="card-title">
-<h2>🕘 Audit History</h2>
-<button
-  class="btn danger small"
-  onclick="clearHistory()"
->
-  Clear History
-</button>
-</div>
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>Masa</th>
-<th>URL</th>
-<th>Score</th>
-<th>Status</th>
-<th>Action</th>
-</tr>
-</thead>
-<tbody id="historyTable">
-<tr>
-<td colspan="5" class="empty">
-Tiada history.
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<!-- =====================================================
+     BULK
+===================================================== -->
+<section id="bulk" class="section">
+  <div class="card">
+    <h2>📦 Bulk Audit</h2>
+    <p>
+      Maksimum 50 URL bagi satu batch.
+      Satu URL setiap baris.
+    </p>
+    <textarea
+      id="bulkUrls"
+      placeholder="https://mastaxul.my/
+https://mastaxul.my/shop/
+https://mastaxul.my/blog/"
+    ></textarea>
+    <div class="actions">
+      <button
+        id="bulkBtn"
+        class="btn primary"
+        onclick="runBulkAudit()"
+      >
+        📦 Audit URLs
+      </button>
+      <button
+        class="btn"
+        onclick="loadSitemapIntoBulk()"
+      >
+        🗺️ Guna URL Sitemap
+      </button>
+      <button
+        class="btn"
+        onclick="exportBulkCSV()"
+      >
+        📥 Export CSV
+      </button>
+    </div>
+  </div>
+  <div id="bulkResult"></div>
 </section>
-<!-- ============================= -->
-<!-- SETTINGS -->
-<!-- ============================= -->
-<section class="tab" id="settings">
-<div class="grid">
-<div class="card half">
-<div class="card-title">
-  <h2>⚙️ Project Settings</h2>
-</div>
-<label>Nama projek</label>
-<input
-  id="projectName"
-  placeholder="MastaXul Webmaster"
->
-<br><br>
-<label>Default Domain</label>
-<input
-  id="defaultDomain"
-  placeholder="https://mastaxul.my"
->
-<br><br>
-<label>Google Property</label>
-<input
-  id="googleProperty"
-  placeholder="https://mastaxul.my/"
->
-<br><br>
-<label>Bing Site</label>
-<input
-  id="bingSite"
-  placeholder="https://mastaxul.my/"
->
-<br>
-<button
-  class="btn primary"
-  onclick="saveSettings()"
->
-  💾 Simpan Settings
-</button>
-</div>
-<div class="card half">
-<div class="card-title">
-  <h2>🔐 Privacy & Storage</h2>
-</div>
-<label>
-<input
-  type="checkbox"
-  id="saveHistory"
-  style="width:auto"
->
- Simpan Audit History
-</label>
-<br>
-<label>
-<input
-  type="checkbox"
-  id="saveSettings"
-  style="width:auto"
->
- Simpan Settings
-</label>
-<br>
-<div class="danger-box">
-<strong>Hard Reset</strong><br><br>
-Hard Reset akan cuba memadam data yang
-MastaXul boleh kawal dalam browser ini:
-<br><br>
-• localStorage<br>
-• sessionStorage<br>
-• cookies domain semasa<br>
-• Cache Storage<br>
-• Service Worker<br>
-• History audit<br>
-• Settings dashboard
-<br><br>
-<strong>
-Ia tidak boleh memadam cookie/cache global Safari,
-Chrome atau Firefox.
-</strong>
-</div>
-<br>
-<button
-  class="btn danger"
-  onclick="hardReset()"
->
-  🧨 HARD RESET MASTAXUL
-</button>
-</div>
-<div class="card">
-<div class="card-title">
-  <h2>🔌 API Connection</h2>
-</div>
-<div class="code">
-https://mastaxul-webmaster-api.2ulfpv.workers.dev
-</div>
-<br>
-<div id="apiDetails" class="muted">
-Checking...
-</div>
-</div>
-</div>
+<!-- =====================================================
+     BING
+===================================================== -->
+<section id="bing" class="section">
+  <div class="card">
+    <h2>🔵 Bing Webmaster</h2>
+    <p>
+      Sambungkan MastaXul Webmaster Manager
+      dengan Bing Webmaster melalui OAuth 2.0.
+    </p>
+    <div class="bing-status">
+      <span
+        id="bingLight"
+        class="status-light"
+      ></span>
+      <strong id="bingStatusText">
+        Checking...
+      </strong>
+    </div>
+    <div class="actions">
+      <button
+        id="bingConnectBtn"
+        class="btn blue"
+        onclick="connectBing()"
+      >
+        🔵 Connect Bing
+      </button>
+      <button
+        id="bingSitesBtn"
+        class="btn"
+        onclick="loadBingSites()"
+      >
+        🔄 Refresh Sites
+      </button>
+      <button
+        class="btn danger"
+        onclick="disconnectBing()"
+      >
+        Disconnect
+      </button>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="col-6">
+      <div class="card">
+        <h3>🌐 Bing Sites</h3>
+        <div id="bingSites">
+          <div class="empty">
+            Connect Bing dahulu.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="card">
+        <h3>📤 Submit URL</h3>
+        <label>Site / Property</label>
+        <select id="bingSiteSelect">
+          <option value="">
+            — Pilih Bing Site —
+          </option>
+        </select>
+        <label style="margin-top:12px">
+          URL
+        </label>
+        <input
+          id="bingSingleUrl"
+          class="input"
+          type="url"
+          placeholder="https://mastaxul.my/produk.html"
+        >
+        <div class="actions">
+          <button
+            class="btn success"
+            onclick="submitSingleBingUrl()"
+          >
+            📤 Submit URL
+          </button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>📦 Bulk Submit</h3>
+        <p>
+          Sehingga 50 URL sekali hantar dari dashboard.
+        </p>
+        <textarea
+          id="bingBulkUrls"
+          placeholder="https://mastaxul.my/
+https://mastaxul.my/shop/
+https://mastaxul.my/produk.html"
+        ></textarea>
+        <div class="actions">
+          <button
+            class="btn success"
+            onclick="submitBulkBingUrls()"
+          >
+            📤 Submit Bulk
+          </button>
+          <button
+            class="btn"
+            onclick="useBulkAuditForBing()"
+          >
+            Guna Result Bulk Audit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="col-6">
+      <div class="card">
+        <h3>🗺️ Submit Sitemap</h3>
+        <label>Site</label>
+        <select id="bingSitemapSite">
+          <option value="">
+            — Pilih Bing Site —
+          </option>
+        </select>
+        <label style="margin-top:12px">
+          Sitemap URL
+        </label>
+        <input
+          id="bingSitemapUrl"
+          class="input"
+          type="url"
+          placeholder="https://mastaxul.my/sitemap.xml"
+        >
+        <div class="actions">
+          <button
+            class="btn primary"
+            onclick="submitBingSitemap()"
+          >
+            🗺️ Submit Sitemap
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="card">
+        <h3>📊 Submission Quota</h3>
+        <label>Site</label>
+        <select id="bingQuotaSite">
+          <option value="">
+            — Pilih Bing Site —
+          </option>
+        </select>
+        <div class="actions">
+          <button
+            class="btn"
+            onclick="checkBingQuota()"
+          >
+            📊 Check Quota
+          </button>
+        </div>
+        <div
+          id="bingQuotaResult"
+          class="log"
+          style="margin-top:12px"
+        >
+          Belum disemak.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>📋 Bing Activity Log</h3>
+    <div id="bingLog" class="log">
+MastaXul Webmaster Manager V4.2
+Bing log ready.
+    </div>
+  </div>
 </section>
-<!-- ============================= -->
-<!-- HELP -->
-<!-- ============================= -->
-<section class="tab" id="help">
-<div class="grid">
-<div class="card">
-<div class="card-title">
-<h2>📖 Maksud Status</h2>
-</div>
-<div class="result-list">
-<div class="result">
-<div class="result-icon">🟢</div>
-<div>
-<div class="result-name">PASS</div>
-<div class="result-meaning">
-Pemeriksaan berjaya dan elemen tersebut berada dalam keadaan baik.
-</div>
-</div>
-</div>
-<div class="result">
-<div class="result-icon">🟡</div>
-<div>
-<div class="result-name">WARNING</div>
-<div class="result-meaning">
-Ada elemen yang belum optimum tetapi biasanya tidak menyebabkan website gagal.
-</div>
-</div>
-</div>
-<div class="result">
-<div class="result-icon">🔴</div>
-<div>
-<div class="result-name">ERROR</div>
-<div class="result-meaning">
-Masalah yang patut diperiksa kerana boleh menjejaskan SEO, indexing atau paparan.
-</div>
-</div>
-</div>
-<div class="result">
-<div class="result-icon">ℹ️</div>
-<div>
-<div class="result-name">INFO</div>
-<div class="result-meaning">
-Maklumat tambahan yang tidak semestinya merupakan masalah.
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="card half">
-<h2>Canonical</h2>
-<p class="muted">
-Canonical memberitahu search engine URL utama bagi sesuatu halaman.
-Ia membantu mengurangkan masalah duplicate content.
-</p>
-<h2>Meta Description</h2>
-<p class="muted">
-Penerangan ringkas halaman yang boleh digunakan search engine
-untuk membantu menghasilkan snippet.
-</p>
-<h2>OG Image</h2>
-<p class="muted">
-Imej yang digunakan apabila URL dikongsi di Facebook,
-WhatsApp atau platform sosial yang menyokong Open Graph.
-</p>
-</div>
-<div class="card half">
-<h2>Robots / noindex</h2>
-<p class="muted">
-Jika halaman mempunyai <b>noindex</b>, search engine diarahkan
-supaya tidak memasukkan halaman tersebut ke dalam index.
-</p>
-<h2>JSON-LD</h2>
-<p class="muted">
-Data berstruktur yang membantu search engine memahami kandungan
-seperti Product, Article, Organization dan lain-lain.
-</p>
-<h2>HTTP Status</h2>
-<p class="muted">
-200 biasanya menunjukkan halaman berjaya diakses.
-404 bermaksud halaman tidak dijumpai.
-500 menunjukkan masalah server.
-</p>
-</div>
-<div class="card">
-<h2>⚠️ CORS</h2>
-<p class="muted">
-Versi V3 menggunakan Cloudflare Worker sebagai backend.
-Ini mengurangkan masalah CORS yang berlaku apabila browser cuba
-membaca website lain secara terus.
-</p>
-</div>
-</div>
+<!-- =====================================================
+     HISTORY
+===================================================== -->
+<section id="history" class="section">
+  <div class="card">
+    <h2>🕘 History</h2>
+    <p>
+      Rekod audit dan submission yang disimpan
+      secara local pada browser.
+    </p>
+    <div class="actions">
+      <button
+        class="btn danger"
+        onclick="clearHistory()"
+      >
+        🗑️ Clear History
+      </button>
+    </div>
+  </div>
+  <div id="historyResult"></div>
 </section>
-<footer>
-MastaXul Webmaster Manager V3 • Powered by Cloudflare Worker
+<!-- =====================================================
+     SETTINGS
+===================================================== -->
+<section id="settings" class="section">
+  <div class="card">
+    <h2>⚙️ Settings</h2>
+    <label>Nama Project</label>
+    <input
+      id="settingProject"
+      class="input"
+      placeholder="MastaXul"
+    >
+    <label style="margin-top:12px">
+      Default Domain
+    </label>
+    <input
+      id="settingDomain"
+      class="input"
+      placeholder="https://mastaxul.my"
+    >
+    <label style="margin-top:12px">
+      Google Search Console Property
+    </label>
+    <input
+      id="settingGoogle"
+      class="input"
+      placeholder="https://mastaxul.my/"
+    >
+    <label style="margin-top:12px">
+      Bing Site
+    </label>
+    <input
+      id="settingBing"
+      class="input"
+      placeholder="https://mastaxul.my/"
+    >
+    <div class="actions">
+      <button
+        class="btn primary"
+        onclick="saveSettings()"
+      >
+        💾 Save Settings
+      </button>
+    </div>
+  </div>
+  <div class="card">
+    <h3>🔗 Webmaster Tools</h3>
+    <div class="actions">
+      <button
+        class="btn"
+        onclick="openTool('https://developers.facebook.com/tools/debug/')"
+      >
+        Facebook Debugger
+      </button>
+      <button
+        class="btn"
+        onclick="openTool('https://search.google.com/search-console')"
+      >
+        Google Search Console
+      </button>
+      <button
+        class="btn"
+        onclick="openTool('https://www.bing.com/webmasters/')"
+      >
+        Bing Webmaster
+      </button>
+    </div>
+  </div>
+  <div class="card">
+    <h3>🧹 Privacy & Storage</h3>
+    <p>
+      Hard Reset akan cuba membersihkan data
+      yang boleh dikawal oleh website ini.
+    </p>
+    <button
+      class="btn danger"
+      onclick="hardReset()"
+    >
+      🧹 Hard Reset
+    </button>
+    <p style="font-size:12px">
+      Nota: website tidak boleh memadam
+      keseluruhan cache/cookies/history Safari,
+      Chrome atau Firefox secara global.
+    </p>
+  </div>
+</section>
+<!-- =====================================================
+     HELP
+===================================================== -->
+<section id="help" class="section">
+  <div class="card">
+    <h2>❓ Help</h2>
+    <h3>PASS</h3>
+    <p>
+      Pemeriksaan berjaya dan tiada masalah utama dikesan.
+    </p>
+    <h3>WARNING</h3>
+    <p>
+      Tidak semestinya error, tetapi disarankan diperbaiki.
+    </p>
+    <h3>ERROR</h3>
+    <p>
+      Masalah yang boleh memberi kesan kepada SEO,
+      crawling atau indexing.
+    </p>
+    <h3>INFO</h3>
+    <p>
+      Maklumat tambahan untuk rujukan.
+    </p>
+    <h3>Canonical</h3>
+    <p>
+      URL utama yang memberitahu search engine
+      versi mana yang patut dianggap sebagai URL canonical.
+    </p>
+    <h3>Meta Description</h3>
+    <p>
+      Penerangan ringkas halaman yang boleh digunakan
+      search engine sebagai snippet.
+    </p>
+    <h3>Open Graph</h3>
+    <p>
+      Metadata untuk perkongsian halaman di Facebook
+      dan platform sosial lain.
+    </p>
+    <h3>Noindex</h3>
+    <p>
+      Arahan kepada crawler supaya halaman tidak
+      dimasukkan ke index.
+    </p>
+    <h3>JSON-LD</h3>
+    <p>
+      Structured data dalam format JSON yang membantu
+      search engine memahami kandungan halaman.
+    </p>
+    <h3>Bing OAuth</h3>
+    <p>
+      OAuth membolehkan dashboard berkomunikasi
+      dengan Bing tanpa menyimpan password Microsoft.
+      Token disimpan server-side oleh Worker.
+    </p>
+  </div>
+</section>
+<footer class="footer">
+  MastaXul Webmaster Manager V4.2
 </footer>
 </div>
+<div id="toast"></div>
 <script>
-const API =
-"https://mastaxul-webmaster-api.2ulfpv.workers.dev";
-let currentResult = null;
-let bulkResults = [];
-// ========================================
-// TAB SYSTEM
-// ========================================
-document.querySelectorAll(".nav-btn")
-.forEach(button => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll(".nav-btn")
-      .forEach(x => x.classList.remove("active"));
-    document.querySelectorAll(".tab")
-      .forEach(x => x.classList.remove("active"));
-    button.classList.add("active");
-    document
-      .getElementById(button.dataset.tab)
-      .classList.add("active");
-  });
-});
-// ========================================
-// API STATUS
-// ========================================
-async function checkAPI(){
-  const status =
-    document.getElementById("apiStatus");
-  const details =
-    document.getElementById("apiDetails");
-  try{
-    const response =
-      await fetch(API + "/");
-    const data =
-      await response.json();
-    if(data.ok){
-      status.textContent =
-        "● API Online";
-      status.style.color =
-        "var(--green)";
-      if(details){
-        details.textContent =
-          `${data.service} • v${data.version} • ${data.status}`;
-      }
-    }else{
-      throw new Error("API offline");
-    }
-  }catch(error){
-    status.textContent =
-      "● API Offline";
-    status.style.color =
-      "var(--red)";
-    if(details){
-      details.textContent =
-        "Tidak dapat menyambung ke Worker.";
-    }
-  }
+/* =====================================================
+   CONFIG
+===================================================== */
+const API_BASE =
+  "https://mastaxul-webmaster-api.2ulfpv.workers.dev";
+const STORAGE_KEYS = {
+  settings:
+    "mx_webmaster_settings_v42",
+  history:
+    "mx_webmaster_history_v42",
+  bulk:
+    "mx_webmaster_last_bulk_v42",
+  sitemap:
+    "mx_webmaster_last_sitemap_v42"
+};
+/* =====================================================
+   STATE
+===================================================== */
+let state = {
+  lastAudit: null,
+  lastBulk: [],
+  sitemapUrls: [],
+  bingSites: [],
+  settings: {},
+  bingConnected: false
+};
+/* =====================================================
+   HELPERS
+===================================================== */
+function $(id){
+  return document.getElementById(id);
 }
-checkAPI();
-// ========================================
-// SINGLE AUDIT
-// ========================================
-async function auditSingle(){
-  const input =
-    document.getElementById("singleURL");
-  const url =
-    input.value.trim();
-  if(!url){
-    alert("Masukkan URL dahulu.");
-    return;
-  }
-  setStatus("● Auditing...");
-  try{
-    const response =
-      await fetch(API + "/audit", {
-        method:"POST",
-        headers:{
-          "Content-Type":
-            "application/json"
-        },
-        body:JSON.stringify({
-          url
-        })
-      });
-    const data =
-      await response.json();
-    if(!data.ok){
-      throw new Error(
-        data.message ||
-        data.error ||
-        "Audit gagal"
-      );
-    }
-    currentResult =
-      data.result;
-    renderSingle(currentResult);
-    saveAuditHistory(currentResult);
-    setStatus("● API Online");
-  }catch(error){
-    setStatus("● Audit Error");
-    alert(
-      "Audit gagal:\n\n" +
-      error.message
-    );
-  }
-}
-// ========================================
-// RENDER SINGLE
-// ========================================
-function renderSingle(result){
-  const score =
-    result.seo?.score || 0;
-  document
-    .getElementById("scoreValue")
-    .textContent = score;
-  document
-    .getElementById("scoreCircle")
-    .style.setProperty(
-      "--score",
-      score + "%"
-    );
-  const checks = [];
-  const http =
-    result.http;
-  checks.push({
-    name:"HTTP Status",
-    pass:
-      http.status >= 200 &&
-      http.status < 400,
-    info:
-      `${http.status} • ${result.responseTime} ms`,
-    meaning:
-      http.status >= 200 &&
-      http.status < 400
-      ? "Halaman berjaya diakses oleh Worker."
-      : "Server memberikan status HTTP yang perlu diperiksa."
-  });
-  checks.push({
-    name:"HTTPS",
-    pass:
-      result.security?.https,
-    info:
-      result.security?.https
-      ? "HTTPS aktif"
-      : "HTTP",
-    meaning:
-      result.security?.https
-      ? "Sambungan HTTPS aktif."
-      : "Website belum menggunakan HTTPS."
-  });
-  checks.push({
-    name:"Title",
-    pass:
-      result.seo?.title?.exists,
-    info:
-      result.seo?.title?.value ||
-      "Tiada title",
-    meaning:
-      result.seo?.title?.exists
-      ? "Halaman mempunyai title."
-      : "Tambah tag <title>."
-  });
-  const titleLength =
-    result.seo?.title?.length || 0;
-  checks.push({
-    name:"Title Length",
-    pass:
-      titleLength >= 30 &&
-      titleLength <= 65,
-    info:
-      `${titleLength} aksara`,
-    meaning:
-      "Title yang terlalu pendek atau panjang mungkin kurang optimum."
-  });
-  const description =
-    result.seo?.description;
-  checks.push({
-    name:"Meta Description",
-    pass:
-      description?.exists,
-    info:
-      description?.exists
-      ? `${description.length} aksara`
-      : "Tiada",
-    meaning:
-      description?.exists
-      ? "Meta description dijumpai."
-      : "Tambah meta description."
-  });
-  checks.push({
-    name:"Canonical",
-    pass:
-      result.seo?.canonical?.exists,
-    info:
-      result.seo?.canonical?.value ||
-      "Tiada",
-    meaning:
-      result.seo?.canonical?.exists
-      ? "Canonical dijumpai."
-      : "Canonical boleh membantu mengelakkan duplicate URL."
-  });
-  checks.push({
-    name:"Viewport",
-    pass:
-      result.seo?.viewport?.exists,
-    info:
-      result.seo?.viewport?.exists
-      ? "Ada"
-      : "Tiada",
-    meaning:
-      "Viewport penting untuk paparan mobile."
-  });
-  checks.push({
-    name:"H1",
-    pass:
-      result.seo?.h1?.count === 1,
-    info:
-      `${result.seo?.h1?.count || 0} H1`,
-    meaning:
-      "Sebaiknya halaman mempunyai satu H1 utama."
-  });
-  checks.push({
-    name:"JSON-LD",
-    pass:
-      result.seo?.jsonLd?.count > 0,
-    info:
-      `${result.seo?.jsonLd?.count || 0} schema`,
-    meaning:
-      "JSON-LD membantu search engine memahami struktur kandungan."
-  });
-  checks.push({
-    name:"Favicon",
-    pass:
-      result.seo?.favicon,
-    info:
-      result.seo?.favicon
-      ? "Ada"
-      : "Tiada",
-    meaning:
-      "Favicon membantu identiti website dalam browser."
-  });
-  checks.push({
-    name:"Robots / Noindex",
-    pass:
-      !result.seo?.robots?.noindex,
-    info:
-      result.seo?.robots?.value ||
-      "Tiada robots meta",
-    meaning:
-      result.seo?.robots?.noindex
-      ? "AMARAN: halaman mempunyai noindex."
-      : "Tiada arahan noindex dikesan."
-  });
-  renderChecks(
-    document.getElementById("seoResults"),
-    checks
-  );
-  const ogChecks = [
-    {
-      name:"OG Title",
-      pass:
-        !!result.openGraph?.title,
-      info:
-        result.openGraph?.title ||
-        "Tiada",
-      meaning:
-        "Digunakan sebagai tajuk ketika URL dikongsi."
-    },
-    {
-      name:"OG Description",
-      pass:
-        !!result.openGraph?.description,
-      info:
-        result.openGraph?.description ||
-        "Tiada",
-      meaning:
-        "Penerangan ketika URL dikongsi."
-    },
-    {
-      name:"OG Image",
-      pass:
-        !!result.openGraph?.image,
-      info:
-        result.openGraph?.image ||
-        "Tiada",
-      meaning:
-        "Imej utama untuk social sharing."
-    },
-    {
-      name:"OG URL",
-      pass:
-        !!result.openGraph?.url,
-      info:
-        result.openGraph?.url ||
-        "Tiada",
-      meaning:
-        "URL canonical untuk Open Graph."
-    }
-  ];
-  renderChecks(
-    document.getElementById("ogResults"),
-    ogChecks
-  );
-  updateStats(
-    checks,
-    ogChecks
-  );
-}
-// ========================================
-// RENDER CHECKS
-// ========================================
-function renderChecks(container, checks){
-  container.innerHTML = "";
-  checks.forEach(check => {
-    const div =
-      document.createElement("div");
-    let state =
-      check.pass
-      ? "pass"
-      : "warn";
-    let icon =
-      check.pass
-      ? "🟢"
-      : "🟡";
-    div.className =
-      "result";
-    div.innerHTML = `
-      <div class="result-icon">
-        ${icon}
-      </div>
-      <div>
-        <div class="result-name">
-          ${escapeHTML(check.name)}
-        </div>
-        <div class="result-meaning">
-          ${escapeHTML(check.meaning)}
-        </div>
-      </div>
-      <div class="badge ${state}">
-        ${escapeHTML(check.info)}
-      </div>
-    `;
-    container.appendChild(div);
-  });
-}
-// ========================================
-// STATS
-// ========================================
-function updateStats(seo,og){
-  const all =
-    [...seo,...og];
-  const pass =
-    all.filter(x => x.pass).length;
-  const warn =
-    all.filter(x => !x.pass).length;
-  document.getElementById(
-    "passCount"
-  ).textContent = pass;
-  document.getElementById(
-    "warnCount"
-  ).textContent = warn;
-  document.getElementById(
-    "failCount"
-  ).textContent = warn > 0 ? 1 : 0;
-  document.getElementById(
-    "infoCount"
-  ).textContent =
-    currentResult?.http?.status || 0;
-}
-// ========================================
-// BULK AUDIT
-// ========================================
-async function bulkAudit(){
-  const input =
-    document.getElementById("bulkInput")
-      .value;
-  let urls =
-    input
-      .split(/\r?\n/)
-      .map(x => x.trim())
-      .filter(Boolean);
-  urls =
-    [...new Set(urls)]
-      .slice(0,50);
-  if(!urls.length){
-    alert("Masukkan sekurang-kurangnya satu URL.");
-    return;
-  }
-  const status =
-    document.getElementById("bulkStatus");
-  status.textContent =
-    `Auditing ${urls.length} URL...`;
-  try{
-    const response =
-      await fetch(
-        API + "/bulk-audit",
-        {
-          method:"POST",
-          headers:{
-            "Content-Type":
-              "application/json"
-          },
-          body:JSON.stringify({
-            urls
-          })
-        }
-      );
-    const data =
-      await response.json();
-    if(!data.ok){
-      throw new Error(
-        data.message ||
-        data.error ||
-        "Bulk audit gagal"
-      );
-    }
-    bulkResults =
-      data.results || [];
-    renderBulkTable(
-      bulkResults
-    );
-    status.textContent =
-      `${bulkResults.length} URL selesai`;
-    bulkResults.forEach(
-      saveAuditHistory
-    );
-  }catch(error){
-    status.textContent =
-      "Bulk audit gagal";
-    alert(
-      "Bulk audit gagal:\n\n" +
-      error.message
-    );
-  }
-}
-// ========================================
-// BULK TABLE
-// ========================================
-function renderBulkTable(results){
-  const table =
-    document.getElementById(
-      "bulkTable"
-    );
-  table.innerHTML = "";
-  results.forEach(result => {
-    const tr =
-      document.createElement("tr");
-    if(result.success === false){
-      tr.innerHTML = `
-        <td class="url-cell">
-          ${escapeHTML(result.url)}
-        </td>
-        <td>—</td>
-        <td>—</td>
-        <td>—</td>
-        <td>—</td>
-        <td>—</td>
-        <td>—</td>
-        <td>—</td>
-        <td>
-          <span class="badge fail">
-            ERROR
-          </span>
-        </td>
-      `;
-      table.appendChild(tr);
-      return;
-    }
-    const score =
-      result.seo?.score ?? 0;
-    const scoreClass =
-      score >= 80
-      ? "pass"
-      : score >= 60
-      ? "warn"
-      : "fail";
-    tr.innerHTML = `
-      <td class="url-cell">
-        ${escapeHTML(result.url)}
-      </td>
-      <td>
-        <span class="badge ${scoreClass}">
-          ${score}
-        </span>
-      </td>
-      <td>
-        ${result.http?.status ?? "—"}
-      </td>
-      <td>
-        ${result.security?.https
-          ? "🟢"
-          : "🔴"}
-      </td>
-      <td>
-        ${result.seo?.title?.exists
-          ? "🟢"
-          : "🔴"}
-      </td>
-      <td>
-        ${result.seo?.description?.exists
-          ? "🟢"
-          : "🔴"}
-      </td>
-      <td>
-        ${result.openGraph?.image
-          ? "🟢"
-          : "🟡"}
-      </td>
-      <td>
-        ${result.responseTime ?? "—"} ms
-      </td>
-      <td>
-        <span class="badge ${scoreClass}">
-          ${score >= 80
-            ? "GOOD"
-            : score >= 60
-            ? "CHECK"
-            : "FIX"}
-        </span>
-      </td>
-    `;
-    table.appendChild(tr);
-  });
-}
-// ========================================
-// HISTORY
-// ========================================
-function saveAuditHistory(result){
-  if(
-    localStorage.getItem(
-      "mx_save_history"
-    ) === "false"
-  ) return;
-  let history =
-    JSON.parse(
-      localStorage.getItem(
-        "mx_history"
-      ) || "[]"
-    );
-  history.unshift({
-    time:
-      new Date().toLocaleString(),
-    url:
-      result.url,
-    score:
-      result.seo?.score ?? 0,
-    status:
-      result.http?.status ?? "ERROR"
-  });
-  history =
-    history.slice(0,50);
-  localStorage.setItem(
-    "mx_history",
-    JSON.stringify(history)
-  );
-  renderHistory();
-}
-function renderHistory(){
-  const table =
-    document.getElementById(
-      "historyTable"
-    );
-  const history =
-    JSON.parse(
-      localStorage.getItem(
-        "mx_history"
-      ) || "[]"
-    );
-  if(!history.length){
-    table.innerHTML = `
-      <tr>
-        <td colspan="5" class="empty">
-          Tiada history.
-        </td>
-      </tr>
-    `;
-    return;
-  }
-  table.innerHTML = "";
-  history.forEach((item,index) => {
-    const tr =
-      document.createElement("tr");
-    const cls =
-      item.score >= 80
-      ? "pass"
-      : item.score >= 60
-      ? "warn"
-      : "fail";
-    tr.innerHTML = `
-      <td>
-        ${escapeHTML(item.time)}
-      </td>
-      <td class="url-cell">
-        ${escapeHTML(item.url)}
-      </td>
-      <td>
-        <span class="badge ${cls}">
-          ${item.score}
-        </span>
-      </td>
-      <td>
-        ${item.status}
-      </td>
-      <td>
-        <button
-          class="btn small"
-          onclick="reuseURL(${index})"
-        >
-          Gunakan
-        </button>
-      </td>
-    `;
-    table.appendChild(tr);
-  });
-}
-function reuseURL(index){
-  const history =
-    JSON.parse(
-      localStorage.getItem(
-        "mx_history"
-      ) || "[]"
-    );
-  const item =
-    history[index];
-  if(!item) return;
-  document.getElementById(
-    "singleURL"
-  ).value = item.url;
-  switchTab("dashboard");
-}
-function clearHistory(){
-  localStorage.removeItem(
-    "mx_history"
-  );
-  renderHistory();
-}
-// ========================================
-// SETTINGS
-// ========================================
-function saveSettings(){
-  const data = {
-    projectName:
-      document.getElementById(
-        "projectName"
-      ).value,
-    defaultDomain:
-      document.getElementById(
-        "defaultDomain"
-      ).value,
-    googleProperty:
-      document.getElementById(
-        "googleProperty"
-      ).value,
-    bingSite:
-      document.getElementById(
-        "bingSite"
-      ).value
-  };
-  localStorage.setItem(
-    "mx_settings",
-    JSON.stringify(data)
-  );
-  localStorage.setItem(
-    "mx_save_history",
-    document.getElementById(
-      "saveHistory"
-    ).checked
-      ? "true"
-      : "false"
-  );
-  alert("Settings berjaya disimpan.");
-}
-function loadSettings(){
-  const data =
-    JSON.parse(
-      localStorage.getItem(
-        "mx_settings"
-      ) || "{}"
-    );
-  document.getElementById(
-    "projectName"
-  ).value =
-    data.projectName ||
-    "MastaXul Webmaster";
-  document.getElementById(
-    "defaultDomain"
-  ).value =
-    data.defaultDomain ||
-    "https://mastaxul.my";
-  document.getElementById(
-    "googleProperty"
-  ).value =
-    data.googleProperty ||
-    "https://mastaxul.my/";
-  document.getElementById(
-    "bingSite"
-  ).value =
-    data.bingSite ||
-    "https://mastaxul.my/";
-  document.getElementById(
-    "saveHistory"
-  ).checked =
-    localStorage.getItem(
-      "mx_save_history"
-    ) !== "false";
-}
-// ========================================
-// HARD RESET
-// ========================================
-async function hardReset(){
-  const ok =
-    confirm(
-      "HARD RESET MASTAXUL?\n\n" +
-      "Ini akan cuba memadam:\n" +
-      "• Settings\n" +
-      "• History\n" +
-      "• localStorage\n" +
-      "• sessionStorage\n" +
-      "• Cookies domain semasa\n" +
-      "• Cache Storage\n" +
-      "• Service Worker\n\n" +
-      "Data Safari/Chrome global TIDAK boleh dipadam oleh website.\n\n" +
-      "Teruskan?"
-    );
-  if(!ok) return;
-  // localStorage
-  try{
-    localStorage.clear();
-  }catch(e){}
-  // sessionStorage
-  try{
-    sessionStorage.clear();
-  }catch(e){}
-  // Cookies yang boleh dicapai
-  try{
-    document.cookie
-      .split(";")
-      .forEach(cookie => {
-        const name =
-          cookie
-            .split("=")[0]
-            .trim();
-        document.cookie =
-          name +
-          "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
-      });
-  }catch(e){}
-  // Cache Storage
-  try{
-    if("caches" in window){
-      const keys =
-        await caches.keys();
-      await Promise.all(
-        keys.map(
-          key =>
-            caches.delete(key)
-        )
-      );
-    }
-  }catch(e){}
-  // Service Worker
-  try{
-    if(
-      "serviceWorker" in navigator
-    ){
-      const registrations =
-        await navigator
-          .serviceWorker
-          .getRegistrations();
-      await Promise.all(
-        registrations.map(
-          registration =>
-            registration.unregister()
-        )
-      );
-    }
-  }catch(e){}
-  alert(
-    "Hard Reset selesai.\n\n" +
-    "Sekarang halaman akan dimuat semula."
-  );
-  location.reload();
-}
-// ========================================
-// OPEN TOOLS
-// ========================================
-function getURL(){
-  return document.getElementById(
-    "singleURL"
-  ).value.trim();
-}
-function openCurrent(){
-  const url =
-    getURL();
-  if(!url){
-    alert("Masukkan URL dahulu.");
-    return;
-  }
-  window.open(
-    url,
-    "_blank"
-  );
-}
-function openFacebook(){
-  const url =
-    getURL();
-  if(!url){
-    alert("Masukkan URL dahulu.");
-    return;
-  }
-  window.open(
-    "https://developers.facebook.com/tools/debug/?q=" +
-    encodeURIComponent(url),
-    "_blank"
-  );
-}
-function openGoogle(){
-  const url =
-    getURL();
-  if(!url){
-    alert("Masukkan URL dahulu.");
-    return;
-  }
-  window.open(
-    "https://search.google.com/search-console/inspect?resource_id=" +
-    encodeURIComponent(
-      getDefaultProperty(url)
-    ) +
-    "&id=" +
-    encodeURIComponent(url),
-    "_blank"
-  );
-}
-function openBing(){
-  window.open(
-    "https://www.bing.com/webmasters/",
-    "_blank"
-  );
-}
-function openRobots(){
-  const url =
-    getURL();
-  if(!url){
-    alert("Masukkan URL dahulu.");
-    return;
-  }
-  const parsed =
-    new URL(url);
-  window.open(
-    parsed.origin +
-    "/robots.txt",
-    "_blank"
-  );
-}
-function openSitemap(){
-  const url =
-    getURL();
-  if(!url){
-    alert("Masukkan URL dahulu.");
-    return;
-  }
-  const parsed =
-    new URL(url);
-  window.open(
-    parsed.origin +
-    "/sitemap.xml",
-    "_blank"
-  );
-}
-function openAllFacebook(){
-  const urls =
-    document.getElementById(
-      "bulkInput"
-    ).value
-      .split(/\r?\n/)
-      .map(x => x.trim())
-      .filter(Boolean)
-      .slice(0,20);
-  if(!urls.length){
-    alert("Masukkan URL dahulu.");
-    return;
-  }
-  urls.forEach(url => {
-    window.open(
-      "https://developers.facebook.com/tools/debug/?q=" +
-      encodeURIComponent(url),
-      "_blank"
-    );
-  });
-}
-// ========================================
-// COPY REPORT
-// ========================================
-async function copyReport(){
-  if(!currentResult){
-    alert("Audit URL dahulu.");
-    return;
-  }
-  const r =
-    currentResult;
-  const text = `
-MastaXul Webmaster Report
-URL:
-${r.url}
-SEO Score:
-${r.seo?.score ?? 0}/100
-HTTP:
-${r.http?.status ?? "-"}
-HTTPS:
-${r.security?.https ? "YES" : "NO"}
-Title:
-${r.seo?.title?.value || "NONE"}
-Meta Description:
-${r.seo?.description?.value || "NONE"}
-Canonical:
-${r.seo?.canonical?.value || "NONE"}
-Robots:
-${r.seo?.robots?.value || "NONE"}
-Noindex:
-${r.seo?.robots?.noindex ? "YES" : "NO"}
-H1:
-${r.seo?.h1?.count ?? 0}
-JSON-LD:
-${r.seo?.jsonLd?.count ?? 0}
-OG Title:
-${r.openGraph?.title || "NONE"}
-OG Description:
-${r.openGraph?.description || "NONE"}
-OG Image:
-${r.openGraph?.image || "NONE"}
-Response Time:
-${r.responseTime ?? "-"} ms
-`;
-  try{
-    await navigator.clipboard.writeText(
-      text.trim()
-    );
-    alert("Report berjaya disalin.");
-  }catch(e){
-    alert("Tidak dapat copy report.");
-  }
-}
-// ========================================
-// HELPERS
-// ========================================
-function getDefaultProperty(url){
-  try{
-    const saved =
-      JSON.parse(
-        localStorage.getItem(
-          "mx_settings"
-        ) || "{}"
-      );
-    if(saved.googleProperty)
-      return saved.googleProperty;
-    return new URL(url).origin + "/";
-  }catch(e){
-    return url;
-  }
-}
-function switchTab(name){
-  document.querySelectorAll(
-    ".nav-btn"
-  ).forEach(button => {
-    button.classList.toggle(
-      "active",
-      button.dataset.tab === name
-    );
-  });
-  document.querySelectorAll(
-    ".tab"
-  ).forEach(tab => {
-    tab.classList.toggle(
-      "active",
-      tab.id === name
-    );
-  });
-}
-function setStatus(text){
-  const element =
-    document.getElementById(
-      "apiStatus"
-    );
-  element.textContent =
-    text;
-}
-function clearBulk(){
-  document.getElementById(
-    "bulkInput"
-  ).value = "";
-  document.getElementById(
-    "bulkTable"
-  ).innerHTML = `
-    <tr>
-      <td colspan="9" class="empty">
-        Belum ada audit.
-      </td>
-    </tr>
-  `;
-  document.getElementById(
-    "bulkStatus"
-  ).textContent =
-    "0 URL";
-}
-function escapeHTML(value){
+function escapeHtml(value){
   return String(value ?? "")
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
@@ -1849,11 +1089,1850 @@ function escapeHTML(value){
     .replace(/"/g,"&quot;")
     .replace(/'/g,"&#039;");
 }
-// ========================================
-// INIT
-// ========================================
-loadSettings();
-renderHistory();
+function toast(message){
+  const el = $("toast");
+  el.textContent =
+    message;
+  el.classList.add("show");
+  clearTimeout(
+    toast.timer
+  );
+  toast.timer =
+    setTimeout(
+      () => {
+        el.classList.remove(
+          "show"
+        );
+      },
+      2600
+    );
+}
+function logBing(message){
+  const el =
+    $("bingLog");
+  const time =
+    new Date()
+      .toLocaleTimeString();
+  el.textContent +=
+    `\n[${time}] ${message}`;
+  el.scrollTop =
+    el.scrollHeight;
+}
+function openTool(url){
+  window.open(
+    url,
+    "_blank",
+    "noopener"
+  );
+}
+function setLoading(
+  button,
+  loading,
+  text
+){
+  if(!button) return;
+  if(loading){
+    button.dataset.oldText =
+      button.innerHTML;
+    button.disabled =
+      true;
+    button.innerHTML =
+      `<span class="loading">
+        <span class="spinner"></span>
+        ${text || "Processing..."}
+      </span>`;
+  }else{
+    button.disabled =
+      false;
+    button.innerHTML =
+      button.dataset.oldText ||
+      "Done";
+  }
+}
+/* =====================================================
+   NAVIGATION
+===================================================== */
+document
+  .querySelectorAll(".nav-btn")
+  .forEach(btn => {
+    btn.addEventListener(
+      "click",
+      () => {
+        showSection(
+          btn.dataset.section
+        );
+      }
+    );
+  });
+function showSection(id){
+  document
+    .querySelectorAll(".section")
+    .forEach(section => {
+      section.classList.toggle(
+        "active",
+        section.id === id
+      );
+    });
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(btn => {
+      btn.classList.toggle(
+        "active",
+        btn.dataset.section === id
+      );
+    });
+  if(id === "history"){
+    renderHistory();
+  }
+  if(id === "bing"){
+    checkBingStatus();
+  }
+}
+/* =====================================================
+   API
+===================================================== */
+async function api(
+  path,
+  options = {}
+){
+  const response =
+    await fetch(
+      API_BASE + path,
+      {
+        ...options,
+        headers:{
+          "Content-Type":
+            "application/json",
+          ...(options.headers || {})
+        }
+      }
+    );
+  let data;
+  try{
+    data =
+      await response.json();
+  }catch{
+    data = {
+      error:
+        await response.text()
+    };
+  }
+  if(!response.ok){
+    throw new Error(
+      data.error ||
+      `HTTP ${response.status}`
+    );
+  }
+  return data;
+}
+/* =====================================================
+   SETTINGS
+===================================================== */
+function loadSettings(){
+  try{
+    state.settings =
+      JSON.parse(
+        localStorage.getItem(
+          STORAGE_KEYS.settings
+        ) || "{}"
+      );
+  }catch{
+    state.settings = {};
+  }
+  $("settingProject").value =
+    state.settings.project ||
+    "MastaXul";
+  $("settingDomain").value =
+    state.settings.domain ||
+    "";
+  $("settingGoogle").value =
+    state.settings.google ||
+    "";
+  $("settingBing").value =
+    state.settings.bing ||
+    "";
+}
+function saveSettings(){
+  state.settings = {
+    project:
+      $("settingProject").value.trim(),
+    domain:
+      $("settingDomain").value.trim(),
+    google:
+      $("settingGoogle").value.trim(),
+    bing:
+      $("settingBing").value.trim()
+  };
+  localStorage.setItem(
+    STORAGE_KEYS.settings,
+    JSON.stringify(
+      state.settings
+    )
+  );
+  toast(
+    "Settings disimpan."
+  );
+  useDefaultSitemap();
+}
+function useDefaultSitemap(){
+  const domain =
+    state.settings.domain ||
+    $("settingDomain").value.trim();
+  if(!domain){
+    toast(
+      "Tetapkan Default Domain dahulu."
+    );
+    return;
+  }
+  let base;
+  try{
+    base =
+      new URL(domain);
+  }catch{
+    toast(
+      "Default Domain tidak sah."
+    );
+    return;
+  }
+  $("sitemapUrl").value =
+    base.origin +
+    "/sitemap.xml";
+}
+/* =====================================================
+   AUDIT
+===================================================== */
+async function runQuickAudit(){
+  const url =
+    $("quickUrl").value.trim();
+  if(!url){
+    toast(
+      "Masukkan URL dahulu."
+    );
+    return;
+  }
+  $("auditUrl").value =
+    url;
+  showSection(
+    "audit"
+  );
+  await runAudit();
+}
+async function runAudit(){
+  const url =
+    $("auditUrl").value.trim();
+  if(!url){
+    toast(
+      "Masukkan URL."
+    );
+    return;
+  }
+  const btn =
+    $("auditBtn");
+  setLoading(
+    btn,
+    true,
+    "Auditing..."
+  );
+  $("auditResult").innerHTML = `
+    <div class="card">
+      <div class="loading">
+        <span class="spinner"></span>
+        Menjalankan audit...
+      </div>
+    </div>
+  `;
+  try{
+    const data =
+      await api(
+        "/audit",
+        {
+          method:"POST",
+          body:
+            JSON.stringify({
+              url
+            })
+        }
+      );
+    state.lastAudit =
+      data;
+    addHistory({
+      type:"audit",
+      url,
+      score:
+        data.score,
+      status:
+        data.status,
+      date:
+        new Date().toISOString()
+    });
+    renderAudit(
+      data
+    );
+    toast(
+      `Audit selesai — Score ${data.score}/100`
+    );
+    updateDashboard();
+  }catch(error){
+    $("auditResult").innerHTML =
+      errorCard(
+        error.message
+      );
+    toast(
+      error.message
+    );
+  }finally{
+    setLoading(
+      btn,
+      false
+    );
+  }
+}
+function clearAudit(){
+  $("auditResult").innerHTML =
+    "";
+}
+function renderAudit(data){
+  const score =
+    Number(
+      data.score || 0
+    );
+  const checks =
+    Array.isArray(
+      data.checks
+    )
+      ? data.checks
+      : [];
+  $("auditResult").innerHTML = `
+    <div class="card">
+      <div class="score-wrap">
+        <div
+          class="score"
+          style="--score:${score}%"
+        >
+          <span>
+            ${score}
+          </span>
+        </div>
+        <div>
+          <h2>
+            SEO Score
+          </h2>
+          <p>
+            ${escapeHtml(
+              data.url
+            )}
+          </p>
+          <div class="actions">
+            <span class="badge green">
+              PASS ${data.counters?.pass || 0}
+            </span>
+            <span class="badge yellow">
+              WARN ${data.counters?.warn || 0}
+            </span>
+            <span class="badge red">
+              ERROR ${data.counters?.fail || 0}
+            </span>
+            <span class="badge blue">
+              INFO ${data.counters?.info || 0}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col-6">
+        <div class="card">
+          <h3>
+            📄 Page Information
+          </h3>
+          ${infoRow(
+            "HTTP Status",
+            data.status
+          )}
+          ${infoRow(
+            "Response Time",
+            `${data.responseTime || 0} ms`
+          )}
+          ${infoRow(
+            "Final URL",
+            data.finalUrl
+          )}
+          ${infoRow(
+            "Title",
+            data.title
+          )}
+          ${infoRow(
+            "Title Length",
+            data.titleLength
+          )}
+          ${infoRow(
+            "Meta Description",
+            data.description
+          )}
+          ${infoRow(
+            "Description Length",
+            data.descriptionLength
+          )}
+          ${infoRow(
+            "Canonical",
+            data.canonical
+          )}
+          ${infoRow(
+            "Robots",
+            data.robots || "—"
+          )}
+          ${infoRow(
+            "H1",
+            data.h1Count
+          )}
+          ${infoRow(
+            "Links",
+            data.linkCount
+          )}
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card">
+          <h3>
+            🌐 Open Graph
+          </h3>
+          ${infoRow(
+            "og:title",
+            data.openGraph?.title
+          )}
+          ${infoRow(
+            "og:description",
+            data.openGraph?.description
+          )}
+          ${infoRow(
+            "og:image",
+            data.openGraph?.image
+          )}
+          ${infoRow(
+            "og:url",
+            data.openGraph?.url
+          )}
+          ${infoRow(
+            "JSON-LD",
+            data.jsonLdCount
+          )}
+          ${infoRow(
+            "Favicon",
+            data.favicon
+              ? "Yes"
+              : "No"
+          )}
+          ${infoRow(
+            "Viewport",
+            data.viewport
+              ? "Yes"
+              : "No"
+          )}
+          ${infoRow(
+            "Language",
+            data.lang || "—"
+          )}
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>
+        🧪 SEO Checks
+      </h3>
+      ${checks.map(
+        renderCheck
+      ).join("")}
+    </div>
+  `;
+}
+function renderCheck(check){
+  return `
+    <div class="check">
+      <span
+        class="dot ${escapeHtml(
+          check.status
+        )}"
+      ></span>
+      <div>
+        <div class="check-title">
+          ${escapeHtml(
+            check.name
+          )}
+        </div>
+        <div class="check-msg">
+          ${escapeHtml(
+            check.message
+          )}
+        </div>
+      </div>
+    </div>
+  `;
+}
+function infoRow(
+  label,
+  value
+){
+  return `
+    <div style="
+      padding:9px 0;
+      border-bottom:1px solid #1e2735
+    ">
+      <div style="
+        color:#8f9caf;
+        font-size:12px;
+        margin-bottom:3px
+      ">
+        ${escapeHtml(label)}
+      </div>
+      <div style="
+        word-break:break-word
+      ">
+        ${escapeHtml(
+          value ?? "—"
+        )}
+      </div>
+    </div>
+  `;
+}
+function errorCard(message){
+  return `
+    <div class="card">
+      <span class="badge red">
+        ERROR
+      </span>
+      <p>
+        ${escapeHtml(
+          message
+        )}
+      </p>
+    </div>
+  `;
+}
+/* =====================================================
+   SITEMAP
+===================================================== */
+async function crawlSitemap(){
+  const sitemapUrl =
+    $("sitemapUrl").value.trim();
+  if(!sitemapUrl){
+    toast(
+      "Masukkan sitemap URL."
+    );
+    return;
+  }
+  const btn =
+    $("sitemapBtn");
+  setLoading(
+    btn,
+    true,
+    "Crawling..."
+  );
+  $("sitemapResult").innerHTML = `
+    <div class="card">
+      <div class="loading">
+        <span class="spinner"></span>
+        Membaca sitemap...
+      </div>
+    </div>
+  `;
+  try{
+    const data =
+      await api(
+        "/sitemap",
+        {
+          method:"POST",
+          body:
+            JSON.stringify({
+              sitemapUrl
+            })
+        }
+      );
+    state.sitemapUrls =
+      data.urls || [];
+    localStorage.setItem(
+      STORAGE_KEYS.sitemap,
+      JSON.stringify(
+        state.sitemapUrls
+      )
+    );
+    renderSitemap(
+      data
+    );
+    toast(
+      `${state.sitemapUrls.length} URL ditemui.`
+    );
+  }catch(error){
+    $("sitemapResult").innerHTML =
+      errorCard(
+        error.message
+      );
+  }finally{
+    setLoading(
+      btn,
+      false
+    );
+  }
+}
+function renderSitemap(data){
+  const urls =
+    data.urls || [];
+  $("sitemapResult").innerHTML = `
+    <div class="card">
+      <h3>
+        🗺️ Sitemap Result
+      </h3>
+      <div class="stat-grid">
+        <div class="stat">
+          <strong>
+            ${urls.length}
+          </strong>
+          <span>
+            URL tersedia
+          </span>
+        </div>
+        <div class="stat">
+          <strong>
+            ${data.type || "—"}
+          </strong>
+          <span>
+            Type
+          </span>
+        </div>
+        <div class="stat">
+          <strong>
+            ${data.totalFound || urls.length}
+          </strong>
+          <span>
+            Total ditemui
+          </span>
+        </div>
+        <div class="stat">
+          <strong>
+            ${data.childSitemaps?.length || 0}
+          </strong>
+          <span>
+            Child sitemap
+          </span>
+        </div>
+      </div>
+      <div class="actions">
+        <button
+          class="btn primary"
+          onclick="loadSitemapIntoBulk()"
+        >
+          📦 Masukkan ke Bulk Audit
+        </button>
+        <button
+          class="btn blue"
+          onclick="loadSitemapIntoBing()"
+        >
+          🔵 Masukkan ke Bing
+        </button>
+        <button
+          class="btn"
+          onclick="downloadTextFile(
+            state.sitemapUrls.join('\\n'),
+            'sitemap-urls.txt'
+          )"
+        >
+          📥 Export TXT
+        </button>
+      </div>
+    </div>
+    <div class="card">
+      <h3>
+        🔗 URLs
+      </h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>URL</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${urls.map(
+              (url,index) => `
+                <tr>
+                  <td>
+                    ${index + 1}
+                  </td>
+                  <td>
+                    <a
+                      href="${escapeHtml(url)}"
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      ${escapeHtml(url)}
+                    </a>
+                  </td>
+                </tr>
+              `
+            ).join("")}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+function loadSitemapIntoBulk(){
+  if(
+    !state.sitemapUrls.length
+  ){
+    toast(
+      "Crawl sitemap dahulu."
+    );
+    return;
+  }
+  $("bulkUrls").value =
+    state.sitemapUrls
+      .slice(0,50)
+      .join("\n");
+  showSection(
+    "bulk"
+  );
+  toast(
+    "URL sitemap dimasukkan ke Bulk Audit."
+  );
+}
+function loadSitemapIntoBing(){
+  if(
+    !state.sitemapUrls.length
+  ){
+    toast(
+      "Crawl sitemap dahulu."
+    );
+    return;
+  }
+  $("bingBulkUrls").value =
+    state.sitemapUrls
+      .slice(0,50)
+      .join("\n");
+  showSection(
+    "bing"
+  );
+}
+/* =====================================================
+   BULK AUDIT
+===================================================== */
+function parseUrls(
+  text,
+  max=50
+){
+  return [
+    ...new Set(
+      text
+        .split(/\r?\n/)
+        .map(
+          x => x.trim()
+        )
+        .filter(Boolean)
+    )
+  ].slice(
+    0,
+    max
+  );
+}
+async function runBulkAudit(){
+  const urls =
+    parseUrls(
+      $("bulkUrls").value,
+      50
+    );
+  if(!urls.length){
+    toast(
+      "Masukkan URL dahulu."
+    );
+    return;
+  }
+  const btn =
+    $("bulkBtn");
+  setLoading(
+    btn,
+    true,
+    "Auditing..."
+  );
+  $("bulkResult").innerHTML = `
+    <div class="card">
+      <div class="loading">
+        <span class="spinner"></span>
+        Menjalankan bulk audit untuk ${urls.length} URL...
+      </div>
+    </div>
+  `;
+  try{
+    const data =
+      await api(
+        "/bulk-audit",
+        {
+          method:"POST",
+          body:
+            JSON.stringify({
+              urls
+            })
+        }
+      );
+    state.lastBulk =
+      data.results || [];
+    localStorage.setItem(
+      STORAGE_KEYS.bulk,
+      JSON.stringify(
+        state.lastBulk
+      )
+    );
+    addHistory({
+      type:"bulk",
+      count:
+        state.lastBulk.length,
+      date:
+        new Date().toISOString()
+    });
+    renderBulk(
+      state.lastBulk
+    );
+    toast(
+      `Bulk audit selesai: ${state.lastBulk.length} URL`
+    );
+    updateDashboard();
+  }catch(error){
+    $("bulkResult").innerHTML =
+      errorCard(
+        error.message
+      );
+  }finally{
+    setLoading(
+      btn,
+      false
+    );
+  }
+}
+function renderBulk(results){
+  const valid =
+    results.filter(
+      x => !x.error
+    );
+  const avg =
+    valid.length
+      ? Math.round(
+          valid.reduce(
+            (sum,x) =>
+              sum +
+              Number(
+                x.score || 0
+              ),
+            0
+          ) /
+          valid.length
+        )
+      : 0;
+  $("bulkResult").innerHTML = `
+    <div class="card">
+      <div class="stat-grid">
+        <div class="stat">
+          <strong>
+            ${results.length}
+          </strong>
+          <span>
+            URLs
+          </span>
+        </div>
+        <div class="stat">
+          <strong>
+            ${avg}
+          </strong>
+          <span>
+            Average Score
+          </span>
+        </div>
+        <div class="stat">
+          <strong>
+            ${results.filter(
+              x => Number(x.score) >= 80
+            ).length}
+          </strong>
+          <span>
+            Good
+          </span>
+        </div>
+        <div class="stat">
+          <strong>
+            ${results.filter(
+              x => x.error
+            ).length}
+          </strong>
+          <span>
+            Errors
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>URL</th>
+              <th>Score</th>
+              <th>Status</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${results.map(
+              (item,index) => {
+                const score =
+                  Number(
+                    item.score || 0
+                  );
+                const cls =
+                  item.error
+                    ? "red"
+                    : score >= 80
+                      ? "green"
+                      : score >= 60
+                        ? "yellow"
+                        : "red";
+                return `
+                  <tr>
+                    <td>
+                      ${index + 1}
+                    </td>
+                    <td>
+                      ${escapeHtml(
+                        item.url
+                      )}
+                    </td>
+                    <td>
+                      <span class="badge ${cls}">
+                        ${item.error
+                          ? "ERROR"
+                          : score}
+                      </span>
+                    </td>
+                    <td>
+                      ${item.error
+                        ? escapeHtml(
+                            item.error
+                          )
+                        : item.status}
+                    </td>
+                    <td>
+                      ${item.responseTime || "—"} ms
+                    </td>
+                  </tr>
+                `;
+              }
+            ).join("")}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+function exportBulkCSV(){
+  const results =
+    state.lastBulk;
+  if(
+    !results.length
+  ){
+    toast(
+      "Tiada result bulk untuk export."
+    );
+    return;
+  }
+  const header =
+    [
+      "URL",
+      "Final URL",
+      "Score",
+      "HTTP Status",
+      "Response Time",
+      "Title",
+      "Title Length",
+      "Description",
+      "Description Length",
+      "Canonical",
+      "Robots",
+      "H1",
+      "JSON-LD",
+      "Error"
+    ];
+  const rows =
+    results.map(
+      x => [
+        x.url,
+        x.finalUrl || "",
+        x.score ?? "",
+        x.status ?? "",
+        x.responseTime ?? "",
+        x.title || "",
+        x.titleLength ?? "",
+        x.description || "",
+        x.descriptionLength ?? "",
+        x.canonical || "",
+        x.robots || "",
+        x.h1Count ?? "",
+        x.jsonLdCount ?? "",
+        x.error || ""
+      ]
+    );
+  const csv =
+    [
+      header,
+      ...rows
+    ]
+      .map(
+        row =>
+          row
+            .map(
+              value =>
+                `"${String(value)
+                  .replace(/"/g,'""')}"`
+            )
+            .join(",")
+      )
+      .join("\n");
+  downloadTextFile(
+    csv,
+    "mastaxul-bulk-audit.csv",
+    "text/csv;charset=utf-8"
+  );
+  toast(
+    "CSV berjaya dibuat."
+  );
+}
+function downloadTextFile(
+  content,
+  filename,
+  type="text/plain;charset=utf-8"
+){
+  const blob =
+    new Blob(
+      [content],
+      {type}
+    );
+  const url =
+    URL.createObjectURL(
+      blob
+    );
+  const a =
+    document.createElement(
+      "a"
+    );
+  a.href =
+    url;
+  a.download =
+    filename;
+  document.body.appendChild(
+    a
+  );
+  a.click();
+  a.remove();
+  setTimeout(
+    () =>
+      URL.revokeObjectURL(url),
+    1000
+  );
+}
+function useBulkAuditForBing(){
+  if(
+    !state.lastBulk.length
+  ){
+    toast(
+      "Jalankan Bulk Audit dahulu."
+    );
+    return;
+  }
+  $("bingBulkUrls").value =
+    state.lastBulk
+      .map(
+        x => x.url
+      )
+      .filter(Boolean)
+      .slice(0,50)
+      .join("\n");
+  showSection(
+    "bing"
+  );
+}
+/* =====================================================
+   BING OAUTH
+===================================================== */
+async function checkBingStatus(){
+  try{
+    const data =
+      await api(
+        "/bing/status"
+      );
+    state.bingConnected =
+      Boolean(
+        data.connected
+      );
+    updateBingUI(
+      state.bingConnected
+    );
+    if(
+      state.bingConnected
+    ){
+      await loadBingSites();
+    }
+  }catch(error){
+    logBing(
+      "Status error: " +
+      error.message
+    );
+  }
+}
+function updateBingUI(
+  connected
+){
+  const light =
+    $("bingLight");
+  const dashLight =
+    $("dashBingLight");
+  light.classList.toggle(
+    "on",
+    connected
+  );
+  dashLight.classList.toggle(
+    "on",
+    connected
+  );
+  $("bingStatusText").textContent =
+    connected
+      ? "Bing Connected"
+      : "Bing Not Connected";
+  $("dashBingText").textContent =
+    connected
+      ? "Connected"
+      : "Not connected";
+  $("dashBing").textContent =
+    connected
+      ? "ON"
+      : "OFF";
+  $("bingConnectBtn").textContent =
+    connected
+      ? "🔵 Reconnect Bing"
+      : "🔵 Connect Bing";
+}
+function connectBing(){
+  logBing(
+    "Membuka Bing OAuth..."
+  );
+  window.location.href =
+    API_BASE +
+    "/bing/login";
+}
+/* =====================================================
+   BING SITES
+===================================================== */
+async function loadBingSites(){
+  try{
+    logBing(
+      "Membaca Bing sites..."
+    );
+    const data =
+      await api(
+        "/bing/sites"
+      );
+    state.bingSites =
+      Array.isArray(
+        data.sites
+      )
+        ? data.sites
+        : [];
+    renderBingSites();
+    logBing(
+      `${state.bingSites.length} site ditemui.`
+    );
+  }catch(error){
+    $("bingSites").innerHTML =
+      errorCard(
+        error.message
+      );
+    logBing(
+      "Site error: " +
+      error.message
+    );
+  }
+}
+function getSiteUrl(
+  site
+){
+  return (
+    site.siteUrl ||
+    site.url ||
+    site.SiteUrl ||
+    site.Url ||
+    ""
+  );
+}
+function renderBingSites(){
+  const container =
+    $("bingSites");
+  if(
+    !state.bingSites.length
+  ){
+    container.innerHTML = `
+      <div class="empty">
+        Tiada site ditemui.
+      </div>
+    `;
+    fillBingSelects();
+    return;
+  }
+  container.innerHTML =
+    state.bingSites
+      .map(
+        (site,index) => {
+          const url =
+            getSiteUrl(
+              site
+            );
+          return `
+            <div class="site-item">
+              <div>
+                <strong>
+                  ${escapeHtml(
+                    url ||
+                    `Site ${index+1}`
+                  )}
+                </strong>
+                <small>
+                  Bing Webmaster Property
+                </small>
+              </div>
+              <button
+                class="btn"
+                onclick="selectBingSite(
+                  ${JSON.stringify(url)}
+                )"
+              >
+                Pilih
+              </button>
+            </div>
+          `;
+        }
+      )
+      .join("");
+  fillBingSelects();
+}
+function fillBingSelects(){
+  const selects = [
+    $("bingSiteSelect"),
+    $("bingSitemapSite"),
+    $("bingQuotaSite")
+  ];
+  selects.forEach(
+    select => {
+      select.innerHTML = `
+        <option value="">
+          — Pilih Bing Site —
+        </option>
+      `;
+      state.bingSites
+        .forEach(
+          site => {
+            const url =
+              getSiteUrl(
+                site
+              );
+            if(!url) return;
+            const option =
+              document.createElement(
+                "option"
+              );
+            option.value =
+              url;
+            option.textContent =
+              url;
+            select.appendChild(
+              option
+            );
+          }
+        );
+      if(
+        state.settings.bing
+      ){
+        select.value =
+          state.settings.bing;
+      }
+    }
+  );
+}
+function selectBingSite(
+  url
+){
+  [
+    $("bingSiteSelect"),
+    $("bingSitemapSite"),
+    $("bingQuotaSite")
+  ]
+    .forEach(
+      select => {
+        select.value =
+          url;
+      }
+    );
+  toast(
+    "Bing site dipilih."
+  );
+}
+/* =====================================================
+   BING SUBMISSION
+===================================================== */
+async function submitSingleBingUrl(){
+  const siteUrl =
+    $("bingSiteSelect").value;
+  const url =
+    $("bingSingleUrl").value.trim();
+  if(!siteUrl){
+    toast(
+      "Pilih Bing site."
+    );
+    return;
+  }
+  if(!url){
+    toast(
+      "Masukkan URL."
+    );
+    return;
+  }
+  try{
+    logBing(
+      `Submitting ${url}`
+    );
+    const result =
+      await api(
+        "/bing/submit",
+        {
+          method:"POST",
+          body:
+            JSON.stringify({
+              siteUrl,
+              url
+            })
+        }
+      );
+    logBing(
+      "Submit berjaya."
+    );
+    addHistory({
+      type:"bing-submit",
+      siteUrl,
+      urls:[url],
+      date:
+        new Date().toISOString()
+    });
+    toast(
+      "URL dihantar ke Bing."
+    );
+    console.log(
+      result
+    );
+  }catch(error){
+    logBing(
+      "Submit error: " +
+      error.message
+    );
+    toast(
+      error.message
+    );
+  }
+}
+async function submitBulkBingUrls(){
+  const siteUrl =
+    $("bingSiteSelect").value;
+  const urls =
+    parseUrls(
+      $("bingBulkUrls").value,
+      50
+    );
+  if(!siteUrl){
+    toast(
+      "Pilih Bing site."
+    );
+    return;
+  }
+  if(!urls.length){
+    toast(
+      "Masukkan URL."
+    );
+    return;
+  }
+  try{
+    logBing(
+      `Submitting ${urls.length} URLs...`
+    );
+    const result =
+      await api(
+        "/bing/submit",
+        {
+          method:"POST",
+          body:
+            JSON.stringify({
+              siteUrl,
+              urls
+            })
+        }
+      );
+    logBing(
+      `Submit selesai: ${urls.length} URL.`
+    );
+    addHistory({
+      type:"bing-bulk-submit",
+      siteUrl,
+      count:
+        urls.length,
+      date:
+        new Date().toISOString()
+    });
+    toast(
+      `${urls.length} URL dihantar ke Bing.`
+    );
+    console.log(
+      result
+    );
+  }catch(error){
+    logBing(
+      "Bulk submit error: " +
+      error.message
+    );
+    toast(
+      error.message
+    );
+  }
+}
+async function submitBingSitemap(){
+  const siteUrl =
+    $("bingSitemapSite").value;
+  const sitemapUrl =
+    $("bingSitemapUrl").value.trim();
+  if(!siteUrl){
+    toast(
+      "Pilih site."
+    );
+    return;
+  }
+  if(!sitemapUrl){
+    toast(
+      "Masukkan sitemap."
+    );
+    return;
+  }
+  try{
+    logBing(
+      `Submitting sitemap ${sitemapUrl}`
+    );
+    await api(
+      "/bing/sitemap",
+      {
+        method:"POST",
+        body:
+          JSON.stringify({
+            siteUrl,
+            sitemapUrl
+          })
+      }
+    );
+    addHistory({
+      type:"bing-sitemap",
+      siteUrl,
+      sitemapUrl,
+      date:
+        new Date().toISOString()
+    });
+    logBing(
+      "Sitemap submission berjaya."
+    );
+    toast(
+      "Sitemap dihantar ke Bing."
+    );
+  }catch(error){
+    logBing(
+      "Sitemap error: " +
+      error.message
+    );
+    toast(
+      error.message
+    );
+  }
+}
+/* =====================================================
+   BING QUOTA
+===================================================== */
+async function checkBingQuota(){
+  const siteUrl =
+    $("bingQuotaSite").value;
+  if(!siteUrl){
+    toast(
+      "Pilih site."
+    );
+    return;
+  }
+  try{
+    const data =
+      await api(
+        "/bing/quota",
+        {
+          method:"POST",
+          body:
+            JSON.stringify({
+              siteUrl
+            })
+        }
+      );
+    $("bingQuotaResult").textContent =
+      JSON.stringify(
+        data,
+        null,
+        2
+      );
+    logBing(
+      "Quota berjaya dibaca."
+    );
+  }catch(error){
+    $("bingQuotaResult").textContent =
+      error.message;
+    logBing(
+      "Quota error: " +
+      error.message
+    );
+  }
+}
+/* =====================================================
+   BING DISCONNECT
+===================================================== */
+async function disconnectBing(){
+  const ok =
+    confirm(
+      "Putuskan sambungan Bing pada Worker?"
+    );
+  if(!ok) return;
+  try{
+    await api(
+      "/bing/disconnect",
+      {
+        method:"POST"
+      }
+    );
+    state.bingConnected =
+      false;
+    state.bingSites =
+      [];
+    updateBingUI(
+      false
+    );
+    $("bingSites").innerHTML =
+      `
+        <div class="empty">
+          Bing telah diputuskan.
+        </div>
+      `;
+    [
+      $("bingSiteSelect"),
+      $("bingSitemapSite"),
+      $("bingQuotaSite")
+    ]
+      .forEach(
+        select => {
+          select.innerHTML =
+            `<option value="">
+              — Pilih Bing Site —
+            </option>`;
+        }
+      );
+    logBing(
+      "Bing disconnected."
+    );
+    toast(
+      "Bing disconnected."
+    );
+  }catch(error){
+    toast(
+      error.message
+    );
+  }
+}
+/* =====================================================
+   HISTORY
+===================================================== */
+function getHistory(){
+  try{
+    return JSON.parse(
+      localStorage.getItem(
+        STORAGE_KEYS.history
+      ) || "[]"
+    );
+  }catch{
+    return [];
+  }
+}
+function addHistory(
+  item
+){
+  const history =
+    getHistory();
+  history.unshift(
+    item
+  );
+  localStorage.setItem(
+    STORAGE_KEYS.history,
+    JSON.stringify(
+      history.slice(0,200)
+    )
+  );
+}
+function clearHistory(){
+  if(
+    !confirm(
+      "Padam semua history?"
+    )
+  ) return;
+  localStorage.removeItem(
+    STORAGE_KEYS.history
+  );
+  renderHistory();
+  updateDashboard();
+  toast(
+    "History dipadam."
+  );
+}
+function renderHistory(){
+  const history =
+    getHistory();
+  if(!history.length){
+    $("historyResult").innerHTML = `
+      <div class="card">
+        <div class="empty">
+          Belum ada history.
+        </div>
+      </div>
+    `;
+    return;
+  }
+  $("historyResult").innerHTML = `
+    <div class="card">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Type</th>
+              <th>URL / Site</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${history.map(
+              item => {
+                const result =
+                  item.score != null
+                    ? `Score ${item.score}`
+                    : item.count != null
+                      ? `${item.count} URL`
+                      : "OK";
+                const target =
+                  item.url ||
+                  item.siteUrl ||
+                  item.sitemapUrl ||
+                  "—";
+                return `
+                  <tr>
+                    <td>
+                      ${new Date(
+                        item.date
+                      ).toLocaleString()}
+                    </td>
+                    <td>
+                      ${escapeHtml(
+                        item.type
+                      )}
+                    </td>
+                    <td>
+                      ${escapeHtml(
+                        target
+                      )}
+                    </td>
+                    <td>
+                      ${escapeHtml(
+                        result
+                      )}
+                    </td>
+                  </tr>
+                `;
+              }
+            ).join("")}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+/* =====================================================
+   DASHBOARD
+===================================================== */
+function updateDashboard(){
+  const history =
+    getHistory();
+  const audits =
+    history.filter(
+      x =>
+        x.type === "audit" ||
+        x.type === "bulk"
+    );
+  const urlCount =
+    history.reduce(
+      (sum,item) => {
+        if(
+          item.type === "audit"
+        ){
+          return sum + 1;
+        }
+        if(
+          item.type === "bulk"
+        ){
+          return sum +
+            Number(
+              item.count || 0
+            );
+        }
+        return sum;
+      },
+      0
+    );
+  $("dashAudits").textContent =
+    audits.length;
+  $("dashUrls").textContent =
+    urlCount;
+  const last =
+    history[0];
+  $("dashLast").textContent =
+    last
+      ? new Date(
+          last.date
+        ).toLocaleDateString()
+      : "—";
+}
+/* =====================================================
+   HARD RESET
+===================================================== */
+async function hardReset(){
+  const ok =
+    confirm(
+      "Hard Reset akan memadam settings, history dan data tempatan MastaXul Webmaster Manager. Teruskan?"
+    );
+  if(!ok) return;
+  try{
+    localStorage.clear();
+  }catch{}
+  try{
+    sessionStorage.clear();
+  }catch{}
+  // Accessible cookies
+  try{
+    document.cookie
+      .split(";")
+      .forEach(
+        cookie => {
+          const name =
+            cookie
+              .split("=")[0]
+              .trim();
+          if(name){
+            document.cookie =
+              `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+          }
+        }
+      );
+  }catch{}
+  // Cache Storage
+  try{
+    if(
+      "caches" in window
+    ){
+      const keys =
+        await caches.keys();
+      await Promise.all(
+        keys.map(
+          key =>
+            caches.delete(
+              key
+            )
+        )
+      );
+    }
+  }catch{}
+  // Service Workers
+  try{
+    if(
+      "serviceWorker" in navigator
+    ){
+      const regs =
+        await navigator
+          .serviceWorker
+          .getRegistrations();
+      await Promise.all(
+        regs.map(
+          reg =>
+            reg.unregister()
+        )
+      );
+    }
+  }catch{}
+  alert(
+    "Hard Reset selesai untuk data yang boleh dikawal oleh website ini. Safari/Chrome history, cache dan cookies global masih perlu dipadam melalui Settings browser."
+  );
+  location.reload();
+}
+/* =====================================================
+   INIT
+===================================================== */
+async function init(){
+  loadSettings();
+  updateDashboard();
+  $("quickUrl").value =
+    state.settings.domain ||
+    "";
+  if(
+    state.settings.domain
+  ){
+    $("auditUrl").value =
+      state.settings.domain;
+    $("sitemapUrl").value =
+      state.settings.domain
+        .replace(/\/+$/,"") +
+      "/sitemap.xml";
+    $("bingSitemapUrl").value =
+      state.settings.domain
+        .replace(/\/+$/,"") +
+      "/sitemap.xml";
+  }
+  try{
+    state.lastBulk =
+      JSON.parse(
+        localStorage.getItem(
+          STORAGE_KEYS.bulk
+        ) || "[]"
+      );
+  }catch{
+    state.lastBulk = [];
+  }
+  try{
+    state.sitemapUrls =
+      JSON.parse(
+        localStorage.getItem(
+          STORAGE_KEYS.sitemap
+        ) || "[]"
+      );
+  }catch{
+    state.sitemapUrls = [];
+  }
+  await checkBingStatus();
+}
+init();
 </script>
 </body>
 </html>
