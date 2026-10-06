@@ -3,232 +3,464 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hubungi Kami | Masta Xul Affiliate Shop</title>
-  <meta name="description" content="Hubungi Masta Xul Affiliate Shop. Hantar pertanyaan, cadangan atau kerjasama melalui borang ini.">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://mastaxul.my/hubungi/">
-  <link rel="stylesheet" href="../style.css">
+  <title>Webmaster SEO Checker</title>
+  <meta name="description" content="Semak Facebook Debugger, Google Search Console, Bing Webmaster, Open Graph, Canonical, Robots.txt dan Sitemap.">
   <style>
-    .contact-wrap {
-      max-width: 520px;
-      margin: 30px auto 60px;
-      padding: 0 16px;
+    * {
+      box-sizing: border-box;
     }
-    .contact-wrap h1 {
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f7fb;
+      color: #18202a;
+    }
+    .container {
+      width: min(100% - 30px, 900px);
+      margin: 40px auto;
+    }
+    .header {
       text-align: center;
-      font-size: 1.6rem;
-      margin-bottom: 8px;
-      color: #111;
+      margin-bottom: 25px;
     }
-    .contact-sub {
-      text-align: center;
-      color: #6B4423;
-      margin-bottom: 28px;
-      font-size: 0.95rem;
+    .header h1 {
+      margin: 0;
+      font-size: 30px;
     }
-    .contact-form {
-      background: #fff;
-      border: 2px solid #6B4423;
-      border-radius: 14px;
-      padding: 24px 20px;
+    .header p {
+      color: #667085;
+      margin-top: 8px;
     }
-    .contact-form label {
-      display: block;
-      font-weight: 600;
-      font-size: 0.9rem;
-      margin-bottom: 6px;
-      color: #111;
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.06);
     }
-    .contact-form input,
-    .contact-form textarea {
-      width: 100%;
-      padding: 12px 14px;
-      border: 2px solid #6B4423;
-      border-radius: 10px;
-      font-size: 1rem;
-      font-family: inherit;
-      margin-bottom: 16px;
-      outline: none;
-      background: #fff;
-      color: #111;
-    }
-    .contact-form input:focus,
-    .contact-form textarea:focus {
-      border-color: #D32F2F;
-    }
-    .contact-form textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-    .captcha-box {
+    .input-row {
       display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
+      gap: 10px;
     }
-    .captcha-q {
-      background: #111;
-      color: #fff;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 1.05rem;
-      letter-spacing: 1px;
+    input {
+      flex: 1;
+      min-width: 0;
+      padding: 15px;
+      border: 1px solid #d0d5dd;
+      border-radius: 12px;
+      font-size: 16px;
+      outline: none;
     }
-    .captcha-box input {
-      width: 100px;
-      margin-bottom: 0;
+    input:focus {
+      border-color: #4f7cff;
     }
-    .btn-submit {
-      width: 100%;
-      padding: 14px;
-      background: #D32F2F;
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .btn-submit:hover {
-      background: #111;
-    }
-    .btn-submit:disabled {
-      background: #ccc;
-      cursor: not-allowed;
-    }
-    .form-msg {
-      text-align: center;
-      margin-top: 14px;
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 14px 20px;
+      background: #111827;
+      color: white;
+      font-size: 15px;
       font-weight: 600;
-      font-size: 0.95rem;
+      cursor: pointer;
+    }
+    button:hover {
+      opacity: .9;
+    }
+    .clear-btn {
+      background: #e5e7eb;
+      color: #111827;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+    .tool {
+      border: 1px solid #e5e7eb;
+      border-radius: 15px;
+      padding: 17px;
+      background: #fff;
+    }
+    .tool h3 {
+      margin: 0 0 7px;
+      font-size: 17px;
+    }
+    .tool p {
+      margin: 0 0 14px;
+      color: #667085;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .tool button {
+      width: 100%;
+      background: #f1f3f5;
+      color: #111827;
+      border: 1px solid #e5e7eb;
+    }
+    .tool button:hover {
+      background: #e9ecef;
+    }
+    .status {
+      margin-top: 15px;
+      padding: 13px;
+      border-radius: 10px;
+      background: #f8fafc;
+      color: #475467;
+      font-size: 14px;
       display: none;
     }
-    .form-msg.ok { color: #2E7D32; display: block; }
-    .form-msg.err { color: #D32F2F; display: block; }
-    .back-link {
-      display: block;
-      text-align: center;
-      margin-top: 24px;
-      color: #6B4423;
-      font-weight: 600;
-      text-decoration: none;
+    .url-box {
+      background: #f8fafc;
+      padding: 12px;
+      border-radius: 10px;
+      word-break: break-all;
+      font-size: 13px;
+      color: #475467;
+      margin-top: 12px;
     }
-    .back-link:hover { color: #D32F2F; }
+    .success {
+      color: #067647;
+    }
+    .warning {
+      color: #b54708;
+    }
+    .footer {
+      text-align: center;
+      color: #98a2b3;
+      font-size: 12px;
+      margin-top: 30px;
+    }
+    @media(max-width: 650px) {
+      .input-row {
+        flex-direction: column;
+      }
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      button {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
-
-<header>
-  <div class="header-top">
-    <img src="https://i.ibb.co/SwpWGqrs/IMG-0606.png" class="logo" alt="Logo">
-    <!-- Butang hamburger ditambah oleh menu.js -->
+<div class="container">
+  <div class="header">
+    <h1>🔍 Webmaster SEO Checker</h1>
+    <p>Satu URL → semua tool SEO penting</p>
   </div>
-  <h1>Masta Xul Affiliate Shop</h1>
-  <p>Hubungi Kami</p>
-</header>
-
-<div class="contact-wrap">
-  <h1>Hubungi Kami</h1>
-  <p class="contact-sub">Pertanyaan, cadangan atau kerjasama — isi borang di bawah.</p>
-
-  <form class="contact-form" id="contactForm">
-    <label for="nama">Nama</label>
-    <input type="text" id="nama" name="nama" required maxlength="80" placeholder="Nama anda" autocomplete="name">
-
-    <label for="email">E-mel / Telefon</label>
-    <input type="text" id="email" name="email" required maxlength="100" placeholder="Emel atau nombor telefon" autocomplete="email">
-
-    <label for="mesej">Mesej</label>
-    <textarea id="mesej" name="mesej" required maxlength="2000" placeholder="Tulis mesej anda di sini..."></textarea>
-
-    <label>Captcha</label>
-    <div class="captcha-box">
-      <span class="captcha-q" id="captchaQ">?</span>
-      <input type="number" id="captchaA" required placeholder="Jawapan" inputmode="numeric">
+  <!-- INPUT -->
+  <div class="card">
+    <label><strong>Masukkan URL website</strong></label>
+    <div class="input-row" style="margin-top:10px;">
+      <input
+        id="urlInput"
+        type="url"
+        placeholder="https://mastaxul.my/shop/produk.html?id=2"
+        autocomplete="off"
+      >
+      <button onclick="generateTools()">
+        🚀 Check URL
+      </button>
+      <button class="clear-btn" onclick="clearAll()">
+        Clear
+      </button>
     </div>
-
-    <button type="submit" class="btn-submit" id="btnSubmit">Hantar Mesej</button>
-    <p class="form-msg" id="formMsg"></p>
-  </form>
-
-  <a href="/" class="back-link">← Kembali ke Laman Utama</a>
+    <div id="status" class="status"></div>
+    <div id="currentURL" class="url-box" style="display:none;"></div>
+  </div>
+  <!-- TOOLS -->
+  <div class="card">
+    <h2>🌐 Webmaster Tools</h2>
+    <div class="grid">
+      <!-- FACEBOOK -->
+      <div class="tool">
+        <h3>🔵 Facebook Debugger</h3>
+        <p>
+          Semak Open Graph, thumbnail, title,
+          description dan Facebook cache.
+        </p>
+        <button onclick="openTool('facebook')">
+          Open Facebook Debugger
+        </button>
+      </div>
+      <!-- GOOGLE -->
+      <div class="tool">
+        <h3>🔴 Google Search Console</h3>
+        <p>
+          Buka URL Inspection Google untuk
+          memeriksa status indexing URL.
+        </p>
+        <button onclick="openTool('google')">
+          Open Google Search Console
+        </button>
+      </div>
+      <!-- BING -->
+      <div class="tool">
+        <h3>🟢 Bing Webmaster</h3>
+        <p>
+          Buka Bing Webmaster Tools untuk
+          pemeriksaan URL dan indexing.
+        </p>
+        <button onclick="openTool('bing')">
+          Open Bing Webmaster
+        </button>
+      </div>
+      <!-- OPEN GRAPH -->
+      <div class="tool">
+        <h3>🟣 Open Graph</h3>
+        <p>
+          Buka URL Facebook Debugger untuk
+          melihat OG title, image dan description.
+        </p>
+        <button onclick="openTool('og')">
+          Check Open Graph
+        </button>
+      </div>
+      <!-- CANONICAL -->
+      <div class="tool">
+        <h3>🟠 Canonical</h3>
+        <p>
+          Buka halaman website untuk pemeriksaan
+          canonical URL melalui source HTML.
+        </p>
+        <button onclick="openTool('canonical')">
+          Check Canonical
+        </button>
+      </div>
+      <!-- ROBOTS -->
+      <div class="tool">
+        <h3>🤖 Robots.txt</h3>
+        <p>
+          Automatik bina URL robots.txt
+          berdasarkan domain yang dimasukkan.
+        </p>
+        <button onclick="openTool('robots')">
+          Open Robots.txt
+        </button>
+      </div>
+      <!-- SITEMAP -->
+      <div class="tool">
+        <h3>🗺️ Sitemap</h3>
+        <p>
+          Automatik bina URL sitemap.xml
+          berdasarkan domain website.
+        </p>
+        <button onclick="openTool('sitemap')">
+          Open Sitemap
+        </button>
+      </div>
+      <!-- SOURCE -->
+      <div class="tool">
+        <h3>📄 Page Source</h3>
+        <p>
+          Buka halaman asal untuk memeriksa
+          meta tag, OG dan canonical secara manual.
+        </p>
+        <button onclick="openTool('source')">
+          Open Page
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- QUICK LINKS -->
+  <div class="card">
+    <h2>⚡ Quick Tools</h2>
+    <div class="grid">
+      <div class="tool">
+        <h3>🔎 Google Search</h3>
+        <p>Cari URL di Google.</p>
+        <button onclick="openTool('search')">
+          Search Google
+        </button>
+      </div>
+      <div class="tool">
+        <h3>🟦 Bing Search</h3>
+        <p>Cari URL di Bing.</p>
+        <button onclick="openTool('bingsearch')">
+          Search Bing
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    Webmaster SEO Checker • HTML + CSS + JavaScript
+  </div>
 </div>
-
-<footer>
-  © 2026 Masta Xul Affiliate Shop
-</footer>
-
-<script src="../menu.js"></script>
 <script>
-  // ========== APPS SCRIPT WEB APP ==========
-  const FORM_API = "https://script.google.com/macros/s/AKfycbxsWSCyKSOiEx-Syg1dGuNT21U0Qqv_4GPBiFhJgvU-t014SXvbOwKAWL4TZiQk8NJE/exec";
-
-  let captchaJawapan = 0;
-
-  function buatCaptcha() {
-    const a = Math.floor(Math.random() * 9) + 1;
-    const b = Math.floor(Math.random() * 9) + 1;
-    captchaJawapan = a + b;
-    document.getElementById("captchaQ").textContent = a + " + " + b + " = ?";
-    document.getElementById("captchaA").value = "";
+let targetURL = "";
+/* =========================
+   GET URL
+========================= */
+function getURL() {
+  let input = document.getElementById("urlInput").value.trim();
+  if (!input) {
+    showStatus("⚠️ Masukkan URL terlebih dahulu.", "warning");
+    return null;
   }
-
-  buatCaptcha();
-
-  document.getElementById("contactForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    const msg = document.getElementById("formMsg");
-    const btn = document.getElementById("btnSubmit");
-    msg.className = "form-msg";
-    msg.textContent = "";
-
-    const jawapan = parseInt(document.getElementById("captchaA").value, 10);
-    if (jawapan !== captchaJawapan) {
-      msg.textContent = "Captcha salah. Sila cuba lagi.";
-      msg.className = "form-msg err";
-      buatCaptcha();
-      return;
+  /*
+   * Tambah https jika user masukkan
+   * mastaxul.my sahaja
+   */
+  if (!/^https?:\/\//i.test(input)) {
+    input = "https://" + input;
+  }
+  try {
+    const parsed = new URL(input);
+    if (!["http:", "https:"].includes(parsed.protocol)) {
+      throw new Error();
     }
-
-    const nama = document.getElementById("nama").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const mesej = document.getElementById("mesej").value.trim();
-
-    if (!nama || !email || !mesej) {
-      msg.textContent = "Sila isi semua ruangan.";
-      msg.className = "form-msg err";
-      return;
-    }
-
-    btn.disabled = true;
-    btn.textContent = "Menghantar...";
-
-    try {
-      // text/plain elak preflight CORS dengan Apps Script
-      const res = await fetch(FORM_API, {
-        method: "POST",
-        mode: "cors",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({ nama, email, mesej })
-      });
-
-      // Apps Script sering return redirect; anggap berjaya jika tiada network error
-      msg.textContent = "Mesej berjaya dihantar. Terima kasih!";
-      msg.className = "form-msg ok";
-      document.getElementById("contactForm").reset();
-      buatCaptcha();
-    } catch (err) {
-      console.error(err);
-      msg.textContent = "Gagal menghantar. Sila cuba lagi atau hubungi melalui WhatsApp Channel.";
-      msg.className = "form-msg err";
-      buatCaptcha();
-    } finally {
-      btn.disabled = false;
-      btn.textContent = "Hantar Mesej";
+    targetURL = parsed.href;
+    return parsed;
+  } catch (error) {
+    showStatus("❌ URL tidak sah.", "warning");
+    return null;
+  }
+}
+/* =========================
+   GENERATE
+========================= */
+function generateTools() {
+  const parsed = getURL();
+  if (!parsed) return;
+  document.getElementById("currentURL").style.display = "block";
+  document.getElementById("currentURL").innerHTML =
+    "🎯 URL dipilih:<br><strong>" +
+    escapeHTML(targetURL) +
+    "</strong>";
+  showStatus(
+    "✅ URL berjaya disediakan. Pilih mana-mana tool di bawah.",
+    "success"
+  );
+}
+/* =========================
+   OPEN TOOLS
+========================= */
+function openTool(tool) {
+  if (!targetURL) {
+    const parsed = getURL();
+    if (!parsed) return;
+  }
+  const encoded = encodeURIComponent(targetURL);
+  let url = "";
+  switch (tool) {
+    /* FACEBOOK */
+    case "facebook":
+      url =
+        "https://developers.facebook.com/tools/debug/?q=" +
+        encoded;
+      break;
+    /* GOOGLE SEARCH CONSOLE */
+    case "google":
+      /*
+       * URL Inspection Google.
+       * User perlu login dan mempunyai
+       * akses kepada property tersebut.
+       */
+      url =
+        "https://search.google.com/search-console/inspect?resource_id=" +
+        encodeURIComponent(
+          getOrigin(targetURL)
+        ) +
+        "&id=" +
+        encoded;
+      break;
+    /* BING */
+    case "bing":
+      url =
+        "https://www.bing.com/webmasters/home";
+      break;
+    /* OPEN GRAPH */
+    case "og":
+      url =
+        "https://developers.facebook.com/tools/debug/?q=" +
+        encoded;
+      break;
+    /* CANONICAL */
+    case "canonical":
+      url = targetURL;
+      break;
+    /* ROBOTS */
+    case "robots":
+      url =
+        getOrigin(targetURL) +
+        "/robots.txt";
+      break;
+    /* SITEMAP */
+    case "sitemap":
+      url =
+        getOrigin(targetURL) +
+        "/sitemap.xml";
+      break;
+    /* PAGE */
+    case "source":
+      url = targetURL;
+      break;
+    /* GOOGLE SEARCH */
+    case "search":
+      url =
+        "https://www.google.com/search?q=" +
+        encoded;
+      break;
+    /* BING SEARCH */
+    case "bingsearch":
+      url =
+        "https://www.bing.com/search?q=" +
+        encoded;
+      break;
+  }
+  if (url) {
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+}
+/* =========================
+   GET ORIGIN
+========================= */
+function getOrigin(url) {
+  try {
+    return new URL(url).origin;
+  } catch {
+    return "";
+  }
+}
+/* =========================
+   STATUS
+========================= */
+function showStatus(message, type) {
+  const box = document.getElementById("status");
+  box.style.display = "block";
+  box.className = "status " + type;
+  box.textContent = message;
+}
+/* =========================
+   CLEAR
+========================= */
+function clearAll() {
+  document.getElementById("urlInput").value = "";
+  document.getElementById("currentURL").style.display = "none";
+  document.getElementById("status").style.display = "none";
+  targetURL = "";
+}
+/* =========================
+   ESCAPE HTML
+========================= */
+function escapeHTML(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+/* =========================
+   ENTER KEY
+========================= */
+document
+  .getElementById("urlInput")
+  .addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+      generateTools();
     }
   });
 </script>
