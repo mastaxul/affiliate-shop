@@ -27,7 +27,6 @@
   <meta name="twitter:description" content="Petani 🌱 | Usahawan Digital 💻 | Tech Enthusiast. Projek affiliate, pertanian & teknologi dari Malaysia.">
   <meta name="twitter:image" content="https://i.ibb.co/8LxfVMb4/03-AF84-C7-1-FB1-4-C1-A-B78-D-0988-C9-CD689-F.png">
 
-  <!-- Crawler lain -->
   <link rel="image_src" href="https://i.ibb.co/8LxfVMb4/03-AF84-C7-1-FB1-4-C1-A-B78-D-0988-C9-CD689-F.png">
 
   <!-- Bing Verification -->
@@ -38,7 +37,6 @@
   <link rel="stylesheet" href="portal.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Structured data -->
   <script type="application/ld+json">
   [
     {
@@ -85,11 +83,9 @@
 </head>
 <body>
 
-  <!-- Loading Screen dengan Animasi UFO Sequence -->
+  <!-- Loading Screen -->
   <div id="loader-overlay" aria-label="Loading Screen">
     <div class="loader-content">
-      
-      <!-- Kapal UFO Loading -->
       <div class="loader-ufo-wrapper">
         <svg class="loader-ufo-svg" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -98,23 +94,18 @@
               <stop offset="100%" stop-color="#a855f7" stop-opacity="0.3" />
             </linearGradient>
           </defs>
-          <!-- Kubah Glass UFO -->
           <path d="M 65 45 A 35 25 0 0 1 135 45 Z" fill="url(#loaderDomeGrad)" stroke="#38bdf8" stroke-width="1.5"/>
-          <!-- Badan UFO -->
           <ellipse cx="100" cy="50" rx="75" ry="14" fill="#0f172a" stroke="#a855f7" stroke-width="2.5"/>
           <ellipse cx="100" cy="54" rx="50" ry="7" fill="#1e293b"/>
-          <!-- Lampu UFO -->
           <circle cx="40" cy="51" r="3" fill="#38bdf8"/>
           <circle cx="70" cy="55" r="3" fill="#4ade80"/>
           <circle cx="100" cy="56" r="3.5" fill="#a855f7"/>
           <circle cx="130" cy="55" r="3" fill="#4ade80"/>
           <circle cx="160" cy="51" r="3" fill="#38bdf8"/>
         </svg>
-        <!-- Cahaya Beam Bawah UFO -->
         <div class="loader-beam"></div>
       </div>
 
-      <!-- Teks Welcome -->
       <h1 class="welcome-title">Welcome To <br><span class="highlight-blue">Masta Xul</span></h1>
 
       <div class="loading-status">
@@ -127,10 +118,8 @@
     </div>
   </div>
 
-  <!-- Canvas Latar Belakang Galaksi & Kilat -->
   <canvas id="galaxyCanvas"></canvas>
 
-  <!-- UFO Terbang di Latar Belakang -->
   <div class="ufo-background-container">
     <svg class="ufo-svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -151,10 +140,8 @@
     </svg>
   </div>
 
-  <!-- Container Utama -->
   <div class="content-wrapper" id="main-content">
-    
-    <!-- Navigation Bar -->
+
     <nav class="navbar" id="mainNavbar">
       <div class="logo">
         <span class="logo-text">Masta Xul</span>
@@ -163,14 +150,13 @@
       <div class="nav-wrapper">
         <ul class="nav-links" id="navLinksList">
           <li><a href="#hero" class="nav-item active" data-section="hero">Utama</a></li>
-          <li><a href="https://www.mastaxul.my/shop/" target="_blank" rel="noopener noreferrer" class="nav-item">Shop</a></li>
+          <li><a href="/shop/" class="nav-item">Shop</a></li>
           <li><a href="#about" class="nav-item" data-section="about">Tentang</a></li>
           <li><a href="#projects" class="nav-item" data-section="projects">Projek</a></li>
           <li><a href="#recommended-gallery" class="nav-item" data-section="recommended-gallery">Galeri</a></li>
           <li><a href="#skills" class="nav-item" data-section="skills">Kemahiran</a></li>
           <li><a href="#contact" class="nav-item" data-section="contact">Hubungi</a></li>
 
-          <!-- Alien Pointer Navigasi Menu -->
           <div class="alien-pointer" id="alienPointer">
             <div class="alien-speech" id="alienSpeech">Utama</div>
             <svg class="alien-mini-svg" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
@@ -191,7 +177,7 @@
       </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section id="hero" class="hero-section glass-card">
       <div class="hero-content">
         <div class="profile-img-container">
@@ -209,12 +195,12 @@
       </div>
     </section>
 
-    <!-- About Section -->
+    <!-- About -->
     <section id="about" class="section glass-card">
       <h2><i class="fas fa-user"></i> Tentang Saya</h2>
       <div class="about-content">
         <p>
-          Website ini dibangunkan sebagai platform untuk berkongsi projek, 
+          Website ini dibangunkan sebagai platform untuk berkongsi projek,
           pengalaman, idea dan hasil kerja dalam bidang pertanian serta teknologi.
         </p>
         <div class="info-grid">
@@ -225,7 +211,7 @@
       </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- Projects -->
     <section id="projects" class="section glass-card">
       <h2><i class="fas fa-project-diagram"></i> Projek</h2>
       <div class="projects-grid">
@@ -237,7 +223,7 @@
             <div class="project-tags">
               <span class="tag">TikTok</span><span class="tag">Shopee</span><span class="tag">Lazada</span>
             </div>
-            <a href="https://www.mastaxul.my/shop/" target="_blank" rel="noopener noreferrer" class="project-link">Lihat Shop <i class="fas fa-arrow-right"></i></a>
+            <a href="/shop/" class="project-link">Lihat Shop <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
 
@@ -263,73 +249,54 @@
       </div>
     </section>
 
-    <!-- Gallery Section / Kemahiran Produk -->
+    <!-- Gallery -->
     <section id="recommended-gallery" class="section glass-card">
       <h2><i class="fas fa-shopping-bag"></i> Galeri Barangan & Alatan</h2>
       <p class="gallery-subtitle">Sentuh atau klik pada gambar untuk terus ke aplikasi Shopee</p>
 
       <div class="carousel-container">
         <div class="carousel-spinner">
-          
-          <!-- 1. iPad Keyboard -->
           <a href="https://s.shopee.com.my/4LJu05UwPu" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 1;">
             <img src="https://i.ibb.co/rKJB06H1/IMG-2236.jpg" alt="iPad Keyboard">
             <div class="card-info"><span>iPad Keyboard</span></div>
           </a>
-
-          <!-- 2. Lego Apple Watch Strap -->
           <a href="https://s.shopee.com.my/2qV6DUFllX" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 2;">
             <img src="https://i.ibb.co/vxGxdt2R/IMG-2237.jpg" alt="Lego Apple Watch Strap">
             <div class="card-info"><span>Lego Apple Watch Strap</span></div>
           </a>
-
-          <!-- 3. Vacuum Cordless -->
           <a href="https://s.shopee.com.my/1qcZ1t0SIu" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 3;">
             <img src="https://i.ibb.co/9HVLx4Lm/IMG-2238.jpg" alt="Vacuum Cordless">
             <div class="card-info"><span>Vacuum Cordless</span></div>
           </a>
-
-          <!-- 4. Apple Watch Strap Tactical -->
           <a href="https://s.shopee.com.my/113S2UvSHl" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 4;">
             <img src="https://i.ibb.co/N2N5Rw8P/IMG-2239.jpg" alt="Apple Watch Strap Tactical">
             <div class="card-info"><span>Apple Watch Strap Tactical</span></div>
           </a>
-
-          <!-- 5. Magna M20 Powerbank -->
           <a href="https://s.shopee.com.my/6VOOarXHjM" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 5;">
             <img src="https://i.ibb.co/xNXJ021/IMG-2240.jpg" alt="Magna M20 Powerbank">
             <div class="card-info"><span>Magna M20 Powerbank</span></div>
           </a>
-
-          <!-- 6. Mr.molec Racun Serangga Organic -->
           <a href="https://s.shopee.com.my/3Vkn1YMTT8" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 6;">
             <img src="https://i.ibb.co/LzVMLjYx/IMG-2241.jpg" alt="Mr.molec Racun Serangga Organic">
             <div class="card-info"><span>Mr.molec Racun Serangga Organic</span></div>
           </a>
-
-          <!-- 7. Soil Meter 4 in 1 -->
           <a href="https://s.shopee.com.my/3Vkn1YMTT8" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 7;">
             <img src="https://i.ibb.co/DHfsvBWb/IMG-2242.jpg" alt="Soil Meter 4 in 1">
             <div class="card-info"><span>Soil Meter 4 in 1</span></div>
           </a>
-
-          <!-- 8. Smart Plug Apple Homekit -->
           <a href="https://s.shopee.com.my/7VGvnBjGpB" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 8;">
             <img src="https://i.ibb.co/LDLfF1hj/IMG-2243.jpg" alt="Smart Plug Apple Homekit">
             <div class="card-info"><span>Smart Plug Apple Homekit</span></div>
           </a>
-
-          <!-- 9. Ugreen Cable Type C to Lightning -->
           <a href="https://s.shopee.com.my/1qcZ33viR4" target="_blank" rel="noopener noreferrer" class="carousel-card" style="--i: 9;">
             <img src="https://i.ibb.co/Wv4zGtSj/IMG-2244.jpg" alt="Ugreen Cable Type C to Lightning">
             <div class="card-info"><span>Ugreen Cable Type C to Lightning</span></div>
           </a>
-
         </div>
       </div>
     </section>
 
-    <!-- Skills Section -->
+    <!-- Skills -->
     <section id="skills" class="section glass-card">
       <h2><i class="fas fa-laptop-code"></i> Kemahiran</h2>
       <div class="skills-container">
@@ -343,7 +310,7 @@
       </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact -->
     <section id="contact" class="section glass-card">
       <h2><i class="fas fa-paper-plane"></i> Hubungi Saya</h2>
       <p class="contact-sub">Pertanyaan, cadangan atau sebarang bentuk kerjasama — hantarkan mesej anda di bawah.</p>
@@ -370,7 +337,6 @@
           <textarea id="mesej" required placeholder="Tulis mesej anda di sini..."></textarea>
         </div>
 
-        <!-- Honeypot anti-spam field -->
         <div class="hp-field" aria-hidden="true">
           <label for="website">Website</label>
           <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
@@ -395,12 +361,9 @@
       <div class="contact-socials-wrapper">
         <p>Atau hubungi terus melalui platform sosial:</p>
         <div class="contact-socials">
-          <a href="mailto:masta.xul@outlook.com" class="social-icon" title="E-mel Direct"><i class="fas fa-envelope"></i></a>
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
-          <a href="https://www.mastaxul.my/shop/" target="_blank" rel="noopener noreferrer" class="social-icon" title="Website Shop"><i class="fas fa-shopping-bag"></i></a>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="https://threads.net" target="_blank" rel="noopener noreferrer" class="social-icon" title="Threads"><i class="fab fa-threads"></i></a>
-          <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="social-icon" title="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="mailto:masta.xul@outlook.com" class="social-icon" title="E-mel"><i class="fas fa-envelope"></i></a>
+          <a href="/shop/" class="social-icon" title="Shop"><i class="fas fa-shopping-bag"></i></a>
+          <a href="https://whatsapp.com/channel/0029VaHHLhNIt5rvXDSZl03Y" target="_blank" rel="noopener noreferrer" class="social-icon" title="WhatsApp Channel"><i class="fab fa-whatsapp"></i></a>
         </div>
       </div>
     </section>
@@ -410,7 +373,7 @@
     </footer>
   </div>
 
-  <!-- Music Widget -->
+  <!-- Music (pastikan fail MP3 wujud di root, atau tukar src) -->
   <div class="music-player-widget">
     <audio id="bgMusic" loop src="Budak%20Kacamata%20-%20Bintang%20(Official%20Music%20Video).mp3"></audio>
     <button id="btnMusicToggle" class="music-btn" title="Mainkan / Hentikan Muzik" aria-label="Toggle Muzik">
