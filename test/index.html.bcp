@@ -1,287 +1,862 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-  <title>Masta Xul Affiliate Shop | Produk Viral TikTok, Shopee & Lazada</title>
+<meta name="theme-color" content="#020204">
 
-  <meta name="description" content="Cari produk viral TikTok, Shopee dan Lazada dengan harga terbaik. Masta Xul Affiliate Shop - produk pilihan berkualiti.">
-  <meta name="keywords" content="produk viral tiktok, affiliate shopee, lazada malaysia, produk kesihatan, gadget murah, masta xul">
-  <meta name="robots" content="index, follow">
-  <meta name="author" content="Masta Xul">
+<title>THE DARK COUNTDOWN</title>
 
-    <!-- Open Graph -->
-  <meta property="og:title" content="Masta Xul Affiliate Shop">
-  <meta property="og:description" content="Produk viral TikTok, Shopee & Lazada dengan harga terbaik.">
-  <meta property="og:image" content="https://i.ibb.co/8LxfVMb4/03-AF84-C7-1-FB1-4-C1-A-B78-D-0988-C9-CD689-F.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:url" content="https://mastaxul.my/">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Masta Xul Affiliate Shop">
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Masta Xul Affiliate Shop">
-  <meta name="twitter:description" content="Produk viral TikTok, Shopee & Lazada dengan harga terbaik.">
-  <meta name="twitter:image" content="https://i.ibb.co/8LxfVMb4/03-AF84-C7-1-FB1-4-C1-A-B78-D-0988-C9-CD689-F.png">
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #020204;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
-  <!-- Untuk crawler lain -->
-  <link rel="image_src" href="https://i.ibb.co/8LxfVMb4/03-AF84-C7-1-FB1-4-C1-A-B78-D-0988-C9-CD689-F.png">
+body {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:
+        radial-gradient(circle at 50% 55%,
+            rgba(70, 70, 85, .12) 0%,
+            rgba(10, 10, 15, .18) 25%,
+            #020204 70%);
+}
 
-  <!-- Bing Verification -->
-  <meta name="msvalidate.01" content="0D3F43A42C910C8228D4687C99E63603" />
+/* =========================
+   BACKGROUND
+========================= */
 
-  <link rel="canonical" href="https://mastaxul.my/">
+.background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
 
-  <link rel="stylesheet" href="style.css">
+.moon {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    top: 7%;
+    left: 50%;
+    transform: translateX(-50%);
+    background:
+        radial-gradient(circle at 35% 30%,
+            #3b3b42,
+            #17171d 45%,
+            #050507 75%);
+    box-shadow:
+        0 0 80px rgba(130,130,150,.08);
+    opacity: .45;
+}
 
-  <style>
-    .hero {
-      max-width: 720px;
-      margin: 40px auto 30px;
-      padding: 0 20px;
-      text-align: center;
+.fog {
+    position: absolute;
+    width: 160%;
+    height: 35%;
+    left: -30%;
+    bottom: 0;
+    background:
+        radial-gradient(ellipse,
+            rgba(90,90,100,.12),
+            transparent 70%);
+    filter: blur(30px);
+    animation: fogMove 18s ease-in-out infinite alternate;
+}
+
+@keyframes fogMove {
+    from {
+        transform: translateX(-5%);
+    }
+    to {
+        transform: translateX(5%);
+    }
+}
+
+/* =========================
+   LIGHTNING
+========================= */
+
+.lightning {
+    position: fixed;
+    inset: 0;
+    background: white;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 20;
+}
+
+.lightning.flash {
+    animation: flash .45s ease-out;
+}
+
+@keyframes flash {
+    0%   { opacity: 0; }
+    8%   { opacity: .25; }
+    12%  { opacity: 0; }
+    20%  { opacity: .08; }
+    27%  { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+/* =========================
+   STARS / PARTICLES
+========================= */
+
+#particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: #aaa;
+    opacity: .25;
+    animation: floatParticle linear infinite;
+}
+
+@keyframes floatParticle {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
     }
 
-    .hero h2 {
-      font-size: 1.8rem;
-      color: #111111;
-      margin-bottom: 12px;
-      line-height: 1.3;
+    20% {
+        opacity: .35;
     }
 
-    .hero p {
-      font-size: 1.05rem;
-      color: #555;
-      margin-bottom: 28px;
-      line-height: 1.6;
+    80% {
+        opacity: .15;
     }
 
-    .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
+    to {
+        transform: translateY(-120px);
+        opacity: 0;
+    }
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.title {
+    position: relative;
+    text-align: center;
+    margin-bottom: 30px;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    font-size: clamp(20px, 4vw, 38px);
+    font-weight: 900;
+    color: #d7d7dc;
+    text-shadow:
+        0 0 8px rgba(255,255,255,.2),
+        0 0 25px rgba(255,255,255,.05);
+}
+
+.subtitle {
+    margin-top: 8px;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: #777780;
+}
+
+/* =========================
+   PYRAMID
+========================= */
+
+.pyramid-area {
+    position: relative;
+    width: min(360px, 72vw);
+    height: min(300px, 55vw);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pyramid-glow {
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    background: rgba(120,120,140,.07);
+    filter: blur(45px);
+    border-radius: 50%;
+}
+
+.pyramid {
+    position: relative;
+    width: 0;
+    height: 0;
+    border-left: 145px solid transparent;
+    border-right: 145px solid transparent;
+    border-bottom: 230px solid #030304;
+    filter:
+        drop-shadow(0 0 12px rgba(0,0,0,.9))
+        drop-shadow(0 20px 35px rgba(0,0,0,.9));
+}
+
+/* Pyramid left/right illusion */
+
+.pyramid::before {
+    content: "";
+    position: absolute;
+    left: -145px;
+    top: 0;
+    width: 290px;
+    height: 230px;
+
+    background:
+        linear-gradient(
+            120deg,
+            #16161b 0%,
+            #07070a 42%,
+            #010102 43%,
+            #000 100%
+        );
+
+    clip-path: polygon(
+        50% 0,
+        0 100%,
+        50% 100%
+    );
+
+    opacity: .9;
+}
+
+.pyramid::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 290px;
+    height: 230px;
+
+    background:
+        linear-gradient(
+            240deg,
+            #101015 0%,
+            #030304 50%,
+            #000 100%
+        );
+
+    clip-path: polygon(
+        50% 0,
+        50% 100%,
+        100% 100%
+    );
+
+    opacity: .95;
+}
+
+/* Eye */
+
+.eye {
+    position: absolute;
+    z-index: 10;
+    top: 34%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 42px;
+    height: 42px;
+    border: 2px solid #666;
+    background: #050507;
+    box-shadow:
+        0 0 15px rgba(255,255,255,.06);
+}
+
+.eye::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #aaa;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow:
+        0 0 12px rgba(255,255,255,.6);
+}
+
+/* =========================
+   COUNTDOWN
+========================= */
+
+.countdown {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 5px;
+}
+
+.unit {
+    min-width: 78px;
+    text-align: center;
+}
+
+.number {
+    font-size: clamp(27px, 6vw, 52px);
+    font-weight: 800;
+    letter-spacing: 2px;
+    line-height: 1;
+    color: #eeeeef;
+    text-shadow:
+        0 0 10px rgba(255,255,255,.1);
+}
+
+.label {
+    margin-top: 8px;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: #66666e;
+    text-transform: uppercase;
+}
+
+.separator {
+    font-size: 32px;
+    color: #38383f;
+    margin-top: 3px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.warning {
+    margin-top: 30px;
+    color: #4e4e56;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.status {
+    margin-top: 8px;
+    color: #29292f;
+    font-size: 8px;
+    letter-spacing: 2px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .moon {
+        width: 220px;
+        height: 220px;
     }
 
-    .hero-btn {
-      display: inline-block;
-      padding: 14px 28px;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 1rem;
-      text-decoration: none;
-      transition: 0.2s;
+    .title {
+        letter-spacing: 5px;
+        margin-bottom: 15px;
     }
 
-    .hero-btn-primary {
-      background: #D32F2F;
-      color: #FFFFFF;
+    .subtitle {
+        font-size: 8px;
+        letter-spacing: 2px;
     }
 
-    .hero-btn-primary:hover {
-      background: #111111;
+    .pyramid-area {
+        height: 210px;
+        margin-bottom: 10px;
     }
 
-    .hero-btn-secondary {
-      background: #FFFFFF;
-      color: #111111;
-      border: 2px solid #6B4423;
+    .pyramid {
+        border-left-width: 105px;
+        border-right-width: 105px;
+        border-bottom-width: 170px;
     }
 
-    .hero-btn-secondary:hover {
-      background: #6B4423;
-      color: #FFFFFF;
+    .pyramid::before,
+    .pyramid::after {
+        width: 210px;
+        height: 170px;
+        left: -105px;
     }
 
-    .features {
-      max-width: 1000px;
-      margin: 20px auto 50px;
-      padding: 0 16px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
+    .eye {
+        width: 32px;
+        height: 32px;
     }
 
-    .feature-card {
-      background: #FFFFFF;
-      border: 2px solid #6B4423;
-      border-radius: 14px;
-      padding: 22px 18px;
-      text-align: center;
+    .eye::after {
+        width: 9px;
+        height: 9px;
     }
 
-    .feature-card .icon {
-      font-size: 2rem;
-      margin-bottom: 10px;
+    .countdown {
+        gap: 7px;
     }
 
-    .feature-card h3 {
-      font-size: 1.05rem;
-      color: #111111;
-      margin-bottom: 8px;
+    .unit {
+        min-width: 55px;
     }
 
-    .feature-card p {
-      font-size: 0.9rem;
-      color: #555;
-      line-height: 1.5;
+    .number {
+        font-size: 27px;
     }
 
-    .cta-box {
-      max-width: 600px;
-      margin: 0 auto 60px;
-      padding: 28px 20px;
-      background: #111111;
-      color: #FFFFFF;
-      border-radius: 16px;
-      text-align: center;
+    .label {
+        font-size: 7px;
+        letter-spacing: 1.5px;
     }
 
-    .cta-box h3 {
-      font-size: 1.3rem;
-      margin-bottom: 10px;
+    .separator {
+        font-size: 20px;
     }
 
-    .cta-box p {
-      opacity: 0.85;
-      margin-bottom: 18px;
-      font-size: 0.95rem;
+    .warning {
+        margin-top: 18px;
+    }
+}
+
+@media (max-height: 700px) {
+
+    .title {
+        margin-bottom: 8px;
     }
 
-    .cta-box a {
-      display: inline-block;
-      background: #D32F2F;
-      color: #FFFFFF;
-      text-decoration: none;
-      padding: 12px 26px;
-      border-radius: 8px;
-      font-weight: 700;
-      transition: 0.2s;
+    .pyramid-area {
+        height: 160px;
     }
 
-    .cta-box a:hover {
-      background: #2E7D32;
+    .pyramid {
+        transform: scale(.7);
     }
 
-    @media (max-width: 600px) {
-      .hero h2 {
-        font-size: 1.4rem;
-      }
+    .warning {
+        margin-top: 10px;
     }
-  </style>
-
-  <!-- Structured data: bantu Google faham "Masta Xul" sebagai jenama/entiti,
-       dan daftarkan carian /shop/?q= sebagai sitelinks search box berpotensi -->
-  <script type="application/ld+json">
-  [
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Masta Xul Affiliate Shop",
-      "alternateName": "Masta Xul",
-      "url": "https://mastaxul.my/",
-      "logo": "https://i.ibb.co/SwpWGqrs/IMG-0606.png",
-      "sameAs": [
-        "https://whatsapp.com/channel/0029VaHHLhNIt5rvXDSZl03Y"
-      ]
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Masta Xul Affiliate Shop",
-      "url": "https://mastaxul.my/",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://mastaxul.my/shop/?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    }
-  ]
-  </script>
+}
+</style>
 </head>
+
 <body>
 
-<header>
-  <div class="header-top">
-    <img src="https://i.ibb.co/SwpWGqrs/IMG-0606.png" class="logo" alt="Logo">
-    <!-- Hamburger ditambah oleh menu.js -->
-  </div>
-  <h1>Masta Xul Affiliate Shop</h1>
-  <p>Produk Pilihan Dengan Harga Terbaik</p>
-</header>
+<div class="background">
 
-<!-- Hero -->
-<section class="hero">
-  <h2>Temui Produk Viral TikTok, Shopee & Lazada di Satu Tempat</h2>
-  <p>
-    Kami pilih produk yang sedang trending, berkualiti dan berbaloi —
-    supaya anda tak perlu buang masa mencari satu per satu.
-  </p>
-  <div class="hero-buttons">
-    <a href="/shop/" class="hero-btn hero-btn-primary">🛒 Lihat Semua Produk</a>
-    <a href="/tentang/" class="hero-btn hero-btn-secondary">Tentang Kami</a>
-  </div>
-</section>
+    <div class="moon"></div>
 
-<!-- Features -->
-<section class="features">
-  <div class="feature-card">
-    <div class="icon">🔥</div>
-    <h3>Produk Viral</h3>
-    <p>Dipilih daripada trend TikTok Shop, Shopee dan Lazada yang sedang hangat.</p>
-  </div>
-  <div class="feature-card">
-    <div class="icon">💰</div>
-    <h3>Harga Terbaik</h3>
-    <p>Bandingkan dan terus beli di platform pilihan anda dengan satu klik.</p>
-  </div>
-  <div class="feature-card">
-    <div class="icon">⚡</div>
-    <h3>Mudah & Pantas</h3>
-    <p>Cari ikut kategori, badge atau kata kunci — terus jumpa produk yang sesuai.</p>
-  </div>
-  <div class="feature-card">
-    <div class="icon">✅</div>
-    <h3>Dipilih Semula</h3>
-    <p>Bukan semua produk masuk. Hanya yang ada permintaan dan nilai yang baik.</p>
-  </div>
-</section>
+    <div class="fog"></div>
 
-<!-- CTA -->
-<section class="cta-box">
-  <h3>Sedia untuk beli-belah?</h3>
-  <p>Terokai senarai produk pilihan kami sekarang.</p>
-  <a href="/shop/">Pergi ke Shop →</a>
-</section>
+    <div id="particles"></div>
 
-<footer>
-  © 2026 Masta Xul Affiliate Shop
-</footer>
+</div>
 
-<!-- Back to Top -->
-<button onclick="scrollToTop()" class="back-to-top" id="backToTop" title="Back to Top">↑</button>
+<div class="lightning" id="lightning"></div>
 
-<!-- WhatsApp Channel -->
-<a href="https://whatsapp.com/channel/0029VaHHLhNIt5rvXDSZl03Y" class="float-wa-channel" target="_blank" rel="noopener" title="Join WhatsApp Channel">
-  📢 Channel
-</a>
+<main class="main">
 
-<script src="menu.js"></script>
+    <div class="title">
+        THE DARK COUNTDOWN
+
+        <div class="subtitle">
+            THE CYCLE MUST CONTINUE
+        </div>
+    </div>
+
+    <div class="pyramid-area">
+
+        <div class="pyramid-glow"></div>
+
+        <div class="pyramid">
+
+            <div class="eye"></div>
+
+        </div>
+
+    </div>
+
+    <div class="countdown">
+
+        <div class="unit">
+            <div class="number" id="years">02</div>
+            <div class="label">Years</div>
+        </div>
+
+        <div class="separator">:</div>
+
+        <div class="unit">
+            <div class="number" id="months">07</div>
+            <div class="label">Months</div>
+        </div>
+
+        <div class="separator">:</div>
+
+        <div class="unit">
+            <div class="number" id="days">06</div>
+            <div class="label">Days</div>
+        </div>
+
+        <div class="separator">:</div>
+
+        <div class="unit">
+            <div class="number" id="hours">06</div>
+            <div class="label">Hours</div>
+        </div>
+
+        <div class="separator">:</div>
+
+        <div class="unit">
+            <div class="number" id="minutes">06</div>
+            <div class="label">Minutes</div>
+        </div>
+
+        <div class="separator">:</div>
+
+        <div class="unit">
+            <div class="number" id="seconds">09</div>
+            <div class="label">Seconds</div>
+        </div>
+
+    </div>
+
+    <div class="warning">
+        WHEN THE CLOCK ENDS — THE CYCLE BEGINS AGAIN
+    </div>
+
+    <div class="status" id="status">
+        SYSTEM ACTIVE
+    </div>
+
+</main>
+
 <script>
-  function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
 
-  window.addEventListener("scroll", () => {
-    const btn = document.getElementById("backToTop");
-    if (btn) {
-      if (window.scrollY > 300) btn.classList.add("show");
-      else btn.classList.remove("show");
+/* ==========================================
+   DARK COUNTDOWN
+   2 YEARS 7 MONTHS 6 DAYS
+   6 HOURS 6 MINUTES 9 SECONDS
+========================================== */
+
+const ORIGINAL = {
+    years: 2,
+    months: 7,
+    days: 6,
+    hours: 6,
+    minutes: 6,
+    seconds: 9
+};
+
+let targetTime;
+
+
+/* ==========================================
+   SET COUNTDOWN
+========================================== */
+
+function createTarget() {
+
+    const now = new Date();
+
+    targetTime = new Date(now);
+
+    targetTime.setFullYear(
+        targetTime.getFullYear() + ORIGINAL.years
+    );
+
+    targetTime.setMonth(
+        targetTime.getMonth() + ORIGINAL.months
+    );
+
+    targetTime.setDate(
+        targetTime.getDate() + ORIGINAL.days
+    );
+
+    targetTime.setHours(
+        targetTime.getHours() + ORIGINAL.hours
+    );
+
+    targetTime.setMinutes(
+        targetTime.getMinutes() + ORIGINAL.minutes
+    );
+
+    targetTime.setSeconds(
+        targetTime.getSeconds() + ORIGINAL.seconds
+    );
+}
+
+
+/* ==========================================
+   UPDATE COUNTDOWN
+========================================== */
+
+function updateCountdown() {
+
+    const now = new Date();
+
+    let difference = targetTime - now;
+
+    if (difference <= 0) {
+
+        resetCountdown();
+
+        return;
     }
-  });
+
+    let totalSeconds =
+        Math.floor(difference / 1000);
+
+    const seconds =
+        totalSeconds % 60;
+
+    totalSeconds =
+        Math.floor(totalSeconds / 60);
+
+    const minutes =
+        totalSeconds % 60;
+
+    totalSeconds =
+        Math.floor(totalSeconds / 60);
+
+    const hours =
+        totalSeconds % 24;
+
+    const days =
+        Math.floor(totalSeconds / 24);
+
+
+    /*
+       Kiraan tahun/bulan sebenar
+       berdasarkan calendar.
+    */
+
+    let temp = new Date(now);
+
+    let years = 0;
+    let months = 0;
+
+    while (true) {
+
+        let next = new Date(temp);
+
+        next.setFullYear(
+            next.getFullYear() + 1
+        );
+
+        if (next <= targetTime) {
+
+            temp = next;
+            years++;
+
+        } else {
+
+            break;
+        }
+    }
+
+    while (true) {
+
+        let next = new Date(temp);
+
+        next.setMonth(
+            next.getMonth() + 1
+        );
+
+        if (next <= targetTime) {
+
+            temp = next;
+            months++;
+
+        } else {
+
+            break;
+        }
+    }
+
+    const remainingDays =
+        Math.floor(
+            (targetTime - temp) /
+            (1000 * 60 * 60 * 24)
+        );
+
+    setText("years", years);
+    setText("months", months);
+    setText("days", remainingDays);
+    setText("hours", hours);
+    setText("minutes", minutes);
+    setText("seconds", seconds);
+}
+
+
+/* ==========================================
+   NUMBER FORMAT
+========================================== */
+
+function setText(id, value) {
+
+    document.getElementById(id).textContent =
+        String(value).padStart(2, "0");
+}
+
+
+/* ==========================================
+   AUTO RESET
+========================================== */
+
+function resetCountdown() {
+
+    document.getElementById("status")
+        .textContent = "CYCLE RESETTING...";
+
+    createTarget();
+
+    setTimeout(() => {
+
+        document.getElementById("status")
+            .textContent = "SYSTEM ACTIVE";
+
+    }, 1200);
+}
+
+
+/* ==========================================
+   PARTICLES
+========================================== */
+
+function createParticles() {
+
+    const container =
+        document.getElementById("particles");
+
+    for (let i = 0; i < 70; i++) {
+
+        const particle =
+            document.createElement("div");
+
+        particle.className = "particle";
+
+        particle.style.left =
+            Math.random() * 100 + "%";
+
+        particle.style.top =
+            Math.random() * 100 + "%";
+
+        particle.style.animationDuration =
+            (8 + Math.random() * 15) + "s";
+
+        particle.style.animationDelay =
+            (-Math.random() * 15) + "s";
+
+        particle.style.opacity =
+            Math.random() * .3;
+
+        container.appendChild(particle);
+    }
+}
+
+
+/* ==========================================
+   RANDOM LIGHTNING
+========================================== */
+
+function lightningStrike() {
+
+    const lightning =
+        document.getElementById("lightning");
+
+    lightning.classList.remove("flash");
+
+    /*
+       Force browser reflow supaya animation
+       boleh dimainkan semula.
+    */
+
+    void lightning.offsetWidth;
+
+    lightning.classList.add("flash");
+}
+
+
+/*
+   Petir muncul secara rawak.
+*/
+
+function randomLightning() {
+
+    const delay =
+        5000 + Math.random() * 15000;
+
+    setTimeout(() => {
+
+        lightningStrike();
+
+        /*
+           Kadang-kadang petir kedua
+           muncul selepas petir pertama.
+        */
+
+        if (Math.random() > .55) {
+
+            setTimeout(
+                lightningStrike,
+                120
+            );
+        }
+
+        randomLightning();
+
+    }, delay);
+}
+
+
+/* ==========================================
+   START
+========================================== */
+
+createParticles();
+
+createTarget();
+
+updateCountdown();
+
+setInterval(
+    updateCountdown,
+    250
+);
+
+randomLightning();
+
 </script>
 
 </body>
