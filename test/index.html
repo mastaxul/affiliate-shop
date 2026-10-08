@@ -1434,33 +1434,46 @@ document.addEventListener("visibilitychange", () => {
 });
 
 /* =========================================================
-   FULL SCREEN LYRICS — SYNCED TO MUSIC
+   FULL SCREEN LYRICS — REAL SYNC FROM YOUR AUDIO
 ========================================================= */
-/*
-   time = saat dalam lagu bila lirik patut muncul
-   Sesuaikan nombor ni ikut lagu DARKSIDE.mp3 anda
-*/
 const timedLyrics = [
-    { time: 1.0,  text: "We're not in love" },
-    { time: 5.0,  text: "We share no stories" },
-    { time: 9.5,  text: "Just something in your eyes" },
-    { time: 14.0, text: "Don't be afraid" },
-    { time: 18.5, text: "The shadows know me" },
-    { time: 23.0, text: "Let's leave the world behind" },
-    { time: 28.0, text: "Take me through the night" },
-    { time: 32.5, text: "Fall into the dark side" },
-    { time: 37.0, text: "We don't need the light" },
-    { time: 41.5, text: "We'll live on the dark side" },
-    { time: 46.5, text: "I see through your eyes" },
-    { time: 51.0, text: "You speak to my mind" },
-    { time: 55.5, text: "The silence is calling" },
-    { time: 60.0, text: "The cycle must end" },
-    { time: 64.5, text: "Be safe... be connected" },
-    { time: 69.0, text: "Into the void we fall" },
-    { time: 73.5, text: "No turning back now" },
-    { time: 78.0, text: "The pyramid watches" },
-    { time: 82.5, text: "Time is running out" },
-    { time: 87.0, text: "Masta Xul awaits" }
+    { time: 20,  text: "We're not alone, we share the stories" },
+    { time: 28,  text: "Just something that in your eyes" },
+    { time: 36,  text: "Don't be afraid, the shadows know me" },
+    { time: 44,  text: "Let's leave the world behind" },
+    { time: 51,  text: "Take me through the night" },
+    { time: 55,  text: "Falling to the dark side" },
+    { time: 60,  text: "We don't need the light" },
+    { time: 63,  text: "We'll live all the time" },
+    { time: 66,  text: "Shine" },
+    { time: 68,  text: "I see it" },
+    { time: 70,  text: "Let's feel it" },
+    { time: 72,  text: "While we're still young and feel this way" },
+    { time: 76,  text: "Go out the way" },
+    { time: 79,  text: "Falling to the dark side" },
+    { time: 87,  text: "Falling to the dark side" },
+    { time: 98,  text: "Baby, to the dark side" },
+    { time: 108, text: "Go out the way" },
+    { time: 111, text: "So it's all sky, beneath the sky" },
+    { time: 120, text: "This blackest time is, we're running out of time" },
+    { time: 131, text: "Don't wait for truth to come and point us" },
+    { time: 140, text: "Just believe your lies" },
+    { time: 148, text: "Believe it, I see it, I know that you can" },
+    { time: 154, text: "I feel it, no secrets in my keeping" },
+    { time: 162, text: "Keep the light, fall into the dark side" },
+    { time: 172, text: "We don't need the light, we'll live all the time" },
+    { time: 178, text: "Shine, I see it, let's feel it" },
+    { time: 186, text: "While we're still young and feel this light" },
+    { time: 188, text: "Call of the light, fall into the dark side" },
+    { time: 199, text: "Fall into the dark side" },
+    { time: 207, text: "Into the dark side" },
+    { time: 241, text: "Take me through the night" },
+    { time: 250, text: "For me, through the dark sky" },
+    { time: 259, text: "Waiting for people like you" },
+    { time: 270, text: "All the stars guide me" },
+    { time: 278, text: "Let's feel while we're still young and free" },
+    { time: 282, text: "Let's go, love away" },
+    { time: 291, text: "For in soon the stars guide" }
 ];
 
 const lyricLine = document.getElementById("lyricLine");
@@ -1468,7 +1481,6 @@ const exitDirections = ["exit-up", "exit-down", "exit-left", "exit-right"];
 let currentLyricIndex = -1;
 
 function showLyric(text) {
-    // Keluar lirik lama
     lyricLine.classList.remove("active", "exit-up", "exit-down", "exit-left", "exit-right");
     const direction = exitDirections[Math.floor(Math.random() * exitDirections.length)];
     lyricLine.classList.add(direction);
@@ -1477,15 +1489,15 @@ function showLyric(text) {
         lyricLine.classList.remove(direction);
         lyricLine.textContent = text;
         lyricLine.classList.add("active");
-    }, 900);
+    }, 800);
 }
 
 function syncLyrics() {
     if (bgMusic.paused) return;
 
     const t = bgMusic.currentTime;
-    // Cari lirik yang sepatutnya aktif
     let newIndex = -1;
+
     for (let i = timedLyrics.length - 1; i >= 0; i--) {
         if (t >= timedLyrics[i].time) {
             newIndex = i;
@@ -1499,21 +1511,18 @@ function syncLyrics() {
     }
 }
 
-// Check setiap 200ms (sangat responsif, takde delay)
-setInterval(syncLyrics, 200);
+// Check sangat kerap supaya responsif
+setInterval(syncLyrics, 150);
 
-// Bila lagu loop balik ke awal, reset lirik
-bgMusic.addEventListener("seeked", () => {
-    currentLyricIndex = -1;
-});
-bgMusic.addEventListener("ended", () => {
-    currentLyricIndex = -1;
-});
-// Juga reset bila play semula dari awal
+// Reset bila lagu mula dari awal
 bgMusic.addEventListener("play", () => {
-    if (bgMusic.currentTime < 1) {
+    if (bgMusic.currentTime < 2) {
         currentLyricIndex = -1;
     }
+});
+
+bgMusic.addEventListener("seeked", () => {
+    currentLyricIndex = -1;
 });
 </script>
 </body>
