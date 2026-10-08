@@ -736,6 +736,152 @@ body{
         font-size:7px;
     }
 }
+
+/* =========================
+   FULL SCREEN LYRICS — FLOAT + FLY OUT
+========================= */
+.lyrics-container{
+    position:fixed;
+    inset:0;
+    z-index:2;
+    pointer-events:none;
+    overflow:hidden;
+}
+.lyric-line{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:90%;
+    max-width:900px;
+    text-align:center;
+    font-family:"Courier New",Courier,monospace;
+    font-size:clamp(15px,4vw,32px);
+    font-weight:700;
+    letter-spacing:.26em;
+    line-height:1.5;
+    text-transform:uppercase;
+    color:#080000;
+    -webkit-text-stroke:1.1px rgba(255,30,30,.9);
+    text-shadow:
+        0 0 6px #ff0000,
+        0 0 16px rgba(255,0,0,.8),
+        0 0 32px rgba(255,0,0,.5),
+        0 0 60px rgba(140,0,0,.3),
+        2px 0 0 rgba(255,20,20,.45),
+        -2px 0 0 rgba(90,0,0,.5);
+    opacity:0;
+    transform:translate(-50%,-50%) scale(.7);
+    filter:blur(5px);
+    will-change:transform,opacity,filter;
+}
+.lyric-line.active{
+    opacity:.95;
+    filter:blur(0);
+    animation:
+        lyricFloat 4.2s ease-in-out forwards,
+        lyricBounce 0.42s ease-in-out 3;
+}
+.lyric-line.exit-up{
+    animation:lyricFlyUp 1.1s cubic-bezier(.4,0,.2,1) forwards;
+}
+.lyric-line.exit-down{
+    animation:lyricFlyDown 1.1s cubic-bezier(.4,0,.2,1) forwards;
+}
+.lyric-line.exit-left{
+    animation:lyricFlyLeft 1.1s cubic-bezier(.4,0,.2,1) forwards;
+}
+.lyric-line.exit-right{
+    animation:lyricFlyRight 1.1s cubic-bezier(.4,0,.2,1) forwards;
+}
+
+/* Melayang perlahan di tengah */
+@keyframes lyricFloat{
+    0%{
+        transform:translate(-50%,-40%) scale(.75);
+        opacity:0;
+        filter:blur(5px);
+    }
+    12%{
+        opacity:.95;
+        filter:blur(0);
+    }
+    25%{
+        transform:translate(-50%,-52%) scale(1.04);
+    }
+    50%{
+        transform:translate(-48%,-48%) scale(1);
+    }
+    75%{
+        transform:translate(-52%,-51%) scale(1.02);
+    }
+    100%{
+        transform:translate(-50%,-50%) scale(1);
+        opacity:.95;
+    }
+}
+
+/* Lantunan ikut rentak */
+@keyframes lyricBounce{
+    0%,100%{
+        transform:translate(-50%,-50%) scale(1);
+    }
+    40%{
+        transform:translate(-50%,-54%) scale(1.08);
+    }
+    70%{
+        transform:translate(-50%,-47%) scale(.96);
+    }
+}
+
+/* Keluar skrin */
+@keyframes lyricFlyUp{
+    0%{
+        transform:translate(-50%,-50%) scale(1);
+        opacity:.95;
+        filter:blur(0);
+    }
+    100%{
+        transform:translate(-50%,-160%) scale(.6) rotate(-8deg);
+        opacity:0;
+        filter:blur(6px);
+    }
+}
+@keyframes lyricFlyDown{
+    0%{
+        transform:translate(-50%,-50%) scale(1);
+        opacity:.95;
+        filter:blur(0);
+    }
+    100%{
+        transform:translate(-50%,80%) scale(.6) rotate(8deg);
+        opacity:0;
+        filter:blur(6px);
+    }
+}
+@keyframes lyricFlyLeft{
+    0%{
+        transform:translate(-50%,-50%) scale(1);
+        opacity:.95;
+        filter:blur(0);
+    }
+    100%{
+        transform:translate(-160%,-50%) scale(.55) rotate(-12deg);
+        opacity:0;
+        filter:blur(6px);
+    }
+}
+@keyframes lyricFlyRight{
+    0%{
+        transform:translate(-50%,-50%) scale(1);
+        opacity:.95;
+        filter:blur(0);
+    }
+    100%{
+        transform:translate(60%,-50%) scale(.55) rotate(12deg);
+        opacity:0;
+        filter:blur(6px);
+    }
+}
 </style>
 </head>
 <body>
@@ -748,6 +894,12 @@ body{
     <div class="bolt one"></div>
     <div class="bolt two"></div>
 </div>
+
+<!-- Full Screen Lyrics -->
+<div class="lyrics-container" id="lyricsContainer">
+    <div class="lyric-line" id="lyricLine"></div>
+</div>
+
 <main class="main">
     <div class="title">Masta Xul</div>
     <div class="subtitle">
@@ -1280,6 +1432,60 @@ document.addEventListener("visibilitychange", () => {
         tryPlayMusic();
     }
 });
+
+/* =========================================================
+   FULL SCREEN LYRICS ANIMATION
+========================================================= */
+const lyrics = [
+    "We're not in love",
+    "We share no stories",
+    "Just something in your eyes",
+    "Don't be afraid",
+    "The shadows know me",
+    "Let's leave the world behind",
+    "Take me through the night",
+    "Fall into the dark side",
+    "We don't need the light",
+    "We'll live on the dark side",
+    "I see through your eyes",
+    "You speak to my mind",
+    "The silence is calling",
+    "The cycle must end",
+    "Be safe... be connected",
+    "Into the void we fall",
+    "No turning back now",
+    "The pyramid watches",
+    "Time is running out",
+    "Masta Xul awaits"
+];
+
+const lyricLine = document.getElementById("lyricLine");
+let lyricIndex = 0;
+const exitDirections = ["exit-up", "exit-down", "exit-left", "exit-right"];
+
+function showNextLyric() {
+    // Buang class lama
+    lyricLine.classList.remove("active", "exit-up", "exit-down", "exit-left", "exit-right");
+
+    // Pilih arah keluar secara rawak
+    const direction = exitDirections[Math.floor(Math.random() * exitDirections.length)];
+    lyricLine.classList.add(direction);
+
+    setTimeout(() => {
+        // Reset & tunjuk lirik baru
+        lyricLine.classList.remove(direction);
+        lyricLine.textContent = lyrics[lyricIndex];
+        lyricLine.classList.add("active");
+
+        lyricIndex = (lyricIndex + 1) % lyrics.length;
+    }, 1100);
+}
+
+// Mula lirik selepas sedikit delay
+setTimeout(() => {
+    showNextLyric();
+    setInterval(showNextLyric, 4800); // ikut rentak ~ setiap 4.8 saat
+}, 1800);
 </script>
 </body>
 </html>
