@@ -3,273 +3,109 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Jom Belajar! 🌈 - Rumi • Jawi • Nombor</title>
+<title>Jom Belajar! 🌈 - Rumi • Jawi • Nombor • Gambar</title>
 <style>
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
-body {
-    font-family: "Arial Rounded MT Bold", "Trebuchet MS", Arial, sans-serif;
-    background: linear-gradient(135deg, #dff7ff, #fff5d9);
-    color: #263238;
-    min-height: 100vh;
-    overflow-x: hidden;
-}
-header {
-    background: linear-gradient(135deg, #6c63ff, #8e7dff);
-    color: white;
-    text-align: center;
-    padding: 16px 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,.15);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-header h1 { margin: 0; font-size: 26px; }
-header p { margin: 4px 0 0; font-size: 14px; opacity: .9; }
-.container { width: min(720px, 96%); margin: 16px auto; padding-bottom: 40px; }
-.card {
-    background: white;
-    border-radius: 24px;
-    padding: 22px;
-    margin-bottom: 16px;
-    box-shadow: 0 8px 25px rgba(0,0,0,.12);
-}
-.start-screen { text-align: center; }
-.logo { font-size: 70px; margin-bottom: 8px; }
-.start-screen h2 { color: #5b50d6; font-size: 24px; margin-bottom: 8px; }
-label { display: block; text-align: left; margin-top: 14px; font-weight: bold; font-size: 15px; }
-input, select {
-    width: 100%;
-    padding: 14px;
-    margin-top: 6px;
-    border-radius: 14px;
-    border: 2px solid #ddd;
-    font-size: 17px;
-    outline: none;
-    transition: border-color .2s;
-}
-input:focus, select:focus { border-color: #6c63ff; }
-.btn {
-    width: 100%;
-    border: 0;
-    padding: 15px;
-    border-radius: 16px;
-    margin-top: 18px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    background: linear-gradient(135deg, #6c63ff, #8e7dff);
-    color: white;
-    box-shadow: 0 5px 12px rgba(108,99,255,.35);
-    transition: transform .15s;
-}
-.btn:active { transform: scale(.97); }
-.btn:disabled { opacity: .6; cursor: not-allowed; }
-.btn-secondary {
-    background: linear-gradient(135deg, #26a69a, #4db6ac);
-}
-.game-info {
-    display: flex;
-    justify-content: space-between;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 12px;
-}
-.info-box {
-    flex: 1;
-    min-width: 100px;
-    background: #f5f4ff;
-    padding: 10px;
-    border-radius: 14px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 14px;
-}
-.stars { color: #ffb300; font-size: 20px; }
-.question-card { text-align: center; }
-.question-number { color: #777; font-size: 14px; margin-bottom: 8px; }
-.question { font-size: 22px; font-weight: bold; margin: 12px 0; line-height: 1.3; }
-.big-letter {
-    font-size: 100px;
-    font-weight: bold;
-    color: #6c63ff;
-    margin: 12px 0;
-    line-height: 1.1;
-    font-family: "Arial", "Segoe UI", sans-serif;
-}
-.options {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 16px;
-}
-.option {
-    flex: 1 1 40%;
-    min-width: 110px;
-    max-width: 160px;
-    background: #f5f5ff;
-    border: 3px solid transparent;
-    border-radius: 18px;
-    padding: 18px 12px;
-    font-size: 26px;
-    font-weight: bold;
-    cursor: pointer;
-    min-height: 72px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all .2s;
-    user-select: none;
-}
-.option:hover, .option:active { border-color: #6c63ff; transform: scale(1.03); }
-.option.correct { background: #d9ffd9; border-color: #32a852; }
-.option.wrong { background: #ffdede; border-color: #e53935; }
-.option:disabled { pointer-events: none; }
+* { box-sizing:border-box; -webkit-tap-highlight-color:transparent; margin:0; padding:0; }
+body { font-family:"Arial Rounded MT Bold","Trebuchet MS",Arial,sans-serif; background:linear-gradient(135deg,#dff7ff,#fff5d9); color:#263238; min-height:100vh; overflow-x:hidden; }
+header { background:linear-gradient(135deg,#6c63ff,#8e7dff); color:#fff; text-align:center; padding:16px 12px; box-shadow:0 5px 15px rgba(0,0,0,.15); position:sticky; top:0; z-index:100; }
+header h1 { font-size:26px; }
+header p { margin-top:4px; font-size:14px; opacity:.9; }
+.container { width:min(720px,96%); margin:16px auto; padding-bottom:40px; }
+.card { background:#fff; border-radius:24px; padding:22px; margin-bottom:16px; box-shadow:0 8px 25px rgba(0,0,0,.12); }
+.start-screen { text-align:center; }
+.logo { font-size:70px; margin-bottom:8px; }
+.start-screen h2 { color:#5b50d6; font-size:24px; margin-bottom:8px; }
+label { display:block; text-align:left; margin-top:14px; font-weight:bold; font-size:15px; }
+input, select { width:100%; padding:14px; margin-top:6px; border-radius:14px; border:2px solid #ddd; font-size:17px; outline:none; font-family:inherit; }
+input:focus, select:focus { border-color:#6c63ff; }
+.btn { width:100%; border:0; padding:15px; border-radius:16px; margin-top:18px; font-size:18px; font-weight:bold; cursor:pointer; background:linear-gradient(135deg,#6c63ff,#8e7dff); color:#fff; box-shadow:0 5px 12px rgba(108,99,255,.35); font-family:inherit; }
+.btn:active { transform:scale(.97); }
+.btn:disabled { opacity:.6; cursor:not-allowed; }
+.btn-secondary { background:linear-gradient(135deg,#26a69a,#4db6ac); }
+.game-info { display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+.info-box { flex:1; min-width:100px; background:#f5f4ff; padding:10px; border-radius:14px; text-align:center; font-weight:bold; font-size:14px; }
+.question-card { text-align:center; }
+.question-number { color:#777; font-size:14px; margin-bottom:8px; }
+.question { font-size:22px; font-weight:bold; margin:12px 0; line-height:1.3; white-space:pre-line; }
+.big-letter { font-size:100px; font-weight:bold; color:#6c63ff; margin:12px 0; line-height:1.15; font-family:Arial,"Segoe UI",sans-serif; word-break:break-all; }
+.big-letter.med { font-size:52px; }
+.options { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:16px; }
+.option { flex:1 1 40%; min-width:110px; max-width:160px; background:#f5f5ff; border:3px solid transparent; border-radius:18px; padding:18px 12px; font-size:26px; font-weight:bold; cursor:pointer; min-height:72px; display:flex; align-items:center; justify-content:center; transition:all .2s; user-select:none; font-family:inherit; color:inherit; }
+.option:hover, .option:active { border-color:#6c63ff; transform:scale(1.03); }
+.option.correct { background:#d9ffd9; border-color:#32a852; }
+.option.wrong { background:#ffdede; border-color:#e53935; }
+.option:disabled { pointer-events:none; }
 
-/* Drag & Drop */
-.drag-area {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-top: 20px;
-    min-height: 140px;
-}
-.drag-item, .drop-zone {
-    width: 110px;
-    height: 110px;
-    border-radius: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 42px;
-    font-weight: bold;
-    user-select: none;
-    touch-action: none;
-}
-.drag-item {
-    background: #ffe082;
-    cursor: grab;
-    box-shadow: 0 4px 12px rgba(0,0,0,.15);
-    z-index: 10;
-}
-.drag-item.dragging { opacity: .7; transform: scale(1.1); }
-.drop-zone {
-    background: #e3f2fd;
-    border: 4px dashed #64b5f6;
-    transition: all .2s;
-}
-.drop-zone.over { background: #bbdefb; border-color: #1976d2; transform: scale(1.05); }
-.drop-zone.filled { background: #c8e6c9; border-color: #43a047; border-style: solid; }
+/* Drag */
+.drag-area { display:flex; flex-direction:column; align-items:center; gap:22px; margin-top:20px; }
+.drag-row { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+.drag-item, .drop-zone { width:100px; height:100px; border-radius:22px; display:flex; align-items:center; justify-content:center; font-size:40px; font-weight:bold; user-select:none; }
+.drag-item { background:#ffe082; cursor:grab; box-shadow:0 4px 12px rgba(0,0,0,.15); position:relative; z-index:10; touch-action:none; }
+.drag-item.dragging { z-index:50; opacity:.85; }
+.drop-zone { background:#e3f2fd; border:4px dashed #64b5f6; transition:all .2s; }
+.drop-zone.over { background:#bbdefb; border-color:#1976d2; transform:scale(1.05); }
+.drop-zone.filled { background:#c8e6c9; border-color:#43a047; border-style:solid; }
 
-/* Matching */
-.match-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-top: 16px;
-}
-.match-column { display: flex; flex-direction: column; gap: 10px; }
-.match-item {
-    padding: 16px;
-    background: #f5f5ff;
-    border-radius: 16px;
-    text-align: center;
-    font-size: 26px;
-    font-weight: bold;
-    cursor: pointer;
-    border: 3px solid transparent;
-    transition: all .2s;
-    user-select: none;
-}
-.match-item.selected { border-color: #6c63ff; background: #e8e7ff; transform: scale(1.04); }
-.match-item.matched { background: #d9ffd9; border-color: #32a852; pointer-events: none; }
-.match-item.wrong-temp { background: #ffdede; border-color: #e53935; }
+/* Match */
+.match-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px; }
+.match-column { display:flex; flex-direction:column; gap:10px; }
+.match-item { padding:16px; background:#f5f5ff; border-radius:16px; text-align:center; font-size:26px; font-weight:bold; cursor:pointer; border:3px solid transparent; transition:all .2s; user-select:none; }
+.match-item.selected { border-color:#6c63ff; background:#e8e7ff; transform:scale(1.04); }
+.match-item.matched { background:#d9ffd9; border-color:#32a852; pointer-events:none; }
+.match-item.wrong-temp { background:#ffdede; border-color:#e53935; }
 
 /* Fill */
-.fill-input {
-    width: 100%;
-    max-width: 200px;
-    padding: 16px;
-    font-size: 28px;
-    text-align: center;
-    border-radius: 16px;
-    border: 3px solid #ddd;
-    margin: 16px auto;
-    display: block;
-    font-weight: bold;
-}
-.fill-input:focus { border-color: #6c63ff; outline: none; }
+.fill-input { width:100%; max-width:200px; padding:16px; font-size:28px; text-align:center; border-radius:16px; border:3px solid #ddd; margin:16px auto; display:block; font-weight:bold; }
+.fill-input:focus { border-color:#6c63ff; outline:none; }
 
-/* Fireworks */
-#fireworks {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 9999;
-    overflow: hidden;
-}
-.spark {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    animation: explode 900ms ease-out forwards;
-}
-@keyframes explode {
-    from { transform: translate(0,0) scale(1); opacity: 1; }
-    to { transform: translate(var(--x), var(--y)) scale(.15); opacity: 0; }
-}
+/* Spell */
+.slots, .tiles { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:12px 0; }
+.slot, .tile { width:48px; height:56px; border-radius:12px; font-size:26px; font-weight:bold; border:3px solid #ddd; background:#fff; cursor:pointer; font-family:inherit; color:#263238; }
+.slot { border-style:dashed; border-color:#64b5f6; background:#e3f2fd; }
+.tile { background:#ffe082; border-color:#ffd54f; }
+.tile:disabled { opacity:.2; }
+.shake { animation:shake .4s; }
+@keyframes shake { 25% { transform:translateX(-6px); } 75% { transform:translateX(6px); } }
 
-.feedback {
-    font-size: 22px;
-    font-weight: bold;
-    margin-top: 16px;
-    min-height: 32px;
-}
-.correct-text { color: #2e9d45; }
-.wrong-text { color: #e53935; }
+/* Crossword */
+.clues { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; font-size:24px; margin:6px 0; }
+.cgrid { display:grid; gap:3px; justify-content:center; margin:12px auto; }
+.cell { width:40px; height:40px; border-radius:8px; background:#fff; border:2px solid #b0bec5; font-size:22px; font-weight:bold; display:flex; align-items:center; justify-content:center; position:relative; cursor:pointer; }
+.cell.blank { visibility:hidden; }
+.cell.given { background:#e8e7ff; color:#5b50d6; }
+.cell.sel { border-color:#6c63ff; background:#fff8e1; }
+.cell.bad { background:#ffdede; border-color:#e53935; }
+.cell small { position:absolute; top:0; left:3px; font-size:9px; color:#888; font-weight:normal; }
+.keys { display:flex; flex-wrap:wrap; gap:5px; justify-content:center; margin-top:10px; }
+.key { width:34px; height:40px; border:0; border-radius:8px; background:#f5f5ff; font-size:18px; font-weight:bold; font-family:inherit; color:#263238; }
+.key:active { background:#d9d7ff; }
 
-.result { text-align: center; }
-.result-stars { font-size: 48px; color: #ffb300; margin: 12px 0; }
-.result-score { font-size: 32px; font-weight: bold; color: #5b50d6; margin: 8px 0; }
+#fireworks { position:fixed; inset:0; pointer-events:none; z-index:9999; overflow:hidden; }
+.spark { position:absolute; width:10px; height:10px; border-radius:50%; animation:explode 900ms ease-out forwards; }
+@keyframes explode { from { transform:translate(0,0) scale(1); opacity:1; } to { transform:translate(var(--x),var(--y)) scale(.15); opacity:0; } }
 
-.hidden { display: none !important; }
-
-.token-box {
-    background: #fff8e1;
-    border: 2px dashed #ffb300;
-    border-radius: 14px;
-    padding: 12px;
-    margin-top: 12px;
-    font-size: 14px;
-}
-.token-status { font-size: 13px; margin-top: 6px; font-weight: bold; }
-.token-ok { color: #2e7d32; }
-.token-fail { color: #c62828; }
-
-.progress-bar {
-    height: 8px;
-    background: #e0e0e0;
-    border-radius: 4px;
-    margin: 10px 0;
-    overflow: hidden;
-}
-.progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #6c63ff, #8e7dff);
-    border-radius: 4px;
-    transition: width .3s;
-}
-
-@media (max-width: 500px) {
-    header h1 { font-size: 22px; }
-    .question { font-size: 19px; }
-    .big-letter { font-size: 72px; }
-    .option { font-size: 20px; padding: 14px 8px; }
-    .drag-item, .drop-zone { width: 90px; height: 90px; font-size: 34px; }
-    .match-item { font-size: 22px; padding: 14px; }
+.feedback { font-size:22px; font-weight:bold; margin-top:16px; min-height:32px; }
+.correct-text { color:#2e9d45; }
+.wrong-text { color:#e53935; }
+.result { text-align:center; }
+.result-stars { font-size:48px; color:#ffb300; margin:12px 0; }
+.result-score { font-size:32px; font-weight:bold; color:#5b50d6; margin:8px 0; }
+.hidden { display:none !important; }
+.token-box { background:#fff8e1; border:2px dashed #ffb300; border-radius:14px; padding:12px; margin-top:12px; font-size:14px; }
+.token-status { font-size:13px; margin-top:6px; font-weight:bold; }
+.token-ok { color:#2e7d32; }
+.token-fail { color:#c62828; }
+.demo-note { background:#fff3e0; border-radius:12px; padding:8px; margin-top:10px; font-size:13px; color:#e65100; font-weight:bold; }
+.progress-bar { height:8px; background:#e0e0e0; border-radius:4px; margin:10px 0; overflow:hidden; }
+.progress-fill { height:100%; background:linear-gradient(90deg,#6c63ff,#8e7dff); border-radius:4px; transition:width .3s; }
+@media (max-width:500px) {
+    header h1 { font-size:22px; }
+    .question { font-size:19px; }
+    .big-letter { font-size:72px; }
+    .big-letter.med { font-size:44px; }
+    .option { font-size:20px; padding:14px 8px; }
+    .drag-item, .drop-zone { width:84px; height:84px; font-size:32px; }
+    .match-item { font-size:22px; padding:14px; }
 }
 </style>
 </head>
@@ -277,32 +113,32 @@ input:focus, select:focus { border-color: #6c63ff; }
 
 <header>
     <h1>🌈 Jom Belajar!</h1>
-    <p>Rumi • Jawi • Nombor • Untuk kanak-kanak 3-5 tahun</p>
+    <p>Rumi • Jawi • Nombor • Gambar • Silang Kata</p>
 </header>
 
 <div class="container">
 
-    <!-- ========== TOKEN / ACTIVATION ========== -->
+    <!-- TOKEN -->
     <div id="tokenScreen" class="card start-screen">
         <div class="logo">🔑</div>
         <h2>Aktifkan Game</h2>
-        <p>Masukkan Token ID yang anda terima selepas pembelian.</p>
+        <p>Gunakan pautan unik dari emel anda, atau masukkan Token ID.</p>
         <label>Token ID</label>
         <input type="text" id="tokenInput" placeholder="Contoh: JBL-XXXX-XXXX" maxlength="40" autocomplete="off">
         <div class="token-box">
-            <div>💡 Gunakan <strong>pautan unik</strong> dari email anda.<br>
-            Status mesti <strong>Lulus</strong> dulu. Selepas aktif, terikat 1 peranti.</div>
+            <div>💡 Status mesti <strong>Lulus</strong> dulu. Selepas aktif, terikat pada 1 peranti & pelayar.</div>
             <div id="tokenStatus" class="token-status"></div>
         </div>
-        <button class="btn" onclick="activateToken()">✅ AKTIFKAN</button>
-        <button class="btn btn-secondary" style="margin-top:10px;" onclick="tryDemoMode()">🎮 CUBA DEMO (Tanpa Token)</button>
+        <button class="btn" id="activateBtn" onclick="activateToken()">✅ AKTIFKAN</button>
+        <button class="btn btn-secondary" style="margin-top:10px;" onclick="tryDemoMode()">🎮 CUBA DEMO (5 soalan)</button>
     </div>
 
-    <!-- ========== START SCREEN ========== -->
+    <!-- START -->
     <div id="startScreen" class="card start-screen hidden">
         <div class="logo">🧒📚</div>
         <h2>Selamat Datang!</h2>
-        <p>Mari belajar huruf Rumi, Jawi dan nombor sambil bermain 🎉</p>
+        <p>Mari belajar sambil bermain 🎉</p>
+        <div id="demoNote" class="demo-note hidden">Mod demo: 5 soalan sahaja. Beli untuk 1,500 soalan penuh!</div>
 
         <label>Nama Murid</label>
         <input type="text" id="studentName" placeholder="Contoh: Ali" maxlength="25">
@@ -316,12 +152,14 @@ input:focus, select:focus { border-color: #6c63ff; }
             <option value="20">20 minit</option>
         </select>
 
-        <label>Topik</label>
+        <label>Topik / Game</label>
         <select id="category">
             <option value="semua">🌈 Semua Topik</option>
             <option value="rumi">🔤 Huruf Rumi</option>
             <option value="jawi">🕌 Huruf Jawi</option>
             <option value="nombor">🔢 Nombor</option>
+            <option value="gambar">🖼️ Teka Gambar</option>
+            <option value="silang">🧩 Silang Kata</option>
         </select>
 
         <label>Jenis Soalan</label>
@@ -331,13 +169,15 @@ input:focus, select:focus { border-color: #6c63ff; }
             <option value="drag">Seret & Lepas</option>
             <option value="match">Padankan</option>
             <option value="fill">Isi Tempat Kosong</option>
+            <option value="spell">Susun Huruf</option>
+            <option value="cross">Silang Kata</option>
         </select>
 
         <button class="btn" onclick="startGame()">🚀 MULA BERMAIN</button>
         <button class="btn btn-secondary" style="margin-top:10px;background:linear-gradient(135deg,#ef5350,#e57373);" onclick="logoutToken()">🔓 Tukar Token</button>
     </div>
 
-    <!-- ========== GAME SCREEN ========== -->
+    <!-- GAME -->
     <div id="gameScreen" class="hidden">
         <div class="game-info">
             <div class="info-box">👧<br><span id="playerName">-</span></div>
@@ -345,7 +185,6 @@ input:focus, select:focus { border-color: #6c63ff; }
             <div class="info-box">⏱️<br><span id="timer">10:00</span></div>
         </div>
         <div class="progress-bar"><div id="progressFill" class="progress-fill" style="width:0%"></div></div>
-
         <div class="card question-card">
             <div class="question-number">Soalan <span id="questionNumber">1</span></div>
             <div id="questionArea" class="question"></div>
@@ -353,7 +192,7 @@ input:focus, select:focus { border-color: #6c63ff; }
         </div>
     </div>
 
-    <!-- ========== RESULT ========== -->
+    <!-- RESULT -->
     <div id="resultScreen" class="card result hidden">
         <div style="font-size:64px;">🏆</div>
         <h2>Tahniah!</h2>
@@ -371,923 +210,673 @@ input:focus, select:focus { border-color: #6c63ff; }
 
 <script>
 /* ============================================================
-   DATA ASAS - Disesuaikan untuk kanak-kanak umur 3-5 tahun
-   Fokus: kenal huruf besar, nombor 1-10, Jawi asas sahaja
+   DATA
 ============================================================ */
 const RUMI = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+const RUMI_LOWER = RUMI.map(c => c.toLowerCase());
 
-// Jawi asas sahaja (huruf yang biasa diajar awal untuk kanak-kanak kecil)
 const JAWI_MAP = [
-    { jawi: "ا", rumi: "A", nama: "Alif" },
-    { jawi: "ب", rumi: "B", nama: "Ba" },
-    { jawi: "ت", rumi: "T", nama: "Ta" },
-    { jawi: "ج", rumi: "J", nama: "Jim" },
-    { jawi: "د", rumi: "D", nama: "Dal" },
-    { jawi: "ر", rumi: "R", nama: "Ra" },
-    { jawi: "س", rumi: "S", nama: "Sin" },
-    { jawi: "ک", rumi: "K", nama: "Kaf" },
-    { jawi: "ل", rumi: "L", nama: "Lam" },
-    { jawi: "م", rumi: "M", nama: "Mim" },
-    { jawi: "ن", rumi: "N", nama: "Nun" },
-    { jawi: "و", rumi: "W", nama: "Wau" },
-    { jawi: "ه", rumi: "H", nama: "Ha" },
-    { jawi: "ي", rumi: "Y", nama: "Ya" },
-    { jawi: "ڤ", rumi: "P", nama: "Pa" },
-    { jawi: "چ", rumi: "C", nama: "Ca" },
-    { jawi: "ڬ", rumi: "G", nama: "Ga" },
-    { jawi: "ڠ", rumi: "Ng", nama: "Nga" },
-    { jawi: "ڽ", rumi: "Ny", nama: "Nya" }
+    { jawi:"ا", rumi:"A", nama:"Alif" }, { jawi:"ب", rumi:"B", nama:"Ba" },
+    { jawi:"ت", rumi:"T", nama:"Ta" },   { jawi:"ج", rumi:"J", nama:"Jim" },
+    { jawi:"د", rumi:"D", nama:"Dal" },  { jawi:"ر", rumi:"R", nama:"Ra" },
+    { jawi:"س", rumi:"S", nama:"Sin" },  { jawi:"ک", rumi:"K", nama:"Kaf" },
+    { jawi:"ل", rumi:"L", nama:"Lam" },  { jawi:"م", rumi:"M", nama:"Mim" },
+    { jawi:"ن", rumi:"N", nama:"Nun" },  { jawi:"و", rumi:"W", nama:"Wau" },
+    { jawi:"ه", rumi:"H", nama:"Ha" },   { jawi:"ي", rumi:"Y", nama:"Ya" },
+    { jawi:"ڤ", rumi:"P", nama:"Pa" },   { jawi:"چ", rumi:"C", nama:"Ca" },
+    { jawi:"ڬ", rumi:"G", nama:"Ga" },   { jawi:"ڠ", rumi:"Ng", nama:"Nga" },
+    { jawi:"ڽ", rumi:"Ny", nama:"Nya" }
 ];
 
-// Nombor utama untuk umur 3-5: 1 hingga 10 (kadang-kadang sampai 15)
-const NUMBERS = [1,2,3,4,5,6,7,8,9,10];
-const NUMBERS_EXT = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+const NUM_WORDS = ["sifar","satu","dua","tiga","empat","lima","enam","tujuh","lapan","sembilan","sepuluh"];
+const COUNT_EMOJI = ["🍎","⭐","🐱","🐶","🎈","🌸","🐟","🚗","🍓","🦋"];
+
+// [huruf, perkataan, emoji]
+const START_WORDS = [
+    ["A","Ayam","🐔"],["B","Bola","⚽"],["C","Cicak","🦎"],["D","Dolfin","🐬"],["E","Elang","🦅"],
+    ["F","Flamingo","🦩"],["G","Gajah","🐘"],["H","Harimau","🐯"],["I","Ikan","🐟"],["J","Jerung","🦈"],
+    ["K","Kucing","🐱"],["L","Lebah","🐝"],["M","Monyet","🐒"],["N","Nanas","🍍"],["O","Oren","🍊"],
+    ["P","Pisang","🍌"],["R","Rama-rama","🦋"],["S","Strawberi","🍓"],["T","Tikus","🐭"],["U","Ular","🐍"],
+    ["V","Violin","🎻"],["W","Wortel","🥕"],["Y","Yoyo","🪀"],["Z","Zirafah","🦒"]
+];
+
+// [PERKATAAN, emoji] - huruf A-Z sahaja
+const WORDS = [
+    ["AYAM","🐔"],["BOLA","⚽"],["KUCING","🐱"],["ANJING","🐶"],["IKAN","🐟"],["LEMBU","🐄"],["KUDA","🐴"],
+    ["ITIK","🦆"],["ULAR","🐍"],["GAJAH","🐘"],["LEBAH","🐝"],["BUNGA","🌸"],["POKOK","🌳"],["BULAN","🌙"],
+    ["BINTANG","⭐"],["API","🔥"],["AIR","💧"],["RUMAH","🏠"],["KERETA","🚗"],["BAS","🚌"],["KAPAL","🚢"],
+    ["ROKET","🚀"],["EPAL","🍎"],["PISANG","🍌"],["OREN","🍊"],["ANGGUR","🍇"],["NANAS","🍍"],["TIKUS","🐭"],
+    ["KATAK","🐸"],["BURUNG","🐦"],["BUAYA","🐊"],["PENYU","🐢"],["KETAM","🦀"],["UDANG","🦐"],["SOTONG","🦑"],
+    ["MONYET","🐒"],["HARIMAU","🐯"],["SINGA","🦁"],["ZIRAFAH","🦒"],["BUKU","📖"],["TOPI","🧢"],["KASUT","👟"],
+    ["JAM","⏰"],["PAYUNG","☂️"],["LAMPU","💡"],["KUNCI","🔑"],["TELUR","🥚"],["ROTI","🍞"],["NASI","🍚"],
+    ["SUSU","🥛"],["KEK","🍰"],["WORTEL","🥕"],["TIMUN","🥒"],["JAGUNG","🌽"],["HUJAN","🌧️"],["AWAN","☁️"],
+    ["PELANGI","🌈"],["BASIKAL","🚲"],["GITAR","🎸"],["DRUM","🥁"],["BALON","🎈"],["HADIAH","🎁"],["GIGI","🦷"],
+    ["TANGAN","✋"],["KAKI","🦶"],["HIDUNG","👃"],["LEMON","🍋"],["ANGSA","🦢"],["KELAWAR","🦇"],["LABAH","🕷️"],
+    ["DOLFIN","🐬"],["JERUNG","🦈"],["ELANG","🦅"],["BUNTUT","🐾"]
+];
 
 /* ============================================================
-   GENERATOR SOALAN - Sesuai umur 3-5 tahun
-   - Pilihan jawapan hanya 3 (lebih mudah)
-   - Fokus huruf besar & nombor 1-10
-   - Jawi asas sahaja
-   - Matching hanya 2 pasangan
-   - Bahasa soalan ringkas & mesra
+   GENERATOR SOALAN (~1500 soalan unik)
 ============================================================ */
+const rnd = n => Math.floor(Math.random() * n);
+const pick = arr => arr[rnd(arr.length)];
 function shuffle(arr) {
     const a = [...arr];
-    for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-    }
+    for (let i = a.length - 1; i > 0; i--) { const j = rnd(i + 1); [a[i], a[j]] = [a[j], a[i]]; }
     return a;
 }
+function pickWrong(correct, pool, count) {
+    const uniq = [...new Set(pool.map(String))].filter(x => x !== String(correct));
+    return shuffle(uniq).slice(0, count);
+}
+const keyOf = q => [q.type, q.question, q.display, q.answer,
+    (q.options || q.items || []).slice().sort().join(","),
+    (q.pairs || []).map(p => p.join("=")).sort().join(","),
+    q.cross ? JSON.stringify(q.cross) : ""].join("|");
 
-function pickWrong(correct, pool, count = 2) {
-    const wrongs = shuffle(pool.filter(x => String(x) !== String(correct))).slice(0, count);
-    while (wrongs.length < count) {
-        wrongs.push(pool[Math.floor(Math.random() * pool.length)]);
-    }
-    return wrongs;
+function sequenceQ(pool, label) {
+    const i = rnd(pool.length - 2);
+    const s = [pool[i], pool[i + 1], pool[i + 2]].map(String);
+    const b = rnd(3);
+    const txt = s.map((x, k) => k === b ? "___" : x).join("   ");
+    return { type:"fill", question:label + "\n" + txt, answer:s[b], numeric: /^\d+$/.test(s[0]) };
 }
 
-function generateQuestions(count = 500) {
-    const qs = [];
-    let id = 0;
-
-    // ========== 1. RUMI - Kenal huruf besar (paling penting untuk 3-5 thn) ==========
-    for (let i = 0; i < 100; i++) {
-        const letter = RUMI[i % 26];
-        const opts = shuffle([letter, ...pickWrong(letter, RUMI, 2)]);
-        qs.push({
-            id: id++, category: "rumi", type: "choice",
-            question: "Huruf apakah ini?",
-            display: letter,
-            options: opts,
-            answer: letter
-        });
+function genCross() {
+    const [hw, he] = pick(WORDS.filter(x => x[0].length >= 4 && x[0].length <= 6));
+    const idxs = shuffle([...Array(hw.length).keys()]);
+    const vs = [], used = new Set([hw]);
+    for (const i of idxs) {
+        if (vs.length >= 2) break;
+        if (vs.some(v => Math.abs(v.col - i) < 2)) continue;
+        const cands = shuffle(WORDS.filter(x => x[0].length >= 3 && x[0].length <= 6 && !used.has(x[0]) && x[0].includes(hw[i])));
+        if (!cands.length) continue;
+        const [vw, ve] = cands[0];
+        const ps = []; [...vw].forEach((c, k) => { if (c === hw[i]) ps.push(k); });
+        vs.push({ word:vw, emoji:ve, col:i, pos:pick(ps) });
+        used.add(vw);
     }
-
-    // ========== 2. RUMI - Drag huruf besar ==========
-    for (let i = 0; i < 50; i++) {
-        const letter = RUMI[i % 26];
-        qs.push({
-            id: id++, category: "rumi", type: "drag",
-            question: "Seret huruf " + letter + " ke kotak!",
-            drag: letter,
-            answer: letter
-        });
-    }
-
-    // ========== 3. RUMI - Isi tempat kosong (urutan mudah) ==========
-    for (let i = 0; i < 40; i++) {
-        const idx = i % 24;
-        qs.push({
-            id: id++, category: "rumi", type: "fill",
-            question: "Apakah huruf seterusnya?\n" + RUMI[idx] + "  " + RUMI[idx+1] + "  ___",
-            answer: RUMI[idx + 2]
-        });
-    }
-
-    // ========== 4. RUMI - Padankan huruf yang sama (2 pasangan sahaja) ==========
-    for (let i = 0; i < 40; i++) {
-        const a = RUMI[i % 24];
-        const b = RUMI[(i + 5) % 26];
-        qs.push({
-            id: id++, category: "rumi", type: "match",
-            question: "Padankan huruf yang sama",
-            pairs: [ [a, a], [b, b] ]
-        });
-    }
-
-    // ========== 5. JAWI - Kenal huruf Jawi asas (padanan Rumi) ==========
-    for (let i = 0; i < 80; i++) {
-        const item = JAWI_MAP[i % JAWI_MAP.length];
-        const wrongs = pickWrong(item.rumi, JAWI_MAP.map(j => j.rumi), 2);
-        const opts = shuffle([item.rumi, ...wrongs]);
-        qs.push({
-            id: id++, category: "jawi", type: "choice",
-            question: "Huruf Jawi ini sama dengan huruf?",
-            display: item.jawi,
-            options: opts,
-            answer: item.rumi
-        });
-    }
-
-    // ========== 6. JAWI - Kenal nama huruf (ringkas) ==========
-    for (let i = 0; i < 40; i++) {
-        const item = JAWI_MAP[i % JAWI_MAP.length];
-        const wrongs = pickWrong(item.nama, JAWI_MAP.map(j => j.nama), 2);
-        const opts = shuffle([item.nama, ...wrongs]);
-        qs.push({
-            id: id++, category: "jawi", type: "choice",
-            question: "Apakah nama huruf ini?",
-            display: item.jawi,
-            options: opts,
-            answer: item.nama
-        });
-    }
-
-    // ========== 7. JAWI - Drag ==========
-    for (let i = 0; i < 40; i++) {
-        const item = JAWI_MAP[i % JAWI_MAP.length];
-        qs.push({
-            id: id++, category: "jawi", type: "drag",
-            question: "Seret huruf " + item.nama + " ke kotak!",
-            drag: item.jawi,
-            answer: item.jawi
-        });
-    }
-
-    // ========== 8. JAWI - Padankan Jawi dengan Rumi (2 pasangan) ==========
-    for (let i = 0; i < 35; i++) {
-        const a = JAWI_MAP[i % JAWI_MAP.length];
-        const b = JAWI_MAP[(i + 4) % JAWI_MAP.length];
-        qs.push({
-            id: id++, category: "jawi", type: "match",
-            question: "Padankan huruf Jawi dengan Rumi",
-            pairs: [ [a.jawi, a.rumi], [b.jawi, b.rumi] ]
-        });
-    }
-
-    // ========== 9. NOMBOR - Kenal nombor 1-10 ==========
-    for (let i = 0; i < 70; i++) {
-        const n = NUMBERS[i % NUMBERS.length];
-        const opts = shuffle([String(n), ...pickWrong(String(n), NUMBERS.map(String), 2)]);
-        qs.push({
-            id: id++, category: "nombor", type: "choice",
-            question: "Nombor apakah ini?",
-            display: String(n),
-            options: opts,
-            answer: String(n)
-        });
-    }
-
-    // ========== 10. NOMBOR - Kira objek (paling sesuai umur 3-5) ==========
-    const emojiSets = ["🍎","⭐","🐱","🐶","🎈","🌸","🐟","🚗","🍓","🦋"];
-    for (let i = 0; i < 60; i++) {
-        const count = (i % 8) + 1; // 1 hingga 8 sahaja (mudah kira)
-        const emoji = emojiSets[i % emojiSets.length];
-        const display = emoji.repeat(count);
-        const opts = shuffle([String(count), ...pickWrong(String(count), ["1","2","3","4","5","6","7","8"], 2)]);
-        qs.push({
-            id: id++, category: "nombor", type: "choice",
-            question: "Berapa banyak?",
-            display: display,
-            options: opts,
-            answer: String(count)
-        });
-    }
-
-    // ========== 11. NOMBOR - Drag ==========
-    for (let i = 0; i < 40; i++) {
-        const n = NUMBERS[i % NUMBERS.length];
-        qs.push({
-            id: id++, category: "nombor", type: "drag",
-            question: "Seret nombor " + n + " ke kotak!",
-            drag: String(n),
-            answer: String(n)
-        });
-    }
-
-    // ========== 12. NOMBOR - Isi tempat kosong (urutan mudah) ==========
-    for (let i = 0; i < 35; i++) {
-        const n = (i % 8) + 1;
-        qs.push({
-            id: id++, category: "nombor", type: "fill",
-            question: "Apakah nombor seterusnya?\n" + n + "  " + (n+1) + "  ___",
-            answer: String(n + 2)
-        });
-    }
-
-    // ========== 13. NOMBOR - Padankan nombor sama (2 pasangan) ==========
-    for (let i = 0; i < 30; i++) {
-        const a = NUMBERS[i % 8];
-        const b = NUMBERS[(i + 3) % 10];
-        qs.push({
-            id: id++, category: "nombor", type: "match",
-            question: "Padankan nombor yang sama",
-            pairs: [ [String(a), String(a)], [String(b), String(b)] ]
-        });
-    }
-
-    return shuffle(qs).slice(0, count);
+    if (!vs.length) return null;
+    return { type:"cross", question:"Silang Kata: isi huruf yang hilang!", cross:{ h:{ word:hw, emoji:he }, vs } };
 }
 
-const ALL_QUESTIONS = generateQuestions(500);
-console.log("Jumlah soalan dijana (sesuai umur 3-5):", ALL_QUESTIONS.length);
+function generateQuestions() {
+    const qs = [], seen = new Set();
+    const add = (category, quota, gen) => {
+        let n = 0, t = 0;
+        while (n < quota && t < quota * 40) {
+            t++;
+            const q = gen();
+            if (!q) continue;
+            const k = category + "|" + keyOf(q);
+            if (seen.has(k)) continue;
+            seen.add(k);
+            q.category = category;
+            qs.push(q); n++;
+        }
+    };
+
+    // ---- RUMI (390)
+    add("rumi", 80, () => { const l = pick(RUMI);
+        return { type:"choice", question:"Huruf besar apakah ini?", display:l, options:shuffle([l, ...pickWrong(l, RUMI, 2)]), answer:l }; });
+    add("rumi", 60, () => { const l = pick(RUMI_LOWER);
+        return { type:"choice", question:"Huruf kecil apakah ini?", display:l, options:shuffle([l, ...pickWrong(l, RUMI_LOWER, 2)]), answer:l }; });
+    add("rumi", 50, () => { const [a, b] = shuffle(RUMI).slice(0, 2);
+        return { type:"match", question:"Padankan huruf besar dan kecil", pairs:[[a, a.toLowerCase()], [b, b.toLowerCase()]] }; });
+    add("rumi", 80, () => { const [L, w, e] = pick(START_WORDS);
+        return { type:"choice", question:w + " bermula dengan huruf apa?", display:e, options:shuffle([L, ...pickWrong(L, RUMI, 2)]), answer:L }; });
+    add("rumi", 60, () => { const l = pick(RUMI);
+        return { type:"drag", question:"Seret huruf " + l + " ke kotak!", items:shuffle([l, ...pickWrong(l, RUMI, 2)]), answer:l }; });
+    add("rumi", 60, () => sequenceQ(RUMI, "Huruf apa yang hilang?"));
+
+    // ---- JAWI (330)
+    const JR = JAWI_MAP.map(j => j.rumi), JN = JAWI_MAP.map(j => j.nama), JJ = JAWI_MAP.map(j => j.jawi);
+    add("jawi", 80, () => { const j = pick(JAWI_MAP);
+        return { type:"choice", question:"Huruf Jawi ini sama dengan huruf?", display:j.jawi, options:shuffle([j.rumi, ...pickWrong(j.rumi, JR, 2)]), answer:j.rumi }; });
+    add("jawi", 60, () => { const j = pick(JAWI_MAP);
+        return { type:"choice", question:"Apakah nama huruf ini?", display:j.jawi, options:shuffle([j.nama, ...pickWrong(j.nama, JN, 2)]), answer:j.nama }; });
+    add("jawi", 70, () => { const j = pick(JAWI_MAP);
+        return { type:"choice", question:"Mana huruf Jawi untuk huruf " + j.rumi + "?", display:j.rumi, options:shuffle([j.jawi, ...pickWrong(j.jawi, JJ, 2)]), answer:j.jawi }; });
+    add("jawi", 50, () => { const j = pick(JAWI_MAP);
+        return { type:"drag", question:"Seret huruf " + j.nama + " ke kotak!", items:shuffle([j.jawi, ...pickWrong(j.jawi, JJ, 2)]), answer:j.jawi }; });
+    add("jawi", 70, () => { const s = shuffle(JAWI_MAP).slice(0, 2 + rnd(2));
+        return { type:"match", question:"Padankan huruf Jawi dengan Rumi", pairs:s.map(j => [j.jawi, j.rumi]) }; });
+
+    // ---- NOMBOR (450)
+    const N20 = Array.from({ length:20 }, (_, i) => String(i + 1));
+    const N10 = N20.slice(0, 10), N0_9 = ["0", ...N20.slice(0, 9)];
+    add("nombor", 60, () => { const n = pick(N20);
+        return { type:"choice", question:"Nombor apakah ini?", display:n, options:shuffle([n, ...pickWrong(n, N20, 2)]), answer:n }; });
+    add("nombor", 80, () => { const c = 1 + rnd(10), e = pick(COUNT_EMOJI);
+        return { type:"choice", question:"Berapa banyak?", display:e.repeat(c), options:shuffle([String(c), ...pickWrong(c, N10, 2)]), answer:String(c) }; });
+    add("nombor", 80, () => { const a = 1 + rnd(5), b = 1 + rnd(5), e = pick(COUNT_EMOJI);
+        const useE = Math.random() < .5 && a + b <= 6;
+        const d = useE ? e.repeat(a) + " + " + e.repeat(b) : a + " + " + b;
+        return { type:"choice", question:"Berapa jumlahnya?", display:d, options:shuffle([String(a + b), ...pickWrong(a + b, N10, 2)]), answer:String(a + b) }; });
+    add("nombor", 60, () => { const a = 2 + rnd(8), b = 1 + rnd(a - 1);
+        return { type:"choice", question:"Berapa bakinya?", display:a + " − " + b, options:shuffle([String(a - b), ...pickWrong(a - b, N0_9, 2)]), answer:String(a - b) }; });
+    add("nombor", 50, () => sequenceQ(Array.from({ length:20 }, (_, i) => i + 1), "Nombor apa yang hilang?"));
+    add("nombor", 40, () => { const n = pick(N10);
+        return { type:"drag", question:"Seret nombor " + n + " ke kotak!", items:shuffle([n, ...pickWrong(n, N10, 2)]), answer:n }; });
+    add("nombor", 40, () => { const s = shuffle(N10.map(Number)).slice(0, 2 + rnd(2));
+        return { type:"match", question:"Padankan nombor dengan perkataan", pairs:s.map(n => [String(n), NUM_WORDS[n]]) }; });
+    add("nombor", 40, () => { const [a, b] = shuffle(N20).slice(0, 2);
+        return { type:"choice", question:"Mana nombor yang lebih besar?", display:"🤔", options:[a, b], answer:String(Math.max(+a, +b)) }; });
+
+    // ---- TEKA GAMBAR (250)
+    const WN = WORDS.map(w => w[0]);
+    add("gambar", 180, () => { const [w, e] = pick(WORDS);
+        return { type:"choice", question:"Gambar apakah ini?", display:e, options:shuffle([w, ...pickWrong(w, WN, 2)]), answer:w }; });
+    add("gambar", 70, () => { const [w, e] = pick(WORDS.filter(x => x[0].length <= 7));
+        return { type:"spell", question:"Susun huruf untuk namakan gambar!", display:e, answer:w }; });
+
+    // ---- SILANG KATA (100)
+    add("silang", 100, genCross);
+
+    return shuffle(qs);
+}
+const ALL_QUESTIONS = generateQuestions();
+console.log("Jumlah soalan:", ALL_QUESTIONS.length);
 
 /* ============================================================
-   TOKEN + LINK ID + DEVICE LOCK + KELULUSAN ADMIN
-   - Semak status dari Google Sheet (Lulus / Dalam Proses / Banned)
-   - Link + Token mesti sepadan
-   - Selepas Lulus & aktif, terikat pada 1 peranti
+   TOKEN + DEVICE LOCK
 ============================================================ */
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzvU1sok6V2OWFrwomgtTxAm3O5mAaDxqjwzF_UoV41M1qLM7uyai_73pLkUqz_2Z3A/exec";
-const TOKEN_KEY = "jomBelajar_token";
-const LINK_ID_KEY = "jomBelajar_linkId";
-const DEVICE_ID_KEY = "jomBelajar_deviceId";
-const ACTIVATED_KEY = "jomBelajar_activated";
+const TOKEN_KEY = "jomBelajar_token", LINK_ID_KEY = "jomBelajar_linkId",
+      DEVICE_ID_KEY = "jomBelajar_deviceId", ACTIVATED_KEY = "jomBelajar_activated";
+const DEMO_TOKEN = "JBL-DEMO-0000";
+const $ = id => document.getElementById(id);
 
 function generateDeviceId() {
     const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
     let id = "";
-    for (let i = 0; i < 24; i++) id += chars[Math.floor(Math.random() * chars.length)];
+    for (let i = 0; i < 24; i++) id += chars[rnd(chars.length)];
     return id;
 }
-
 function getUrlParams() {
     const p = new URLSearchParams(window.location.search);
-    return {
-        linkId: (p.get("id") || "").trim(),
-        token: (p.get("token") || "").trim().toUpperCase()
-    };
+    return { linkId:(p.get("id") || "").trim(), token:(p.get("token") || "").trim().toUpperCase() };
 }
-
-function isValidTokenFormat(token) {
-    return /^JBL-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(token);
-}
-
-function isValidLinkId(id) {
-    return id && id.length >= 16;
-}
-
+const isValidTokenFormat = t => /^JBL-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(t);
+const isValidLinkId = id => id && id.length >= 16;
+const isDemo = () => localStorage.getItem(TOKEN_KEY) === DEMO_TOKEN;
 function isActivatedLocally() {
-    return localStorage.getItem(ACTIVATED_KEY) === "1"
-        && localStorage.getItem(TOKEN_KEY)
-        && localStorage.getItem(LINK_ID_KEY)
-        && localStorage.getItem(DEVICE_ID_KEY);
+    return localStorage.getItem(ACTIVATED_KEY) === "1" && localStorage.getItem(TOKEN_KEY) && localStorage.getItem(LINK_ID_KEY);
 }
-
-/** Dapat atau jana Device ID (stabil untuk peranti ini) */
 function getOrCreateDeviceId() {
     let id = localStorage.getItem(DEVICE_ID_KEY);
-    if (!id) {
-        id = generateDeviceId();
-        localStorage.setItem(DEVICE_ID_KEY, id);
-    }
+    if (!id) { id = generateDeviceId(); localStorage.setItem(DEVICE_ID_KEY, id); }
     return id;
 }
-
-/** Semak status + device lock dengan server (Google Sheet) */
 async function verifyWithServer(linkId, token) {
     try {
-        const deviceId = getOrCreateDeviceId();
-        const url = APPS_SCRIPT_URL
-            + "?action=verify"
-            + "&id=" + encodeURIComponent(linkId)
-            + "&token=" + encodeURIComponent(token)
-            + "&deviceId=" + encodeURIComponent(deviceId);
+        const url = APPS_SCRIPT_URL + "?action=verify&id=" + encodeURIComponent(linkId)
+            + "&token=" + encodeURIComponent(token) + "&deviceId=" + encodeURIComponent(getOrCreateDeviceId());
         const res = await fetch(url);
-        const data = await res.json();
-        return data;
+        return await res.json();
     } catch (err) {
-        console.error("Verify error:", err);
-        return { success: false, status: "Error", message: "Gagal berhubung dengan server. Cuba lagi." };
+        return { success:false, status:"Error", message:"Gagal berhubung dengan server. Cuba lagi." };
     }
 }
-
 function saveLocalActivation(linkId, token) {
     localStorage.setItem(TOKEN_KEY, token);
     localStorage.setItem(LINK_ID_KEY, linkId);
-    if (!localStorage.getItem(DEVICE_ID_KEY)) {
-        localStorage.setItem(DEVICE_ID_KEY, generateDeviceId());
-    }
+    getOrCreateDeviceId();
     localStorage.setItem(ACTIVATED_KEY, "1");
 }
-
-function showTokenMessage(msg, isOk) {
-    const status = document.getElementById("tokenStatus");
-    if (!status) return;
-    status.textContent = (isOk ? "✅ " : "❌ ") + msg;
-    status.className = "token-status " + (isOk ? "token-ok" : "token-fail");
+/* Device ID sengaja TIDAK dipadam, supaya "Tukar Token" tak buat peranti ini nampak sebagai peranti baru */
+function clearActivation() {
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(LINK_ID_KEY);
+    localStorage.removeItem(ACTIVATED_KEY);
 }
-
-async function activateToken() {
-    const inputToken = document.getElementById("tokenInput").value.trim().toUpperCase();
-    const urlParams = getUrlParams();
-    const linkId = urlParams.linkId || "";
-    const token = urlParams.token || inputToken;
-
-    if (!token) {
-        showTokenMessage("Sila masukkan Token ID atau gunakan pautan dari email.", false);
-        return;
-    }
-    if (!linkId) {
-        showTokenMessage("Sila gunakan pautan unik dari email (ada ?id=...).", false);
-        return;
-    }
-    if (!isValidTokenFormat(token) || !isValidLinkId(linkId)) {
-        showTokenMessage("Format Link / Token tidak sah.", false);
-        return;
-    }
-
-    // Semak device lock tempatan dulu
-    const savedLink = localStorage.getItem(LINK_ID_KEY);
-    const savedToken = localStorage.getItem(TOKEN_KEY);
-    const savedDevice = localStorage.getItem(DEVICE_ID_KEY);
-
-    if (savedLink && savedToken && savedDevice) {
-        if (savedLink !== linkId || savedToken !== token) {
-            showTokenMessage("Peranti ini sudah diaktifkan dengan akaun lain.", false);
-            return;
-        }
-    }
-
-    showTokenMessage("Sedang menyemak kelulusan...", true);
-    const btn = document.querySelector("#tokenScreen .btn");
-    if (btn) btn.disabled = true;
-
-    const result = await verifyWithServer(linkId, token);
-
-    if (btn) btn.disabled = false;
-
+function showTokenMessage(msg, ok) {
+    const s = $("tokenStatus");
+    s.textContent = (ok ? "✅ " : "❌ ") + msg;
+    s.className = "token-status " + (ok ? "token-ok" : "token-fail");
+}
+function handleVerifyResult(result, linkId, token) {
     if (result.success && result.status === "Lulus") {
         saveLocalActivation(linkId, token);
         showTokenMessage("Diluluskan! Selamat datang.", true);
         setTimeout(showStartScreen, 700);
         return;
     }
-
-    if (result.status === "Dalam Proses") {
-        showTokenMessage("⏳ " + (result.message || "Menunggu kelulusan admin. Sila cuba lagi kemudian."), false);
+    const icons = { "Dalam Proses":"⏳ ", "Banned":"🚫 ", "DeviceLocked":"🔒 " };
+    if (icons[result.status]) {
+        showTokenMessage(icons[result.status] + (result.message || ""), false);
+        if (result.status !== "Dalam Proses") clearActivation();
         return;
     }
-
-    if (result.status === "Banned") {
-        showTokenMessage("🚫 " + (result.message || "Akses digantung."), false);
-        localStorage.removeItem(ACTIVATED_KEY);
-        return;
-    }
-
-    if (result.status === "DeviceLocked") {
-        showTokenMessage("🔒 " + (result.message || "Token sudah aktif pada peranti lain."), false);
-        localStorage.removeItem(ACTIVATED_KEY);
-        return;
-    }
-
     showTokenMessage(result.message || "Token / Link tidak sah.", false);
 }
 
+async function activateToken() {
+    const inputToken = $("tokenInput").value.trim().toUpperCase();
+    const p = getUrlParams();
+    const linkId = p.linkId, token = p.token || inputToken;
+
+    if (!token) return showTokenMessage("Sila masukkan Token ID atau guna pautan dari emel.", false);
+    if (!linkId) return showTokenMessage("Sila guna pautan unik dari emel (ada ?id=...).", false);
+    if (!isValidTokenFormat(token) || !isValidLinkId(linkId)) return showTokenMessage("Format Link / Token tidak sah.", false);
+
+    const sl = localStorage.getItem(LINK_ID_KEY), st = localStorage.getItem(TOKEN_KEY);
+    if (sl && st && !isDemo() && (sl !== linkId || st !== token)) {
+        return showTokenMessage("Peranti ini sudah diaktifkan dengan akaun lain.", false);
+    }
+
+    showTokenMessage("Sedang menyemak kelulusan...", true);
+    $("activateBtn").disabled = true;
+    const result = await verifyWithServer(linkId, token);
+    $("activateBtn").disabled = false;
+    handleVerifyResult(result, linkId, token);
+}
+
 function tryDemoMode() {
-    localStorage.setItem(TOKEN_KEY, "JBL-DEMO-0000");
+    localStorage.setItem(TOKEN_KEY, DEMO_TOKEN);
     localStorage.setItem(LINK_ID_KEY, "demo" + "x".repeat(28));
-    localStorage.setItem(DEVICE_ID_KEY, generateDeviceId());
     localStorage.setItem(ACTIVATED_KEY, "1");
     showStartScreen();
 }
-
 function logoutToken() {
-    localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(LINK_ID_KEY);
-    localStorage.removeItem(DEVICE_ID_KEY);
-    localStorage.removeItem(ACTIVATED_KEY);
-    const ti = document.getElementById("tokenInput");
-    if (ti) ti.value = "";
-    const status = document.getElementById("tokenStatus");
-    if (status) status.textContent = "";
-    document.getElementById("startScreen").classList.add("hidden");
-    document.getElementById("tokenScreen").classList.remove("hidden");
-    if (window.history.replaceState) {
-        window.history.replaceState({}, document.title, window.location.pathname);
-    }
+    clearActivation();
+    $("tokenInput").value = "";
+    $("tokenStatus").textContent = "";
+    $("startScreen").classList.add("hidden");
+    $("tokenScreen").classList.remove("hidden");
+    if (history.replaceState) history.replaceState({}, document.title, location.pathname);
 }
-
 function showStartScreen() {
-    document.getElementById("tokenScreen").classList.add("hidden");
-    document.getElementById("startScreen").classList.remove("hidden");
-    document.getElementById("gameScreen").classList.add("hidden");
-    document.getElementById("resultScreen").classList.add("hidden");
-}
-
-function isActivated() {
-    return isActivatedLocally();
+    $("tokenScreen").classList.add("hidden");
+    $("startScreen").classList.remove("hidden");
+    $("gameScreen").classList.add("hidden");
+    $("resultScreen").classList.add("hidden");
+    $("demoNote").classList.toggle("hidden", !isDemo());
 }
 
 /* ============================================================
    GAME STATE
 ============================================================ */
-let currentQuestions = [];
-let currentIndex = 0;
-let score = 0;
-let correctAnswers = 0;
-let totalAnswered = 0;
-let totalSeconds = 600;
-let timerInterval = null;
-let selectedMatch = null;
-let matchCorrectCount = 0;
-let matchTotalPairs = 0;
+let currentQuestions = [], currentIndex = 0, score = 0, correctAnswers = 0, totalAnswered = 0;
+let totalSeconds = 600, timerInterval = null, selectedMatch = null, matchCorrectCount = 0, matchTotalPairs = 0;
 let isAnswering = false;
 
-/* ============================================================
-   START GAME
-============================================================ */
 function startGame() {
-    const name = document.getElementById("studentName").value.trim();
-    if (!name) {
-        alert("Sila masukkan nama murid 😊");
-        return;
-    }
-
-    const time = Number(document.getElementById("gameTime").value);
-    const category = document.getElementById("category").value;
-    const qType = document.getElementById("qType").value;
-
-    document.getElementById("playerName").textContent = name;
-    totalSeconds = time * 60;
+    const name = $("studentName").value.trim();
+    if (!name) { alert("Sila masukkan nama murid 😊"); return; }
+    totalSeconds = Number($("gameTime").value) * 60;
+    const category = $("category").value, qType = $("qType").value;
 
     let pool = [...ALL_QUESTIONS];
     if (category !== "semua") pool = pool.filter(q => q.category === category);
     if (qType !== "semua") pool = pool.filter(q => q.type === qType);
-
-    if (pool.length === 0) {
-        alert("Tiada soalan untuk pilihan ini. Cuba pilih 'Semua'.");
-        return;
-    }
+    if (!pool.length) { alert("Tiada soalan untuk pilihan ini. Cuba pilih 'Semua'."); return; }
 
     currentQuestions = shuffle(pool);
-    currentIndex = 0;
-    score = 0;
-    correctAnswers = 0;
-    totalAnswered = 0;
-    isAnswering = false;
+    if (isDemo()) currentQuestions = currentQuestions.slice(0, 5);
 
-    document.getElementById("score").textContent = "0";
-    document.getElementById("startScreen").classList.add("hidden");
-    document.getElementById("resultScreen").classList.add("hidden");
-    document.getElementById("gameScreen").classList.remove("hidden");
-
+    $("playerName").textContent = name;
+    currentIndex = 0; score = 0; correctAnswers = 0; totalAnswered = 0; isAnswering = false;
+    $("score").textContent = "0";
+    $("startScreen").classList.add("hidden");
+    $("resultScreen").classList.add("hidden");
+    $("gameScreen").classList.remove("hidden");
     startTimer();
     showQuestion();
 }
 
-/* ============================================================
-   TIMER
-============================================================ */
 function startTimer() {
     clearInterval(timerInterval);
     updateTimer();
     timerInterval = setInterval(() => {
         totalSeconds--;
         updateTimer();
-        if (totalSeconds <= 0) {
-            clearInterval(timerInterval);
-            finishGame();
-        }
+        if (totalSeconds <= 0) { clearInterval(timerInterval); finishGame(); }
     }, 1000);
 }
-
 function updateTimer() {
-    const m = Math.floor(totalSeconds / 60);
-    const s = totalSeconds % 60;
-    document.getElementById("timer").textContent =
-        String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
+    const m = Math.floor(totalSeconds / 60), s = totalSeconds % 60;
+    $("timer").textContent = String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
 }
 
-/* ============================================================
-   SHOW QUESTION
-============================================================ */
 function showQuestion() {
-    if (currentIndex >= currentQuestions.length) {
-        finishGame();
-        return;
-    }
-
+    if (currentIndex >= currentQuestions.length) return finishGame();
     isAnswering = false;
     const q = currentQuestions[currentIndex];
-    document.getElementById("questionNumber").textContent = currentIndex + 1;
-    document.getElementById("feedback").textContent = "";
-    document.getElementById("feedback").className = "feedback";
-
-    const pct = Math.min(100, (currentIndex / Math.max(1, currentQuestions.length)) * 100);
-    document.getElementById("progressFill").style.width = pct + "%";
-
-    const area = document.getElementById("questionArea");
+    $("questionNumber").textContent = currentIndex + 1;
+    $("feedback").textContent = "";
+    $("feedback").className = "feedback";
+    $("progressFill").style.width = Math.min(100, currentIndex / currentQuestions.length * 100) + "%";
+    const area = $("questionArea");
     area.innerHTML = "";
-
-    if (q.type === "choice") showChoice(q, area);
-    else if (q.type === "fill") showFill(q, area);
-    else if (q.type === "drag") showDrag(q, area);
-    else if (q.type === "match") showMatch(q, area);
+    ({ choice:showChoice, fill:showFill, drag:showDrag, match:showMatch, spell:showSpell, cross:showCross })[q.type](q, area);
 }
 
-/* ============================================================
-   CHOICE
-============================================================ */
+/* ---------- CHOICE ---------- */
 function showChoice(q, area) {
+    const med = [...q.display].length > 2;
     area.innerHTML = `
         <div>${escapeHTML(q.question)}</div>
-        <div class="big-letter">${escapeHTML(q.display)}</div>
+        <div class="big-letter${med ? " med" : ""}">${escapeHTML(q.display)}</div>
         <div class="options">
-            ${q.options.map(opt => `
-                <button class="option" data-value="${escapeHTML(opt)}">${escapeHTML(opt)}</button>
-            `).join("")}
-        </div>
-    `;
-    area.querySelectorAll(".option").forEach(btn => {
-        btn.addEventListener("click", () => {
-            if (isAnswering) return;
-            answerChoice(btn, btn.dataset.value, q.answer);
-        });
-    });
+            ${q.options.map(o => `<button class="option" style="font-size:${o.length > 5 ? 20 : 26}px" data-value="${escapeHTML(o)}">${escapeHTML(o)}</button>`).join("")}
+        </div>`;
+    area.querySelectorAll(".option").forEach(btn => btn.addEventListener("click", () => {
+        if (isAnswering) return;
+        isAnswering = true;
+        const all = area.querySelectorAll(".option");
+        all.forEach(b => b.disabled = true);
+        if (btn.dataset.value === q.answer) { btn.classList.add("correct"); correct(); }
+        else {
+            btn.classList.add("wrong");
+            all.forEach(b => { if (b.dataset.value === q.answer) b.classList.add("correct"); });
+            wrong("😊 Tak apa! Jawapan: " + q.answer);
+        }
+        nextQuestion(btn.dataset.value === q.answer ? 1100 : 1900);
+    }));
 }
 
-function answerChoice(button, value, answer) {
-    isAnswering = true;
-    const buttons = document.querySelectorAll(".option");
-    buttons.forEach(b => b.disabled = true);
-
-    if (value === answer) {
-        button.classList.add("correct");
-        correct();
-    } else {
-        button.classList.add("wrong");
-        // Highlight correct one
-        buttons.forEach(b => {
-            if (b.dataset.value === answer) b.classList.add("correct");
-        });
-        wrong();
-    }
-    nextQuestion();
-}
-
-/* ============================================================
-   FILL
-============================================================ */
+/* ---------- FILL ---------- */
 function showFill(q, area) {
     area.innerHTML = `
         <div>${escapeHTML(q.question)}</div>
-        <input id="fillAnswer" class="fill-input" type="text" placeholder="?" maxlength="5" autocomplete="off">
-        <button class="btn" id="fillBtn" style="max-width:220px;margin:12px auto 0;">✓ JAWAB</button>
-    `;
-    const input = document.getElementById("fillAnswer");
-    const btn = document.getElementById("fillBtn");
+        <input id="fillAnswer" class="fill-input" type="text" placeholder="?" maxlength="5" autocomplete="off" ${q.numeric ? 'inputmode="numeric"' : ""}>
+        <button class="btn" id="fillBtn" style="max-width:220px;margin:12px auto 0;">✓ JAWAB</button>`;
+    const input = $("fillAnswer");
     input.focus();
-    btn.onclick = () => checkFill(q.answer);
-    input.onkeydown = (e) => { if (e.key === "Enter") checkFill(q.answer); };
+    const check = () => {
+        if (isAnswering) return;
+        isAnswering = true;
+        input.disabled = true; $("fillBtn").disabled = true;
+        if (input.value.trim().toUpperCase() === String(q.answer).toUpperCase()) { correct(); nextQuestion(1100); }
+        else { wrong("😊 Tak apa! Jawapan: " + q.answer); nextQuestion(1900); }
+    };
+    $("fillBtn").onclick = check;
+    input.onkeydown = e => { if (e.key === "Enter") check(); };
 }
 
-function checkFill(answer) {
-    if (isAnswering) return;
-    isAnswering = true;
-    const input = document.getElementById("fillAnswer");
-    const value = input.value.trim().toUpperCase();
-    input.disabled = true;
-    document.getElementById("fillBtn").disabled = true;
-
-    if (value === String(answer).toUpperCase()) {
-        correct();
-    } else {
-        wrong();
-        document.getElementById("feedback").textContent += " (Jawapan: " + answer + ")";
-    }
-    nextQuestion();
+/* ---------- DRAG (pointer events: mouse + touch, tiada listener bocor) ---------- */
+function insideEl(e, el) {
+    const r = el.getBoundingClientRect();
+    return e.clientX >= r.left - 10 && e.clientX <= r.right + 10 && e.clientY >= r.top - 10 && e.clientY <= r.bottom + 10;
 }
-
-/* ============================================================
-   DRAG (sokongan mouse + touch)
-============================================================ */
 function showDrag(q, area) {
     area.innerHTML = `
         <div>${escapeHTML(q.question)}</div>
         <div class="drag-area">
-            <div class="drag-item" id="dragItem">${escapeHTML(q.drag)}</div>
+            <div class="drag-row">${q.items.map(i => `<div class="drag-item" data-v="${escapeHTML(i)}">${escapeHTML(i)}</div>`).join("")}</div>
             <div class="drop-zone" id="dropZone">🎯</div>
-        </div>
-    `;
-
-    const drag = document.getElementById("dragItem");
-    const drop = document.getElementById("dropZone");
-    let isDragging = false;
-    let offsetX = 0, offsetY = 0;
-    let startLeft = 0, startTop = 0;
-
-    function onStart(clientX, clientY) {
-        if (isAnswering) return;
-        isDragging = true;
-        drag.classList.add("dragging");
-        const rect = drag.getBoundingClientRect();
-        offsetX = clientX - rect.left;
-        offsetY = clientY - rect.top;
-        startLeft = rect.left;
-        startTop = rect.top;
-        drag.style.position = "fixed";
-        drag.style.left = rect.left + "px";
-        drag.style.top = rect.top + "px";
-        drag.style.zIndex = "1000";
-        drag.style.margin = "0";
-    }
-
-    function onMove(clientX, clientY) {
-        if (!isDragging) return;
-        drag.style.left = (clientX - offsetX) + "px";
-        drag.style.top = (clientY - offsetY) + "px";
-        const dropRect = drop.getBoundingClientRect();
-        const dragRect = drag.getBoundingClientRect();
-        const overlap = !(dragRect.right < dropRect.left || dragRect.left > dropRect.right ||
-                         dragRect.bottom < dropRect.top || dragRect.top > dropRect.bottom);
-        if (overlap) drop.classList.add("over");
-        else drop.classList.remove("over");
-    }
-
-    function onEnd() {
-        if (!isDragging) return;
-        isDragging = false;
-        drag.classList.remove("dragging");
-        drop.classList.remove("over");
-
-        const dropRect = drop.getBoundingClientRect();
-        const dragRect = drag.getBoundingClientRect();
-        const overlap = !(dragRect.right < dropRect.left || dragRect.left > dropRect.right ||
-                         dragRect.bottom < dropRect.top || dragRect.top > dropRect.bottom);
-
-        if (overlap) {
-            isAnswering = true;
-            drop.textContent = q.drag;
-            drop.classList.add("filled");
-            drag.style.display = "none";
-            correct();
-            nextQuestion();
-        } else {
-            // Snap back
-            drag.style.position = "";
-            drag.style.left = "";
-            drag.style.top = "";
-            drag.style.zIndex = "";
-        }
-    }
-
-    // Mouse
-    drag.addEventListener("mousedown", e => {
-        e.preventDefault();
-        onStart(e.clientX, e.clientY);
+        </div>`;
+    const drop = $("dropZone");
+    area.querySelectorAll(".drag-item").forEach(el => {
+        let sx = 0, sy = 0, on = false;
+        el.addEventListener("pointerdown", e => {
+            if (isAnswering) return;
+            on = true; sx = e.clientX; sy = e.clientY;
+            el.setPointerCapture(e.pointerId);
+            el.classList.add("dragging");
+            el.style.transition = "none";
+            e.preventDefault();
+        });
+        el.addEventListener("pointermove", e => {
+            if (!on) return;
+            el.style.transform = `translate(${e.clientX - sx}px,${e.clientY - sy}px) scale(1.1)`;
+            drop.classList.toggle("over", insideEl(e, drop));
+        });
+        const end = e => {
+            if (!on) return;
+            on = false;
+            el.classList.remove("dragging");
+            drop.classList.remove("over");
+            if (e.type === "pointerup" && insideEl(e, drop)) {
+                if (el.dataset.v === q.answer) {
+                    isAnswering = true;
+                    drop.textContent = q.answer;
+                    drop.classList.add("filled");
+                    el.style.display = "none";
+                    correct(); nextQuestion(1100);
+                    return;
+                }
+                tryAgain("🙂 Bukan yang ini, cuba lagi!");
+            }
+            el.style.transition = "transform .25s";
+            el.style.transform = "";
+        };
+        el.addEventListener("pointerup", end);
+        el.addEventListener("pointercancel", end);
     });
-    document.addEventListener("mousemove", e => onMove(e.clientX, e.clientY));
-    document.addEventListener("mouseup", onEnd);
-
-    // Touch
-    drag.addEventListener("touchstart", e => {
-        e.preventDefault();
-        const t = e.touches[0];
-        onStart(t.clientX, t.clientY);
-    }, { passive: false });
-    document.addEventListener("touchmove", e => {
-        if (!isDragging) return;
-        e.preventDefault();
-        const t = e.touches[0];
-        onMove(t.clientX, t.clientY);
-    }, { passive: false });
-    document.addEventListener("touchend", onEnd);
 }
 
-/* ============================================================
-   MATCH
-============================================================ */
+/* ---------- MATCH ---------- */
 function showMatch(q, area) {
-    const pairs = shuffle([...q.pairs]);
-    const left = pairs.map(p => p[0]);
-    const right = shuffle(pairs.map(p => p[1]));
-
+    const left = shuffle(q.pairs.map(p => p[0]));
+    const right = shuffle(q.pairs.map(p => p[1]));
     area.innerHTML = `
         <div>${escapeHTML(q.question)}</div>
         <div class="match-grid">
-            <div class="match-column">
-                ${left.map(item => `<div class="match-item" data-side="left" data-value="${escapeHTML(item)}">${escapeHTML(item)}</div>`).join("")}
-            </div>
-            <div class="match-column">
-                ${right.map(item => `<div class="match-item" data-side="right" data-value="${escapeHTML(item)}">${escapeHTML(item)}</div>`).join("")}
-            </div>
-        </div>
-    `;
-
+            <div class="match-column">${left.map(i => `<div class="match-item" data-side="left" data-value="${escapeHTML(i)}">${escapeHTML(i)}</div>`).join("")}</div>
+            <div class="match-column">${right.map(i => `<div class="match-item" data-side="right" data-value="${escapeHTML(i)}">${escapeHTML(i)}</div>`).join("")}</div>
+        </div>`;
+    selectedMatch = null; matchCorrectCount = 0; matchTotalPairs = q.pairs.length;
+    area.querySelectorAll(".match-item").forEach(el => el.addEventListener("click", () => selectMatch(el, q.pairs)));
+}
+function selectMatch(el, pairs) {
+    if (isAnswering || el.classList.contains("matched")) return;
+    if (!selectedMatch) { selectedMatch = el; el.classList.add("selected"); return; }
+    if (selectedMatch.dataset.side === el.dataset.side) {
+        selectedMatch.classList.remove("selected");
+        selectedMatch = el; el.classList.add("selected");
+        return;
+    }
+    const a = selectedMatch.dataset.value, b = el.dataset.value;
+    const ok = pairs.some(p => (String(p[0]) === a && String(p[1]) === b) || (String(p[0]) === b && String(p[1]) === a));
+    const prev = selectedMatch;
     selectedMatch = null;
-    matchCorrectCount = 0;
-    matchTotalPairs = q.pairs.length;
-
-    area.querySelectorAll(".match-item").forEach(el => {
-        el.addEventListener("click", () => selectMatch(el, q.pairs));
-    });
+    prev.classList.remove("selected");
+    if (ok) {
+        prev.classList.add("matched"); el.classList.add("matched");
+        if (++matchCorrectCount >= matchTotalPairs) { isAnswering = true; correct(); nextQuestion(1100); }
+    } else {
+        prev.classList.add("wrong-temp"); el.classList.add("wrong-temp");
+        tryAgain("🙂 Belum betul, cuba lagi!");
+        setTimeout(() => { prev.classList.remove("wrong-temp"); el.classList.remove("wrong-temp"); }, 500);
+    }
 }
 
-function selectMatch(element, pairs) {
-    if (isAnswering || element.classList.contains("matched")) return;
+/* ---------- SPELL (susun huruf) ---------- */
+function showSpell(q, area) {
+    const w = q.answer;
+    let tiles = shuffle([...w]), guard = 0;
+    while (tiles.join("") === w && guard++ < 10) tiles = shuffle([...w]);
+    let slots = Array(w.length).fill(-1), locked = false;
 
-    if (!selectedMatch) {
-        selectedMatch = element;
-        element.classList.add("selected");
-        return;
+    function draw(cls) {
+        area.innerHTML = `
+            <div>${escapeHTML(q.question)}</div>
+            <div class="big-letter">${escapeHTML(q.display)}</div>
+            <div class="slots ${cls || ""}">${slots.map((t, i) => `<button class="slot" data-i="${i}">${t >= 0 ? tiles[t] : ""}</button>`).join("")}</div>
+            <div class="tiles">${tiles.map((c, i) => `<button class="tile" data-i="${i}" ${slots.includes(i) ? "disabled" : ""}>${c}</button>`).join("")}</div>`;
+        area.querySelectorAll(".tile").forEach(b => b.onclick = () => {
+            if (locked || isAnswering) return;
+            const s = slots.indexOf(-1);
+            if (s < 0) return;
+            slots[s] = Number(b.dataset.i);
+            if (slots.indexOf(-1) < 0) return check();
+            draw();
+        });
+        area.querySelectorAll(".slot").forEach(b => b.onclick = () => {
+            if (locked || isAnswering) return;
+            slots[Number(b.dataset.i)] = -1; draw();
+        });
     }
-
-    // Same side? Reset
-    if (selectedMatch.dataset.side === element.dataset.side) {
-        selectedMatch.classList.remove("selected");
-        selectedMatch = element;
-        element.classList.add("selected");
-        return;
+    function check() {
+        const attempt = slots.map(t => tiles[t]).join("");
+        if (attempt === w) { isAnswering = true; draw(); correct(); nextQuestion(1100); return; }
+        locked = true;
+        draw("shake");
+        tryAgain("🙂 Belum betul, cuba lagi!");
+        setTimeout(() => { slots = Array(w.length).fill(-1); locked = false; draw(); }, 700);
     }
+    draw();
+}
 
-    const first = selectedMatch.dataset.value;
-    const second = element.dataset.value;
+/* ---------- CROSSWORD ---------- */
+function showCross(q, area) {
+    const { h, vs } = q.cross;
+    const r0 = Math.max(0, ...vs.map(v => v.pos));
+    let maxR = r0;
+    vs.forEach(v => { maxR = Math.max(maxR, r0 - v.pos + v.word.length - 1); });
+    const R = maxR + 1, C = h.word.length;
+    const g = Array.from({ length:R }, () => Array(C).fill(null));
+    const put = (r, c, ch, given, num) => {
+        const x = g[r][c] || (g[r][c] = { ch, given:false, nums:[], val:"" });
+        if (given) { x.given = true; x.val = ch; }
+        if (num) x.nums.push(num);
+    };
+    [...h.word].forEach((ch, k) => put(r0, k, ch, k === 0, k === 0 ? 1 : 0));
+    vs.forEach((v, n) => [...v.word].forEach((ch, k) => put(r0 - v.pos + k, v.col, ch, k === 0, k === 0 ? n + 2 : 0)));
 
-    const matched = pairs.some(p =>
-        (String(p[0]) === first && String(p[1]) === second) ||
-        (String(p[0]) === second && String(p[1]) === first)
-    );
+    const fl = [];
+    g.forEach(row => row.forEach(x => { if (x && !x.given) fl.push(x); }));
+    let sel = 0, bad = new Set(), locked = false;
 
-    if (matched) {
-        selectedMatch.classList.remove("selected");
-        selectedMatch.classList.add("matched");
-        element.classList.add("matched");
-        selectedMatch = null;
-        matchCorrectCount++;
-
-        if (matchCorrectCount >= matchTotalPairs) {
-            isAnswering = true;
-            correct();
-            nextQuestion();
-        }
-    } else {
-        selectedMatch.classList.remove("selected");
-        selectedMatch.classList.add("wrong-temp");
-        element.classList.add("wrong-temp");
-        const prev = selectedMatch;
-        selectedMatch = null;
-        setTimeout(() => {
-            prev.classList.remove("wrong-temp");
-            element.classList.remove("wrong-temp");
-        }, 500);
-        // Don't auto next on single wrong match - allow retry
+    function type(k) {
+        fl[sel].val = k;
+        let nx = fl.findIndex((x, i) => i > sel && !x.val);
+        if (nx < 0) nx = fl.findIndex(x => !x.val);
+        if (nx >= 0) sel = nx;
+        draw();
     }
+    function del() {
+        if (fl[sel].val) fl[sel].val = "";
+        else if (sel > 0) { sel--; fl[sel].val = ""; }
+        draw();
+    }
+    function check() {
+        if (fl.some(x => !x.val)) { tryAgain("✏️ Isi semua kotak dulu ya!"); return; }
+        const wrongs = fl.filter(x => x.val !== x.ch);
+        if (!wrongs.length) { isAnswering = true; draw(); correct(); nextQuestion(1100); return; }
+        bad = new Set(wrongs); locked = true;
+        tryAgain("🙂 Ada yang belum betul, cuba lagi!");
+        draw();
+        setTimeout(() => { wrongs.forEach(x => x.val = ""); bad = new Set(); locked = false; sel = fl.indexOf(wrongs[0]); draw(); }, 800);
+    }
+    function draw() {
+        area.innerHTML = `
+            <div>${escapeHTML(q.question)}</div>
+            <div class="clues"><span>1 ➡️ ${h.emoji}</span>${vs.map((v, n) => `<span>${n + 2} ⬇️ ${v.emoji}</span>`).join("")}</div>
+            <div class="cgrid" style="grid-template-columns:repeat(${C},40px)">
+                ${g.map(row => row.map(x => {
+                    if (!x) return '<div class="cell blank"></div>';
+                    const i = fl.indexOf(x);
+                    const cls = "cell" + (x.given ? " given" : "") + (i === sel ? " sel" : "") + (bad.has(x) ? " bad" : "");
+                    return `<div class="${cls}" data-i="${i}">${x.nums.length ? `<small>${x.nums.join("/")}</small>` : ""}${x.val}</div>`;
+                }).join("")).join("")}
+            </div>
+            <div class="keys">${[..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"].map(k => `<button class="key">${k}</button>`).join("")}<button class="key" data-del="1" style="width:52px">⌫</button></div>
+            <button class="btn" id="cBtn" style="max-width:220px;margin:12px auto 0;">✓ SEMAK</button>`;
+        area.querySelectorAll(".cell").forEach(c => c.onclick = () => {
+            const i = Number(c.dataset.i);
+            if (i >= 0 && !locked && !isAnswering) { sel = i; draw(); }
+        });
+        area.querySelectorAll(".key").forEach(k => k.onclick = () => {
+            if (locked || isAnswering) return;
+            k.dataset.del ? del() : type(k.textContent);
+        });
+        $("cBtn").onclick = () => { if (!locked && !isAnswering) check(); };
+    }
+    draw();
 }
 
 /* ============================================================
-   CORRECT / WRONG
+   MARKAH / FEEDBACK
 ============================================================ */
 function correct() {
-    score += 10;
-    correctAnswers++;
-    totalAnswered++;
-    document.getElementById("score").textContent = score;
-    const fb = document.getElementById("feedback");
+    score += 10; correctAnswers++; totalAnswered++;
+    $("score").textContent = score;
+    const fb = $("feedback");
     fb.textContent = "🎉 Hebat! Jawapan betul!";
     fb.className = "feedback correct-text";
     fireworks();
 }
-
-function wrong() {
+function wrong(msg) {
     totalAnswered++;
-    const fb = document.getElementById("feedback");
-    fb.textContent = "😊 Cuba lagi!";
+    const fb = $("feedback");
+    fb.textContent = msg || "😊 Tak apa, cuba soalan seterusnya!";
     fb.className = "feedback wrong-text";
 }
-
-function nextQuestion() {
-    setTimeout(() => {
-        currentIndex++;
-        showQuestion();
-    }, 1100);
+function tryAgain(msg) {
+    const fb = $("feedback");
+    fb.textContent = msg;
+    fb.className = "feedback wrong-text";
+}
+function nextQuestion(delay) {
+    setTimeout(() => { currentIndex++; showQuestion(); }, delay || 1100);
 }
 
-/* ============================================================
-   FIREWORKS
-============================================================ */
 function fireworks() {
-    const container = document.getElementById("fireworks");
+    const box = $("fireworks");
     const colors = ["#ff5252","#ffca28","#42a5f5","#66bb6a","#ab47bc","#ff7043","#ec407a","#26c6da"];
     for (let i = 0; i < 50; i++) {
-        const spark = document.createElement("div");
-        spark.className = "spark";
-        spark.style.left = "50%";
-        spark.style.top = "40%";
-        const angle = Math.random() * Math.PI * 2;
-        const distance = 60 + Math.random() * 250;
-        spark.style.setProperty("--x", Math.cos(angle) * distance + "px");
-        spark.style.setProperty("--y", Math.sin(angle) * distance + "px");
-        spark.style.background = colors[Math.floor(Math.random() * colors.length)];
-        container.appendChild(spark);
-        setTimeout(() => spark.remove(), 1000);
+        const s = document.createElement("div");
+        s.className = "spark";
+        s.style.left = "50%"; s.style.top = "40%";
+        const a = Math.random() * Math.PI * 2, d = 60 + Math.random() * 250;
+        s.style.setProperty("--x", Math.cos(a) * d + "px");
+        s.style.setProperty("--y", Math.sin(a) * d + "px");
+        s.style.background = pick(colors);
+        box.appendChild(s);
+        setTimeout(() => s.remove(), 1000);
     }
 }
 
-/* ============================================================
-   FINISH
-============================================================ */
 function finishGame() {
     clearInterval(timerInterval);
-    document.getElementById("gameScreen").classList.add("hidden");
-    document.getElementById("resultScreen").classList.remove("hidden");
-
-    const name = document.getElementById("studentName").value.trim();
-    document.getElementById("resultName").textContent = name;
-    document.getElementById("resultScore").textContent = "Markah: " + score;
-
-    // Bintang lebih mudah dapat untuk galakkan kanak-kanak kecil
+    $("gameScreen").classList.add("hidden");
+    $("resultScreen").classList.remove("hidden");
+    $("resultName").textContent = $("studentName").value.trim();
+    $("resultScore").textContent = "Markah: " + score;
+    const target = Math.min(10, currentQuestions.length);
     let stars = 0;
-    if (correctAnswers >= 10) stars = 3;
-    else if (correctAnswers >= 5) stars = 2;
-    else if (correctAnswers >= 2) stars = 1;
-
-    document.getElementById("resultStars").textContent =
-        "⭐".repeat(stars) + "☆".repeat(3 - stars);
-
-    document.getElementById("resultDetail").textContent =
-        `Betul: ${correctAnswers} | Dijawab: ${totalAnswered} soalan`;
+    if (correctAnswers >= Math.min(10, target)) stars = 3;
+    else if (correctAnswers >= Math.ceil(target / 2)) stars = 2;
+    else if (correctAnswers >= 1) stars = 1;
+    $("resultStars").textContent = "⭐".repeat(stars) + "☆".repeat(3 - stars);
+    $("resultDetail").textContent = `Betul: ${correctAnswers} | Dijawab: ${totalAnswered} soalan`;
 }
+function restartGame() { $("resultScreen").classList.add("hidden"); startGame(); }
+function backToStart() { $("resultScreen").classList.add("hidden"); $("startScreen").classList.remove("hidden"); }
 
-function restartGame() {
-    document.getElementById("resultScreen").classList.add("hidden");
-    startGame();
-}
-
-function backToStart() {
-    document.getElementById("resultScreen").classList.add("hidden");
-    document.getElementById("startScreen").classList.remove("hidden");
+function escapeHTML(v) {
+    return String(v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
 }
 
 /* ============================================================
-   UTILS
+   INIT - sentiasa semak semula dengan server (kecuali demo / offline)
 ============================================================ */
-function escapeHTML(value) {
-    return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
+(async function init() {
+    const p = getUrlParams();
+    if (p.token) $("tokenInput").value = p.token;
 
-/* ============================================================
-   INIT
-============================================================ */
-(function init() {
-    const params = getUrlParams();
-
-    // Pre-fill token jika ada dalam URL
-    if (params.token) {
-        const tokenInput = document.getElementById("tokenInput");
-        if (tokenInput) tokenInput.value = params.token;
-    }
-
-    // Jika ada linkId + token dalam URL
-    if (params.linkId && params.token) {
-        // Jika sudah aktif lokal dengan credentials sama → terus masuk
-        // (tapi masih boleh re-verify jika mahu; di sini kita percaya local selepas Lulus sekali)
-        if (isActivatedLocally()) {
-            const savedLink = localStorage.getItem(LINK_ID_KEY);
-            const savedToken = localStorage.getItem(TOKEN_KEY);
-            if (savedLink === params.linkId && savedToken === params.token) {
-                showStartScreen();
-                return;
-            }
-            // Credentials berbeza
-            document.getElementById("tokenScreen").classList.remove("hidden");
+    if (isActivatedLocally()) {
+        if (isDemo()) return showStartScreen();
+        const lid = localStorage.getItem(LINK_ID_KEY), tk = localStorage.getItem(TOKEN_KEY);
+        if (p.linkId && p.token && (p.linkId !== lid || p.token !== tk)) {
             showTokenMessage("Peranti ini sudah diaktifkan dengan akaun lain.", false);
             return;
         }
-
-        // Belum aktif → auto semak server
-        document.getElementById("tokenScreen").classList.remove("hidden");
-        showTokenMessage("Sedang menyemak kelulusan...", true);
-        verifyWithServer(params.linkId, params.token).then(result => {
-            if (result.success && result.status === "Lulus") {
-                saveLocalActivation(params.linkId, params.token);
-                showTokenMessage("Diluluskan! Selamat datang.", true);
-                setTimeout(showStartScreen, 700);
-            } else if (result.status === "Dalam Proses") {
-                showTokenMessage("⏳ " + (result.message || "Menunggu kelulusan admin."), false);
-            } else if (result.status === "Banned") {
-                showTokenMessage("🚫 " + (result.message || "Akses digantung."), false);
-            } else if (result.status === "DeviceLocked") {
-                showTokenMessage("🔒 " + (result.message || "Token sudah aktif pada peranti lain."), false);
-            } else {
-                showTokenMessage(result.message || "Token / Link tidak sah.", false);
-            }
-        });
+        showTokenMessage("Menyemak akses...", true);
+        const r = await verifyWithServer(lid, tk);
+        if (r.success) return showStartScreen();
+        if (r.status === "Error") return showStartScreen();   // offline / server ralat: benarkan
+        clearActivation();
+        handleVerifyResult(r, lid, tk);
         return;
     }
 
-    // Tiada URL params
-    if (isActivatedLocally()) {
-        showStartScreen();
-    } else {
-        document.getElementById("tokenScreen").classList.remove("hidden");
+    if (p.linkId && p.token) {
+        showTokenMessage("Sedang menyemak kelulusan...", true);
+        handleVerifyResult(await verifyWithServer(p.linkId, p.token), p.linkId, p.token);
     }
 })();
 </script>
