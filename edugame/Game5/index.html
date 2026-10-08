@@ -595,23 +595,19 @@ console.log("Jumlah soalan dijana (sesuai umur 3-5):", ALL_QUESTIONS.length);
 
 /* ============================================================
    TOKEN SYSTEM (localStorage)
-   Nanti token akan dijana secara rawak & automatik dari Google Sheet.
-   Buat masa ini guna senarai demo sahaja untuk ujian.
+   Terima mana-mana token format JBL-XXXX-XXXX yang dijana dari Google Sheet.
 ============================================================ */
-const VALID_TOKENS = [
-    "JBL-DEMO-2024",
-    "JBL-TEST-0001",
-    "JBL-TEST-0002",
-    "JBL-MASTA-XUL1",
-    "JBL-MASTA-XUL2"
-];
-
 const TOKEN_KEY = "jomBelajar_token";
 const DEMO_MODE_KEY = "jomBelajar_demo";
 
+// Format sah: JBL-XXXX-XXXX (huruf & nombor)
+function isValidTokenFormat(token) {
+    return /^JBL-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(token);
+}
+
 function isActivated() {
     const token = localStorage.getItem(TOKEN_KEY);
-    if (token && VALID_TOKENS.includes(token.toUpperCase())) return true;
+    if (token && isValidTokenFormat(token.toUpperCase())) return true;
     if (localStorage.getItem(DEMO_MODE_KEY) === "1") return true;
     return false;
 }
@@ -626,14 +622,14 @@ function activateToken() {
         return;
     }
 
-    if (VALID_TOKENS.includes(input)) {
+    if (isValidTokenFormat(input)) {
         localStorage.setItem(TOKEN_KEY, input);
         localStorage.removeItem(DEMO_MODE_KEY);
         status.textContent = "✅ Token sah! Selamat datang.";
         status.className = "token-status token-ok";
         setTimeout(showStartScreen, 800);
     } else {
-        status.textContent = "❌ Token tidak sah. Sila semak semula.";
+        status.textContent = "❌ Token tidak sah. Format: JBL-XXXX-XXXX";
         status.className = "token-status token-fail";
     }
 }
