@@ -636,10 +636,25 @@ function isActivatedLocally() {
         && localStorage.getItem(DEVICE_ID_KEY);
 }
 
-/** Semak status dengan server (Google Sheet) */
+/** Dapat atau jana Device ID (stabil untuk peranti ini) */
+function getOrCreateDeviceId() {
+    let id = localStorage.getItem(DEVICE_ID_KEY);
+    if (!id) {
+        id = generateDeviceId();
+        localStorage.setItem(DEVICE_ID_KEY, id);
+    }
+    return id;
+}
+
+/** Semak status + device lock dengan server (Google Sheet) */
 async function verifyWithServer(linkId, token) {
     try {
-        const url = APPS_SCRIPT_URL + "?action=verify&id=" + encodeURIComponent(linkId) + "&token=" + encodeURIComponent(token);
+        const deviceId = getOrCreateDeviceId();
+        const url = APPS_SCRIPT_URL
+            + "?action=verify"
+            + "&id=" + encodeURIComponent(linkId)
+            + "&token=" + encodeURIComponent(token)
+            + "&deviceId=" + encodeURIComponent(deviceId);
         const res = await fetch(url);
         const data = await res.json();
         return data;
@@ -718,7 +733,12 @@ async function activateToken() {
 
     if (result.status === "Banned") {
         showTokenMessage("🚫 " + (result.message || "Akses digantung."), false);
-        // Clear local jika pernah aktif
+        localStorage.removeItem(ACTIVATED_KEY);
+        return;
+    }
+
+    if (result.status === "DeviceLocked") {
+        showTokenMessage("🔒 " + (result.message || "Token sudah aktif pada peranti lain."), false);
         localStorage.removeItem(ACTIVATED_KEY);
         return;
     }
@@ -1254,6 +1274,8 @@ function escapeHTML(value) {
                 showTokenMessage("⏳ " + (result.message || "Menunggu kelulusan admin."), false);
             } else if (result.status === "Banned") {
                 showTokenMessage("🚫 " + (result.message || "Akses digantung."), false);
+            } else if (result.status === "DeviceLocked") {
+                showTokenMessage("🔒 " + (result.message || "Token sudah aktif pada peranti lain."), false);
             } else {
                 showTokenMessage(result.message || "Token / Link tidak sah.", false);
             }
