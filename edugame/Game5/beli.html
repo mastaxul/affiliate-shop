@@ -2,128 +2,79 @@
 <html lang="ms">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Beli Jom Belajar! 🌈 - Rumi • Jawi • Nombor</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-body {
-    font-family: "Arial Rounded MT Bold", "Trebuchet MS", Arial, sans-serif;
-    background: linear-gradient(135deg, #dff7ff, #fff5d9);
-    color: #263238;
-    min-height: 100vh;
-}
-header {
-    background: linear-gradient(135deg, #6c63ff, #8e7dff);
-    color: white;
-    text-align: center;
-    padding: 20px 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,.15);
-}
-header h1 { font-size: 26px; margin-bottom: 4px; }
-header p { font-size: 14px; opacity: .9; }
-.container { width: min(560px, 94%); margin: 24px auto 40px; }
-.card {
-    background: white;
-    border-radius: 24px;
-    padding: 28px 24px;
-    box-shadow: 0 8px 25px rgba(0,0,0,.12);
-    margin-bottom: 20px;
-}
-.product { text-align: center; margin-bottom: 8px; }
-.product .emoji { font-size: 64px; margin-bottom: 8px; }
-.product h2 { color: #5b50d6; font-size: 22px; margin-bottom: 6px; }
-.product .price { font-size: 32px; font-weight: bold; color: #e65100; margin: 10px 0; }
-.product .price small { font-size: 16px; color: #777; font-weight: normal; }
-.features {
-    text-align: left; margin: 16px 0; padding: 14px 16px;
-    background: #f5f4ff; border-radius: 16px; font-size: 14px; line-height: 1.7;
-}
-.features li { margin-bottom: 4px; }
-.qr-box {
-    background: #f8f9ff; border: 2px solid #e0e0ff; border-radius: 18px;
-    padding: 18px; text-align: center; margin: 18px 0;
-}
-.qr-box h3 { color: #5b50d6; font-size: 16px; margin-bottom: 10px; }
-.qr-box img { width: min(240px, 80%); border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,.1); }
-.qr-box .amount { font-size: 22px; font-weight: bold; color: #e65100; margin: 12px 0 4px; }
-.qr-box .hint { font-size: 12px; color: #666; margin-top: 6px; }
-label { display: block; text-align: left; margin-top: 14px; font-weight: bold; font-size: 14px; color: #444; }
-input, textarea {
-    width: 100%; padding: 14px; margin-top: 6px; border-radius: 14px;
-    border: 2px solid #ddd; font-size: 16px; outline: none; font-family: inherit;
-}
-input:focus, textarea:focus { border-color: #6c63ff; }
-textarea { resize: vertical; min-height: 70px; }
-.file-upload {
-    margin-top: 6px; border: 2px dashed #bbb; border-radius: 14px; padding: 18px;
-    text-align: center; cursor: pointer; background: #fafafa; transition: .2s;
-}
-.file-upload:hover, .file-upload.dragover { border-color: #6c63ff; background: #f5f4ff; }
-.file-upload input[type="file"] { display: none; }
-.file-upload .icon { font-size: 32px; margin-bottom: 6px; }
-.file-upload .text { font-size: 14px; color: #555; }
-.file-upload .filename { margin-top: 8px; font-size: 13px; font-weight: bold; color: #2e7d32; word-break: break-all; }
-.preview-img { max-width: 100%; max-height: 180px; border-radius: 10px; margin-top: 10px; display: none; }
-.btn {
-    width: 100%; border: 0; padding: 16px; border-radius: 16px; margin-top: 22px;
-    font-size: 18px; font-weight: bold; cursor: pointer;
-    background: linear-gradient(135deg, #6c63ff, #8e7dff); color: white;
-    box-shadow: 0 5px 14px rgba(108,99,255,.35);
-}
-.btn:active { transform: scale(.97); }
-.btn:disabled { opacity: .65; cursor: not-allowed; }
-.note { font-size: 12px; color: #777; margin-top: 12px; text-align: center; line-height: 1.5; }
-.hidden { display: none !important; }
-#loadingArea { text-align: center; padding: 40px 20px; }
-.spinner {
-    width: 48px; height: 48px; border: 5px solid #e0e0e0; border-top-color: #6c63ff;
-    border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 16px;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-#successArea { text-align: center; }
-#successArea .big { font-size: 64px; margin-bottom: 10px; }
-#successArea h2 { color: #2e7d32; margin-bottom: 10px; }
-.token-display {
-    background: #e8f5e9; border: 2px dashed #43a047; border-radius: 14px;
-    padding: 14px; margin: 12px 0; font-size: 18px; font-weight: bold;
-    letter-spacing: 1px; color: #1b5e20; word-break: break-all;
-}
-.link-display {
-    background: #e3f2fd; border: 2px dashed #1976d2; border-radius: 14px;
-    padding: 12px; margin: 12px 0; font-size: 13px; color: #0d47a1;
-    word-break: break-all; text-align: left;
-}
-.game-link {
-    display: inline-block; margin-top: 12px; padding: 12px 20px;
-    background: linear-gradient(135deg, #26a69a, #4db6ac); color: white;
-    text-decoration: none; border-radius: 14px; font-weight: bold;
-}
-#errorArea { text-align: center; color: #c62828; }
-#errorArea .big { font-size: 48px; }
-@media (max-width: 480px) {
-    header h1 { font-size: 22px; }
-    .product .price { font-size: 28px; }
-    .card { padding: 22px 18px; }
-}
+body { font-family: "Arial Rounded MT Bold","Trebuchet MS",Arial,sans-serif; background: linear-gradient(135deg,#dff7ff,#fff5d9); color:#263238; min-height:100vh; }
+header { background: linear-gradient(135deg,#6c63ff,#8e7dff); color:#fff; text-align:center; padding:20px 15px; box-shadow:0 5px 15px rgba(0,0,0,.15); }
+header h1 { font-size:26px; margin-bottom:4px; }
+header p { font-size:14px; opacity:.9; }
+.container { width:min(560px,94%); margin:24px auto 40px; }
+.card { background:#fff; border-radius:24px; padding:28px 24px; box-shadow:0 8px 25px rgba(0,0,0,.12); margin-bottom:20px; }
+.product { text-align:center; }
+.product .emoji { font-size:64px; margin-bottom:8px; }
+.product h2 { color:#5b50d6; font-size:22px; margin-bottom:6px; }
+.product .price { font-size:32px; font-weight:bold; color:#e65100; margin:10px 0; }
+.product .price small { font-size:16px; color:#777; font-weight:normal; }
+.features { text-align:left; margin:16px 0 0; padding:14px 16px; background:#f5f4ff; border-radius:16px; font-size:14px; line-height:1.7; list-style:none; }
+.features li { margin-bottom:4px; }
+.qr-box { background:#f8f9ff; border:2px solid #e0e0ff; border-radius:18px; padding:18px; text-align:center; margin:18px 0; }
+.qr-box h3 { color:#5b50d6; font-size:16px; margin-bottom:10px; }
+.qr-box img { width:min(240px,80%); border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,.1); }
+.qr-box .amount { font-size:22px; font-weight:bold; color:#e65100; margin:12px 0 4px; }
+.qr-box .hint { font-size:12px; color:#666; margin-top:6px; }
+label { display:block; text-align:left; margin-top:14px; font-weight:bold; font-size:14px; color:#444; }
+input, textarea { width:100%; padding:14px; margin-top:6px; border-radius:14px; border:2px solid #ddd; font-size:16px; outline:none; font-family:inherit; }
+input:focus, textarea:focus { border-color:#6c63ff; }
+textarea { resize:vertical; min-height:70px; }
+.file-upload { margin-top:6px; border:2px dashed #bbb; border-radius:14px; padding:18px; text-align:center; cursor:pointer; background:#fafafa; }
+.file-upload:hover, .file-upload.dragover { border-color:#6c63ff; background:#f5f4ff; }
+.file-upload .icon { font-size:32px; margin-bottom:6px; }
+.file-upload .text { font-size:14px; color:#555; }
+.file-upload .filename { margin-top:8px; font-size:13px; font-weight:bold; color:#2e7d32; word-break:break-all; }
+.preview-img { max-width:100%; max-height:180px; border-radius:10px; margin-top:10px; display:none; }
+.captcha { background:#fff8e1; border:2px dashed #ffb300; border-radius:14px; padding:12px 14px; margin-top:16px; }
+.captcha b { font-size:20px; color:#e65100; }
+.captcha input { max-width:120px; text-align:center; font-size:20px; }
+.captcha button { border:0; background:none; font-size:13px; color:#5b50d6; text-decoration:underline; cursor:pointer; margin-left:8px; font-family:inherit; }
+.hp { position:absolute; left:-9999px; top:-9999px; width:1px; height:1px; overflow:hidden; opacity:0; }
+.btn { width:100%; border:0; padding:16px; border-radius:16px; margin-top:22px; font-size:18px; font-weight:bold; cursor:pointer; background:linear-gradient(135deg,#6c63ff,#8e7dff); color:#fff; box-shadow:0 5px 14px rgba(108,99,255,.35); }
+.btn:active { transform:scale(.97); }
+.btn:disabled { opacity:.6; cursor:not-allowed; }
+.note { font-size:12px; color:#777; margin-top:12px; text-align:center; line-height:1.5; }
+.hidden { display:none !important; }
+#loadingArea { text-align:center; padding:40px 20px; }
+.spinner { width:48px; height:48px; border:5px solid #e0e0e0; border-top-color:#6c63ff; border-radius:50%; animation:spin .8s linear infinite; margin:0 auto 16px; }
+@keyframes spin { to { transform:rotate(360deg); } }
+#successArea { text-align:center; }
+#successArea .big { font-size:64px; margin-bottom:10px; }
+#successArea h2 { color:#2e7d32; margin-bottom:10px; }
+.pending { background:#fff8e1; border:2px solid #ffca28; border-radius:14px; padding:12px; margin:12px 0; font-size:14px; line-height:1.5; color:#6d4c00; }
+.token-display { background:#e8f5e9; border:2px dashed #43a047; border-radius:14px; padding:14px; margin:12px 0; font-size:18px; font-weight:bold; letter-spacing:1px; color:#1b5e20; word-break:break-all; }
+.link-display { background:#e3f2fd; border:2px dashed #1976d2; border-radius:14px; padding:12px; margin:12px 0; font-size:13px; color:#0d47a1; word-break:break-all; text-align:left; }
+.game-link { display:inline-block; margin-top:12px; padding:12px 20px; background:linear-gradient(135deg,#26a69a,#4db6ac); color:#fff; text-decoration:none; border-radius:14px; font-weight:bold; }
+#errorArea { text-align:center; color:#c62828; }
+#errorArea .big { font-size:48px; }
 </style>
 </head>
 <body>
 <header>
     <h1>🌈 Jom Belajar!</h1>
-    <p>Beli & dapat akses segera • Rumi • Jawi • Nombor</p>
+    <p>Bayar • Hantar resit • Admin luluskan • Mula main</p>
 </header>
 <div class="container">
     <div class="card product">
         <div class="emoji">🧒📚</div>
         <h2>Game Interaktif Kanak-Kanak</h2>
-        <p style="color:#666;font-size:14px;">Umur 3–5 tahun • Kenal Huruf & Nombor</p>
-        <div class="price">RM 19.90 <small>/ seumur hidup</small></div>
+        <p style="color:#666;font-size:14px;">Umur 3–5 tahun • Kenal Huruf, Nombor & Gambar</p>
+        <div class="price">RM 19.90 <small>/ sekali bayar</small></div>
         <ul class="features">
-            <li>✅ 500+ soalan (Rumi, Jawi, Nombor)</li>
-            <li>✅ 4 jenis soalan: Pilihan, Seret, Padan, Isi</li>
+            <li>✅ 1,500 soalan (Rumi, Jawi, Nombor)</li>
+            <li>✅ Game Teka Gambar & Silang Kata</li>
+            <li>✅ Pilihan, Seret, Padan, Isi & Susun Huruf</li>
             <li>✅ Animasi firework & sistem bintang</li>
-            <li>✅ Set nama murid + masa bermain</li>
-            <li>✅ Link unik + Token untuk setiap pembeli</li>
+            <li>✅ Pautan unik + Token untuk setiap pembeli</li>
             <li>✅ Terikat pada 1 peranti selepas aktif</li>
         </ul>
     </div>
@@ -132,7 +83,7 @@ textarea { resize: vertical; min-height: 70px; }
         <div id="formArea">
             <h2 style="text-align:center;color:#5b50d6;margin-bottom:6px;">Borang Pembelian</h2>
             <p style="text-align:center;font-size:13px;color:#777;margin-bottom:10px;">
-                Bayar → Upload resit → Dapat Link Unik + Token
+                Bayar → Upload resit → Terima pautan. Game boleh dibuka selepas admin sahkan bayaran.
             </p>
             <div class="qr-box">
                 <h3>📷 Imbas QR untuk Bayar</h3>
@@ -140,31 +91,45 @@ textarea { resize: vertical; min-height: 70px; }
                 <div class="amount">RM 19.90</div>
                 <div class="hint">DuitNow / Bank / e-Wallet<br>Selepas bayar, upload resit di bawah</div>
             </div>
-            <form id="purchaseForm" onsubmit="return submitForm(event)">
+            <form id="purchaseForm" onsubmit="return submitForm(event)" novalidate>
                 <label>Nama Penuh *</label>
-                <input type="text" id="nama" required placeholder="Contoh: Siti Aminah" maxlength="60">
+                <input type="text" id="nama" placeholder="Contoh: Siti Aminah" maxlength="60" autocomplete="name">
                 <label>Emel *</label>
-                <input type="email" id="email" required placeholder="contoh@email.com">
+                <input type="email" id="email" placeholder="contoh@email.com" autocomplete="email">
                 <label>No. Telefon (WhatsApp) *</label>
-                <input type="tel" id="telefon" required placeholder="01X-XXXXXXX" maxlength="15">
+                <input type="tel" id="telefon" placeholder="01X-XXXXXXX" maxlength="15" autocomplete="tel">
                 <label>Nama Anak (pilihan)</label>
                 <input type="text" id="namaAnak" placeholder="Contoh: Ali" maxlength="30">
                 <label>Upload Resit Bayaran *</label>
                 <div class="file-upload" id="dropZone" onclick="document.getElementById('resit').click()">
                     <div class="icon">🧾</div>
-                    <div class="text">Klik atau seret gambar resit ke sini<br><small>(JPG, PNG – max 5MB)</small></div>
+                    <div class="text">Klik atau seret gambar resit ke sini<br><small>(JPG, PNG – saiz akan dikecilkan automatik)</small></div>
                     <div class="filename" id="fileName"></div>
                     <img id="previewImg" class="preview-img" alt="Preview">
-                    <input type="file" id="resit" accept="image/jpeg,image/png,image/jpg,image/webp" required>
+                    <input type="file" id="resit" accept="image/jpeg,image/png,image/webp" style="display:none">
                 </div>
-                <label>No. Rujukan / Catatan (pilihan)</label>
+                <label>No. Rujukan (pilihan)</label>
                 <input type="text" id="rujukan" placeholder="No. resit / rujukan" maxlength="80">
                 <label>Catatan tambahan (pilihan)</label>
-                <textarea id="catatan" placeholder="Apa-apa maklumat tambahan..."></textarea>
-                <button type="submit" class="btn" id="submitBtn">🛒 HANTAR & DAPAT AKSES</button>
+                <textarea id="catatan" placeholder="Apa-apa maklumat tambahan..." maxlength="300"></textarea>
+
+                <!-- Honeypot: manusia tak nampak, bot akan isi -->
+                <div class="hp" aria-hidden="true">
+                    <label>Laman web</label>
+                    <input type="text" id="website" tabindex="-1" autocomplete="off">
+                </div>
+
+                <div class="captcha">
+                    🤖 Soalan keselamatan:<br>
+                    <b id="capQ">Memuatkan...</b>
+                    <input type="number" id="capA" inputmode="numeric" placeholder="?">
+                    <button type="button" onclick="loadCaptcha()">tukar soalan</button>
+                </div>
+
+                <button type="submit" class="btn" id="submitBtn" disabled>🛒 HANTAR PEMBELIAN</button>
             </form>
             <p class="note">
-                Anda akan terima <strong>pautan unik</strong> + Token melalui email.<br>
+                Pautan unik + Token akan dihantar ke emel anda.<br>
                 Pautan hanya boleh digunakan pada 1 peranti selepas diaktifkan.
             </p>
         </div>
@@ -172,23 +137,27 @@ textarea { resize: vertical; min-height: 70px; }
         <div id="loadingArea" class="hidden">
             <div class="spinner"></div>
             <p style="font-weight:bold;color:#5b50d6;">Sedang memproses...</p>
-            <p style="font-size:13px;color:#777;margin-top:6px;">Upload resit • Jana link unik • Hantar email</p>
+            <p style="font-size:13px;color:#777;margin-top:6px;">Upload resit • Jana pautan • Hantar emel</p>
         </div>
 
         <div id="successArea" class="hidden">
             <div class="big">🎉</div>
             <h2>Terima Kasih!</h2>
-            <p>Pembelian berjaya. Ini akses anda:</p>
+            <p>Pembelian diterima.</p>
+            <div class="pending">
+                ⏳ <strong>Status: Dalam Proses.</strong><br>
+                Game boleh dibuka selepas admin sahkan bayaran. Anda akan dapat emel bila diluluskan.
+            </div>
             <p style="margin-top:12px;font-size:13px;font-weight:bold;">Token ID:</p>
             <div class="token-display" id="tokenResult">JBL-XXXX-XXXX</div>
             <p style="margin-top:8px;font-size:13px;font-weight:bold;">Pautan Unik Anda:</p>
             <div class="link-display" id="linkResult"></div>
             <p style="font-size:13px;color:#555;margin-top:10px;">
-                Email telah dihantar ke <strong id="emailResult"></strong>
+                Emel telah dihantar ke <strong id="emailResult"></strong><br>(semak folder Spam jika tiada)
             </p>
-            <a class="game-link" id="openGameBtn" href="#" target="_blank">🚀 BUKA GAME SEKARANG</a>
+            <a class="game-link" id="openGameBtn" href="#" target="_blank" rel="noopener">🚀 SEMAK STATUS / BUKA GAME</a>
             <p class="note" style="margin-top:16px;">
-                ⚠️ Pautan ini hanya untuk anda. Selepas aktif, terikat pada peranti ini sahaja.
+                ⚠️ Simpan pautan ini. Selepas diaktifkan, ia terikat pada peranti & pelayar pertama yang digunakan.
             </p>
         </div>
 
@@ -196,7 +165,7 @@ textarea { resize: vertical; min-height: 70px; }
             <div class="big">😔</div>
             <h2>Maaf, ada masalah</h2>
             <p id="errorMsg" style="margin:12px 0;">Sila cuba lagi.</p>
-            <button class="btn" onclick="resetForm()">🔄 Cuba Lagi</button>
+            <button class="btn" onclick="resetForm(true)">🔄 Cuba Lagi</button>
         </div>
     </div>
 </div>
@@ -205,91 +174,130 @@ textarea { resize: vertical; min-height: 70px; }
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzvU1sok6V2OWFrwomgtTxAm3O5mAaDxqjwzF_UoV41M1qLM7uyai_73pLkUqz_2Z3A/exec";
 const GAME_BASE = "https://www.mastaxul.my/edugame/Game5/";
 
-let selectedFile = null, fileBase64 = null, fileMimeType = null;
-const dropZone = document.getElementById("dropZone");
-const fileInput = document.getElementById("resit");
-const fileNameEl = document.getElementById("fileName");
-const previewImg = document.getElementById("previewImg");
+let fileBase64 = null, fileMimeType = "", fileName = "";
+let cap = null;
+const $ = id => document.getElementById(id);
+const dropZone = $("dropZone"), fileInput = $("resit");
 
-fileInput.addEventListener("change", handleFile);
+fileInput.addEventListener("change", () => handleFile(fileInput.files[0]));
 dropZone.addEventListener("dragover", e => { e.preventDefault(); dropZone.classList.add("dragover"); });
 dropZone.addEventListener("dragleave", () => dropZone.classList.remove("dragover"));
 dropZone.addEventListener("drop", e => {
     e.preventDefault(); dropZone.classList.remove("dragover");
-    if (e.dataTransfer.files.length) { fileInput.files = e.dataTransfer.files; handleFile(); }
+    if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
 });
 
-function handleFile() {
-    const file = fileInput.files[0];
+/* Kecilkan gambar (max 1400px, JPEG) supaya foto kamera besar pun boleh */
+function compress(file) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        const url = URL.createObjectURL(file);
+        img.onload = () => {
+            const s = Math.min(1, 1400 / Math.max(img.width, img.height));
+            const c = document.createElement("canvas");
+            c.width = Math.round(img.width * s);
+            c.height = Math.round(img.height * s);
+            c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+            URL.revokeObjectURL(url);
+            resolve(c.toDataURL("image/jpeg", 0.8));
+        };
+        img.onerror = () => { URL.revokeObjectURL(url); reject(new Error("bad image")); };
+        img.src = url;
+    });
+}
+
+async function handleFile(file) {
     if (!file) return;
-    if (file.size > 5*1024*1024) { alert("Maksimum 5MB."); fileInput.value=""; return; }
-    if (!file.type.startsWith("image/")) { alert("Gambar sahaja."); fileInput.value=""; return; }
-    selectedFile = file;
-    fileNameEl.textContent = "✓ " + file.name;
-    fileMimeType = file.type;
-    const reader = new FileReader();
-    reader.onload = e => {
-        previewImg.src = e.target.result;
-        previewImg.style.display = "block";
-        fileBase64 = e.target.result.split(",")[1];
-    };
-    reader.readAsDataURL(file);
+    if (!file.type.startsWith("image/")) { alert("Sila pilih gambar sahaja."); fileInput.value = ""; return; }
+    if (file.size > 20 * 1024 * 1024) { alert("Gambar terlalu besar (maks 20MB)."); fileInput.value = ""; return; }
+    try {
+        const dataUrl = await compress(file);
+        fileBase64 = dataUrl.split(",")[1];
+        fileMimeType = "image/jpeg";
+        fileName = (file.name || "resit").replace(/\.[^.]+$/, "") + ".jpg";
+        $("fileName").textContent = "✓ " + file.name;
+        $("previewImg").src = dataUrl;
+        $("previewImg").style.display = "block";
+    } catch (e) {
+        alert("Gambar tak dapat dibaca. Cuba gambar lain.");
+        fileInput.value = "";
+    }
+}
+
+async function loadCaptcha() {
+    $("capQ").textContent = "Memuatkan...";
+    $("capA").value = "";
+    $("submitBtn").disabled = true;
+    try {
+        const r = await fetch(APPS_SCRIPT_URL + "?action=captcha");
+        cap = await r.json();
+        $("capQ").textContent = cap.q;
+        $("submitBtn").disabled = false;
+    } catch (e) {
+        $("capQ").textContent = "Gagal muat. Tekan 'tukar soalan'.";
+    }
 }
 
 function show(id) {
-    ["formArea","loadingArea","successArea","errorArea"].forEach(x => document.getElementById(x).classList.add("hidden"));
-    document.getElementById(id).classList.remove("hidden");
+    ["formArea","loadingArea","successArea","errorArea"].forEach(x => $(x).classList.add("hidden"));
+    $(id).classList.remove("hidden");
 }
-function resetForm() {
-    document.getElementById("purchaseForm").reset();
-    selectedFile = fileBase64 = fileMimeType = null;
-    fileNameEl.textContent = ""; previewImg.style.display = "none"; previewImg.src = "";
+
+function resetForm(keepData) {
+    if (!keepData) {
+        $("purchaseForm").reset();
+        fileBase64 = null; fileMimeType = ""; fileName = "";
+        $("fileName").textContent = ""; $("previewImg").style.display = "none"; $("previewImg").src = "";
+    }
     show("formArea");
+    loadCaptcha();
 }
 
 async function submitForm(e) {
     e.preventDefault();
-    const data = {
-        nama: document.getElementById("nama").value.trim(),
-        email: document.getElementById("email").value.trim(),
-        telefon: document.getElementById("telefon").value.trim(),
-        namaAnak: document.getElementById("namaAnak").value.trim(),
-        bayaran: "QR Code / DuitNow",
-        rujukan: document.getElementById("rujukan").value.trim(),
-        catatan: document.getElementById("catatan").value.trim(),
-        gameLink: GAME_BASE,
-        timestamp: new Date().toISOString(),
-        fileName: selectedFile ? selectedFile.name : "",
-        fileMimeType: fileMimeType || "",
-        fileBase64: fileBase64 || ""
-    };
-    if (!data.nama || !data.email || !data.telefon) { alert("Sila lengkapkan medan *"); return false; }
+    const nama = $("nama").value.trim(), email = $("email").value.trim(), telefon = $("telefon").value.trim();
+    if (!nama || !email || !telefon) { alert("Sila lengkapkan medan bertanda *"); return false; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert("Format emel tidak sah."); return false; }
     if (!fileBase64) { alert("Sila upload resit bayaran 🧾"); return false; }
+    if (!cap || !$("capA").value) { alert("Sila jawab soalan keselamatan 🤖"); return false; }
+
+    const data = {
+        nama, email, telefon,
+        namaAnak: $("namaAnak").value.trim(),
+        rujukan: $("rujukan").value.trim(),
+        catatan: $("catatan").value.trim(),
+        website: $("website").value,
+        captchaAnswer: $("capA").value,
+        captchaTs: cap.ts,
+        captchaSig: cap.sig,
+        fileName, fileMimeType, fileBase64
+    };
 
     show("loadingArea");
-    document.getElementById("submitBtn").disabled = true;
-
+    $("submitBtn").disabled = true;
     try {
         const res = await fetch(APPS_SCRIPT_URL, { method: "POST", body: JSON.stringify(data) });
         const result = await res.json();
         if (result.success) {
-            document.getElementById("tokenResult").textContent = result.token;
-            document.getElementById("emailResult").textContent = data.email;
+            $("tokenResult").textContent = result.token;
+            $("emailResult").textContent = email;
             const url = result.gameUrl || (GAME_BASE + "?id=" + result.linkId + "&token=" + result.token);
-            document.getElementById("linkResult").textContent = url;
-            document.getElementById("openGameBtn").href = url;
+            $("linkResult").textContent = url;
+            $("openGameBtn").href = url;
             show("successArea");
         } else {
-            document.getElementById("errorMsg").textContent = result.message || "Ralat.";
+            $("errorMsg").textContent = result.message || "Ralat.";
             show("errorArea");
         }
     } catch (err) {
-        document.getElementById("errorMsg").textContent = "Gagal berhubung. Cuba lagi.";
+        $("errorMsg").textContent = "Gagal berhubung. Semak internet dan cuba lagi. (Jika emel sudah diterima, jangan hantar semula.)";
         show("errorArea");
     }
-    document.getElementById("submitBtn").disabled = false;
     return false;
 }
+
+loadCaptcha();
+setInterval(() => { if (!$("formArea").classList.contains("hidden")) loadCaptcha(); }, 10 * 60 * 1000);
 </script>
 </body>
 </html>
