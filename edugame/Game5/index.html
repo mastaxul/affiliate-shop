@@ -89,28 +89,32 @@ input:focus, select:focus { border-color: #6c63ff; }
 .question-number { color: #777; font-size: 14px; margin-bottom: 8px; }
 .question { font-size: 22px; font-weight: bold; margin: 12px 0; line-height: 1.3; }
 .big-letter {
-    font-size: 90px;
+    font-size: 100px;
     font-weight: bold;
     color: #6c63ff;
-    margin: 10px 0;
+    margin: 12px 0;
     line-height: 1.1;
     font-family: "Arial", "Segoe UI", sans-serif;
 }
 .options {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 12px;
     margin-top: 16px;
 }
 .option {
+    flex: 1 1 40%;
+    min-width: 110px;
+    max-width: 160px;
     background: #f5f5ff;
     border: 3px solid transparent;
     border-radius: 18px;
     padding: 18px 12px;
-    font-size: 24px;
+    font-size: 26px;
     font-weight: bold;
     cursor: pointer;
-    min-height: 70px;
+    min-height: 72px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -366,53 +370,45 @@ input:focus, select:focus { border-color: #6c63ff; }
 
 <script>
 /* ============================================================
-   DATA ASAS
+   DATA ASAS - Disesuaikan untuk kanak-kanak umur 3-5 tahun
+   Fokus: kenal huruf besar, nombor 1-10, Jawi asas sahaja
 ============================================================ */
 const RUMI = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-const RUMI_LOWER = "abcdefghijklmnopqrstuvwxyz".split("");
 
-// Padanan Jawi asas (bentuk tunggal) untuk kanak-kanak 3-5
+// Jawi asas sahaja (huruf yang biasa diajar awal untuk kanak-kanak kecil)
 const JAWI_MAP = [
     { jawi: "ا", rumi: "A", nama: "Alif" },
     { jawi: "ب", rumi: "B", nama: "Ba" },
     { jawi: "ت", rumi: "T", nama: "Ta" },
-    { jawi: "ث", rumi: "S", nama: "Tha" },
     { jawi: "ج", rumi: "J", nama: "Jim" },
-    { jawi: "چ", rumi: "C", nama: "Ca" },
-    { jawi: "ح", rumi: "H", nama: "Ha" },
-    { jawi: "خ", rumi: "Kh", nama: "Kha" },
     { jawi: "د", rumi: "D", nama: "Dal" },
-    { jawi: "ذ", rumi: "Z", nama: "Zal" },
     { jawi: "ر", rumi: "R", nama: "Ra" },
-    { jawi: "ز", rumi: "Z", nama: "Zai" },
     { jawi: "س", rumi: "S", nama: "Sin" },
-    { jawi: "ش", rumi: "Sy", nama: "Syin" },
-    { jawi: "ص", rumi: "S", nama: "Sod" },
-    { jawi: "ض", rumi: "D", nama: "Dod" },
-    { jawi: "ط", rumi: "T", nama: "To" },
-    { jawi: "ظ", rumi: "Z", nama: "Zo" },
-    { jawi: "ع", rumi: "A", nama: "Ain" },
-    { jawi: "غ", rumi: "Gh", nama: "Ghain" },
-    { jawi: "ڠ", rumi: "Ng", nama: "Nga" },
-    { jawi: "ف", rumi: "F", nama: "Fa" },
-    { jawi: "ڤ", rumi: "P", nama: "Pa" },
-    { jawi: "ق", rumi: "Q", nama: "Qaf" },
     { jawi: "ک", rumi: "K", nama: "Kaf" },
-    { jawi: "ڬ", rumi: "G", nama: "Ga" },
     { jawi: "ل", rumi: "L", nama: "Lam" },
     { jawi: "م", rumi: "M", nama: "Mim" },
     { jawi: "ن", rumi: "N", nama: "Nun" },
     { jawi: "و", rumi: "W", nama: "Wau" },
     { jawi: "ه", rumi: "H", nama: "Ha" },
-    { jawi: "ء", rumi: "'", nama: "Hamzah" },
     { jawi: "ي", rumi: "Y", nama: "Ya" },
+    { jawi: "ڤ", rumi: "P", nama: "Pa" },
+    { jawi: "چ", rumi: "C", nama: "Ca" },
+    { jawi: "ڬ", rumi: "G", nama: "Ga" },
+    { jawi: "ڠ", rumi: "Ng", nama: "Nga" },
     { jawi: "ڽ", rumi: "Ny", nama: "Nya" }
 ];
 
-const NUMBERS = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+// Nombor utama untuk umur 3-5: 1 hingga 10 (kadang-kadang sampai 15)
+const NUMBERS = [1,2,3,4,5,6,7,8,9,10];
+const NUMBERS_EXT = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 
 /* ============================================================
-   GENERATOR SOALAN (boleh hasilkan ratusan)
+   GENERATOR SOALAN - Sesuai umur 3-5 tahun
+   - Pilihan jawapan hanya 3 (lebih mudah)
+   - Fokus huruf besar & nombor 1-10
+   - Jawi asas sahaja
+   - Matching hanya 2 pasangan
+   - Bahasa soalan ringkas & mesra
 ============================================================ */
 function shuffle(arr) {
     const a = [...arr];
@@ -423,9 +419,11 @@ function shuffle(arr) {
     return a;
 }
 
-function pickWrong(correct, pool, count = 3) {
-    const wrongs = shuffle(pool.filter(x => x !== correct)).slice(0, count);
-    while (wrongs.length < count) wrongs.push(pool[Math.floor(Math.random()*pool.length)]);
+function pickWrong(correct, pool, count = 2) {
+    const wrongs = shuffle(pool.filter(x => String(x) !== String(correct))).slice(0, count);
+    while (wrongs.length < count) {
+        wrongs.push(pool[Math.floor(Math.random() * pool.length)]);
+    }
     return wrongs;
 }
 
@@ -433,10 +431,10 @@ function generateQuestions(count = 500) {
     const qs = [];
     let id = 0;
 
-    // --- RUMI Choice ---
-    for (let i = 0; i < 80; i++) {
+    // ========== 1. RUMI - Kenal huruf besar (paling penting untuk 3-5 thn) ==========
+    for (let i = 0; i < 100; i++) {
         const letter = RUMI[i % 26];
-        const opts = shuffle([letter, ...pickWrong(letter, RUMI)]);
+        const opts = shuffle([letter, ...pickWrong(letter, RUMI, 2)]);
         qs.push({
             id: id++, category: "rumi", type: "choice",
             question: "Huruf apakah ini?",
@@ -446,53 +444,92 @@ function generateQuestions(count = 500) {
         });
     }
 
-    // --- RUMI lowercase recognition ---
-    for (let i = 0; i < 40; i++) {
-        const idx = i % 26;
-        const upper = RUMI[idx];
-        const lower = RUMI_LOWER[idx];
-        const opts = shuffle([lower, ...pickWrong(lower, RUMI_LOWER)]);
+    // ========== 2. RUMI - Drag huruf besar ==========
+    for (let i = 0; i < 50; i++) {
+        const letter = RUMI[i % 26];
         qs.push({
-            id: id++, category: "rumi", type: "choice",
-            question: "Huruf kecil untuk " + upper + " ialah?",
-            display: upper,
-            options: opts,
-            answer: lower
+            id: id++, category: "rumi", type: "drag",
+            question: "Seret huruf " + letter + " ke kotak!",
+            drag: letter,
+            answer: letter
         });
     }
 
-    // --- JAWI Choice (kenal huruf Jawi) ---
+    // ========== 3. RUMI - Isi tempat kosong (urutan mudah) ==========
+    for (let i = 0; i < 40; i++) {
+        const idx = i % 24;
+        qs.push({
+            id: id++, category: "rumi", type: "fill",
+            question: "Apakah huruf seterusnya?\n" + RUMI[idx] + "  " + RUMI[idx+1] + "  ___",
+            answer: RUMI[idx + 2]
+        });
+    }
+
+    // ========== 4. RUMI - Padankan huruf yang sama (2 pasangan sahaja) ==========
+    for (let i = 0; i < 40; i++) {
+        const a = RUMI[i % 24];
+        const b = RUMI[(i + 5) % 26];
+        qs.push({
+            id: id++, category: "rumi", type: "match",
+            question: "Padankan huruf yang sama",
+            pairs: [ [a, a], [b, b] ]
+        });
+    }
+
+    // ========== 5. JAWI - Kenal huruf Jawi asas (padanan Rumi) ==========
     for (let i = 0; i < 80; i++) {
         const item = JAWI_MAP[i % JAWI_MAP.length];
-        const wrongRumi = pickWrong(item.rumi, JAWI_MAP.map(j => j.rumi));
-        const opts = shuffle([item.rumi, ...wrongRumi]);
+        const wrongs = pickWrong(item.rumi, JAWI_MAP.map(j => j.rumi), 2);
+        const opts = shuffle([item.rumi, ...wrongs]);
         qs.push({
             id: id++, category: "jawi", type: "choice",
-            question: "Apakah padanan Rumi untuk huruf Jawi ini?",
+            question: "Huruf Jawi ini sama dengan huruf?",
             display: item.jawi,
             options: opts,
             answer: item.rumi
         });
     }
 
-    // --- JAWI Choice (kenal nama) ---
+    // ========== 6. JAWI - Kenal nama huruf (ringkas) ==========
     for (let i = 0; i < 40; i++) {
         const item = JAWI_MAP[i % JAWI_MAP.length];
-        const wrongNames = pickWrong(item.nama, JAWI_MAP.map(j => j.nama));
-        const opts = shuffle([item.nama, ...wrongNames]);
+        const wrongs = pickWrong(item.nama, JAWI_MAP.map(j => j.nama), 2);
+        const opts = shuffle([item.nama, ...wrongs]);
         qs.push({
             id: id++, category: "jawi", type: "choice",
-            question: "Apakah nama huruf Jawi ini?",
+            question: "Apakah nama huruf ini?",
             display: item.jawi,
             options: opts,
             answer: item.nama
         });
     }
 
-    // --- NOMBOR Choice ---
-    for (let i = 0; i < 60; i++) {
+    // ========== 7. JAWI - Drag ==========
+    for (let i = 0; i < 40; i++) {
+        const item = JAWI_MAP[i % JAWI_MAP.length];
+        qs.push({
+            id: id++, category: "jawi", type: "drag",
+            question: "Seret huruf " + item.nama + " ke kotak!",
+            drag: item.jawi,
+            answer: item.jawi
+        });
+    }
+
+    // ========== 8. JAWI - Padankan Jawi dengan Rumi (2 pasangan) ==========
+    for (let i = 0; i < 35; i++) {
+        const a = JAWI_MAP[i % JAWI_MAP.length];
+        const b = JAWI_MAP[(i + 4) % JAWI_MAP.length];
+        qs.push({
+            id: id++, category: "jawi", type: "match",
+            question: "Padankan huruf Jawi dengan Rumi",
+            pairs: [ [a.jawi, a.rumi], [b.jawi, b.rumi] ]
+        });
+    }
+
+    // ========== 9. NOMBOR - Kenal nombor 1-10 ==========
+    for (let i = 0; i < 70; i++) {
         const n = NUMBERS[i % NUMBERS.length];
-        const opts = shuffle([String(n), ...pickWrong(String(n), NUMBERS.map(String))]);
+        const opts = shuffle([String(n), ...pickWrong(String(n), NUMBERS.map(String), 2)]);
         qs.push({
             id: id++, category: "nombor", type: "choice",
             question: "Nombor apakah ini?",
@@ -502,114 +539,51 @@ function generateQuestions(count = 500) {
         });
     }
 
-    // --- NOMBOR: berapa banyak ---
-    const emojiSets = ["🍎","⭐","🐱","🐶","🎈","🚗","🌸","🐟"];
-    for (let i = 0; i < 40; i++) {
-        const count = (i % 9) + 1;
+    // ========== 10. NOMBOR - Kira objek (paling sesuai umur 3-5) ==========
+    const emojiSets = ["🍎","⭐","🐱","🐶","🎈","🌸","🐟","🚗","🍓","🦋"];
+    for (let i = 0; i < 60; i++) {
+        const count = (i % 8) + 1; // 1 hingga 8 sahaja (mudah kira)
         const emoji = emojiSets[i % emojiSets.length];
         const display = emoji.repeat(count);
-        const opts = shuffle([String(count), ...pickWrong(String(count), ["1","2","3","4","5","6","7","8","9"])]);
+        const opts = shuffle([String(count), ...pickWrong(String(count), ["1","2","3","4","5","6","7","8"], 2)]);
         qs.push({
             id: id++, category: "nombor", type: "choice",
-            question: "Berapa banyak " + emoji + "?",
+            question: "Berapa banyak?",
             display: display,
             options: opts,
             answer: String(count)
         });
     }
 
-    // --- FILL (isi tempat kosong) ---
+    // ========== 11. NOMBOR - Drag ==========
     for (let i = 0; i < 40; i++) {
-        const idx = i % 24;
-        const letter = RUMI[idx];
-        const next = RUMI[idx + 1];
-        qs.push({
-            id: id++, category: "rumi", type: "fill",
-            question: "Lengkapkan: " + letter + ", " + next + ", ___",
-            answer: RUMI[idx + 2]
-        });
-    }
-    for (let i = 0; i < 30; i++) {
-        const n = (i % 18) + 1;
-        qs.push({
-            id: id++, category: "nombor", type: "fill",
-            question: "Lengkapkan: " + n + ", " + (n+1) + ", ___",
-            answer: String(n + 2)
-        });
-    }
-
-    // --- DRAG ---
-    for (let i = 0; i < 40; i++) {
-        const letter = RUMI[i % 26];
-        qs.push({
-            id: id++, category: "rumi", type: "drag",
-            question: "Seret huruf " + letter + " ke dalam kotak!",
-            drag: letter,
-            answer: letter
-        });
-    }
-    for (let i = 0; i < 30; i++) {
-        const item = JAWI_MAP[i % JAWI_MAP.length];
-        qs.push({
-            id: id++, category: "jawi", type: "drag",
-            question: "Seret huruf Jawi " + item.nama + " ke dalam kotak!",
-            drag: item.jawi,
-            answer: item.jawi
-        });
-    }
-    for (let i = 0; i < 30; i++) {
-        const n = NUMBERS[i % 11];
+        const n = NUMBERS[i % NUMBERS.length];
         qs.push({
             id: id++, category: "nombor", type: "drag",
-            question: "Seret nombor " + n + " ke dalam kotak!",
+            question: "Seret nombor " + n + " ke kotak!",
             drag: String(n),
             answer: String(n)
         });
     }
 
-    // --- MATCH ---
+    // ========== 12. NOMBOR - Isi tempat kosong (urutan mudah) ==========
+    for (let i = 0; i < 35; i++) {
+        const n = (i % 8) + 1;
+        qs.push({
+            id: id++, category: "nombor", type: "fill",
+            question: "Apakah nombor seterusnya?\n" + n + "  " + (n+1) + "  ___",
+            answer: String(n + 2)
+        });
+    }
+
+    // ========== 13. NOMBOR - Padankan nombor sama (2 pasangan) ==========
     for (let i = 0; i < 30; i++) {
-        const start = (i * 3) % 24;
-        const pairs = [
-            [RUMI[start], RUMI_LOWER[start]],
-            [RUMI[start+1], RUMI_LOWER[start+1]],
-            [RUMI[start+2], RUMI_LOWER[start+2]]
-        ];
-        qs.push({
-            id: id++, category: "rumi", type: "match",
-            question: "Padankan huruf besar dengan huruf kecil",
-            pairs: pairs
-        });
-    }
-    for (let i = 0; i < 25; i++) {
-        const start = (i * 3) % (JAWI_MAP.length - 3);
-        const pairs = [
-            [JAWI_MAP[start].jawi, JAWI_MAP[start].rumi],
-            [JAWI_MAP[start+1].jawi, JAWI_MAP[start+1].rumi],
-            [JAWI_MAP[start+2].jawi, JAWI_MAP[start+2].rumi]
-        ];
-        qs.push({
-            id: id++, category: "jawi", type: "match",
-            question: "Padankan huruf Jawi dengan Rumi",
-            pairs: pairs
-        });
-    }
-    for (let i = 0; i < 20; i++) {
-        const start = (i * 3) % 15;
-        const pairs = [
-            [String(start+1), String(start+1)],
-            [String(start+2), String(start+2)],
-            [String(start+3), String(start+3)]
-        ];
-        // Make it interesting: match number to its word? Keep simple for 3-5
+        const a = NUMBERS[i % 8];
+        const b = NUMBERS[(i + 3) % 10];
         qs.push({
             id: id++, category: "nombor", type: "match",
             question: "Padankan nombor yang sama",
-            pairs: [
-                [String(start+1), String(start+1)],
-                [String(start+2), String(start+2)],
-                [String(start+3), String(start+3)]
-            ]
+            pairs: [ [String(a), String(a)], [String(b), String(b)] ]
         });
     }
 
@@ -617,11 +591,12 @@ function generateQuestions(count = 500) {
 }
 
 const ALL_QUESTIONS = generateQuestions(500);
-console.log("Jumlah soalan dijana:", ALL_QUESTIONS.length);
+console.log("Jumlah soalan dijana (sesuai umur 3-5):", ALL_QUESTIONS.length);
 
 /* ============================================================
-   TOKEN SYSTEM (localStorage + senarai token demo)
-   Dalam production: semak dengan Google Sheet via Apps Script
+   TOKEN SYSTEM (localStorage)
+   Nanti token akan dijana secara rawak & automatik dari Google Sheet.
+   Buat masa ini guna senarai demo sahaja untuk ujian.
 ============================================================ */
 const VALID_TOKENS = [
     "JBL-DEMO-2024",
@@ -1102,10 +1077,11 @@ function finishGame() {
     document.getElementById("resultName").textContent = name;
     document.getElementById("resultScore").textContent = "Markah: " + score;
 
+    // Bintang lebih mudah dapat untuk galakkan kanak-kanak kecil
     let stars = 0;
-    if (correctAnswers >= 15) stars = 3;
-    else if (correctAnswers >= 8) stars = 2;
-    else if (correctAnswers >= 3) stars = 1;
+    if (correctAnswers >= 10) stars = 3;
+    else if (correctAnswers >= 5) stars = 2;
+    else if (correctAnswers >= 2) stars = 1;
 
     document.getElementById("resultStars").textContent =
         "⭐".repeat(stars) + "☆".repeat(3 - stars);
