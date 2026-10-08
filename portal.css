@@ -38,6 +38,19 @@ body {
   align-items: center;
   z-index: 9999;
   transition: opacity 0.8s ease, visibility 0.8s;
+  /* Failsafe CSS tulen: kalau JS gagal jalan (fail hilang/ralat), overlay ni
+     automatik hilang lepas 7 saat — elak laman "terperangkap" loading screen
+     selama-lamanya. Dalam keadaan normal, JS dah sorokkan overlay ni lebih
+     awal (~2.3 saat) jadi animation ni tak pernah sempat nampak kesan. */
+  animation: failsafeHideLoader 0.01s linear 7s forwards;
+}
+
+@keyframes failsafeHideLoader {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
 }
 
 .loader-content {
@@ -191,12 +204,12 @@ body {
   padding: 20px;
   position: relative;
   z-index: 2;
-  opacity: 0;
-  transition: opacity 1s ease;
-}
-
-.content-wrapper.visible {
+  /* Nota: sebelum ni opacity:0 sehingga JS tambah kelas .visible — kalau JS
+     gagal, kandungan kekal tak kelihatan SELAMA-LAMANYA. #loader-overlay
+     (z-index 9999) dah pun litup skrin penuh semasa loading, jadi tak perlu
+     kandungan bawah ni sorok sekali — redundant dan berisiko. */
   opacity: 1;
+  transition: opacity 1s ease;
 }
 
 .glass-card {
