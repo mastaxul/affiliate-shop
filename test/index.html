@@ -430,65 +430,7 @@ body{
         opacity:1;
     }
 }
-/* =========================
-   EYE
-========================= */
-.eye{
-    position:absolute;
-    z-index:10;
-    left:50%;
-    top:62px;
-    width:66px;
-    height:36px;
-    transform:translateX(-50%) rotate(-1deg);
-    border-radius:50%;
-    background:
-        radial-gradient(
-            ellipse at center,
-            #ff2020 0%,
-            #8d0000 28%,
-            #200000 48%,
-            transparent 70%
-        );
-    border:1px solid rgba(255,0,0,.75);
-    box-shadow:
-        0 0 7px #f00,
-        0 0 22px rgba(255,0,0,.65),
-        inset 0 0 15px rgba(255,0,0,.7);
-    animation:eyePulse 2.4s ease-in-out infinite;
-}
-.eye:before{
-    content:"";
-    position:absolute;
-    width:4px;
-    height:25px;
-    left:50%;
-    top:5px;
-    transform:translateX(-50%);
-    background:#050000;
-    border-radius:50%;
-    box-shadow:0 0 7px #000;
-}
-.eye:after{
-    content:"";
-    position:absolute;
-    left:-8px;
-    right:-8px;
-    top:50%;
-    height:1px;
-    background:#ff0000;
-    box-shadow:0 0 10px #f00;
-}
-@keyframes eyePulse{
-    0%,100%{
-        transform:translateX(-50%) scale(.94);
-        opacity:.65;
-    }
-    50%{
-        transform:translateX(-50%) scale(1.08);
-        opacity:1;
-    }
-}
+/* Eye removed - clean pyramid without eye */
 /* =========================
    COUNTDOWN
 ========================= */
@@ -821,7 +763,6 @@ body{
             <div class="crack two"></div>
             <div class="crack three"></div>
             <div class="crack four"></div>
-            <div class="eye"></div>
         </div>
     </section>
     <section class="countdown" id="countdown">
@@ -859,6 +800,12 @@ body{
         SYSTEM ACTIVE
     </div>
 </main>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop preload="auto">
+    <source src="https://raw.githubusercontent.com/FireEntity1/rythm-2d-platformer/main/Audio/Darkside%20-%20Nightcore.mp3" type="audio/mpeg">
+</audio>
+
 <script>
 /* =========================================================
    MASTA XUL — UNIVERSAL ANNUAL DARK COUNTDOWN
@@ -1161,143 +1108,4 @@ function updateCountdown(){
             new countdown values animate.
         */
         Object.keys(previousValues).forEach(
-            key => previousValues[key] = null
-        );
-    }
-    const difference =
-        calculateDifference(
-            now,
-            target
-        );
-    animateNumber(
-        elements.years,
-        difference.years,
-        "years"
-    );
-    animateNumber(
-        elements.months,
-        difference.months,
-        "months"
-    );
-    animateNumber(
-        elements.days,
-        difference.days,
-        "days"
-    );
-    animateNumber(
-        elements.hours,
-        difference.hours,
-        "hours"
-    );
-    animateNumber(
-        elements.minutes,
-        difference.minutes,
-        "minutes"
-    );
-    animateSecond(
-        difference.seconds
-    );
-    animateNumber(
-        elements.seconds,
-        difference.seconds,
-        "seconds"
-    );
-}
-/* =========================================================
-   PARTICLES
-========================================================= */
-function createParticles(){
-    const container =
-        document.getElementById("particles");
-    const total =
-        window.innerWidth < 600 ? 35 : 65;
-    for(let i = 0; i < total; i++){
-        const particle =
-            document.createElement("span");
-        particle.className =
-            "particle";
-        particle.style.left =
-            Math.random() * 100 + "%";
-        particle.style.animationDuration =
-            (8 + Math.random() * 16) + "s";
-        particle.style.animationDelay =
-            (-Math.random() * 20) + "s";
-        const size =
-            Math.random() > .8
-                ? 3
-                : 1 + Math.random();
-        particle.style.width =
-            size + "px";
-        particle.style.height =
-            size + "px";
-        container.appendChild(
-            particle
-        );
-    }
-}
-/* =========================================================
-   RANDOM LIGHTNING
-========================================================= */
-function randomLightning(){
-    const delay =
-        5000 + Math.random() * 9000;
-    setTimeout(() => {
-        lightning.classList.remove(
-            "active"
-        );
-        void lightning.offsetWidth;
-        lightning.classList.add(
-            "active"
-        );
-        randomLightning();
-    },delay);
-}
-/* =========================================================
-   INITIALIZE
-========================================================= */
-createParticles();
-randomLightning();
-updateCountdown();
-/*
-    100ms makes the system responsive
-    while the actual countdown remains
-    second-based.
-*/
-setInterval(
-    updateCountdown,
-    100
-);
-/* =========================================================
-   VISIBILITY HANDLING
-========================================================= */
-document.addEventListener(
-    "visibilitychange",
-    () => {
-        /*
-            Recalculate immediately when the
-            page becomes visible again.
-        */
-        if(!document.hidden){
-            updateCountdown();
-        }
-    }
-);
-/* =========================================================
-   RESIZE
-========================================================= */
-window.addEventListener(
-    "resize",
-    () => {
-        /*
-            Prevent excessive particle creation.
-            Visual layout is handled entirely by CSS.
-        */
-        document.body.style.setProperty(
-            "--screen-width",
-            window.innerWidth + "px"
-        );
-    }
-);
-</script>
-</body>
-</html>
+            key =>
