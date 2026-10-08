@@ -2,287 +2,203 @@
 <html lang="ms">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0,
-               maximum-scale=1.0, user-scalable=no">
-
-<title>Jom Belajar! 🌈</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Jom Belajar! 🌈 - Rumi • Jawi • Nombor</title>
 <style>
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-}
-
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
 body {
-    margin: 0;
     font-family: "Arial Rounded MT Bold", "Trebuchet MS", Arial, sans-serif;
     background: linear-gradient(135deg, #dff7ff, #fff5d9);
     color: #263238;
     min-height: 100vh;
+    overflow-x: hidden;
 }
-
-/* =========================
-   HEADER
-========================= */
-
 header {
     background: linear-gradient(135deg, #6c63ff, #8e7dff);
     color: white;
     text-align: center;
-    padding: 18px 15px;
+    padding: 16px 12px;
     box-shadow: 0 5px 15px rgba(0,0,0,.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
-
-header h1 {
-    margin: 0;
-    font-size: 28px;
-}
-
-header p {
-    margin: 6px 0 0;
-    font-size: 15px;
-}
-
-/* =========================
-   CONTAINER
-========================= */
-
-.container {
-    width: min(700px, 94%);
-    margin: 20px auto;
-}
-
-/* =========================
-   CARD
-========================= */
-
+header h1 { margin: 0; font-size: 26px; }
+header p { margin: 4px 0 0; font-size: 14px; opacity: .9; }
+.container { width: min(720px, 96%); margin: 16px auto; padding-bottom: 40px; }
 .card {
     background: white;
-    border-radius: 25px;
-    padding: 25px;
-    margin-bottom: 20px;
+    border-radius: 24px;
+    padding: 22px;
+    margin-bottom: 16px;
     box-shadow: 0 8px 25px rgba(0,0,0,.12);
 }
-
-/* =========================
-   START SCREEN
-========================= */
-
-.start-screen {
-    text-align: center;
-}
-
-.logo {
-    font-size: 75px;
-    margin-bottom: 5px;
-}
-
-.start-screen h2 {
-    color: #5b50d6;
-    font-size: 27px;
-}
-
-label {
-    display: block;
-    text-align: left;
-    margin-top: 15px;
-    font-weight: bold;
-}
-
-input,
-select {
+.start-screen { text-align: center; }
+.logo { font-size: 70px; margin-bottom: 8px; }
+.start-screen h2 { color: #5b50d6; font-size: 24px; margin-bottom: 8px; }
+label { display: block; text-align: left; margin-top: 14px; font-weight: bold; font-size: 15px; }
+input, select {
     width: 100%;
-    padding: 15px;
-    margin-top: 7px;
-    border-radius: 15px;
+    padding: 14px;
+    margin-top: 6px;
+    border-radius: 14px;
     border: 2px solid #ddd;
-    font-size: 18px;
+    font-size: 17px;
     outline: none;
+    transition: border-color .2s;
 }
-
-input:focus,
-select:focus {
-    border-color: #6c63ff;
-}
-
-/* =========================
-   BUTTON
-========================= */
-
+input:focus, select:focus { border-color: #6c63ff; }
 .btn {
     width: 100%;
     border: 0;
-    padding: 16px;
-    border-radius: 18px;
-    margin-top: 20px;
-    font-size: 20px;
+    padding: 15px;
+    border-radius: 16px;
+    margin-top: 18px;
+    font-size: 18px;
     font-weight: bold;
     cursor: pointer;
     background: linear-gradient(135deg, #6c63ff, #8e7dff);
     color: white;
     box-shadow: 0 5px 12px rgba(108,99,255,.35);
+    transition: transform .15s;
 }
-
-.btn:active {
-    transform: scale(.97);
+.btn:active { transform: scale(.97); }
+.btn:disabled { opacity: .6; cursor: not-allowed; }
+.btn-secondary {
+    background: linear-gradient(135deg, #26a69a, #4db6ac);
 }
-
-/* =========================
-   GAME HEADER
-========================= */
-
 .game-info {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
+    gap: 8px;
     flex-wrap: wrap;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
-
 .info-box {
     flex: 1;
-    min-width: 120px;
+    min-width: 100px;
     background: #f5f4ff;
-    padding: 12px;
-    border-radius: 15px;
+    padding: 10px;
+    border-radius: 14px;
     text-align: center;
     font-weight: bold;
+    font-size: 14px;
 }
-
-.stars {
-    color: #ffb300;
-    font-size: 21px;
-}
-
-/* =========================
-   QUESTION
-========================= */
-
-.question-card {
-    text-align: center;
-}
-
-.question-number {
-    color: #777;
-    font-size: 15px;
-}
-
-.question {
-    font-size: 26px;
-    font-weight: bold;
-    margin: 20px 0;
-}
-
+.stars { color: #ffb300; font-size: 20px; }
+.question-card { text-align: center; }
+.question-number { color: #777; font-size: 14px; margin-bottom: 8px; }
+.question { font-size: 22px; font-weight: bold; margin: 12px 0; line-height: 1.3; }
 .big-letter {
     font-size: 90px;
     font-weight: bold;
     color: #6c63ff;
+    margin: 10px 0;
+    line-height: 1.1;
+    font-family: "Arial", "Segoe UI", sans-serif;
 }
-
-/* =========================
-   OPTIONS
-========================= */
-
 .options {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    gap: 12px;
+    margin-top: 16px;
 }
-
 .option {
     background: #f5f5ff;
     border: 3px solid transparent;
-    border-radius: 20px;
-    padding: 20px;
-    font-size: 25px;
-    font-weight: bold;
-    cursor: pointer;
-    min-height: 75px;
-}
-
-.option:hover {
-    border-color: #6c63ff;
-}
-
-.option.correct {
-    background: #d9ffd9;
-    border-color: #32a852;
-}
-
-.option.wrong {
-    background: #ffdede;
-    border-color: #e53935;
-}
-
-/* =========================
-   DRAG DROP
-========================= */
-
-.drag-area {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin-top: 20px;
-}
-
-.drag-item,
-.drop-zone {
-    width: 100px;
-    height: 100px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 35px;
-    font-weight: bold;
-}
-
-.drag-item {
-    background: #ffe082;
-    cursor: grab;
-}
-
-.drop-zone {
-    background: #e3f2fd;
-    border: 4px dashed #64b5f6;
-}
-
-/* =========================
-   MATCHING
-========================= */
-
-.match-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
-
-.match-item {
-    padding: 18px;
-    background: #f5f5ff;
     border-radius: 18px;
-    text-align: center;
+    padding: 18px 12px;
     font-size: 24px;
     font-weight: bold;
     cursor: pointer;
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .2s;
+    user-select: none;
+}
+.option:hover, .option:active { border-color: #6c63ff; transform: scale(1.03); }
+.option.correct { background: #d9ffd9; border-color: #32a852; }
+.option.wrong { background: #ffdede; border-color: #e53935; }
+.option:disabled { pointer-events: none; }
+
+/* Drag & Drop */
+.drag-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    min-height: 140px;
+}
+.drag-item, .drop-zone {
+    width: 110px;
+    height: 110px;
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 42px;
+    font-weight: bold;
+    user-select: none;
+    touch-action: none;
+}
+.drag-item {
+    background: #ffe082;
+    cursor: grab;
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+    z-index: 10;
+}
+.drag-item.dragging { opacity: .7; transform: scale(1.1); }
+.drop-zone {
+    background: #e3f2fd;
+    border: 4px dashed #64b5f6;
+    transition: all .2s;
+}
+.drop-zone.over { background: #bbdefb; border-color: #1976d2; transform: scale(1.05); }
+.drop-zone.filled { background: #c8e6c9; border-color: #43a047; border-style: solid; }
+
+/* Matching */
+.match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 16px;
+}
+.match-column { display: flex; flex-direction: column; gap: 10px; }
+.match-item {
+    padding: 16px;
+    background: #f5f5ff;
+    border-radius: 16px;
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    cursor: pointer;
     border: 3px solid transparent;
+    transition: all .2s;
+    user-select: none;
 }
+.match-item.selected { border-color: #6c63ff; background: #e8e7ff; transform: scale(1.04); }
+.match-item.matched { background: #d9ffd9; border-color: #32a852; pointer-events: none; }
+.match-item.wrong-temp { background: #ffdede; border-color: #e53935; }
 
-.match-item.selected {
-    border-color: #6c63ff;
+/* Fill */
+.fill-input {
+    width: 100%;
+    max-width: 200px;
+    padding: 16px;
+    font-size: 28px;
+    text-align: center;
+    border-radius: 16px;
+    border: 3px solid #ddd;
+    margin: 16px auto;
+    display: block;
+    font-weight: bold;
 }
+.fill-input:focus { border-color: #6c63ff; outline: none; }
 
-.match-item.matched {
-    background: #d9ffd9;
-    border-color: #32a852;
-}
-
-/* =========================
-   FIREWORK
-========================= */
-
+/* Fireworks */
 #fireworks {
     position: fixed;
     inset: 0;
@@ -290,1204 +206,946 @@ select:focus {
     z-index: 9999;
     overflow: hidden;
 }
-
 .spark {
     position: absolute;
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     animation: explode 900ms ease-out forwards;
 }
-
 @keyframes explode {
-    from {
-        transform: translate(0,0) scale(1);
-        opacity: 1;
-    }
-
-    to {
-        transform:
-            translate(
-                var(--x),
-                var(--y)
-            )
-            scale(.2);
-        opacity: 0;
-    }
+    from { transform: translate(0,0) scale(1); opacity: 1; }
+    to { transform: translate(var(--x), var(--y)) scale(.15); opacity: 0; }
 }
-
-/* =========================
-   FEEDBACK
-========================= */
 
 .feedback {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
-    margin-top: 20px;
-    min-height: 30px;
+    margin-top: 16px;
+    min-height: 32px;
+}
+.correct-text { color: #2e9d45; }
+.wrong-text { color: #e53935; }
+
+.result { text-align: center; }
+.result-stars { font-size: 48px; color: #ffb300; margin: 12px 0; }
+.result-score { font-size: 32px; font-weight: bold; color: #5b50d6; margin: 8px 0; }
+
+.hidden { display: none !important; }
+
+.token-box {
+    background: #fff8e1;
+    border: 2px dashed #ffb300;
+    border-radius: 14px;
+    padding: 12px;
+    margin-top: 12px;
+    font-size: 14px;
+}
+.token-status { font-size: 13px; margin-top: 6px; font-weight: bold; }
+.token-ok { color: #2e7d32; }
+.token-fail { color: #c62828; }
+
+.progress-bar {
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #6c63ff, #8e7dff);
+    border-radius: 4px;
+    transition: width .3s;
 }
 
-.correct-text {
-    color: #2e9d45;
-}
-
-.wrong-text {
-    color: #e53935;
-}
-
-/* =========================
-   RESULT
-========================= */
-
-.result {
-    text-align: center;
-}
-
-.result-stars {
-    font-size: 50px;
-    color: #ffb300;
-}
-
-.result-score {
-    font-size: 35px;
-    font-weight: bold;
-    color: #5b50d6;
-}
-
-/* =========================
-   HIDDEN
-========================= */
-
-.hidden {
-    display: none !important;
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:500px) {
-
-    header h1 {
-        font-size: 23px;
-    }
-
-    .question {
-        font-size: 22px;
-    }
-
-    .options {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .option {
-        font-size: 22px;
-    }
-
-    .big-letter {
-        font-size: 75px;
-    }
+@media (max-width: 500px) {
+    header h1 { font-size: 22px; }
+    .question { font-size: 19px; }
+    .big-letter { font-size: 72px; }
+    .option { font-size: 20px; padding: 14px 8px; }
+    .drag-item, .drop-zone { width: 90px; height: 90px; font-size: 34px; }
+    .match-item { font-size: 22px; padding: 14px; }
 }
 </style>
 </head>
-
 <body>
 
 <header>
     <h1>🌈 Jom Belajar!</h1>
-    <p>Rumi • Jawi • Nombor</p>
+    <p>Rumi • Jawi • Nombor • Untuk kanak-kanak 3-5 tahun</p>
 </header>
 
 <div class="container">
 
-<!-- =========================
-     START SCREEN
-========================= -->
-
-<div id="startScreen" class="card start-screen">
-
-    <div class="logo">🧒📚</div>
-
-    <h2>Selamat Datang!</h2>
-
-    <p>
-        Mari belajar huruf Rumi, Jawi dan nombor
-        sambil bermain 🎉
-    </p>
-
-    <label>Nama Murid</label>
-
-    <input
-        type="text"
-        id="studentName"
-        placeholder="Contoh: Ali"
-        maxlength="30"
-    >
-
-    <label>Masa Bermain</label>
-
-    <select id="gameTime">
-        <option value="5">5 minit</option>
-        <option value="10">10 minit</option>
-        <option value="15" selected>15 minit</option>
-        <option value="30">30 minit</option>
-        <option value="60">60 minit</option>
-    </select>
-
-    <label>Topik</label>
-
-    <select id="category">
-
-        <option value="semua">
-            Semua Topik
-        </option>
-
-        <option value="rumi">
-            🔤 Huruf Rumi
-        </option>
-
-        <option value="jawi">
-            🕌 Huruf Jawi
-        </option>
-
-        <option value="nombor">
-            🔢 Nombor
-        </option>
-
-    </select>
-
-    <button
-        class="btn"
-        onclick="startGame()"
-    >
-        🚀 MULA BERMAIN
-    </button>
-
-</div>
-
-
-<!-- =========================
-     GAME SCREEN
-========================= -->
-
-<div id="gameScreen" class="hidden">
-
-    <div class="game-info">
-
-        <div class="info-box">
-            👧
-            <br>
-            <span id="playerName"></span>
+    <!-- ========== TOKEN / ACTIVATION ========== -->
+    <div id="tokenScreen" class="card start-screen">
+        <div class="logo">🔑</div>
+        <h2>Aktifkan Game</h2>
+        <p>Masukkan Token ID yang anda terima selepas pembelian.</p>
+        <label>Token ID</label>
+        <input type="text" id="tokenInput" placeholder="Contoh: JBL-XXXX-XXXX" maxlength="40" autocomplete="off">
+        <div class="token-box">
+            <div>💡 Token disimpan di peranti ini (localStorage)</div>
+            <div id="tokenStatus" class="token-status"></div>
         </div>
-
-        <div class="info-box">
-            ⭐
-            <br>
-            <span id="score">0</span>
-        </div>
-
-        <div class="info-box">
-            ⏱️
-            <br>
-            <span id="timer">15:00</span>
-        </div>
-
+        <button class="btn" onclick="activateToken()">✅ AKTIFKAN</button>
+        <button class="btn btn-secondary" style="margin-top:10px;" onclick="tryDemoMode()">🎮 CUBA DEMO (Tanpa Token)</button>
     </div>
 
+    <!-- ========== START SCREEN ========== -->
+    <div id="startScreen" class="card start-screen hidden">
+        <div class="logo">🧒📚</div>
+        <h2>Selamat Datang!</h2>
+        <p>Mari belajar huruf Rumi, Jawi dan nombor sambil bermain 🎉</p>
 
-    <div class="card question-card">
+        <label>Nama Murid</label>
+        <input type="text" id="studentName" placeholder="Contoh: Ali" maxlength="25">
 
-        <div class="question-number">
-            Soalan <span id="questionNumber">1</span>
+        <label>Masa Bermain</label>
+        <select id="gameTime">
+            <option value="3">3 minit</option>
+            <option value="5">5 minit</option>
+            <option value="10" selected>10 minit</option>
+            <option value="15">15 minit</option>
+            <option value="20">20 minit</option>
+        </select>
+
+        <label>Topik</label>
+        <select id="category">
+            <option value="semua">🌈 Semua Topik</option>
+            <option value="rumi">🔤 Huruf Rumi</option>
+            <option value="jawi">🕌 Huruf Jawi</option>
+            <option value="nombor">🔢 Nombor</option>
+        </select>
+
+        <label>Jenis Soalan</label>
+        <select id="qType">
+            <option value="semua">Semua Jenis</option>
+            <option value="choice">Pilihan Jawapan</option>
+            <option value="drag">Seret & Lepas</option>
+            <option value="match">Padankan</option>
+            <option value="fill">Isi Tempat Kosong</option>
+        </select>
+
+        <button class="btn" onclick="startGame()">🚀 MULA BERMAIN</button>
+        <button class="btn btn-secondary" style="margin-top:10px;background:linear-gradient(135deg,#ef5350,#e57373);" onclick="logoutToken()">🔓 Tukar Token</button>
+    </div>
+
+    <!-- ========== GAME SCREEN ========== -->
+    <div id="gameScreen" class="hidden">
+        <div class="game-info">
+            <div class="info-box">👧<br><span id="playerName">-</span></div>
+            <div class="info-box">⭐<br><span id="score">0</span></div>
+            <div class="info-box">⏱️<br><span id="timer">10:00</span></div>
         </div>
+        <div class="progress-bar"><div id="progressFill" class="progress-fill" style="width:0%"></div></div>
 
-        <div
-            id="questionArea"
-            class="question"
-        ></div>
-
-        <div
-            id="feedback"
-            class="feedback"
-        ></div>
-
+        <div class="card question-card">
+            <div class="question-number">Soalan <span id="questionNumber">1</span></div>
+            <div id="questionArea" class="question"></div>
+            <div id="feedback" class="feedback"></div>
+        </div>
     </div>
 
-</div>
-
-
-<!-- =========================
-     RESULT
-========================= -->
-
-<div id="resultScreen"
-     class="card result hidden">
-
-    <div style="font-size:70px;">
-        🏆
+    <!-- ========== RESULT ========== -->
+    <div id="resultScreen" class="card result hidden">
+        <div style="font-size:64px;">🏆</div>
+        <h2>Tahniah!</h2>
+        <p>Hebat, <strong id="resultName"></strong>!</p>
+        <div id="resultStars" class="result-stars"></div>
+        <div id="resultScore" class="result-score"></div>
+        <p id="resultDetail" style="margin:10px 0;color:#555;"></p>
+        <p>Teruskan belajar dan bermain! 🌈</p>
+        <button class="btn" onclick="restartGame()">🔄 MAIN SEMULA</button>
+        <button class="btn btn-secondary" style="margin-top:10px;" onclick="backToStart()">🏠 KEMBALI</button>
     </div>
-
-    <h2>Tahniah!</h2>
-
-    <p>
-        Hebat, <strong id="resultName"></strong>!
-    </p>
-
-    <div
-        id="resultStars"
-        class="result-stars"
-    ></div>
-
-    <div
-        id="resultScore"
-        class="result-score"
-    ></div>
-
-    <p>
-        Teruskan belajar dan bermain! 🌈
-    </p>
-
-    <button
-        class="btn"
-        onclick="location.reload()"
-    >
-        🔄 MAIN SEMULA
-    </button>
-
 </div>
-
-</div>
-
-
-<!-- FIREWORK -->
 
 <div id="fireworks"></div>
 
-
 <script>
+/* ============================================================
+   DATA ASAS
+============================================================ */
+const RUMI = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+const RUMI_LOWER = "abcdefghijklmnopqrstuvwxyz".split("");
 
-/* ==========================================================
-   DATA SOALAN
-========================================================== */
-
-/*
-   Ini ialah DATA DEMO V1.
-
-   Dalam V2 kita akan masukkan
-   sehingga 500 soalan sebenar.
-*/
-
-const questions = [
-
-    /* =====================
-       RUMI
-    ===================== */
-
-    {
-        category: "rumi",
-        type: "choice",
-        question: "Huruf apakah ini?",
-        display: "A",
-        options: ["A","B","C","D"],
-        answer: "A"
-    },
-
-    {
-        category: "rumi",
-        type: "choice",
-        question: "Huruf apakah ini?",
-        display: "B",
-        options: ["A","B","C","D"],
-        answer: "B"
-    },
-
-    {
-        category: "rumi",
-        type: "choice",
-        question: "Huruf apakah ini?",
-        display: "C",
-        options: ["A","B","C","D"],
-        answer: "C"
-    },
-
-    /* =====================
-       JAWI
-    ===================== */
-
-    {
-        category: "jawi",
-        type: "choice",
-        question: "Apakah huruf Jawi ini?",
-        display: "ا",
-        options: ["A","B","C","D"],
-        answer: "A"
-    },
-
-    {
-        category: "jawi",
-        type: "choice",
-        question: "Apakah huruf Jawi ini?",
-        display: "ب",
-        options: ["A","B","C","D"],
-        answer: "B"
-    },
-
-    /* =====================
-       NOMBOR
-    ===================== */
-
-    {
-        category: "nombor",
-        type: "choice",
-        question: "Nombor apakah ini?",
-        display: "3",
-        options: ["1","2","3","4"],
-        answer: "3"
-    },
-
-    {
-        category: "nombor",
-        type: "choice",
-        question: "Nombor apakah ini?",
-        display: "5",
-        options: ["3","4","5","6"],
-        answer: "5"
-    },
-
-    /* =====================
-       ISI TEMPAT KOSONG
-    ===================== */
-
-    {
-        category: "rumi",
-        type: "fill",
-        question: "Lengkapkan huruf: A, B, __",
-        answer: "C"
-    },
-
-    /* =====================
-       DRAG DROP
-    ===================== */
-
-    {
-        category: "rumi",
-        type: "drag",
-        question: "Seret huruf A ke kotak.",
-        drag: "A",
-        answer: "A"
-    },
-
-    /* =====================
-       PADANKAN
-    ===================== */
-
-    {
-        category: "rumi",
-        type: "match",
-        question: "Padankan huruf dengan pasangannya.",
-        pairs: [
-            ["A","a"],
-            ["B","b"],
-            ["C","c"]
-        ]
-    }
-
+// Padanan Jawi asas (bentuk tunggal) untuk kanak-kanak 3-5
+const JAWI_MAP = [
+    { jawi: "ا", rumi: "A", nama: "Alif" },
+    { jawi: "ب", rumi: "B", nama: "Ba" },
+    { jawi: "ت", rumi: "T", nama: "Ta" },
+    { jawi: "ث", rumi: "S", nama: "Tha" },
+    { jawi: "ج", rumi: "J", nama: "Jim" },
+    { jawi: "چ", rumi: "C", nama: "Ca" },
+    { jawi: "ح", rumi: "H", nama: "Ha" },
+    { jawi: "خ", rumi: "Kh", nama: "Kha" },
+    { jawi: "د", rumi: "D", nama: "Dal" },
+    { jawi: "ذ", rumi: "Z", nama: "Zal" },
+    { jawi: "ر", rumi: "R", nama: "Ra" },
+    { jawi: "ز", rumi: "Z", nama: "Zai" },
+    { jawi: "س", rumi: "S", nama: "Sin" },
+    { jawi: "ش", rumi: "Sy", nama: "Syin" },
+    { jawi: "ص", rumi: "S", nama: "Sod" },
+    { jawi: "ض", rumi: "D", nama: "Dod" },
+    { jawi: "ط", rumi: "T", nama: "To" },
+    { jawi: "ظ", rumi: "Z", nama: "Zo" },
+    { jawi: "ع", rumi: "A", nama: "Ain" },
+    { jawi: "غ", rumi: "Gh", nama: "Ghain" },
+    { jawi: "ڠ", rumi: "Ng", nama: "Nga" },
+    { jawi: "ف", rumi: "F", nama: "Fa" },
+    { jawi: "ڤ", rumi: "P", nama: "Pa" },
+    { jawi: "ق", rumi: "Q", nama: "Qaf" },
+    { jawi: "ک", rumi: "K", nama: "Kaf" },
+    { jawi: "ڬ", rumi: "G", nama: "Ga" },
+    { jawi: "ل", rumi: "L", nama: "Lam" },
+    { jawi: "م", rumi: "M", nama: "Mim" },
+    { jawi: "ن", rumi: "N", nama: "Nun" },
+    { jawi: "و", rumi: "W", nama: "Wau" },
+    { jawi: "ه", rumi: "H", nama: "Ha" },
+    { jawi: "ء", rumi: "'", nama: "Hamzah" },
+    { jawi: "ي", rumi: "Y", nama: "Ya" },
+    { jawi: "ڽ", rumi: "Ny", nama: "Nya" }
 ];
 
+const NUMBERS = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
 
-/* ==========================================================
-   GAME VARIABLES
-========================================================== */
+/* ============================================================
+   GENERATOR SOALAN (boleh hasilkan ratusan)
+============================================================ */
+function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
 
+function pickWrong(correct, pool, count = 3) {
+    const wrongs = shuffle(pool.filter(x => x !== correct)).slice(0, count);
+    while (wrongs.length < count) wrongs.push(pool[Math.floor(Math.random()*pool.length)]);
+    return wrongs;
+}
+
+function generateQuestions(count = 500) {
+    const qs = [];
+    let id = 0;
+
+    // --- RUMI Choice ---
+    for (let i = 0; i < 80; i++) {
+        const letter = RUMI[i % 26];
+        const opts = shuffle([letter, ...pickWrong(letter, RUMI)]);
+        qs.push({
+            id: id++, category: "rumi", type: "choice",
+            question: "Huruf apakah ini?",
+            display: letter,
+            options: opts,
+            answer: letter
+        });
+    }
+
+    // --- RUMI lowercase recognition ---
+    for (let i = 0; i < 40; i++) {
+        const idx = i % 26;
+        const upper = RUMI[idx];
+        const lower = RUMI_LOWER[idx];
+        const opts = shuffle([lower, ...pickWrong(lower, RUMI_LOWER)]);
+        qs.push({
+            id: id++, category: "rumi", type: "choice",
+            question: "Huruf kecil untuk " + upper + " ialah?",
+            display: upper,
+            options: opts,
+            answer: lower
+        });
+    }
+
+    // --- JAWI Choice (kenal huruf Jawi) ---
+    for (let i = 0; i < 80; i++) {
+        const item = JAWI_MAP[i % JAWI_MAP.length];
+        const wrongRumi = pickWrong(item.rumi, JAWI_MAP.map(j => j.rumi));
+        const opts = shuffle([item.rumi, ...wrongRumi]);
+        qs.push({
+            id: id++, category: "jawi", type: "choice",
+            question: "Apakah padanan Rumi untuk huruf Jawi ini?",
+            display: item.jawi,
+            options: opts,
+            answer: item.rumi
+        });
+    }
+
+    // --- JAWI Choice (kenal nama) ---
+    for (let i = 0; i < 40; i++) {
+        const item = JAWI_MAP[i % JAWI_MAP.length];
+        const wrongNames = pickWrong(item.nama, JAWI_MAP.map(j => j.nama));
+        const opts = shuffle([item.nama, ...wrongNames]);
+        qs.push({
+            id: id++, category: "jawi", type: "choice",
+            question: "Apakah nama huruf Jawi ini?",
+            display: item.jawi,
+            options: opts,
+            answer: item.nama
+        });
+    }
+
+    // --- NOMBOR Choice ---
+    for (let i = 0; i < 60; i++) {
+        const n = NUMBERS[i % NUMBERS.length];
+        const opts = shuffle([String(n), ...pickWrong(String(n), NUMBERS.map(String))]);
+        qs.push({
+            id: id++, category: "nombor", type: "choice",
+            question: "Nombor apakah ini?",
+            display: String(n),
+            options: opts,
+            answer: String(n)
+        });
+    }
+
+    // --- NOMBOR: berapa banyak ---
+    const emojiSets = ["🍎","⭐","🐱","🐶","🎈","🚗","🌸","🐟"];
+    for (let i = 0; i < 40; i++) {
+        const count = (i % 9) + 1;
+        const emoji = emojiSets[i % emojiSets.length];
+        const display = emoji.repeat(count);
+        const opts = shuffle([String(count), ...pickWrong(String(count), ["1","2","3","4","5","6","7","8","9"])]);
+        qs.push({
+            id: id++, category: "nombor", type: "choice",
+            question: "Berapa banyak " + emoji + "?",
+            display: display,
+            options: opts,
+            answer: String(count)
+        });
+    }
+
+    // --- FILL (isi tempat kosong) ---
+    for (let i = 0; i < 40; i++) {
+        const idx = i % 24;
+        const letter = RUMI[idx];
+        const next = RUMI[idx + 1];
+        qs.push({
+            id: id++, category: "rumi", type: "fill",
+            question: "Lengkapkan: " + letter + ", " + next + ", ___",
+            answer: RUMI[idx + 2]
+        });
+    }
+    for (let i = 0; i < 30; i++) {
+        const n = (i % 18) + 1;
+        qs.push({
+            id: id++, category: "nombor", type: "fill",
+            question: "Lengkapkan: " + n + ", " + (n+1) + ", ___",
+            answer: String(n + 2)
+        });
+    }
+
+    // --- DRAG ---
+    for (let i = 0; i < 40; i++) {
+        const letter = RUMI[i % 26];
+        qs.push({
+            id: id++, category: "rumi", type: "drag",
+            question: "Seret huruf " + letter + " ke dalam kotak!",
+            drag: letter,
+            answer: letter
+        });
+    }
+    for (let i = 0; i < 30; i++) {
+        const item = JAWI_MAP[i % JAWI_MAP.length];
+        qs.push({
+            id: id++, category: "jawi", type: "drag",
+            question: "Seret huruf Jawi " + item.nama + " ke dalam kotak!",
+            drag: item.jawi,
+            answer: item.jawi
+        });
+    }
+    for (let i = 0; i < 30; i++) {
+        const n = NUMBERS[i % 11];
+        qs.push({
+            id: id++, category: "nombor", type: "drag",
+            question: "Seret nombor " + n + " ke dalam kotak!",
+            drag: String(n),
+            answer: String(n)
+        });
+    }
+
+    // --- MATCH ---
+    for (let i = 0; i < 30; i++) {
+        const start = (i * 3) % 24;
+        const pairs = [
+            [RUMI[start], RUMI_LOWER[start]],
+            [RUMI[start+1], RUMI_LOWER[start+1]],
+            [RUMI[start+2], RUMI_LOWER[start+2]]
+        ];
+        qs.push({
+            id: id++, category: "rumi", type: "match",
+            question: "Padankan huruf besar dengan huruf kecil",
+            pairs: pairs
+        });
+    }
+    for (let i = 0; i < 25; i++) {
+        const start = (i * 3) % (JAWI_MAP.length - 3);
+        const pairs = [
+            [JAWI_MAP[start].jawi, JAWI_MAP[start].rumi],
+            [JAWI_MAP[start+1].jawi, JAWI_MAP[start+1].rumi],
+            [JAWI_MAP[start+2].jawi, JAWI_MAP[start+2].rumi]
+        ];
+        qs.push({
+            id: id++, category: "jawi", type: "match",
+            question: "Padankan huruf Jawi dengan Rumi",
+            pairs: pairs
+        });
+    }
+    for (let i = 0; i < 20; i++) {
+        const start = (i * 3) % 15;
+        const pairs = [
+            [String(start+1), String(start+1)],
+            [String(start+2), String(start+2)],
+            [String(start+3), String(start+3)]
+        ];
+        // Make it interesting: match number to its word? Keep simple for 3-5
+        qs.push({
+            id: id++, category: "nombor", type: "match",
+            question: "Padankan nombor yang sama",
+            pairs: [
+                [String(start+1), String(start+1)],
+                [String(start+2), String(start+2)],
+                [String(start+3), String(start+3)]
+            ]
+        });
+    }
+
+    return shuffle(qs).slice(0, count);
+}
+
+const ALL_QUESTIONS = generateQuestions(500);
+console.log("Jumlah soalan dijana:", ALL_QUESTIONS.length);
+
+/* ============================================================
+   TOKEN SYSTEM (localStorage + senarai token demo)
+   Dalam production: semak dengan Google Sheet via Apps Script
+============================================================ */
+const VALID_TOKENS = [
+    "JBL-DEMO-2024",
+    "JBL-TEST-0001",
+    "JBL-TEST-0002",
+    "JBL-MASTA-XUL1",
+    "JBL-MASTA-XUL2"
+];
+
+const TOKEN_KEY = "jomBelajar_token";
+const DEMO_MODE_KEY = "jomBelajar_demo";
+
+function isActivated() {
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (token && VALID_TOKENS.includes(token.toUpperCase())) return true;
+    if (localStorage.getItem(DEMO_MODE_KEY) === "1") return true;
+    return false;
+}
+
+function activateToken() {
+    const input = document.getElementById("tokenInput").value.trim().toUpperCase();
+    const status = document.getElementById("tokenStatus");
+
+    if (!input) {
+        status.textContent = "❌ Sila masukkan Token ID";
+        status.className = "token-status token-fail";
+        return;
+    }
+
+    if (VALID_TOKENS.includes(input)) {
+        localStorage.setItem(TOKEN_KEY, input);
+        localStorage.removeItem(DEMO_MODE_KEY);
+        status.textContent = "✅ Token sah! Selamat datang.";
+        status.className = "token-status token-ok";
+        setTimeout(showStartScreen, 800);
+    } else {
+        status.textContent = "❌ Token tidak sah. Sila semak semula.";
+        status.className = "token-status token-fail";
+    }
+}
+
+function tryDemoMode() {
+    localStorage.setItem(DEMO_MODE_KEY, "1");
+    localStorage.removeItem(TOKEN_KEY);
+    showStartScreen();
+}
+
+function logoutToken() {
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(DEMO_MODE_KEY);
+    document.getElementById("tokenInput").value = "";
+    document.getElementById("tokenStatus").textContent = "";
+    document.getElementById("startScreen").classList.add("hidden");
+    document.getElementById("tokenScreen").classList.remove("hidden");
+}
+
+function showStartScreen() {
+    document.getElementById("tokenScreen").classList.add("hidden");
+    document.getElementById("startScreen").classList.remove("hidden");
+    document.getElementById("gameScreen").classList.add("hidden");
+    document.getElementById("resultScreen").classList.add("hidden");
+}
+
+/* ============================================================
+   GAME STATE
+============================================================ */
 let currentQuestions = [];
 let currentIndex = 0;
-
 let score = 0;
 let correctAnswers = 0;
-
-let totalSeconds = 900;
-let timerInterval;
-
+let totalAnswered = 0;
+let totalSeconds = 600;
+let timerInterval = null;
 let selectedMatch = null;
+let matchCorrectCount = 0;
+let matchTotalPairs = 0;
+let isAnswering = false;
 
-
-/* ==========================================================
+/* ============================================================
    START GAME
-========================================================== */
-
+============================================================ */
 function startGame() {
-
-    const name =
-        document.getElementById("studentName")
-        .value
-        .trim();
-
+    const name = document.getElementById("studentName").value.trim();
     if (!name) {
-
         alert("Sila masukkan nama murid 😊");
-
         return;
     }
 
+    const time = Number(document.getElementById("gameTime").value);
+    const category = document.getElementById("category").value;
+    const qType = document.getElementById("qType").value;
 
-    const time =
-        Number(
-            document.getElementById("gameTime").value
-        );
+    document.getElementById("playerName").textContent = name;
+    totalSeconds = time * 60;
 
+    let pool = [...ALL_QUESTIONS];
+    if (category !== "semua") pool = pool.filter(q => q.category === category);
+    if (qType !== "semua") pool = pool.filter(q => q.type === qType);
 
-    const category =
-        document.getElementById("category").value;
-
-
-    document.getElementById("playerName")
-        .textContent = name;
-
-
-    totalSeconds =
-        time * 60;
-
-
-    let pool = questions;
-
-
-    if (category !== "semua") {
-
-        pool =
-            questions.filter(
-                q => q.category === category
-            );
-
+    if (pool.length === 0) {
+        alert("Tiada soalan untuk pilihan ini. Cuba pilih 'Semua'.");
+        return;
     }
 
-
-    currentQuestions =
-        [...pool]
-        .sort(
-            () => Math.random() - 0.5
-        );
-
-
+    currentQuestions = shuffle(pool);
     currentIndex = 0;
-
     score = 0;
-
     correctAnswers = 0;
+    totalAnswered = 0;
+    isAnswering = false;
 
-
-    document.getElementById("score")
-        .textContent = score;
-
-
-    document.getElementById("startScreen")
-        .classList.add("hidden");
-
-
-    document.getElementById("resultScreen")
-        .classList.add("hidden");
-
-
-    document.getElementById("gameScreen")
-        .classList.remove("hidden");
-
+    document.getElementById("score").textContent = "0";
+    document.getElementById("startScreen").classList.add("hidden");
+    document.getElementById("resultScreen").classList.add("hidden");
+    document.getElementById("gameScreen").classList.remove("hidden");
 
     startTimer();
-
     showQuestion();
-
 }
 
-
-/* ==========================================================
+/* ============================================================
    TIMER
-========================================================== */
-
+============================================================ */
 function startTimer() {
-
     clearInterval(timerInterval);
-
     updateTimer();
-
-    timerInterval =
-        setInterval(() => {
-
-            totalSeconds--;
-
-            updateTimer();
-
-
-            if (totalSeconds <= 0) {
-
-                clearInterval(timerInterval);
-
-                finishGame();
-
-            }
-
-        },1000);
+    timerInterval = setInterval(() => {
+        totalSeconds--;
+        updateTimer();
+        if (totalSeconds <= 0) {
+            clearInterval(timerInterval);
+            finishGame();
+        }
+    }, 1000);
 }
-
 
 function updateTimer() {
-
-    const minutes =
-        Math.floor(totalSeconds / 60);
-
-    const seconds =
-        totalSeconds % 60;
-
-
-    document.getElementById("timer")
-        .textContent =
-        String(minutes).padStart(2,"0")
-        + ":"
-        +
-        String(seconds).padStart(2,"0");
-
+    const m = Math.floor(totalSeconds / 60);
+    const s = totalSeconds % 60;
+    document.getElementById("timer").textContent =
+        String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
 }
 
-
-/* ==========================================================
+/* ============================================================
    SHOW QUESTION
-========================================================== */
-
+============================================================ */
 function showQuestion() {
-
-    if (
-        currentIndex >=
-        currentQuestions.length
-    ) {
-
+    if (currentIndex >= currentQuestions.length) {
         finishGame();
-
         return;
     }
 
+    isAnswering = false;
+    const q = currentQuestions[currentIndex];
+    document.getElementById("questionNumber").textContent = currentIndex + 1;
+    document.getElementById("feedback").textContent = "";
+    document.getElementById("feedback").className = "feedback";
 
-    const q =
-        currentQuestions[currentIndex];
+    const pct = Math.min(100, (currentIndex / Math.max(1, currentQuestions.length)) * 100);
+    document.getElementById("progressFill").style.width = pct + "%";
 
-
-    document.getElementById("questionNumber")
-        .textContent =
-        currentIndex + 1;
-
-
-    document.getElementById("feedback")
-        .textContent = "";
-
-
-    const area =
-        document.getElementById("questionArea");
-
-
+    const area = document.getElementById("questionArea");
     area.innerHTML = "";
 
-
-    if (q.type === "choice") {
-
-        showChoice(q, area);
-
-    }
-
-    else if (q.type === "fill") {
-
-        showFill(q, area);
-
-    }
-
-    else if (q.type === "drag") {
-
-        showDrag(q, area);
-
-    }
-
-    else if (q.type === "match") {
-
-        showMatch(q, area);
-
-    }
-
+    if (q.type === "choice") showChoice(q, area);
+    else if (q.type === "fill") showFill(q, area);
+    else if (q.type === "drag") showDrag(q, area);
+    else if (q.type === "match") showMatch(q, area);
 }
 
-
-/* ==========================================================
+/* ============================================================
    CHOICE
-========================================================== */
-
+============================================================ */
 function showChoice(q, area) {
-
     area.innerHTML = `
-
-        <div>${q.question}</div>
-
-        <div class="big-letter">
-            ${q.display}
-        </div>
-
+        <div>${escapeHTML(q.question)}</div>
+        <div class="big-letter">${escapeHTML(q.display)}</div>
         <div class="options">
-
-            ${q.options.map(option => `
-
-                <button
-                    class="option"
-                    onclick="answerChoice(this,'${escapeHTML(option)}','${escapeHTML(q.answer)}')"
-                >
-                    ${option}
-                </button>
-
+            ${q.options.map(opt => `
+                <button class="option" data-value="${escapeHTML(opt)}">${escapeHTML(opt)}</button>
             `).join("")}
-
         </div>
     `;
+    area.querySelectorAll(".option").forEach(btn => {
+        btn.addEventListener("click", () => {
+            if (isAnswering) return;
+            answerChoice(btn, btn.dataset.value, q.answer);
+        });
+    });
 }
 
-
-function answerChoice(button,value,answer) {
-
-    const buttons =
-        document.querySelectorAll(".option");
-
-
-    buttons.forEach(
-        b => b.disabled = true
-    );
-
+function answerChoice(button, value, answer) {
+    isAnswering = true;
+    const buttons = document.querySelectorAll(".option");
+    buttons.forEach(b => b.disabled = true);
 
     if (value === answer) {
-
         button.classList.add("correct");
-
         correct();
-
-    }
-
-    else {
-
+    } else {
         button.classList.add("wrong");
-
+        // Highlight correct one
+        buttons.forEach(b => {
+            if (b.dataset.value === answer) b.classList.add("correct");
+        });
         wrong();
-
     }
-
-
     nextQuestion();
-
 }
 
-
-/* ==========================================================
+/* ============================================================
    FILL
-========================================================== */
-
-function showFill(q,area) {
-
+============================================================ */
+function showFill(q, area) {
     area.innerHTML = `
-
-        <div>${q.question}</div>
-
-        <input
-            id="fillAnswer"
-            type="text"
-            placeholder="Taip jawapan..."
-            style="text-align:center;"
-        >
-
-        <button
-            class="btn"
-            onclick="checkFill('${escapeHTML(q.answer)}')"
-        >
-            ✓ JAWAB
-        </button>
-
+        <div>${escapeHTML(q.question)}</div>
+        <input id="fillAnswer" class="fill-input" type="text" placeholder="?" maxlength="5" autocomplete="off">
+        <button class="btn" id="fillBtn" style="max-width:220px;margin:12px auto 0;">✓ JAWAB</button>
     `;
+    const input = document.getElementById("fillAnswer");
+    const btn = document.getElementById("fillBtn");
+    input.focus();
+    btn.onclick = () => checkFill(q.answer);
+    input.onkeydown = (e) => { if (e.key === "Enter") checkFill(q.answer); };
 }
-
 
 function checkFill(answer) {
-
-    const input =
-        document.getElementById("fillAnswer");
-
-
-    const value =
-        input.value.trim().toUpperCase();
-
-
-    if (value === answer.toUpperCase()) {
-
-        correct();
-
-    }
-
-    else {
-
-        wrong();
-
-    }
-
-
+    if (isAnswering) return;
+    isAnswering = true;
+    const input = document.getElementById("fillAnswer");
+    const value = input.value.trim().toUpperCase();
     input.disabled = true;
+    document.getElementById("fillBtn").disabled = true;
 
+    if (value === String(answer).toUpperCase()) {
+        correct();
+    } else {
+        wrong();
+        document.getElementById("feedback").textContent += " (Jawapan: " + answer + ")";
+    }
     nextQuestion();
-
 }
 
-
-/* ==========================================================
-   DRAG
-========================================================== */
-
-function showDrag(q,area) {
-
+/* ============================================================
+   DRAG (sokongan mouse + touch)
+============================================================ */
+function showDrag(q, area) {
     area.innerHTML = `
-
-        <div>${q.question}</div>
-
+        <div>${escapeHTML(q.question)}</div>
         <div class="drag-area">
-
-            <div
-                class="drag-item"
-                draggable="true"
-                id="dragItem"
-            >
-                ${q.drag}
-            </div>
-
-            <div
-                class="drop-zone"
-                id="dropZone"
-            >
-                🎯
-            </div>
-
+            <div class="drag-item" id="dragItem">${escapeHTML(q.drag)}</div>
+            <div class="drop-zone" id="dropZone">🎯</div>
         </div>
-
     `;
 
+    const drag = document.getElementById("dragItem");
+    const drop = document.getElementById("dropZone");
+    let isDragging = false;
+    let offsetX = 0, offsetY = 0;
+    let startLeft = 0, startTop = 0;
 
-    const drag =
-        document.getElementById("dragItem");
+    function onStart(clientX, clientY) {
+        if (isAnswering) return;
+        isDragging = true;
+        drag.classList.add("dragging");
+        const rect = drag.getBoundingClientRect();
+        offsetX = clientX - rect.left;
+        offsetY = clientY - rect.top;
+        startLeft = rect.left;
+        startTop = rect.top;
+        drag.style.position = "fixed";
+        drag.style.left = rect.left + "px";
+        drag.style.top = rect.top + "px";
+        drag.style.zIndex = "1000";
+        drag.style.margin = "0";
+    }
 
-    const drop =
-        document.getElementById("dropZone");
+    function onMove(clientX, clientY) {
+        if (!isDragging) return;
+        drag.style.left = (clientX - offsetX) + "px";
+        drag.style.top = (clientY - offsetY) + "px";
+        const dropRect = drop.getBoundingClientRect();
+        const dragRect = drag.getBoundingClientRect();
+        const overlap = !(dragRect.right < dropRect.left || dragRect.left > dropRect.right ||
+                         dragRect.bottom < dropRect.top || dragRect.top > dropRect.bottom);
+        if (overlap) drop.classList.add("over");
+        else drop.classList.remove("over");
+    }
 
+    function onEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        drag.classList.remove("dragging");
+        drop.classList.remove("over");
 
-    drag.addEventListener(
-        "dragstart",
-        e => {
+        const dropRect = drop.getBoundingClientRect();
+        const dragRect = drag.getBoundingClientRect();
+        const overlap = !(dragRect.right < dropRect.left || dragRect.left > dropRect.right ||
+                         dragRect.bottom < dropRect.top || dragRect.top > dropRect.bottom);
 
-            e.dataTransfer.setData(
-                "text",
-                q.drag
-            );
-
-        }
-    );
-
-
-    drop.addEventListener(
-        "dragover",
-        e => e.preventDefault()
-    );
-
-
-    drop.addEventListener(
-        "drop",
-        e => {
-
-            e.preventDefault();
-
-            const value =
-                e.dataTransfer.getData("text");
-
-
-            if (value === q.answer) {
-
-                drop.textContent = "🎉";
-
-                correct();
-
-            }
-
-            else {
-
-                drop.textContent = "❌";
-
-                wrong();
-
-            }
-
-
+        if (overlap) {
+            isAnswering = true;
+            drop.textContent = q.drag;
+            drop.classList.add("filled");
+            drag.style.display = "none";
+            correct();
             nextQuestion();
-
+        } else {
+            // Snap back
+            drag.style.position = "";
+            drag.style.left = "";
+            drag.style.top = "";
+            drag.style.zIndex = "";
         }
-    );
+    }
 
+    // Mouse
+    drag.addEventListener("mousedown", e => {
+        e.preventDefault();
+        onStart(e.clientX, e.clientY);
+    });
+    document.addEventListener("mousemove", e => onMove(e.clientX, e.clientY));
+    document.addEventListener("mouseup", onEnd);
+
+    // Touch
+    drag.addEventListener("touchstart", e => {
+        e.preventDefault();
+        const t = e.touches[0];
+        onStart(t.clientX, t.clientY);
+    }, { passive: false });
+    document.addEventListener("touchmove", e => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const t = e.touches[0];
+        onMove(t.clientX, t.clientY);
+    }, { passive: false });
+    document.addEventListener("touchend", onEnd);
 }
 
-
-/* ==========================================================
+/* ============================================================
    MATCH
-========================================================== */
-
-function showMatch(q,area) {
-
-    let pairs = [...q.pairs]
-        .sort(() => Math.random() - .5);
-
-
-    const left =
-        pairs.map(
-            p => p[0]
-        );
-
-    const right =
-        pairs.map(
-            p => p[1]
-        )
-        .sort(
-            () => Math.random() - .5
-        );
-
+============================================================ */
+function showMatch(q, area) {
+    const pairs = shuffle([...q.pairs]);
+    const left = pairs.map(p => p[0]);
+    const right = shuffle(pairs.map(p => p[1]));
 
     area.innerHTML = `
-
-        <div>${q.question}</div>
-
+        <div>${escapeHTML(q.question)}</div>
         <div class="match-grid">
-
-            <div>
-                ${left.map(
-                    item =>
-                    `<div
-                        class="match-item"
-                        data-value="${item}"
-                        onclick="selectMatch(this)"
-                    >
-                        ${item}
-                    </div>`
-                ).join("")}
+            <div class="match-column">
+                ${left.map(item => `<div class="match-item" data-side="left" data-value="${escapeHTML(item)}">${escapeHTML(item)}</div>`).join("")}
             </div>
-
-            <div>
-                ${right.map(
-                    item =>
-                    `<div
-                        class="match-item"
-                        data-value="${item}"
-                        onclick="selectMatch(this)"
-                    >
-                        ${item}
-                    </div>`
-                ).join("")}
+            <div class="match-column">
+                ${right.map(item => `<div class="match-item" data-side="right" data-value="${escapeHTML(item)}">${escapeHTML(item)}</div>`).join("")}
             </div>
-
         </div>
     `;
-
 
     selectedMatch = null;
+    matchCorrectCount = 0;
+    matchTotalPairs = q.pairs.length;
 
+    area.querySelectorAll(".match-item").forEach(el => {
+        el.addEventListener("click", () => selectMatch(el, q.pairs));
+    });
 }
 
-
-function selectMatch(element) {
-
-    if (element.classList.contains("matched"))
-        return;
-
+function selectMatch(element, pairs) {
+    if (isAnswering || element.classList.contains("matched")) return;
 
     if (!selectedMatch) {
-
         selectedMatch = element;
-
         element.classList.add("selected");
-
         return;
     }
 
+    // Same side? Reset
+    if (selectedMatch.dataset.side === element.dataset.side) {
+        selectedMatch.classList.remove("selected");
+        selectedMatch = element;
+        element.classList.add("selected");
+        return;
+    }
 
-    const first =
-        selectedMatch.dataset.value;
+    const first = selectedMatch.dataset.value;
+    const second = element.dataset.value;
 
-    const second =
-        element.dataset.value;
-
-
-    const pairs =
-        currentQuestions[currentIndex].pairs;
-
-
-    const matched =
-        pairs.some(
-            p =>
-            (p[0] === first && p[1] === second)
-            ||
-            (p[0] === second && p[1] === first)
-        );
-
+    const matched = pairs.some(p =>
+        (String(p[0]) === first && String(p[1]) === second) ||
+        (String(p[0]) === second && String(p[1]) === first)
+    );
 
     if (matched) {
-
-        selectedMatch.classList.add("matched");
-
-        element.classList.add("matched");
-
-        selectedMatch = null;
-
-        correct();
-
-        setTimeout(
-            nextQuestion,
-            600
-        );
-
-    }
-
-    else {
-
         selectedMatch.classList.remove("selected");
-
+        selectedMatch.classList.add("matched");
+        element.classList.add("matched");
         selectedMatch = null;
+        matchCorrectCount++;
 
-        wrong();
-
-        setTimeout(
-            nextQuestion,
-            600
-        );
-
+        if (matchCorrectCount >= matchTotalPairs) {
+            isAnswering = true;
+            correct();
+            nextQuestion();
+        }
+    } else {
+        selectedMatch.classList.remove("selected");
+        selectedMatch.classList.add("wrong-temp");
+        element.classList.add("wrong-temp");
+        const prev = selectedMatch;
+        selectedMatch = null;
+        setTimeout(() => {
+            prev.classList.remove("wrong-temp");
+            element.classList.remove("wrong-temp");
+        }, 500);
+        // Don't auto next on single wrong match - allow retry
     }
-
 }
 
-
-/* ==========================================================
-   CORRECT
-========================================================== */
-
+/* ============================================================
+   CORRECT / WRONG
+============================================================ */
 function correct() {
-
     score += 10;
-
     correctAnswers++;
-
-
-    document.getElementById("score")
-        .textContent = score;
-
-
-    const feedback =
-        document.getElementById("feedback");
-
-
-    feedback.textContent =
-        "🎉 Hebat! Jawapan betul!";
-
-
-    feedback.className =
-        "feedback correct-text";
-
-
+    totalAnswered++;
+    document.getElementById("score").textContent = score;
+    const fb = document.getElementById("feedback");
+    fb.textContent = "🎉 Hebat! Jawapan betul!";
+    fb.className = "feedback correct-text";
     fireworks();
-
 }
-
-
-/* ==========================================================
-   WRONG
-========================================================== */
 
 function wrong() {
-
-    const feedback =
-        document.getElementById("feedback");
-
-
-    feedback.textContent =
-        "😊 Cuba lagi!";
-
-
-    feedback.className =
-        "feedback wrong-text";
-
+    totalAnswered++;
+    const fb = document.getElementById("feedback");
+    fb.textContent = "😊 Cuba lagi!";
+    fb.className = "feedback wrong-text";
 }
-
-
-/* ==========================================================
-   NEXT QUESTION
-========================================================== */
 
 function nextQuestion() {
-
     setTimeout(() => {
-
         currentIndex++;
-
         showQuestion();
-
-    },900);
-
+    }, 1100);
 }
 
-
-/* ==========================================================
-   FIREWORK
-========================================================== */
-
+/* ============================================================
+   FIREWORKS
+============================================================ */
 function fireworks() {
-
-    const container =
-        document.getElementById("fireworks");
-
-
-    for (
-        let i = 0;
-        i < 45;
-        i++
-    ) {
-
-        const spark =
-            document.createElement("div");
-
-
+    const container = document.getElementById("fireworks");
+    const colors = ["#ff5252","#ffca28","#42a5f5","#66bb6a","#ab47bc","#ff7043","#ec407a","#26c6da"];
+    for (let i = 0; i < 50; i++) {
+        const spark = document.createElement("div");
         spark.className = "spark";
-
-
-        spark.style.left =
-            "50%";
-
-
-        spark.style.top =
-            "45%";
-
-
-        const angle =
-            Math.random() *
-            Math.PI *
-            2;
-
-
-        const distance =
-            80 +
-            Math.random() *
-            220;
-
-
-        spark.style.setProperty(
-            "--x",
-            Math.cos(angle) *
-            distance +
-            "px"
-        );
-
-
-        spark.style.setProperty(
-            "--y",
-            Math.sin(angle) *
-            distance +
-            "px"
-        );
-
-
-        spark.style.background =
-            [
-                "#ff5252",
-                "#ffca28",
-                "#42a5f5",
-                "#66bb6a",
-                "#ab47bc",
-                "#ff7043"
-            ]
-            [
-                Math.floor(
-                    Math.random() * 6
-                )
-            ];
-
-
+        spark.style.left = "50%";
+        spark.style.top = "40%";
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 60 + Math.random() * 250;
+        spark.style.setProperty("--x", Math.cos(angle) * distance + "px");
+        spark.style.setProperty("--y", Math.sin(angle) * distance + "px");
+        spark.style.background = colors[Math.floor(Math.random() * colors.length)];
         container.appendChild(spark);
-
-
-        setTimeout(
-            () => spark.remove(),
-            1000
-        );
-
+        setTimeout(() => spark.remove(), 1000);
     }
-
 }
 
-
-/* ==========================================================
+/* ============================================================
    FINISH
-========================================================== */
-
+============================================================ */
 function finishGame() {
-
     clearInterval(timerInterval);
+    document.getElementById("gameScreen").classList.add("hidden");
+    document.getElementById("resultScreen").classList.remove("hidden");
 
-
-    document.getElementById("gameScreen")
-        .classList.add("hidden");
-
-
-    document.getElementById("resultScreen")
-        .classList.remove("hidden");
-
-
-    const name =
-        document.getElementById("studentName")
-        .value;
-
-
-    document.getElementById("resultName")
-        .textContent = name;
-
-
-    document.getElementById("resultScore")
-        .textContent =
-        "Markah: " + score;
-
+    const name = document.getElementById("studentName").value.trim();
+    document.getElementById("resultName").textContent = name;
+    document.getElementById("resultScore").textContent = "Markah: " + score;
 
     let stars = 0;
+    if (correctAnswers >= 15) stars = 3;
+    else if (correctAnswers >= 8) stars = 2;
+    else if (correctAnswers >= 3) stars = 1;
 
+    document.getElementById("resultStars").textContent =
+        "⭐".repeat(stars) + "☆".repeat(3 - stars);
 
-    if (correctAnswers >= 8)
-        stars = 3;
-
-    else if (correctAnswers >= 5)
-        stars = 2;
-
-    else if (correctAnswers >= 2)
-        stars = 1;
-
-
-    document.getElementById("resultStars")
-        .textContent =
-        "⭐".repeat(stars) +
-        "☆".repeat(3 - stars);
-
+    document.getElementById("resultDetail").textContent =
+        `Betul: ${correctAnswers} | Dijawab: ${totalAnswered} soalan`;
 }
 
+function restartGame() {
+    document.getElementById("resultScreen").classList.add("hidden");
+    startGame();
+}
 
-/* ==========================================================
-   SECURITY / HTML ESCAPE
-========================================================== */
+function backToStart() {
+    document.getElementById("resultScreen").classList.add("hidden");
+    document.getElementById("startScreen").classList.remove("hidden");
+}
 
+/* ============================================================
+   UTILS
+============================================================ */
 function escapeHTML(value) {
-
     return String(value)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
+/* ============================================================
+   INIT
+============================================================ */
+(function init() {
+    if (isActivated()) {
+        showStartScreen();
+    } else {
+        document.getElementById("tokenScreen").classList.remove("hidden");
+    }
+})();
 </script>
-
 </body>
 </html>
