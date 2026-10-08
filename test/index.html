@@ -1434,58 +1434,87 @@ document.addEventListener("visibilitychange", () => {
 });
 
 /* =========================================================
-   FULL SCREEN LYRICS ANIMATION
+   FULL SCREEN LYRICS — SYNCED TO MUSIC
 ========================================================= */
-const lyrics = [
-    "We're not in love",
-    "We share no stories",
-    "Just something in your eyes",
-    "Don't be afraid",
-    "The shadows know me",
-    "Let's leave the world behind",
-    "Take me through the night",
-    "Fall into the dark side",
-    "We don't need the light",
-    "We'll live on the dark side",
-    "I see through your eyes",
-    "You speak to my mind",
-    "The silence is calling",
-    "The cycle must end",
-    "Be safe... be connected",
-    "Into the void we fall",
-    "No turning back now",
-    "The pyramid watches",
-    "Time is running out",
-    "Masta Xul awaits"
+/*
+   time = saat dalam lagu bila lirik patut muncul
+   Sesuaikan nombor ni ikut lagu DARKSIDE.mp3 anda
+*/
+const timedLyrics = [
+    { time: 0.5,  text: "We're not in love" },
+    { time: 5.0,  text: "We share no stories" },
+    { time: 9.5,  text: "Just something in your eyes" },
+    { time: 14.0, text: "Don't be afraid" },
+    { time: 18.5, text: "The shadows know me" },
+    { time: 23.0, text: "Let's leave the world behind" },
+    { time: 28.0, text: "Take me through the night" },
+    { time: 32.5, text: "Fall into the dark side" },
+    { time: 37.0, text: "We don't need the light" },
+    { time: 41.5, text: "We'll live on the dark side" },
+    { time: 46.5, text: "I see through your eyes" },
+    { time: 51.0, text: "You speak to my mind" },
+    { time: 55.5, text: "The silence is calling" },
+    { time: 60.0, text: "The cycle must end" },
+    { time: 64.5, text: "Be safe... be connected" },
+    { time: 69.0, text: "Into the void we fall" },
+    { time: 73.5, text: "No turning back now" },
+    { time: 78.0, text: "The pyramid watches" },
+    { time: 82.5, text: "Time is running out" },
+    { time: 87.0, text: "Masta Xul awaits" }
 ];
 
 const lyricLine = document.getElementById("lyricLine");
-let lyricIndex = 0;
 const exitDirections = ["exit-up", "exit-down", "exit-left", "exit-right"];
+let currentLyricIndex = -1;
 
-function showNextLyric() {
-    // Buang class lama
+function showLyric(text) {
+    // Keluar lirik lama
     lyricLine.classList.remove("active", "exit-up", "exit-down", "exit-left", "exit-right");
-
-    // Pilih arah keluar secara rawak
     const direction = exitDirections[Math.floor(Math.random() * exitDirections.length)];
     lyricLine.classList.add(direction);
 
     setTimeout(() => {
-        // Reset & tunjuk lirik baru
         lyricLine.classList.remove(direction);
-        lyricLine.textContent = lyrics[lyricIndex];
+        lyricLine.textContent = text;
         lyricLine.classList.add("active");
-
-        lyricIndex = (lyricIndex + 1) % lyrics.length;
-    }, 1100);
+    }, 900);
 }
 
-// Mula lirik selepas sedikit delay
-setTimeout(() => {
-    showNextLyric();
-    setInterval(showNextLyric, 4800); // ikut rentak ~ setiap 4.8 saat
-}, 1800);
+function syncLyrics() {
+    if (bgMusic.paused) return;
+
+    const t = bgMusic.currentTime;
+    // Cari lirik yang sepatutnya aktif
+    let newIndex = -1;
+    for (let i = timedLyrics.length - 1; i >= 0; i--) {
+        if (t >= timedLyrics[i].time) {
+            newIndex = i;
+            break;
+        }
+    }
+
+    if (newIndex !== -1 && newIndex !== currentLyricIndex) {
+        currentLyricIndex = newIndex;
+        showLyric(timedLyrics[newIndex].text);
+    }
+}
+
+// Check setiap 200ms (sangat responsif, takde delay)
+setInterval(syncLyrics, 200);
+
+// Bila lagu loop balik ke awal, reset lirik
+bgMusic.addEventListener("seeked", () => {
+    currentLyricIndex = -1;
+});
+bgMusic.addEventListener("ended", () => {
+    currentLyricIndex = -1;
+});
+// Juga reset bila play semula dari awal
+bgMusic.addEventListener("play", () => {
+    if (bgMusic.currentTime < 1) {
+        currentLyricIndex = -1;
+    }
+});
 </script>
 </body>
 </html>
