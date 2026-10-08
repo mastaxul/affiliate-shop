@@ -807,6 +807,7 @@ body{
 </audio>
 
 <script>
+
 /* =========================================================
    MASTA XUL — UNIVERSAL ANNUAL DARK COUNTDOWN
    Target:
@@ -1108,4 +1109,177 @@ function updateCountdown(){
             new countdown values animate.
         */
         Object.keys(previousValues).forEach(
-            key =>
+            key => previousValues[key] = null
+        );
+    }
+    const difference =
+        calculateDifference(
+            now,
+            target
+        );
+    animateNumber(
+        elements.years,
+        difference.years,
+        "years"
+    );
+    animateNumber(
+        elements.months,
+        difference.months,
+        "months"
+    );
+    animateNumber(
+        elements.days,
+        difference.days,
+        "days"
+    );
+    animateNumber(
+        elements.hours,
+        difference.hours,
+        "hours"
+    );
+    animateNumber(
+        elements.minutes,
+        difference.minutes,
+        "minutes"
+    );
+    animateSecond(
+        difference.seconds
+    );
+    animateNumber(
+        elements.seconds,
+        difference.seconds,
+        "seconds"
+    );
+}
+/* =========================================================
+   PARTICLES
+========================================================= */
+function createParticles(){
+    const container =
+        document.getElementById("particles");
+    const total =
+        window.innerWidth < 600 ? 35 : 65;
+    for(let i = 0; i < total; i++){
+        const particle =
+            document.createElement("span");
+        particle.className =
+            "particle";
+        particle.style.left =
+            Math.random() * 100 + "%";
+        particle.style.animationDuration =
+            (8 + Math.random() * 16) + "s";
+        particle.style.animationDelay =
+            (-Math.random() * 20) + "s";
+        const size =
+            Math.random() > .8
+                ? 3
+                : 1 + Math.random();
+        particle.style.width =
+            size + "px";
+        particle.style.height =
+            size + "px";
+        container.appendChild(
+            particle
+        );
+    }
+}
+/* =========================================================
+   RANDOM LIGHTNING
+========================================================= */
+function randomLightning(){
+    const delay =
+        5000 + Math.random() * 9000;
+    setTimeout(() => {
+        lightning.classList.remove(
+            "active"
+        );
+        void lightning.offsetWidth;
+        lightning.classList.add(
+            "active"
+        );
+        randomLightning();
+    },delay);
+}
+/* =========================================================
+   INITIALIZE
+========================================================= */
+createParticles();
+randomLightning();
+updateCountdown();
+/*
+    100ms makes the system responsive
+    while the actual countdown remains
+    second-based.
+*/
+setInterval(
+    updateCountdown,
+    100
+);
+/* =========================================================
+   VISIBILITY HANDLING
+========================================================= */
+document.addEventListener(
+    "visibilitychange",
+    () => {
+        /*
+            Recalculate immediately when the
+            page becomes visible again.
+        */
+        if(!document.hidden){
+            updateCountdown();
+        }
+    }
+);
+/* =========================================================
+   RESIZE
+========================================================= */
+window.addEventListener(
+    "resize",
+    () => {
+        /*
+            Prevent excessive particle creation.
+            Visual layout is handled entirely by CSS.
+        */
+        document.body.style.setProperty(
+            "--screen-width",
+            window.innerWidth + "px"
+        );
+    }
+);
+
+/* =========================================================
+   BACKGROUND MUSIC — AUTO PLAY
+========================================================= */
+const bgMusic = document.getElementById("bgMusic");
+bgMusic.volume = 0.55; // volume sederhana
+
+function tryPlayMusic() {
+    const playPromise = bgMusic.play();
+    if (playPromise !== undefined) {
+        playPromise.catch(() => {
+            // Autoplay diblok browser — mainkan selepas interaksi pertama
+            const unlock = () => {
+                bgMusic.play().catch(() => {});
+                document.removeEventListener("click", unlock);
+                document.removeEventListener("touchstart", unlock);
+                document.removeEventListener("keydown", unlock);
+            };
+            document.addEventListener("click", unlock);
+            document.addEventListener("touchstart", unlock);
+            document.addEventListener("keydown", unlock);
+        });
+    }
+}
+
+// Cuba autoplay bila page load
+tryPlayMusic();
+
+// Juga cuba semula bila page jadi visible
+document.addEventListener("visibilitychange", () => {
+    if (!document.hidden && bgMusic.paused) {
+        tryPlayMusic();
+    }
+});
+</script>
+</body>
+</html>
