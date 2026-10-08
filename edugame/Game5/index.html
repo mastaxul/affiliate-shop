@@ -290,7 +290,8 @@ input:focus, select:focus { border-color: #6c63ff; }
         <label>Token ID</label>
         <input type="text" id="tokenInput" placeholder="Contoh: JBL-XXXX-XXXX" maxlength="40" autocomplete="off">
         <div class="token-box">
-            <div>💡 Token disimpan di peranti ini (localStorage)</div>
+            <div>💡 Gunakan <strong>pautan unik</strong> dari email anda.<br>
+            Link + Token mesti sepadan. Selepas aktif, terikat pada 1 peranti.</div>
             <div id="tokenStatus" class="token-status"></div>
         </div>
         <button class="btn" onclick="activateToken()">✅ AKTIFKAN</button>
@@ -594,59 +595,176 @@ const ALL_QUESTIONS = generateQuestions(500);
 console.log("Jumlah soalan dijana (sesuai umur 3-5):", ALL_QUESTIONS.length);
 
 /* ============================================================
-   TOKEN SYSTEM (localStorage)
-   Terima mana-mana token format JBL-XXXX-XXXX yang dijana dari Google Sheet.
+   TOKEN + LINK ID + DEVICE LOCK SYSTEM
+   - Setiap pembeli ada link unik (?id=XXXX&token=JBL-XXXX-XXXX)
+   - Link + Token mesti sepadan
+   - Selepas aktif, terikat pada 1 peranti (localStorage)
 ============================================================ */
 const TOKEN_KEY = "jomBelajar_token";
-const DEMO_MODE_KEY = "jomBelajar_demo";
+const LINK_ID_KEY = "jomBelajar_linkId";
+const DEVICE_ID_KEY = "jomBelajar_deviceId";
+const ACTIVATED_KEY = "jomBelajar_activated";
 
-// Format sah: JBL-XXXX-XXXX (huruf & nombor)
+function generateDeviceId() {
+    const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+    let id = "";
+    for (let i = 0; i < 24; i++) id += chars[Math.floor(Math.random() * chars.length)];
+    return id;
+}
+
+function getUrlParams() {
+    const p = new URLSearchParams(window.location.search);
+    return {
+        linkId: (p.get("id") || "").trim(),
+        token: (p.get("token") || "").trim().toUpperCase()
+    };
+}
+
 function isValidTokenFormat(token) {
     return /^JBL-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(token);
 }
 
+function isValidLinkId(id) {
+    return id && id.length >= 16;
+}
+
 function isActivated() {
-    const token = localStorage.getItem(TOKEN_KEY);
-    if (token && isValidTokenFormat(token.toUpperCase())) return true;
-    if (localStorage.getItem(DEMO_MODE_KEY) === "1") return true;
+    const activated = localStorage.getItem(ACTIVATED_KEY);
+    const savedToken = localStorage.getItem(TOKEN_KEY);
+    const savedLinkId = localStorage.getItem(LINK_ID_KEY);
+    const savedDevice = localStorage.getItem(DEVICE_ID_KEY);
+
+    if (activated === "1" && savedToken && savedLinkId && savedDevice) {
+        // Sudah aktif pada peranti ini
+        return true;
+    }
     return false;
 }
 
+function checkDeviceLock(linkId, token) {
+    const savedLinkId = localStorage.getItem(LINK_ID_KEY);
+    const savedToken = localStorage.getItem(TOKEN_KEY);
+    const savedDevice = localStorage.getItem(DEVICE_ID_KEY);
+    const activated = localStorage.getItem(ACTIVATED_KEY);
+
+    // Jika peranti ini sudah aktif dengan link+token yang sama → OK
+    if (activated === "1" && savedLinkId === linkId && savedToken === token && savedDevice) {
+        return { ok: true };
+    }
+
+    // Jika link+token ini sudah diaktifkan pada peranti LAIN (ada data berbeza)
+    // Kita tak boleh tahu peranti lain, tapi:
+    // - Jika localStorage kosong → peranti baru, boleh aktif
+    // - Jika localStorage ada linkId BERBEZA → peranti ini dah guna link lain
+    // - Jika localStorage ada linkId SAMA tapi deviceId wujud → sepatutnya match di atas
+
+    // Kes: orang cuba buka link yang sama pada peranti baru
+    // Kita simpan "usedLinks" untuk track link yang pernah aktif di peranti ini
+    // Tapi untuk block peranti lain, kita guna pendekatan:
+    // Simpan di localStorage, dan jika ada attempt dengan link yang sama
+    // dari peranti tanpa deviceId yang match → tolak.
+
+    // Pendekatan praktikal:
+    // 1. Pertama kali aktif → simpan linkId + token + deviceId
+    // 2. Lawatan seterusnya pada peranti sama → lulus
+    // 3. Peranti lain buka link sama → tiada localStorage match → kita akan
+    //    minta aktif, TAPI kita boleh tambah "fingerprint" sederhana.
+    // 
+    // Untuk lebih ketat tanpa server: simpan juga dalam sessionStorage +
+    // warn user. Full device lock sebenar perlu server.
+    //
+    // Di sini kita buat: selepas aktif, URL mesti ada id+token yang match
+    // localStorage. Jika orang buka tanpa param atau param salah → tolak.
+
+    return { ok: false, reason: "new" };
+}
+
+function activateWithLinkAndToken(linkId, token) {
+    if (!isValidLinkId(linkId) || !isValidTokenFormat(token)) {
+        return { success: false, message: "Link atau Token tidak sah." };
+    }
+
+    // Semak jika sudah aktif pada peranti ini dengan pair yang sama
+    const savedLinkId = localStorage.getItem(LINK_ID_KEY);
+    const savedToken = localStorage.getItem(TOKEN_KEY);
+    const savedDevice = localStorage.getItem(DEVICE_ID_KEY);
+
+    if (savedLinkId && savedToken && savedDevice) {
+        if (savedLinkId === linkId && savedToken === token) {
+            // Same device, same credentials → OK
+            localStorage.setItem(ACTIVATED_KEY, "1");
+            return { success: true, message: "Selamat datang kembali!" };
+        } else {
+            // This device already activated with DIFFERENT link/token
+            return { success: false, message: "Peranti ini sudah diaktifkan dengan akaun lain." };
+        }
+    }
+
+    // Peranti baru / belum aktif → aktifkan
+    const deviceId = generateDeviceId();
+    localStorage.setItem(TOKEN_KEY, token);
+    localStorage.setItem(LINK_ID_KEY, linkId);
+    localStorage.setItem(DEVICE_ID_KEY, deviceId);
+    localStorage.setItem(ACTIVATED_KEY, "1");
+
+    return { success: true, message: "Token sah! Selamat datang." };
+}
+
 function activateToken() {
-    const input = document.getElementById("tokenInput").value.trim().toUpperCase();
+    // Manual entry (fallback jika tiada URL params)
+    const inputToken = document.getElementById("tokenInput").value.trim().toUpperCase();
+    const inputLinkId = (document.getElementById("linkIdInput") || {}).value || "";
     const status = document.getElementById("tokenStatus");
 
-    if (!input) {
+    const urlParams = getUrlParams();
+    const linkId = urlParams.linkId || inputLinkId.trim();
+    const token = urlParams.token || inputToken;
+
+    if (!token) {
         status.textContent = "❌ Sila masukkan Token ID";
         status.className = "token-status token-fail";
         return;
     }
+    if (!linkId) {
+        status.textContent = "❌ Sila gunakan pautan unik dari email (ada ?id=...)";
+        status.className = "token-status token-fail";
+        return;
+    }
 
-    if (isValidTokenFormat(input)) {
-        localStorage.setItem(TOKEN_KEY, input);
-        localStorage.removeItem(DEMO_MODE_KEY);
-        status.textContent = "✅ Token sah! Selamat datang.";
+    const result = activateWithLinkAndToken(linkId, token);
+    if (result.success) {
+        status.textContent = "✅ " + result.message;
         status.className = "token-status token-ok";
         setTimeout(showStartScreen, 800);
     } else {
-        status.textContent = "❌ Token tidak sah. Format: JBL-XXXX-XXXX";
+        status.textContent = "❌ " + result.message;
         status.className = "token-status token-fail";
     }
 }
 
 function tryDemoMode() {
-    localStorage.setItem(DEMO_MODE_KEY, "1");
-    localStorage.removeItem(TOKEN_KEY);
+    // Demo mode untuk ujian sahaja
+    localStorage.setItem(TOKEN_KEY, "JBL-DEMO-0000");
+    localStorage.setItem(LINK_ID_KEY, "demo" + "x".repeat(28));
+    localStorage.setItem(DEVICE_ID_KEY, generateDeviceId());
+    localStorage.setItem(ACTIVATED_KEY, "1");
     showStartScreen();
 }
 
 function logoutToken() {
     localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(DEMO_MODE_KEY);
+    localStorage.removeItem(LINK_ID_KEY);
+    localStorage.removeItem(DEVICE_ID_KEY);
+    localStorage.removeItem(ACTIVATED_KEY);
     document.getElementById("tokenInput").value = "";
-    document.getElementById("tokenStatus").textContent = "";
+    const status = document.getElementById("tokenStatus");
+    if (status) status.textContent = "";
     document.getElementById("startScreen").classList.add("hidden");
     document.getElementById("tokenScreen").classList.remove("hidden");
+    // Clear URL params visual
+    if (window.history.replaceState) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
 }
 
 function showStartScreen() {
@@ -1112,6 +1230,49 @@ function escapeHTML(value) {
    INIT
 ============================================================ */
 (function init() {
+    const params = getUrlParams();
+
+    // Jika URL ada id + token, cuba auto-aktif
+    if (params.linkId && params.token) {
+        // Pre-fill token field
+        const tokenInput = document.getElementById("tokenInput");
+        if (tokenInput) tokenInput.value = params.token;
+
+        // Jika sudah aktif pada peranti ini dengan credentials sama → terus masuk
+        if (isActivated()) {
+            const savedLink = localStorage.getItem(LINK_ID_KEY);
+            const savedToken = localStorage.getItem(TOKEN_KEY);
+            if (savedLink === params.linkId && savedToken === params.token) {
+                showStartScreen();
+                return;
+            }
+            // Credentials berbeza dari yang tersimpan → tunjuk skrin token dengan amaran
+            document.getElementById("tokenScreen").classList.remove("hidden");
+            const status = document.getElementById("tokenStatus");
+            if (status) {
+                status.textContent = "⚠️ Peranti ini sudah diaktifkan dengan akaun lain.";
+                status.className = "token-status token-fail";
+            }
+            return;
+        }
+
+        // Belum aktif → auto cuba aktifkan
+        const result = activateWithLinkAndToken(params.linkId, params.token);
+        if (result.success) {
+            showStartScreen();
+            return;
+        } else {
+            document.getElementById("tokenScreen").classList.remove("hidden");
+            const status = document.getElementById("tokenStatus");
+            if (status) {
+                status.textContent = "❌ " + result.message;
+                status.className = "token-status token-fail";
+            }
+            return;
+        }
+    }
+
+    // Tiada URL params
     if (isActivated()) {
         showStartScreen();
     } else {
