@@ -79,10 +79,7 @@
       text-align: center;
       background: #faf7f4;
     }
-    .upload-box input[type="file"] {
-      border: none;
-      padding: 8px 0;
-    }
+    .upload-box input[type="file"] { border: none; padding: 8px 0; }
     .preview {
       margin-top: 12px;
       max-width: 100%;
@@ -92,40 +89,62 @@
       object-fit: contain;
       background: #f0ebe6;
     }
-    .upload-status {
-      font-size: 0.85rem;
-      margin-top: 8px;
-      color: #6B4423;
-    }
-    .ocr-status {
-      font-size: 0.85rem;
-      margin-top: 6px;
-      color: #0088cc;
-      font-weight: 600;
-    }
-    .checkbox-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 4px;
-    }
+    .upload-status { font-size: 0.85rem; margin-top: 8px; color: #6B4423; }
+    .ocr-status { font-size: 0.85rem; margin-top: 6px; color: #0088cc; font-weight: 600; }
+    .checkbox-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
     .chk {
+      display: flex; align-items: center; gap: 6px;
+      border: 2px solid #6B4423; border-radius: 20px;
+      padding: 7px 12px; font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; background: #fff; margin: 0;
+    }
+    .chk input { width: auto; margin: 0; accent-color: #D32F2F; }
+
+    /* Captcha — hanya muncul setiap 3 hantaran */
+    .captcha-wrap {
+      display: none;
+      margin-top: 16px;
+      padding: 14px;
+      border: 2px dashed #D32F2F;
+      border-radius: 12px;
+      background: #fff5f5;
+    }
+    .captcha-wrap.show { display: block; }
+    .captcha-wrap label { margin-top: 0; color: #c62828; }
+    .captcha-row {
       display: flex;
       align-items: center;
-      gap: 6px;
-      border: 2px solid #6B4423;
-      border-radius: 20px;
-      padding: 7px 12px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      background: #fff;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .captcha-q {
+      font-weight: 700;
+      font-size: 1.15rem;
+      background: #111;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 8px;
+      letter-spacing: 1px;
+    }
+    .captcha-row input {
+      width: 100px;
       margin: 0;
     }
-    .chk input {
-      width: auto;
-      margin: 0;
-      accent-color: #D32F2F;
+    .captcha-refresh {
+      border: 2px solid #6B4423;
+      background: #fff;
+      color: #111;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .submit-hint {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #888;
+      margin-top: 8px;
     }
   </style>
 </head>
@@ -142,7 +161,7 @@
       <label>Gambar produk</label>
       <div class="upload-box">
         <input type="file" id="fileGambar" accept="image/*">
-        <p class="hint">Isi password dulu → pilih gambar → auto upload + analisis AI untuk cadangan nama/badge/kategori/deskripsi</p>
+        <p class="hint">Isi password dulu → pilih gambar → auto upload + analisis AI</p>
         <p class="upload-status" id="uploadStatus"></p>
         <p class="ocr-status" id="ocrStatus"></p>
         <img id="preview" class="preview" alt="Preview">
@@ -155,7 +174,7 @@
       <input type="text" id="id" placeholder="Contoh: 31">
 
       <label>Nama produk *</label>
-      <input type="text" id="nama" required placeholder="Nama produk (atau biar OCR cadangkan)">
+      <input type="text" id="nama" required placeholder="Nama produk">
 
       <div class="row">
         <div>
@@ -186,7 +205,6 @@
         <label class="chk"><input type="checkbox" value="Tumbuhan"> Tumbuhan</label>
       </div>
       <input type="text" id="kategoriLain" placeholder="Kategori lain (pisah dengan koma)" style="margin-top:10px;">
-      <p class="hint">Tanda mana-mana berkaitan. Kategori yang tiada dalam senarai boleh taip kat ruang atas (pisah dengan koma).</p>
 
       <label>Badge</label>
       <select id="badge">
@@ -209,9 +227,21 @@
       <input type="url" id="lazada" placeholder="https://...">
 
       <label>Deskripsi</label>
-      <textarea id="deskripsi" placeholder="Penerangan produk... (atau biar OCR cadangkan draf)"></textarea>
+      <textarea id="deskripsi" placeholder="Penerangan produk..."></textarea>
+
+      <!-- Captcha: hanya papar setiap 3 hantaran berjaya -->
+      <div class="captcha-wrap" id="captchaWrap">
+        <label>🔒 Captcha (wajib setiap 3 produk)</label>
+        <div class="captcha-row">
+          <span class="captcha-q" id="captchaQ">?</span>
+          <input type="number" id="captchaA" placeholder="Jawapan" inputmode="numeric">
+          <button type="button" class="captcha-refresh" id="btnCaptchaRefresh" title="Soalan baru">↻</button>
+        </div>
+        <p class="hint">Hantaran ke-3, ke-6, ke-9… perlu jawab captcha ini.</p>
+      </div>
 
       <button type="submit" id="btnSubmit">Tambah Produk</button>
+      <p class="submit-hint" id="submitHint"></p>
     </form>
 
     <div class="msg" id="msg"></div>
@@ -220,6 +250,8 @@
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbx5tijI4QHYTNap-YEN5i9-ZGfDIZ1IcGqUsZNi32s9gtOT9sIV0GcsUPzPka4srYujRA/exec";
+    const CAPTCHA_EVERY = 3; // captcha pada hantaran ke-3, 6, 9...
+    const STORAGE_KEY = "mx_admin_submit_count";
 
     const form = document.getElementById("formProduk");
     const msg = document.getElementById("msg");
@@ -233,14 +265,60 @@
     const ocrStatus = document.getElementById("ocrStatus");
     const namaInput = document.getElementById("nama");
     const deskripsiInput = document.getElementById("deskripsi");
+    const captchaWrap = document.getElementById("captchaWrap");
+    const captchaQ = document.getElementById("captchaQ");
+    const captchaA = document.getElementById("captchaA");
+    const submitHint = document.getElementById("submitHint");
 
-    // Tunjuk/sorok ruang "taip sendiri" ikut pilihan badge
+    let captchaJawapan = 0;
+
+    function getSubmitCount() {
+      const n = parseInt(sessionStorage.getItem(STORAGE_KEY) || "0", 10);
+      return isNaN(n) || n < 0 ? 0 : n;
+    }
+
+    function setSubmitCount(n) {
+      sessionStorage.setItem(STORAGE_KEY, String(n));
+    }
+
+    // Hantaran seterusnya (count+1) perlu captcha jika gandaan 3
+    function perluCaptcha() {
+      return (getSubmitCount() + 1) % CAPTCHA_EVERY === 0;
+    }
+
+    function buatCaptcha() {
+      const a = Math.floor(Math.random() * 8) + 2;
+      const b = Math.floor(Math.random() * 8) + 2;
+      captchaJawapan = a + b;
+      captchaQ.textContent = a + " + " + b + " = ?";
+      captchaA.value = "";
+    }
+
+    function kemaskiniCaptchaUI() {
+      const count = getSubmitCount();
+      const next = count + 1;
+      if (perluCaptcha()) {
+        captchaWrap.classList.add("show");
+        captchaA.required = true;
+        buatCaptcha();
+        submitHint.textContent = "Hantaran #" + next + " — captcha wajib.";
+      } else {
+        captchaWrap.classList.remove("show");
+        captchaA.required = false;
+        captchaA.value = "";
+        const tinggal = CAPTCHA_EVERY - (next % CAPTCHA_EVERY);
+        submitHint.textContent =
+          "Hantaran berjaya: " + count + " · Captcha seterusnya selepas " + tinggal + " produk lagi.";
+      }
+    }
+
+    document.getElementById("btnCaptchaRefresh").addEventListener("click", buatCaptcha);
+
     badgeSelect.addEventListener("change", () => {
       badgeLain.style.display = badgeSelect.value === "__lain__" ? "block" : "none";
       if (badgeSelect.value === "__lain__") badgeLain.focus();
     });
 
-    // Tukar File jadi base64 (untuk hantar ke Gemini melalui Worker)
     function fileToBase64(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -253,13 +331,10 @@
       });
     }
 
-    // ===== OCR/Analisis AI: hantar gambar ke Worker (yang panggil Gemini dengan
-    // API key tersembunyi), dapatkan cadangan nama/badge/kategori/deskripsi =====
     async function jalankanOCR(file, password) {
-      ocrStatus.textContent = "🔍 Menganalisis gambar dengan AI... mungkin ambil beberapa saat";
+      ocrStatus.textContent = "🔍 Menganalisis gambar dengan AI...";
       try {
         const { base64, mimeType } = await fileToBase64(file);
-
         const res = await fetch("/api/ocr-gemini", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -272,34 +347,27 @@
           return;
         }
         if (!result.ok || !result.data) {
-          ocrStatus.textContent = "⚠️ AI tak dapat analisis gambar — sila isi manual.";
+          ocrStatus.textContent = "⚠️ AI tak dapat analisis — isi manual.";
           return;
         }
 
         const cadangan = result.data;
-
-        // Isi field HANYA kalau masih kosong (elak overwrite apa yang admin dah taip)
-        if (!namaInput.value.trim() && cadangan.nama) {
-          namaInput.value = cadangan.nama;
-        }
-        if (!deskripsiInput.value.trim() && cadangan.deskripsi) {
-          deskripsiInput.value = cadangan.deskripsi;
-        }
+        if (!namaInput.value.trim() && cadangan.nama) namaInput.value = cadangan.nama;
+        if (!deskripsiInput.value.trim() && cadangan.deskripsi) deskripsiInput.value = cadangan.deskripsi;
         if (!badgeSelect.value && cadangan.badge) {
-          const adaOption = Array.from(badgeSelect.options).some(o => o.value === cadangan.badge);
-          if (adaOption) badgeSelect.value = cadangan.badge;
+          const ada = Array.from(badgeSelect.options).some(o => o.value === cadangan.badge);
+          if (ada) badgeSelect.value = cadangan.badge;
         }
         if (cadangan.kategori_cadangan) {
           const checkbox = document.querySelector(
-            '#kategoriGrid input[value="' + cadangan.kategori_cadangan.replace(/"/g, '') + '"]'
+            '#kategoriGrid input[value="' + cadangan.kategori_cadangan.replace(/"/g, "") + '"]'
           );
           if (checkbox && !checkbox.checked) checkbox.checked = true;
         }
-
-        ocrStatus.textContent = "✅ Analisis AI siap — sila semak & edit cadangan sebelum hantar.";
+        ocrStatus.textContent = "✅ Analisis AI siap — semak sebelum hantar.";
       } catch (err) {
-        console.error("OCR Gemini gagal:", err);
-        ocrStatus.textContent = "⚠️ Analisis AI gagal jalan — sila isi manual.";
+        console.error(err);
+        ocrStatus.textContent = "⚠️ Analisis AI gagal — isi manual.";
       }
     }
 
@@ -307,43 +375,33 @@
       const file = fileInput.files[0];
       if (!file) return;
 
-      // Password wajib diisi DULU — Worker tolak upload/OCR tanpa password betul
       const password = document.getElementById("password").value.trim();
       if (!password) {
-        uploadStatus.textContent = "🔒 Sila isi password admin dulu, kemudian pilih gambar semula.";
+        uploadStatus.textContent = "🔒 Isi password admin dulu, kemudian pilih gambar semula.";
         fileInput.value = "";
         return;
       }
 
-      const localURL = URL.createObjectURL(file);
-      preview.src = localURL;
+      preview.src = URL.createObjectURL(file);
       preview.style.display = "block";
-
       uploadStatus.textContent = "⏳ Sedang upload gambar...";
       ocrStatus.textContent = "";
       btn.disabled = true;
 
-      // Upload gambar dan analisis AI jalan SERENTAK (tak tunggu satu sama lain)
       const uploadPromise = (async () => {
         try {
           const formData = new FormData();
           formData.append("password", password);
           formData.append("image", file);
-
-          const res = await fetch("/api/upload-gambar", {
-            method: "POST",
-            body: formData
-          });
+          const res = await fetch("/api/upload-gambar", { method: "POST", body: formData });
           const data = await res.json();
-
           if (res.status === 401) {
             uploadStatus.textContent = "❌ Password salah — gambar tak dimuat naik.";
           } else if (data.success && data.url) {
             gambarInput.value = data.url;
             uploadStatus.textContent = "✅ Upload berjaya";
           } else {
-            uploadStatus.textContent = "❌ Upload gagal. Cuba lagi / paste link manual.";
-            console.log(data);
+            uploadStatus.textContent = "❌ Upload gagal. Paste link manual jika perlu.";
           }
         } catch (err) {
           console.error(err);
@@ -351,9 +409,7 @@
         }
       })();
 
-      const ocrPromise = jalankanOCR(file, password);
-
-      await Promise.all([uploadPromise, ocrPromise]);
+      await Promise.all([uploadPromise, jalankanOCR(file, password)]);
       btn.disabled = false;
     });
 
@@ -361,7 +417,6 @@
       const dipilih = Array.from(
         document.querySelectorAll('#kategoriGrid input[type="checkbox"]:checked')
       ).map(c => c.value);
-
       const lain = document.getElementById("kategoriLain").value.trim();
       if (lain) {
         lain.split(",").map(s => s.trim()).filter(Boolean).forEach(k => {
@@ -380,6 +435,18 @@
       e.preventDefault();
       msg.className = "msg";
       msg.textContent = "";
+
+      // ===== CAPTCHA setiap 3 hantaran =====
+      if (perluCaptcha()) {
+        const jawapan = parseInt(captchaA.value, 10);
+        if (jawapan !== captchaJawapan) {
+          msg.className = "msg err";
+          msg.textContent = "❌ Captcha salah. Sila cuba lagi.";
+          buatCaptcha();
+          return;
+        }
+      }
+
       btn.disabled = true;
       btn.textContent = "Menghantar...";
 
@@ -406,44 +473,50 @@
         const data = await res.json();
 
         if (data.ok) {
+          const newCount = getSubmitCount() + 1;
+          setSubmitCount(newCount);
+
           msg.className = "msg ok";
           msg.textContent = "✅ " + data.message + " (ID: " + data.id + ") — menyegerak cache...";
+
           const passwordAsal = payload.password;
           form.reset();
-          // Kekalkan password dalam borang — perlu untuk upload/OCR produk seterusnya
           document.getElementById("password").value = passwordAsal;
           preview.style.display = "none";
           uploadStatus.textContent = "";
           ocrStatus.textContent = "";
           badgeLain.style.display = "none";
 
-          // Auto-sync ke Cloudflare KV supaya produk terus muncul tanpa tunggu cron 10 minit
+          kemaskiniCaptchaUI();
+
           try {
             const refreshRes = await fetch("/api/produk/refresh", {
               headers: { "X-Admin-Pass": passwordAsal }
             });
-            if (!refreshRes.ok) throw new Error("Refresh status " + refreshRes.status);
-            msg.textContent = "✅ " + data.message + " (ID: " + data.id + ") — cache disegerak, boleh terus share!";
+            if (!refreshRes.ok) throw new Error("Refresh " + refreshRes.status);
+            msg.textContent = "✅ " + data.message + " (ID: " + data.id + ") — cache OK, boleh share!";
           } catch (refreshErr) {
-            console.error("Refresh cache gagal:", refreshErr);
-            msg.textContent = "✅ " + data.message + " (ID: " + data.id + ") — tapi cache gagal disegerak automatik, produk akan muncul dalam ~10 minit.";
+            console.error(refreshErr);
+            msg.textContent = "✅ " + data.message + " (ID: " + data.id + ") — cache auto gagal; ~10 minit.";
           }
         } else {
           msg.className = "msg err";
           msg.textContent = "❌ " + (data.message || "Gagal");
+          if (perluCaptcha()) buatCaptcha();
         }
       } catch (err) {
-        // Tak dapat baca respons (contoh: isu rangkaian/CORS) — TAK bermakna
-        // semestinya gagal, tapi kita juga tak boleh confirm ia berjaya.
-        // Borang SENGAJA tidak di-reset supaya data tak hilang kalau perlu hantar semula.
         console.error(err);
         msg.className = "msg warn";
-        msg.textContent = "⚠️ Tidak dapat sahkan status penghantaran. Sila semak sheet PRODUK — kalau produk belum masuk, cuba hantar semula.";
+        msg.textContent = "⚠️ Status tak dapat disahkan. Semak sheet PRODUK.";
+        if (perluCaptcha()) buatCaptcha();
       }
 
       btn.disabled = false;
       btn.textContent = "Tambah Produk";
     });
+
+    // Init UI captcha
+    kemaskiniCaptchaUI();
   </script>
 </body>
 </html>
