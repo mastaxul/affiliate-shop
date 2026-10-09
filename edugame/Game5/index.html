@@ -1137,11 +1137,15 @@ function showTrace(q, area) {
         <div>${escapeHTML(q.question)}</div>
         <canvas id="tc" class="tcanvas" width="300" height="300"></canvas>
         <div class="progress-bar" style="max-width:300px;margin:8px auto"><div id="tprog" class="progress-fill" style="width:0%"></div></div>
-        <button class="btn btn-secondary" id="tclr" style="max-width:200px;margin:8px auto 0;">🧽 Padam</button>`;
+        <div class="btn-row" style="max-width:320px;margin:0 auto;">
+            <button class="btn btn-secondary" id="tclr">🧽 Padam</button>
+            <button class="btn" id="tskip" style="background:linear-gradient(135deg,#ffa726,#ffb74d);">⏭️ Langkau</button>
+        </div>`;
     const cv = $("tc"), ctx = cv.getContext("2d");
-    const FONT = "bold 240px Arial, Helvetica, sans-serif";
+    const FONT = "normal 260px Arial, Helvetica, sans-serif";   // garisan nipis supaya mudah dijejak
+    const NEED = 0.8, MIN_MS = 3500, MIN_LEN = 300, BRUSH = 12;
 
-    // Titik-titik pada huruf (untuk ukur liputan) dan di luar huruf (untuk elak conteng)
+    // Titik pada huruf (ukur liputan) dan di luar huruf (elak conteng)
     const off = document.createElement("canvas");
     off.width = off.height = 300;
     const oc = off.getContext("2d");
@@ -1149,22 +1153,26 @@ function showTrace(q, area) {
     oc.fillText(q.glyph, 150, 165);
     const data = oc.getImageData(0, 0, 300, 300).data;
     const inPts = [], outPts = [];
-    for (let y = 0; y < 300; y += 7) for (let x = 0; x < 300; x += 7) {
+    for (let y = 0; y < 300; y += 6) for (let x = 0; x < 300; x += 6) {
         if (data[(y * 300 + x) * 4 + 3] > 128) inPts.push({ x, y, hit:false });
-        else if (x % 14 === 0 && y % 14 === 0) outPts.push({ x, y, hit:false });
+        else if (x % 12 === 0 && y % 12 === 0) outPts.push({ x, y, hit:false });
     }
-    const BRUSH = 13;
+    let startT = 0, pathLen = 0, done = false;
 
     function guide() {
         ctx.clearRect(0, 0, 300, 300);
         ctx.font = FONT; ctx.textAlign = "center"; ctx.textBaseline = "middle";
         ctx.fillStyle = "#e3e0ff";
         ctx.fillText(q.glyph, 150, 165);
-        ctx.setLineDash([8, 8]); ctx.lineWidth = 2; ctx.strokeStyle = "#9e9ad8";
+        ctx.setLineDash([6, 6]); ctx.lineWidth = 1.5; ctx.strokeStyle = "#9e9ad8";
         ctx.strokeText(q.glyph, 150, 165);
         ctx.setLineDash([]);
     }
-    function reset() { inPts.forEach(p => p.hit = false); outPts.forEach(p => p.hit = false); guide(); $("tprog").style.width = "0%"; }
+    function reset() {
+        inPts.forEach(p => p.hit = false); outPts.forEach(p => p.hit = false);
+        startT = 0; pathLen = 0;
+        guide(); $("tprog").style.width = "0%";
+    }
     function segDist(px, py, ax, ay, bx, by) {
         const dx = bx - ax, dy = by - ay, l2 = dx * dx + dy * dy;
         let t = l2 ? ((px - ax) * dx + (py - ay) * dy) / l2 : 0;
@@ -1175,34 +1183,43 @@ function showTrace(q, area) {
         const r = cv.getBoundingClientRect(), s = 300 / r.width;
         return { x:(e.clientX - r.left) * s, y:(e.clientY - r.top) * s };
     }
+    function evaluate() {
+        if (done || isAnswering) return;
+        const cov = inPts.filter(p => p.hit).length / inPts.length;
+        const out = outPts.length ? outPts.filter(p => p.hit).length / outPts.length : 0;
+        $("tprog").style.width = Math.min(100, cov / NEED * 100) + "%";
+        if (cov < NEED) return;
+        if (out > 0.3) { hint("✏️ Ikut garisan ya, jangan conteng banyak! Tekan Padam untuk cuba semula."); return; }
+        if (Date.now() - startT < MIN_MS || pathLen < MIN_LEN) { hint("✏️ Perlahan-lahan ya, jejak sampai habis!"); return; }
+        done = true; isAnswering = true; drawing = false;
+        correct(); nextQuestion(1800);
+    }
     let drawing = false, last = null;
     function stroke(a, b) {
         ctx.strokeStyle = "#6c63ff"; ctx.lineWidth = BRUSH * 2; ctx.lineCap = "round"; ctx.lineJoin = "round";
         ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        pathLen += Math.hypot(b.x - a.x, b.y - a.y);
         inPts.forEach(p => { if (!p.hit && segDist(p.x, p.y, a.x, a.y, b.x, b.y) <= BRUSH + 2) p.hit = true; });
         outPts.forEach(p => { if (!p.hit && segDist(p.x, p.y, a.x, a.y, b.x, b.y) <= BRUSH) p.hit = true; });
-        const cov = inPts.filter(p => p.hit).length / inPts.length;
-        const out = outPts.length ? outPts.filter(p => p.hit).length / outPts.length : 0;
-        $("tprog").style.width = Math.min(100, cov / 0.7 * 100) + "%";
-        if (cov >= 0.7 && !isAnswering) {
-            if (out > 0.45) { hint("✏️ Ikut garisan ya, jangan conteng banyak!"); return; }
-            isAnswering = true; drawing = false;
-            correct(); nextQuestion(1300);
-        }
+        evaluate();
     }
     cv.addEventListener("pointerdown", e => {
         if (isAnswering) return;
+        if (!startT) startT = Date.now();
         drawing = true; cv.setPointerCapture(e.pointerId);
         last = pt(e); stroke(last, last); e.preventDefault();
     });
     cv.addEventListener("pointermove", e => {
-        if (!drawing) return;
+        if (!drawing || isAnswering) return;
         const p = pt(e); stroke(last, p); last = p;
     });
-    const stop = () => { drawing = false; };
+    const stop = () => { drawing = false; evaluate(); };
     cv.addEventListener("pointerup", stop);
     cv.addEventListener("pointercancel", stop);
     $("tclr").onclick = () => { if (!isAnswering) reset(); };
+    $("tskip").onclick = () => { if (isAnswering) return; isAnswering = true; wrong("😊 Tak apa, cuba yang lain!"); nextQuestion(1000); };
+    // semak berkala: jika liputan sudah cukup tetapi masa minimum belum sampai
+    const iv = setInterval(() => { if (!document.body.contains(cv) || done) return clearInterval(iv); evaluate(); }, 700);
     guide();
 }
 
