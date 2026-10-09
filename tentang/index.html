@@ -507,6 +507,71 @@ button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
   box-shadow: 0 0 8px #FFE66D, 0 0 16px #FDCB6E;
   animation: heartFloat 1s ease-out forwards;
 }
+/* Special animal ability effects */
+.fx-flame {
+  position: absolute; width: 16px; height: 28px; border-radius: 50% 50% 40% 40%;
+  background: linear-gradient(180deg, #FFE66D 0%, #FF7675 50%, #E17055 100%);
+  box-shadow: 0 0 12px #FF7675, 0 0 24px #E17055;
+  animation: flameShoot 0.9s ease-out forwards;
+  transform-origin: bottom center;
+}
+@keyframes flameShoot {
+  0% { transform: translateY(0) scaleY(0.3) scaleX(0.8); opacity: 0; }
+  20% { transform: translateY(-10px) scaleY(1.2) scaleX(1); opacity: 1; }
+  60% { transform: translateY(-50px) scaleY(1.4) scaleX(0.7); opacity: 0.9; }
+  100% { transform: translateY(-90px) scaleY(0.5) scaleX(0.4); opacity: 0; }
+}
+.fx-ice {
+  position: absolute; width: 14px; height: 18px;
+  background: linear-gradient(180deg, #E0F7FA, #4DD0E1);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  box-shadow: 0 0 10px #81ECEC;
+  animation: iceCrystal 1s ease-out forwards;
+}
+@keyframes iceCrystal {
+  0% { transform: translateY(0) rotate(0) scale(0); opacity: 0; }
+  30% { transform: translateY(-15px) rotate(90deg) scale(1.2); opacity: 1; }
+  100% { transform: translateY(-70px) rotate(180deg) scale(0.5); opacity: 0; }
+}
+.fx-water-splash {
+  position: absolute; width: 12px; height: 12px; border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff, #74B9FF);
+  animation: waterSplash 0.8s ease-out forwards;
+}
+@keyframes waterSplash {
+  0% { transform: translate(0,0) scale(0.3); opacity: 1; }
+  100% { transform: translate(var(--wx,20px), var(--wy,-50px)) scale(1.2); opacity: 0; }
+}
+.fx-leaf {
+  position: absolute; width: 12px; height: 16px;
+  background: #00B894; border-radius: 0 80% 0 80%;
+  animation: leafFall 1.2s ease-out forwards;
+}
+@keyframes leafFall {
+  0% { transform: translateY(0) rotate(0); opacity: 1; }
+  100% { transform: translateY(-60px) rotate(120deg); opacity: 0; }
+}
+.fx-magic-star {
+  position: absolute; width: 12px; height: 12px;
+  background: #A29BFE;
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  animation: magicStar 1s ease-out forwards;
+}
+@keyframes magicStar {
+  0% { transform: scale(0) rotate(0); opacity: 0; }
+  30% { transform: scale(1.3) rotate(90deg); opacity: 1; }
+  100% { transform: scale(0.4) rotate(180deg) translateY(-60px); opacity: 0; }
+}
+.fx-roar-wave {
+  position: absolute; width: 40px; height: 40px; border-radius: 50%;
+  border: 3px solid rgba(253,203,110,0.6);
+  animation: roarWave 0.7s ease-out forwards;
+  left: 50%; top: 40%; margin-left: -20px; margin-top: -20px;
+}
+@keyframes roarWave {
+  0% { transform: scale(0.3); opacity: 0.8; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
 
 /* Modern confetti (CSS shapes) */
 #confetti-box {
@@ -1553,19 +1618,44 @@ function spawnAmbientSparks(stage) {
   }
 }
 
+function getFxLayerId(stage) {
+  let fxId = stage.dataset.fxId;
+  if (fxId) return fxId;
+  const fx = stage.querySelector('.fx-layer');
+  if (fx) {
+    if (!fx.id) fx.id = 'tmp-fx-' + Date.now();
+    return fx.id;
+  }
+  return null;
+}
+
 function petCharacter(stage, animalId) {
   setCharState(stage, 'petted');
-  const fxId = stage.dataset.fxId;
-  if (fxId) playFx(fxId, 'hearts', 5);
-  else {
-    const fx = stage.querySelector('.fx-layer');
-    if (fx) {
-      // temporary id
-      if (!fx.id) fx.id = 'tmp-fx-' + Date.now();
-      playFx(fx.id, 'hearts', 5);
-    }
+  const fxId = getFxLayerId(stage);
+  // Animal-specific ability animation + sound
+  const abilities = {
+    baramerah: { fx: 'fire', count: 8, sound: () => SFX.fire(), line: 'Api ajaib! Hangat dan selamat!' },
+    bara: { fx: 'fire', count: 7, sound: () => SFX.fire(), line: 'Api phoenix menyala!' },
+    suluh: { fx: 'roar', count: 3, sound: () => SFX.roar(), line: 'Roar! Saya singa mesra!' },
+    salju: { fx: 'ice', count: 7, sound: () => SFX.ice(), line: 'Kristal ais yang cantik!' },
+    ombak: { fx: 'water', count: 8, sound: () => SFX.water(), line: 'Percikan air laut!' },
+    bumi: { fx: 'leaf', count: 6, sound: () => SFX.meow(), line: 'Daun hijau dari tanah!' },
+    seri: { fx: 'magic', count: 8, sound: () => SFX.magic(), line: 'Sihir peri berkilau!' },
+    nunu: { fx: 'bubbles', count: 6, sound: () => SFX.bubble(), line: 'Gelembung nombor!' },
+    awan: { fx: 'sparkle', count: 7, sound: () => SFX.chirp(), line: 'Sayap pelangi terbang!' },
+    garuda: { fx: 'sparkle', count: 6, sound: () => SFX.chirp(), line: 'Garuda terbang tinggi!' },
+    tutu: { fx: 'bubbles', count: 5, sound: () => SFX.chirp(), line: 'Tutu terbang perlahan!' },
+    bintang: { fx: 'magic', count: 7, sound: () => SFX.sparkle(), line: 'Tanduk bintang bercahaya!' }
+  };
+  const ab = abilities[animalId] || { fx: 'hearts', count: 5, sound: () => SFX.happy(), line: null };
+  if (fxId) {
+    playFx(fxId, ab.fx, ab.count);
+    setTimeout(() => playFx(fxId, 'hearts', 4), 400);
   }
-  if (state && state.activeAnimal) {
+  ab.sound();
+  SFX.animalVoice(animalId);
+
+  if (state && state.animals && state.animals[state.activeAnimal]) {
     const st = getActiveStatus();
     st.happy = Math.min(100, st.happy + 3);
     st.bond = Math.min(100, st.bond + 1);
@@ -1575,13 +1665,14 @@ function petCharacter(stage, animalId) {
   const animal = ANIMALS.find(a => a.id === animalId) || getActiveAnimal();
   if (animal) {
     const dlg = document.getElementById('home-dialog') || document.getElementById('care-dialog');
+    const text = ab.line || randomDialog(animal, 'happy');
     if (dlg) {
-      dlg.textContent = randomDialog(animal, 'happy');
+      dlg.textContent = text;
       dlg.classList.remove('talk'); void dlg.offsetWidth; dlg.classList.add('talk');
     }
-    speak(randomDialog(animal, 'happy'));
+    speak(text);
   }
-  setTimeout(() => setCharState(stage, 'idle'), 900);
+  setTimeout(() => setCharState(stage, 'idle'), 1100);
 }
 
 const AREAS = [
@@ -1834,140 +1925,518 @@ const QUESTION_BANK = buildQuestionBank();
 const STORIES = {
   dongeng: [
     {
-      id:'kancil-buaya', title:'Sang Kancil dan Buaya',
+      id:'kancil-buaya', title:'Sang Kancil dan Buaya — Episod 1',
       scenes:[
-        'Di sebuah sungai, tinggal sekawan buaya yang lapar.',
-        'Sang Kancil yang bijak mahu menyeberang sungai.',
-        'Kancil berkata, "Wahai buaya, raja mahu kira bilangan kamu!"',
-        'Buaya-buaya berbaris. Kancil melompat dari belakang ke belakang.',
-        'Sampai di seberang, Kancil ketawa, "Terima kasih kerana menolong!"'
+        'Di tepi sebuah sungai yang jernih, tinggal sekawan buaya yang lapar.',
+        'Air sungai mengalir perlahan. Ikan-ikan kecil berenang di situ.',
+        'Sang Kancil yang bijak ingin menyeberang ke seberang sungai.',
+        'Dia melihat buah-buahan ranum di seberang. Perutnya berbunyi.',
+        'Tetapi sungai dalam. Kancil tidak boleh berenang jauh.',
+        'Buaya-buaya terapung di air. Mata mereka mengintai.',
+        'Kancil berkata dengan mesra, "Wahai buaya, raja mahu kira bilangan kamu!"',
+        '"Raja akan beri hadiah kepada buaya yang paling ramai," kata Kancil.',
+        'Buaya-buaya gembira. Mereka mahu hadiah daripada raja.',
+        'Mereka berbaris dari tepi ke tepi sungai. Satu, dua, tiga...',
+        'Kancil melompat perlahan di belakang setiap buaya.',
+        '"Satu! Dua! Tiga!" Kancil mengira sambil melompat.',
+        'Akhirnya Kancil sampai di seberang dengan selamat.',
+        'Dia tersenyum dan berkata, "Terima kasih kerana menolong!"',
+        'Buaya-buaya terkejut. Tetapi Kancil sudah selamat.',
+        'Kancil makan buah dengan gembira. Dia belajar: bijak lebih baik daripada kuat.'
       ],
       moral:'Bijak menggunakan akal boleh menyelesaikan masalah tanpa bergaduh.',
       quiz:{q:'Siapa yang bijak dalam cerita ini?', choices:['Sang Kancil','Buaya','Gajah'], answer:'Sang Kancil'}
     },
     {
-      id:'kancil-harimau', title:'Sang Kancil dan Harimau',
+      id:'kancil-harimau', title:'Sang Kancil dan Harimau — Episod 2',
       scenes:[
-        'Harimau lapar mahu makan Sang Kancil.',
-        'Kancil berkata, "Tunggu! Ada haiwan lebih besar daripada kamu!"',
-        'Kancil bawa Harimau ke tepi tasik.',
-        '"Lihat bayang kamu dalam air. Itu haiwan hebat!" kata Kancil.',
-        'Harimau melompat ke dalam air dan basah kuyup. Kancil selamat!'
+        'Pada suatu pagi, Harimau lapar berjalan di hutan.',
+        'Dia bertemu Sang Kancil yang sedang makan rumput.',
+        'Harimau berkata, "Hari ini aku akan makan kamu, Kancil!"',
+        'Kancil tidak lari. Dia berfikir dengan tenang.',
+        '"Tunggu sebentar, Harimau. Ada haiwan lebih besar daripada kamu!"',
+        'Harimau hairan. "Siapa yang lebih besar daripada aku?"',
+        'Kancil membawa Harimau ke tepi sebuah tasik yang tenang.',
+        '"Lihat dalam air," kata Kancil dengan senyum.',
+        'Harimau melihat bayang dirinya yang besar dalam air.',
+        '"Itu haiwan hebat yang menjaga tasik ini!" kata Kancil.',
+        'Harimau marah. Dia mahu tunjuk dia lebih hebat.',
+        'Dia melompat ke dalam air dengan bunyi "BYURRR!"',
+        'Harimau basah kuyup. Bulunya melekat. Dia kelihatan comel.',
+        'Kancil ketawa kecil dan berlari ke tempat selamat.',
+        'Harimau keluar dari air. Dia belajar jangan mudah marah.',
+        'Di hutan, kecerdikan sentiasa menang.'
       ],
       moral:'Kecerdikan lebih berkuasa daripada kekuatan semata-mata.',
       quiz:{q:'Apa yang dilihat Harimau dalam air?', choices:['Bayang sendiri','Ikan','Kancil'], answer:'Bayang sendiri'}
     },
     {
-      id:'persahabatan-awan', title:'Persahabatan di Kampung Awan',
+      id:'kancil-buaya-2', title:'Sang Kancil dan Buaya — Episod 3: Balik Lagi',
       scenes:[
-        'Di Kampung Awan, Awan si kuda terbang berjumpa Naga Nunu.',
-        'Mereka bermain kejar-kejaran di antara awan.',
-        'Tiba-tiba Nunu jatuh dan sedih.',
-        'Awan datang menolong dan berkata, "Kawan sejati tolong antara satu sama lain."',
-        'Mereka terbang bersama-sama dan gembira.'
+        'Beberapa hari kemudian, Kancil mahu balik ke kampungnya.',
+        'Sungai masih ada. Buaya-buaya masih di situ.',
+        'Buaya ketua berkata, "Kamu tipu kami kali lepas!"',
+        'Kancil tunduk. "Maaf. Saya takut. Boleh saya minta maaf?"',
+        'Buaya ketua diam sekejap. Kemudian dia mengangguk.',
+        '"Baiklah. Tapi kali ini tolong dengan jujur," kata buaya.',
+        'Kancil berkata, "Saya benar-benar mahu menyeberang. Boleh tolong?"',
+        'Seekor buaya muda berkata, "Saya boleh bawa kamu di belakang."',
+        'Kancil naik dengan perlahan. Dia cakap terima kasih berkali-kali.',
+        'Di tengah sungai, Kancil berkongsi buah yang dibawanya.',
+        'Buaya muda rasa manis. Dia tersenyum.',
+        'Sampai di seberang, Kancil dan buaya jadi kawan.',
+        'Mereka janji tidak tipu antara satu sama lain lagi.',
+        'Dari hari itu, Kancil dan buaya saling bantu.',
+        'Hutan jadi lebih aman kerana mereka bekerjasama.'
+      ],
+      moral:'Meminta maaf dan jujur membaiki persahabatan.',
+      quiz:{q:'Apa yang Kancil buat kepada buaya?', choices:['Minta maaf','Tipu lagi','Lari'], answer:'Minta maaf'}
+    },
+    {
+      id:'persahabatan-awan', title:'Persahabatan di Kampung Awan — Episod 1',
+      scenes:[
+        'Di Kampung Awan, langit sentiasa cerah dan lembut.',
+        'Awan si kuda terbang bermain kejar-kejaran di antara awan putih.',
+        'Pada suatu hari, dia nampak Naga Nunu yang kelihatan sedih.',
+        '"Hai Nunu, kenapa kamu sedih?" tanya Awan dengan lembut.',
+        'Nunu berkata, "Saya jatuh semasa belajar terbang. Saya takut."',
+        'Awan duduk di sebelah Nunu. "Tak mengapa. Saya pun pernah jatuh."',
+        '"Benarkah?" Nunu mengangkat muka.',
+        '"Ya. Tapi kawan menolong saya bangun semula," kata Awan.',
+        'Awan memegang sirip Nunu. "Jom cuba terbang bersama."',
+        'Mereka terbang perlahan. Nunu masih gementar.',
+        'Awan kata, "Tarik nafas. Saya ada di sini."',
+        'Perlahan-lahan Nunu naik lebih tinggi. Dia mula tersenyum.',
+        '"Saya boleh!" seru Nunu dengan gembira.',
+        'Mereka terbang mengelilingi Kampung Awan sambil ketawa.',
+        'Sejak itu Awan dan Nunu jadi kawan baik.',
+        'Kawan sejati menolong kita bangkit semula.'
       ],
       moral:'Kawan sejati sentiasa menolong dan menyokong.',
-      quiz:{q:'Apa yang Awan buat apabila Nunu jatuh?', choices:['Menolong','Ketawa','Pergi'], answer:'Menolong'}
+      quiz:{q:'Apa yang Awan buat apabila Nunu sedih?', choices:['Menolong','Ketawa','Pergi'], answer:'Menolong'}
+    },
+    {
+      id:'nunu-nombor', title:'Naga Nunu Belajar Nombor — Episod 2',
+      scenes:[
+        'Naga Nunu suka gelembung. Dia tiup gelembung setiap pagi.',
+        'Suatu hari Cikgu di Akademi Ilmu kata, "Jom belajar nombor!"',
+        'Nunu tiup satu gelembung. "Ini satu!"',
+        'Dia tiup dua gelembung. "Ini dua!"',
+        'Tiga, empat, lima... gelembung terbang ke langit.',
+        'Awan datang. "Boleh saya kira sekali?"',
+        'Mereka kira bersama. Enam, tujuh, lapan, sembilan, sepuluh!',
+        'Nunu gembira. "Nombor seronok!"',
+        'Kemudian angin kencang. Gelembung pecah satu per satu.',
+        'Nunu sedih. "Gelembung saya hilang."',
+        'Awan kata, "Tak mengapa. Kita boleh tiup lagi."',
+        'Mereka tiup semula. Nunu kira dengan lebih yakin.',
+        'Cikgu puji, "Pandainya! Kamu sudah kenal nombor satu hingga sepuluh."',
+        'Nunu tersenyum besar. Belajar sambil bermain memang best.',
+        'Malam itu Nunu bermimpi tentang gelembung nombor yang bercahaya.'
+      ],
+      moral:'Belajar sambil bermain membuat kita gembira dan pandai.',
+      quiz:{q:'Apa yang Nunu guna untuk belajar nombor?', choices:['Gelembung','Batu','Kayu'], answer:'Gelembung'}
+    },
+    {
+      id:'kura-sabar', title:'Tutu si Kura-kura yang Sabar',
+      scenes:[
+        'Tutu si kura-kura terbang bergerak perlahan.',
+        'Kawan-kawan lain lari dan terbang pantas.',
+        'Seekor arnab berkata, "Tutu, kamu lambat sangat!"',
+        'Tutu senyum. "Saya suka perlahan. Saya nampak banyak benda."',
+        'Dalam perjalanan, Tutu nampak bunga yang cantik.',
+        'Dia berhenti. Dia bau bunga. Harum sekali.',
+        'Arnab sudah jauh di hadapan. Dia tidak nampak bunga itu.',
+        'Tutu nampak anak burung yang jatuh dari sarang.',
+        'Dia bantu anak burung balik ke sarang dengan perlahan.',
+        'Ibu burung berkata terima kasih kepada Tutu.',
+        'Di garisan penamat, arnab sudah penat dan tertidur.',
+        'Tutu sampai perlahan-lahan. Dia tidak berhenti.',
+        'Tutu menang kerana dia sabar dan tidak putus asa.',
+        'Arnab bangun. Dia malu. "Maaf Tutu. Kamu hebat."',
+        'Tutu kata, "Kita semua ada cara sendiri. Sabar itu kekuatan."'
+      ],
+      moral:'Kesabaran dan usaha berterusan membawa kejayaan.',
+      quiz:{q:'Kenapa Tutu menang?', choices:['Sabar dan tidak putus asa','Lari pantas','Tidur'], answer:'Sabar dan tidak putus asa'}
+    },
+    {
+      id:'ombak-laut', title:'Ombak Menjaga Laut Kristal',
+      scenes:[
+        'Di Laut Kristal, airnya jernih seperti kaca.',
+        'Naga Ombak berenang setiap hari bersama ikan-ikan.',
+        'Suatu pagi, Ombak nampak plastik dan sampah di air.',
+        'Ikan kecil batuk. "Air jadi kotor. Susah bernafas."',
+        'Ombak sedih. "Siapa buang sampah di laut?"',
+        'Dia panggil kawan-kawan. Awan, Nunu, dan Seri datang.',
+        '"Jom kita bersihkan laut bersama!" kata Ombak.',
+        'Mereka mengutip sampah satu per satu.',
+        'Awan terbang bawa beg. Nunu kira berapa banyak sampah.',
+        'Seri menyanyi lagu kebersihan. Semua jadi lebih seronok.',
+        'Selepas siap, laut kembali jernih. Ikan menari gembira.',
+        'Ombak buat papan tanda: "Jaga Laut Kita."',
+        'Kanak-kanak di pantai baca papan itu dan senyum.',
+        'Mereka janji tidak buang sampah ke laut lagi.',
+        'Ombak bangga. Menjaga alam adalah kerja semua orang.'
+      ],
+      moral:'Menjaga kebersihan alam adalah tanggungjawab bersama.',
+      quiz:{q:'Apa yang Ombak buat kepada sampah?', choices:['Kutip dan bersih','Buang lagi','Abaikan'], answer:'Kutip dan bersih'}
+    },
+    {
+      id:'seri-jawi', title:'Seri Belajar Huruf Jawi',
+      scenes:[
+        'Di Taman Peri, Seri si pari-pari suka huruf yang cantik.',
+        'Cikgu bawa papan tulis. "Hari ini kita belajar huruf Alif."',
+        'Seri lihat huruf ا . "Alif nampak macam tiang!"',
+        'Kemudian huruf ب . "Ba ada satu titik di bawah."',
+        'Seri terbang ke setiap huruf. Dia sebut nama dengan jelas.',
+        'Kawan-kawan peri ikut. Mereka nyanyi nama huruf.',
+        'Seri buat kesilapan. Dia sebut Ba sebagai Ta.',
+        'Cikgu kata, "Tak mengapa. Cuba lagi dengan tenang."',
+        'Seri tarik nafas. Dia cuba semula. Kali ini betul!',
+        'Semua tepuk tangan. Seri pipinya merah kerana gembira.',
+        'Mereka tulis perkataan mudah: با , ما , نا .',
+        'Seri baca "ba-ba". Bunyi comel. Semua ketawa.',
+        'Pulang ke rumah, Seri ajar adiknya huruf Alif dan Ba.',
+        'Belajar huruf membuka pintu cerita dan ilmu.',
+        'Seri tidur dengan senyum. Esok dia mahu belajar lagi.'
+      ],
+      moral:'Belajar huruf membuka pintu ilmu. Kesilapan adalah sebahagian belajar.',
+      quiz:{q:'Huruf Jawi pertama yang Seri belajar?', choices:['Alif','Ba','Ya'], answer:'Alif'}
     }
   ],
   pahlawan: [
     {
-      id:'hang-tuah', title:'Hang Tuah yang Setia',
+      id:'hang-tuah', title:'Hang Tuah yang Setia — Episod 1',
       scenes:[
-        'Hang Tuah ialah pahlawan Melayu yang terkenal.',
-        'Dia setia kepada sultan dan rakyat.',
-        'Hang Tuah bijak, berani dan suka membantu orang lain.',
-        'Dia belajar ilmu bela diri dan adab yang baik.',
-        'Hang Tuah diingati kerana kesetiaan dan kebijaksanaannya.'
+        'Di tanah Melayu dahulu kala, hidup seorang pemuda bernama Hang Tuah.',
+        'Hang Tuah suka belajar. Dia belajar ilmu bela diri dan adab.',
+        'Dia hormat ibu bapa, guru, dan kawan-kawan.',
+        'Hang Tuah mempunyai empat kawan baik: Jebat, Kasturi, Lekir dan Lekiu.',
+        'Mereka berlatih bersama setiap pagi di padang.',
+        'Suatu hari, mereka bantu orang kampung yang kesusahan.',
+        'Hang Tuah kata, "Kita mesti tolong orang yang memerlukan."',
+        'Orang kampung gembira. Mereka beri buah-buahan sebagai ucapan terima kasih.',
+        'Hang Tuah tidak sombong. Dia kongsi buah dengan kawan-kawannya.',
+        'Sultan mendengar tentang kebaikan Hang Tuah.',
+        'Hang Tuah dipanggil ke istana. Dia berjalan dengan tenang dan sopan.',
+        'Dia beri salam. Sultan senyum. "Kamu setia dan berani."',
+        'Hang Tuah jawab, "Saya akan jaga rakyat dan negeri dengan baik."',
+        'Sejak itu Hang Tuah dikenali sebagai pahlawan yang setia.',
+        'Kanak-kanak di kampung bercerita tentang Hang Tuah setiap malam.',
+        'Kesetiaan, keberanian dan kebijaksanaan membuat seseorang dihormati.'
       ],
       moral:'Kesetiaan, keberanian dan kebijaksanaan adalah sifat yang mulia.',
       quiz:{q:'Hang Tuah terkenal kerana?', choices:['Kesetiaan','Kekayaan','Kelajuan'], answer:'Kesetiaan'}
     },
     {
-      id:'tun-perak', title:'Tun Perak yang Bijak',
+      id:'hang-tuah-2', title:'Hang Tuah dan Kawan-kawan — Episod 2',
+      scenes:[
+        'Hang Tuah dan empat kawannya berjalan di pasar.',
+        'Mereka nampak seorang kanak-kanak menangis. Buahnya tertumpah.',
+        'Hang Jebat cepat tolong kutip buah. Hang Tuah senyum.',
+        '"Tolong orang lain membuat hati gembira," kata Hang Tuah.',
+        'Mereka bawa kanak-kanak itu pulang ke rumah ibunya.',
+        'Ibu kanak-kanak beri kuih sebagai ucapan terima kasih.',
+        'Lima kawan duduk di bawah pokok. Mereka kongsi kuih.',
+        'Hang Kasturi kata, "Kita macam saudara."',
+        'Hang Tuah angguk. "Persahabatan mesti dijaga dengan jujur."',
+        'Mereka berjanji sentiasa bantu antara satu sama lain.',
+        'Pada waktu petang, mereka bantu nelayan tarik jala.',
+        'Ikan banyak. Nelayan gembira. "Terima kasih, pahlawan muda!"',
+        'Hang Tuah kata, "Kami bukan pahlawan lagi. Kami hanya kawan rakyat."',
+        'Matahari terbenam. Lima kawan berjalan pulang sambil ketawa.',
+        'Persahabatan yang baik dilahirkan daripada tolong-menolong.'
+      ],
+      moral:'Persahabatan yang baik dilahirkan daripada tolong-menolong dan kejujuran.',
+      quiz:{q:'Apa yang Hang Tuah dan kawan buat di pasar?', choices:['Tolong kanak-kanak','Beli barang','Tidur'], answer:'Tolong kanak-kanak'}
+    },
+    {
+      id:'tun-perak', title:'Tun Perak yang Bijak — Episod 1',
       scenes:[
         'Tun Perak ialah bendahara yang bijak di Melaka.',
-        'Dia membantu mentadbir negeri dengan adil.',
-        'Tun Perak suka mendengar nasihat dan berfikir sebelum bertindak.',
-        'Dia menjaga keamanan dan kesejahteraan rakyat.',
-        'Kebijaksanaan Tun Perak membuat Melaka makmur.'
+        'Dia suka mendengar sebelum bercakap.',
+        'Setiap pagi dia duduk dan fikir: "Apa yang baik untuk rakyat hari ini?"',
+        'Suatu hari, dua orang kampung bergaduh tentang tanah.',
+        'Tun Perak tidak marah. Dia ajak mereka duduk dan bercerita.',
+        'Dia dengar kedua-dua pihak dengan sabar.',
+        'Kemudian dia kata, "Tanah ini cukup untuk dikongsi. Jom bahagi adil."',
+        'Kedua-dua orang setuju. Mereka bersalam dan pergi dengan tenang.',
+        'Sultan puji Tun Perak. "Kamu bijak kerana mendengar dulu."',
+        'Tun Perak jawab, "Berfikir dulu sebelum bertindak adalah penting."',
+        'Pada hari lain, ada banjir kecil di kampung.',
+        'Tun Perak atur orang tolong bawa makanan dan air bersih.',
+        'Kanak-kanak selamat. Ibu bapa lega.',
+        'Rakyat sayang Tun Perak kerana dia adil dan prihatin.',
+        'Kebijaksanaan membuat negeri aman dan makmur.'
       ],
       moral:'Berfikir dulu sebelum bertindak adalah tanda kebijaksanaan.',
       quiz:{q:'Tun Perak bekerja sebagai?', choices:['Bendahara','Nelayan','Pedagang'], answer:'Bendahara'}
     },
     {
-      id:'mat-kilau', title:'Mat Kilau yang Berani',
+      id:'mat-kilau', title:'Mat Kilau yang Berani — Episod 1',
       scenes:[
-        'Mat Kilau ialah pejuang yang berani mempertahankan tanah air.',
-        'Dia mencintai negeri dan rakyatnya.',
-        'Mat Kilau tidak takut menegakkan kebenaran.',
-        'Dia mengajar kita untuk berani dan menjaga warisan.',
-        'Semangat Mat Kilau terus diingati hingga hari ini.'
+        'Mat Kilau ialah pemuda yang cintakan tanah airnya.',
+        'Dia tinggal di kampung yang hijau dan damai.',
+        'Mat Kilau belajar daripada ayahnya: berani menegakkan yang benar.',
+        'Dia tolong orang tua bawa barang di pasar.',
+        'Dia ajar adik-adik baca dan kira di bawah pokok.',
+        'Apabila ada yang susah, Mat Kilau datang menolong.',
+        'Dia tidak takut bercakap benar, walaupun suara menggeletar.',
+        'Kawan-kawannya kata, "Kamu berani, Mat Kilau."',
+        'Dia jawab, "Berani bukan bermaksud tidak takut. Berani bermaksud buat yang betul."',
+        'Pada suatu hari, dia bantu selamatkan anak kucing dari pokok tinggi.',
+        'Semua orang tepuk tangan. Mat Kilau pipinya merah.',
+        'Dia kata, "Kita semua boleh jadi berani dengan cara kita."',
+        'Semangat Mat Kilau diingati: cinta tanah air dan tolong sesama.',
+        'Kanak-kanak menyanyi lagu tentang keberanian yang baik.',
+        'Keberanian yang baik ialah keberanian untuk menolong dan jujur.'
       ],
-      moral:'Keberanian mempertahankan yang benar adalah sifat terpuji.',
-      quiz:{q:'Mat Kilau mempertahankan?', choices:['Tanah air','Mainan','Makanan'], answer:'Tanah air'}
+      moral:'Keberanian yang baik ialah keberanian untuk menolong dan menegakkan kebenaran.',
+      quiz:{q:'Mat Kilau mempertahankan?', choices:['Tanah air dan kebenaran','Mainan','Makanan'], answer:'Tanah air dan kebenaran'}
+    },
+    {
+      id:'tun-perak-2', title:'Tun Perak dan Pasar — Episod 2',
+      scenes:[
+        'Di pasar Melaka, pedagang dari jauh datang menjual barang.',
+        'Ada yang jual kain, ada yang jual rempah, ada yang jual buah.',
+        'Suatu hari dua pedagang bergaduh tentang harga.',
+        'Suara mereka kuat. Kanak-kanak takut.',
+        'Tun Perak datang. Dia angkat tangan perlahan. "Jom bercakap baik-baik."',
+        'Dia ajak mereka minum air dan duduk di tempat teduh.',
+        'Selepas tenang, mereka cerita masalah masing-masing.',
+        'Tun Perak bantu mereka setuju harga yang adil.',
+        'Kedua pedagang bersalam. Pasar kembali riuh rendah dengan gembira.',
+        'Seorang kanak-kanak tanya, "Kenapa Tun Perak tidak marah?"',
+        'Tun Perak senyum. "Marah tidak selesaikan masalah. Bicara yang baik lebih berguna."',
+        'Kanak-kanak itu angguk. Dia ingat kata-kata itu.',
+        'Petang itu pasar penuh senyuman. Orang berjual beli dengan aman.',
+        'Tun Perak berjalan pulang. Hatinya tenang.',
+        'Kedamaian bermula daripada kata-kata yang lembut dan adil.'
+      ],
+      moral:'Kata-kata yang lembut dan adil membawa kedamaian.',
+      quiz:{q:'Apa yang Tun Perak buat bila pedagang bergaduh?', choices:['Ajak bercakap baik-baik','Marah','Pergi'], answer:'Ajak bercakap baik-baik'}
     }
   ],
   teladan: [
     {
-      id:'berkongsi', title:'Berkongsi Makanan',
+      id:'berkongsi', title:'Berkongsi Makanan — Episod 1',
       scenes:[
-        'Amir mempunyai sebiji epal yang besar.',
-        'Kawan Amir, Siti, tidak membawa bekal.',
-        'Amir memotong epalnya dan berkongsi dengan Siti.',
-        'Siti tersenyum dan berkata terima kasih.',
-        'Mereka makan bersama dan rasa lebih gembira.'
+        'Amir bawa bekal ke sekolah. Ibu sediakan sebiji epal besar dan roti.',
+        'Di waktu rehat, Amir duduk di bawah pokok.',
+        'Kawan Amir, Siti, duduk diam. Dia tidak bawa bekal hari ini.',
+        'Amir nampak Siti. Perut Siti berbunyi. Amir rasa kasihan.',
+        'Amir potong epalnya kepada dua. "Siti, jom kongsi."',
+        'Siti terkejut. "Bolehkah? Terima kasih, Amir!"',
+        'Mereka makan bersama. Epal rasa lebih manis kerana dikongsi.',
+        'Guru nampak. Dia senyum. "Berkongsi itu perbuatan mulia."',
+        'Selepas itu, kawan-kawan lain juga mula berkongsi bekal.',
+        'Kelas jadi lebih ceria. Tiada siapa lapar sendirian.',
+        'Pulang ke rumah, Amir cerita kepada ibu.',
+        'Ibu peluk Amir. "Saya bangga. Kamu punya hati yang baik."',
+        'Amir tidur dengan senyum. Berkongsi membuat dua orang gembira.',
+        'Keesokan hari Siti bawa buah untuk dikongsi dengan Amir.',
+        'Persahabatan mereka makin erat.'
       ],
       moral:'Berkongsi membuat kita dan kawan rasa gembira.',
       quiz:{q:'Apa yang Amir buat?', choices:['Berkongsi epal','Makan sendiri','Buang epal'], answer:'Berkongsi epal'}
     },
     {
-      id:'cakap-benar', title:'Bercakap Benar',
+      id:'cakap-benar', title:'Bercakap Benar — Episod 1',
       scenes:[
-        'Lina terlanggar pasu bunga tanpa sengaja.',
-        'Ibu bertanya, "Siapa yang pecahkan pasu?"',
-        'Lina takut, tetapi dia cakap benar, "Saya, ibu. Maaf."',
-        'Ibu memeluk Lina dan berkata, "Terima kasih kerana jujur."',
-        'Lina rasa lega kerana bercakap benar.'
+        'Lina bermain di ruang tamu. Dia berlari dan terlanggar pasu bunga.',
+        'Pasu pecah. Tanah dan bunga tumpah di lantai.',
+        'Lina takut. Jantungnya berdegup kencang.',
+        'Dia fikir, "Kalau saya diam, mungkin ibu tidak tahu."',
+        'Tetapi hati Lina tidak tenang. Dia rasa bersalah.',
+        'Ibu masuk. "Siapa yang pecahkan pasu?"',
+        'Lina tarik nafas. "Saya, ibu. Maaf. Saya tidak sengaja."',
+        'Ibu diam sekejap. Kemudian ibu peluk Lina.',
+        '"Terima kasih kerana jujur. Kita boleh bersihkan bersama."',
+        'Lina dan ibu sapu lantai. Mereka tanam semula bunga dalam pasu baru.',
+        'Lina rasa lega. Bercakap benar membuat hati ringan.',
+        'Ibu kata, "Kesilapan boleh diperbaiki. Bohong susah dibaiki."',
+        'Malam itu Lina tulis dalam diari: Hari ini saya cakap benar.',
+        'Dia tidur nyenyak. Kejujuran membawa ketenangan.',
+        'Keesokan hari Lina main dengan lebih berhati-hati di rumah.'
       ],
       moral:'Bercakap benar membuat hati tenang dan dipercayai.',
       quiz:{q:'Apa yang Lina buat?', choices:['Cakap benar','Bohong','Diam'], answer:'Cakap benar'}
     },
     {
-      id:'jaga-alam', title:'Menjaga Alam Sekitar',
+      id:'jaga-alam', title:'Menjaga Alam — Episod 1',
       scenes:[
-        'Naga Ombak melihat sampah di laut.',
-        'Dia sedih kerana ikan-ikan tidak selesa.',
-        'Ombak dan kawan-kawannya mengutip sampah bersama.',
-        'Laut menjadi bersih dan ikan-ikan gembira.',
-        'Ombak berkata, "Kita semua boleh jaga alam!"'
+        'Naga Ombak berenang di Laut Kristal yang indah.',
+        'Tiba-tiba dia nampak beg plastik terapung.',
+        'Seekor penyu kecil tersangkut. Ombak tolong bebaskan penyu.',
+        'Penyu bilang terima kasih dengan mengerling mata.',
+        'Ombak panggil kawan-kawan dari Kampung Awan.',
+        'Awan, Nunu, Seri, dan Bumi datang membantu.',
+        'Mereka kutip sampah. Mereka nyanyi lagu "Jaga Bumi Kita".',
+        'Selepas sejam, pantai dan laut kelihatan bersih semula.',
+        'Ikan, ketam dan burung laut kembali bermain.',
+        'Ombak buat papan kayu: "Buang sampah ke tong, bukan ke laut."',
+        'Kanak-kanak di pantai baca dan angguk.',
+        'Mereka bawa tong sampah kecil ke pantai setiap kali main.',
+        'Ombak bangga. Perubahan kecil membawa kesan besar.',
+        'Matahari terbenam. Laut berkilau. Semua haiwan gembira.',
+        'Menjaga alam bermula dengan satu perbuatan baik setiap hari.'
       ],
-      moral:'Menjaga kebersihan alam adalah tanggungjawab bersama.',
+      moral:'Menjaga kebersihan alam bermula dengan perbuatan kecil setiap hari.',
       quiz:{q:'Apa yang Ombak buat?', choices:['Kutip sampah','Buang sampah','Tidur'], answer:'Kutip sampah'}
     },
     {
-      id:'minta-maaf', title:'Meminta Maaf',
+      id:'minta-maaf', title:'Meminta Maaf — Episod 1',
       scenes:[
-        'Rafi terlanggar adiknya dan adik menangis.',
-        'Rafi mula-mula marah, tetapi kemudian dia rasa menyesal.',
-        'Rafi berkata, "Maaf ya adik. Saya tak sengaja."',
-        'Adiknya tersenyum dan mereka berpelukan.',
-        'Mereka bermain bersama semula dengan gembira.'
+        'Rafi bermain bola di ruang tamu bersama adiknya.',
+        'Bola terlanggar adik. Adik jatuh dan menangis.',
+        'Rafi mula-mula marah. "Kenapa kamu berdiri situ?"',
+        'Kemudian Rafi nampak air mata adik. Hatinya lembut.',
+        'Dia ingat kata ibu: "Bila buat silap, minta maaf."',
+        'Rafi duduk di sebelah adik. "Maaf ya. Saya tak sengaja."',
+        'Adik masih sedih. Rafi peluk adiknya.',
+        '"Jom main sesuatu yang lebih selamat," kata Rafi.',
+        'Mereka main binaan blok. Adik mula tersenyum.',
+        'Ibu nampak dari dapur. Dia senyum tanpa kata.',
+        'Petang itu Rafi dan adik lukis bersama.',
+        'Rafi lukis hati. "Ini untuk adik. Maaf lagi sekali."',
+        'Adik lukis bintang. "Kita kawan lagi!"',
+        'Meminta maaf membaiki hubungan yang retak.',
+        'Rumah jadi riang semula dengan ketawa dua beradik.'
       ],
-      moral:'Meminta maaf memperbaiki persahabatan.',
-      quiz:{q:'Apa yang Rafi kata?', choices:['Maaf ya','Pergi!','Diam'], answer:'Maaf ya'}
+      moral:'Meminta maaf memperbaiki persahabatan dan hubungan keluarga.',
+      quiz:{q:'Apa yang Rafi kata kepada adik?', choices:['Maaf ya','Pergi!','Diam'], answer:'Maaf ya'}
     },
     {
-      id:'hormat-guru', title:'Menghormati Guru',
+      id:'hormat-guru', title:'Menghormati Guru — Episod 1',
       scenes:[
-        'Di Akademi Ilmu, cikgu mengajar huruf.',
-        'Murid-murid mendengar dengan teliti.',
-        'Apabila cikgu masuk, mereka beri salam dan senyum.',
-        'Mereka berkata terima kasih selepas belajar.',
-        'Cikgu gembira kerana murid-murid beradab.'
+        'Di Akademi Ilmu, loceng berbunyi. Kelas akan bermula.',
+        'Murid-murid duduk kemas. Mereka tunggu cikgu dengan tenang.',
+        'Cikgu masuk. Semua beri salam dan senyum.',
+        'Cikgu jawab salam. "Selamat pagi, anak-anak pandai!"',
+        'Hari itu mereka belajar huruf dan nombor.',
+        'Apabila tidak faham, murid angkat tangan dan tanya dengan sopan.',
+        'Cikgu terangkan sekali lagi dengan sabar.',
+        'Selepas kelas, murid-murid kata, "Terima kasih, cikgu!"',
+        'Cikgu gembira. "Kamu semua beradab. Saya bangga."',
+        'Di luar kelas, seorang murid tolong bawa buku cikgu.',
+        'Cikgu kata terima kasih. Murid itu rasa hangat di hati.',
+        'Pulang ke rumah, murid cerita kepada ibu tentang pelajaran.',
+        'Ibu kata, "Hormat guru sama macam hormat ibu bapa."',
+        'Murid angguk. Dia mahu jadi murid yang baik setiap hari.',
+        'Menghormati guru membuka pintu ilmu dengan lebih luas.'
       ],
       moral:'Menghormati guru dan orang yang lebih tua adalah adab yang baik.',
       quiz:{q:'Apa yang murid buat bila cikgu masuk?', choices:['Beri salam','Lari','Ketawa'], answer:'Beri salam'}
+    },
+    {
+      id:'sabar-berusaha', title:'Bersabar dan Berusaha — Episod 1',
+      scenes:[
+        'Bintang si rusa mahu belajar lompat tinggi.',
+        'Kali pertama dia lompat, dia jatuh. "Aduh!"',
+        'Dia mahu berhenti. Tapi tanduknya berbisik, "Cuba lagi."',
+        'Kali kedua, lompatan lebih jauh sikit. Masih jatuh.',
+        'Kawan-kawan datang. "Kami sokong kamu, Bintang!"',
+        'Mereka tepuk tangan setiap kali Bintang cuba.',
+        'Kali kelima, Bintang lompat dan mendarat dengan kemas.',
+        '"Saya berjaya!" Bintang berputar gembira.',
+        'Nunu kata, "Kerana kamu tidak putus asa."',
+        'Bintang ajar kawan-kawan caranya: cuba, jatuh, bangun, cuba lagi.',
+        'Semua belajar lompat bersama. Hutan penuh ketawa.',
+        'Malam itu Bintang lihat bintang di langit.',
+        'Dia bisik, "Terima kasih kerana mengajar saya bersabar."',
+        'Usaha yang berterusan membuat impian jadi nyata.',
+        'Bintang tidur dengan senyum. Esok dia mahu belajar benda baru.'
+      ],
+      moral:'Bersabar dan berusaha berulang kali membawa kejayaan.',
+      quiz:{q:'Kenapa Bintang berjaya?', choices:['Tidak putus asa','Bertuah','Tidur'], answer:'Tidak putus asa'}
+    },
+    {
+      id:'tidak-mengejek', title:'Tidak Mengejek Orang Lain',
+      scenes:[
+        'Di taman permainan, Adele nampak kawan baru yang memakai cermin mata.',
+        'Seorang kanak-kanak ketawa. "Cermin mata comel macam katak!"',
+        'Kawan baru itu tunduk. Dia rasa sedih.',
+        'Adele tidak ketawa. Dia pergi dekat kawan baru itu.',
+        '"Hai, nama saya Adele. Cermin mata kamu cantik."',
+        'Kawan baru angkat muka. "Benarkah? Nama saya Faris."',
+        'Mereka main ayunan bersama. Faris ketawa lagi.',
+        'Adele kata kepada yang mengejek, "Kata-kata boleh sakitkan hati."',
+        'Kanak-kanak itu diam. Kemudian dia kata, "Maaf, Faris."',
+        'Faris terima maaf. Mereka bertiga main bola.',
+        'Guru nampak dan senyum. "Kebaikan berjangkit."',
+        'Pulang ke rumah Adele cerita kepada ibu.',
+        'Ibu kata, "Kamu pilih jadi kawan yang baik. Itu hebat."',
+        'Faris tidur nyenyak. Dia sudah ada kawan di taman.',
+        'Jangan mengejek. Pilih kata-kata yang menyembuhkan, bukan menyakitkan.'
+      ],
+      moral:'Jangan mengejek orang lain. Pilih kata-kata yang baik.',
+      quiz:{q:'Apa yang Adele buat?', choices:['Jadi kawan baik','Ketawa','Pergi'], answer:'Jadi kawan baik'}
+    },
+    {
+      id:'kebersihan', title:'Menjaga Kebersihan Diri',
+      scenes:[
+        'Pagi-pagi, ibu panggil Mira. "Jom basuh tangan dan muka!"',
+        'Mira menguap. Dia mahu terus main.',
+        'Ibu nyanyi lagu basuh tangan. Mira ikut gerak.',
+        'Sabun berbuih. Air sejuk. Mira rasa segar.',
+        'Kemudian gosok gigi. Putih dan bersih.',
+        'Mira tengok cermin. "Hai Mira yang bersih!"',
+        'Di sekolah, cikgu puji tangan yang bersih sebelum makan.',
+        'Mira ingat basuh tangan selepas main di padang.',
+        'Kawan yang lupa, Mira ajak ke sink bersama.',
+        'Mereka nyanyi lagu basuh tangan. Seronok!',
+        'Pulang ke rumah, Mira mandi sendiri dengan buih banyak.',
+        'Ibu kata, "Kebersihan jaga kesihatan."',
+        'Mira tidur dengan badan yang nyaman dan wangi.',
+        'Setiap hari dia ingat: basuh tangan, gosok gigi, mandi.',
+        'Kanak-kanak yang bersih, sihat dan ceria.'
+      ],
+      moral:'Menjaga kebersihan diri membantu kita sihat dan ceria.',
+      quiz:{q:'Apa yang Mira buat sebelum makan?', choices:['Basuh tangan','Terus makan','Tidur'], answer:'Basuh tangan'}
+    },
+    {
+      id:'berkerjasama', title:'Bekerjasama — Episod 1',
+      scenes:[
+        'Di Kampung Awan, angin kencang meniup atap kecil sebuah pondok.',
+        'Awan, Nunu, Bumi dan Tutu datang melihat.',
+        '"Atap ini perlu dibaiki," kata Bumi.',
+        'Seorang sahaja tidak cukup. Kayu terlalu berat.',
+        'Awan terbang bawa tali. Nunu pegang kayu.',
+        'Bumi galakkan dari bawah. Tutu pastikan semuanya kemas.',
+        'Mereka kira bersama: "Satu, dua, tiga, angkat!"',
+        'Atap terpasang. Pondok selamat semula.',
+        'Penduduk kampung tepuk tangan. "Terima kasih, kawan-kawan!"',
+        'Mereka minum air kelapa bersama di bawah pokok.',
+        'Nunu kata, "Kalau sendiri, susah. Kalau bersama, senang."',
+        'Semua angguk. Kerjasama membuat kerja berat jadi ringan.',
+        'Matahari terbenam. Empat kawan terbang dan berjalan pulang.',
+        'Mereka janji tolong kampung lagi bila perlu.',
+        'Bersama-sama kita lebih kuat dan lebih gembira.'
+      ],
+      moral:'Bekerjasama membuat kerja berat menjadi ringan dan menyeronokkan.',
+      quiz:{q:'Bagaimana mereka baiki atap?', choices:['Bekerjasama','Seorang sahaja','Tinggalkan'], answer:'Bekerjasama'}
+    },
+    {
+      id:'hormat-ibu-bapa', title:'Menghormati Ibu Bapa',
+      scenes:[
+        'Pagi-pagi ibu masak sarapan. Bau roti dan susu memenuhi rumah.',
+        'Danial bangun. Dia kata, "Selamat pagi, ibu! Terima kasih!"',
+        'Ibu senyum. "Selamat pagi, sayang."',
+        'Danial bantu susun pinggan. Dia tidak diminta, dia mahu sendiri.',
+        'Ayah pulang kerja petang. Danial buka pintu dan peluk ayah.',
+        '"Bagaimana hari ayah?" tanya Danial.',
+        'Ayah gembira seseorang bertanya. Mereka cerita bersama.',
+        'Waktu malam, Danial cium tangan ibu dan ayah sebelum tidur.',
+        'Ibu kata, "Kamu anak yang beradab."',
+        'Danial rasa hangat. Hormat membuat rumah penuh kasih.',
+        'Keesokan hari dia tolong sapu lantai selepas main.',
+        'Ayah puji. "Kerja kecil pun bermakna."',
+        'Danial tulis nota: "Saya sayang ibu dan ayah."',
+        'Dia letak nota di meja. Ibu jumpa dan terharu.',
+        'Menghormati ibu bapa adalah tanda kasih sayang yang indah.'
+      ],
+      moral:'Menghormati ibu bapa adalah tanda kasih sayang.',
+      quiz:{q:'Apa yang Danial buat pada ibu bapa?', choices:['Hormat dan tolong','Marah','Diam'], answer:'Hormat dan tolong'}
     }
   ]
 };
@@ -2067,6 +2536,175 @@ function speak(text) {
     window.speechSynthesis.speak(u);
   } catch (e) {}
 }
+
+/* ===== WEB AUDIO SOUND EFFECTS ===== */
+let audioCtx = null;
+function getAudio() {
+  if (!audioCtx) {
+    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) { return null; }
+  }
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
+function canPlaySound() {
+  return state?.soundOn !== false && speechEnabled !== false;
+}
+function tone(freq, dur, type, vol, slideTo) {
+  if (!canPlaySound()) return;
+  const ctx = getAudio(); if (!ctx) return;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = type || 'sine';
+  osc.frequency.setValueAtTime(freq, ctx.currentTime);
+  if (slideTo) osc.frequency.linearRampToValueAtTime(slideTo, ctx.currentTime + dur);
+  gain.gain.setValueAtTime(vol || 0.15, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+  osc.connect(gain); gain.connect(ctx.destination);
+  osc.start(); osc.stop(ctx.currentTime + dur);
+}
+function noiseBurst(dur, vol, filterFreq) {
+  if (!canPlaySound()) return;
+  const ctx = getAudio(); if (!ctx) return;
+  const len = Math.floor(ctx.sampleRate * dur);
+  const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < len; i++) data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (len * 0.3));
+  const src = ctx.createBufferSource();
+  src.buffer = buf;
+  const filter = ctx.createBiquadFilter();
+  filter.type = 'bandpass';
+  filter.frequency.value = filterFreq || 800;
+  filter.Q.value = 1;
+  const gain = ctx.createGain();
+  gain.gain.setValueAtTime(vol || 0.2, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+  src.connect(filter); filter.connect(gain); gain.connect(ctx.destination);
+  src.start();
+}
+
+const SFX = {
+  eat() {
+    // Chew: short low pulses
+    tone(180, 0.08, 'square', 0.08);
+    setTimeout(() => tone(150, 0.08, 'square', 0.07), 100);
+    setTimeout(() => tone(200, 0.1, 'square', 0.06), 220);
+    setTimeout(() => tone(400, 0.12, 'sine', 0.05), 350);
+  },
+  drink() {
+    // Water pour + gulp
+    noiseBurst(0.25, 0.12, 1200);
+    setTimeout(() => tone(300, 0.15, 'sine', 0.08, 200), 150);
+    setTimeout(() => tone(250, 0.12, 'sine', 0.06, 180), 350);
+    setTimeout(() => noiseBurst(0.1, 0.06, 2000), 500);
+  },
+  bath() {
+    // Splash bubbles
+    noiseBurst(0.2, 0.15, 600);
+    setTimeout(() => noiseBurst(0.15, 0.1, 900), 150);
+    setTimeout(() => tone(600, 0.2, 'sine', 0.06), 200);
+    setTimeout(() => noiseBurst(0.2, 0.12, 500), 400);
+    setTimeout(() => tone(800, 0.15, 'sine', 0.05), 500);
+  },
+  sleep() {
+    tone(300, 0.4, 'sine', 0.06, 200);
+    setTimeout(() => tone(250, 0.5, 'sine', 0.04, 150), 400);
+  },
+  play() {
+    tone(523, 0.12, 'sine', 0.1);
+    setTimeout(() => tone(659, 0.12, 'sine', 0.1), 120);
+    setTimeout(() => tone(784, 0.2, 'sine', 0.12), 240);
+  },
+  happy() {
+    tone(523, 0.1, 'sine', 0.1);
+    setTimeout(() => tone(659, 0.1, 'sine', 0.1), 100);
+    setTimeout(() => tone(784, 0.1, 'sine', 0.1), 200);
+    setTimeout(() => tone(1047, 0.25, 'sine', 0.12), 300);
+  },
+  star() {
+    tone(800, 0.08, 'sine', 0.1);
+    setTimeout(() => tone(1000, 0.08, 'sine', 0.1), 80);
+    setTimeout(() => tone(1200, 0.15, 'sine', 0.12), 160);
+  },
+  click() {
+    tone(600, 0.05, 'square', 0.04);
+  },
+  correct() {
+    tone(523, 0.1, 'sine', 0.1);
+    setTimeout(() => tone(659, 0.1, 'sine', 0.1), 100);
+    setTimeout(() => tone(784, 0.2, 'sine', 0.12), 200);
+  },
+  wrong() {
+    tone(300, 0.15, 'triangle', 0.08, 200);
+  },
+  // Animal voices
+  roar() {
+    // Friendly cute roar (not scary)
+    noiseBurst(0.3, 0.15, 200);
+    tone(120, 0.35, 'sawtooth', 0.1, 80);
+    setTimeout(() => tone(100, 0.25, 'sawtooth', 0.08, 60), 200);
+    setTimeout(() => tone(150, 0.15, 'sine', 0.05), 450);
+  },
+  chirp() {
+    tone(800, 0.08, 'sine', 0.1, 1200);
+    setTimeout(() => tone(1000, 0.08, 'sine', 0.08, 1400), 100);
+    setTimeout(() => tone(900, 0.1, 'sine', 0.07), 220);
+  },
+  meow() {
+    tone(400, 0.15, 'sine', 0.1, 600);
+    setTimeout(() => tone(550, 0.2, 'sine', 0.08, 350), 150);
+  },
+  bubble() {
+    tone(400, 0.1, 'sine', 0.06, 600);
+    setTimeout(() => tone(500, 0.1, 'sine', 0.05, 700), 120);
+    setTimeout(() => tone(350, 0.12, 'sine', 0.05, 500), 250);
+  },
+  sparkle() {
+    tone(1200, 0.08, 'sine', 0.06);
+    setTimeout(() => tone(1500, 0.08, 'sine', 0.05), 70);
+    setTimeout(() => tone(1800, 0.1, 'sine', 0.04), 140);
+  },
+  fire() {
+    noiseBurst(0.35, 0.18, 400);
+    tone(180, 0.3, 'sawtooth', 0.08, 100);
+    setTimeout(() => noiseBurst(0.2, 0.1, 600), 150);
+    setTimeout(() => tone(220, 0.15, 'sawtooth', 0.05, 80), 250);
+  },
+  ice() {
+    tone(1200, 0.1, 'triangle', 0.08);
+    setTimeout(() => tone(1500, 0.1, 'triangle', 0.07), 80);
+    setTimeout(() => tone(1800, 0.15, 'sine', 0.06), 160);
+    noiseBurst(0.15, 0.06, 3000);
+  },
+  water() {
+    noiseBurst(0.3, 0.14, 800);
+    setTimeout(() => tone(300, 0.2, 'sine', 0.06, 200), 100);
+    setTimeout(() => noiseBurst(0.2, 0.1, 1000), 250);
+  },
+  magic() {
+    tone(523, 0.1, 'sine', 0.08);
+    setTimeout(() => tone(659, 0.1, 'sine', 0.08), 80);
+    setTimeout(() => tone(784, 0.1, 'sine', 0.08), 160);
+    setTimeout(() => tone(1047, 0.2, 'sine', 0.1), 240);
+    setTimeout(() => tone(1319, 0.15, 'sine', 0.06), 400);
+  },
+  animalVoice(id) {
+    const map = {
+      awan: () => SFX.chirp(),
+      nunu: () => SFX.bubble(),
+      bara: () => SFX.fire(),
+      garuda: () => SFX.chirp(),
+      suluh: () => SFX.roar(),
+      tutu: () => SFX.chirp(),
+      seri: () => SFX.magic(),
+      ombak: () => SFX.water(),
+      baramerah: () => { SFX.fire(); setTimeout(() => SFX.roar(), 200); },
+      bumi: () => SFX.meow(),
+      salju: () => SFX.ice(),
+      bintang: () => SFX.sparkle()
+    };
+    (map[id] || SFX.chirp)();
+  }
+};
 
 // ==================== UI HELPERS ====================
 function showScreen(id) {
@@ -2195,6 +2833,64 @@ function playFx(layerId, type, count = 5) {
       h.style.boxShadow = `0 0 8px ${colors[i%4]}`;
       layer.appendChild(h);
     }
+  } else if (type === 'fire') {
+    for (let i = 0; i < count; i++) {
+      const h = document.createElement('span');
+      h.className = 'fx-flame';
+      h.style.left = (25 + Math.random() * 50) + '%';
+      h.style.bottom = (30 + Math.random() * 20) + '%';
+      h.style.animationDelay = (i * 0.08) + 's';
+      h.style.width = (12 + Math.random() * 10) + 'px';
+      h.style.height = (22 + Math.random() * 14) + 'px';
+      layer.appendChild(h);
+    }
+  } else if (type === 'ice') {
+    for (let i = 0; i < count; i++) {
+      const h = document.createElement('span');
+      h.className = 'fx-ice';
+      h.style.left = (20 + Math.random() * 60) + '%';
+      h.style.bottom = (25 + Math.random() * 25) + '%';
+      h.style.animationDelay = (i * 0.1) + 's';
+      layer.appendChild(h);
+    }
+  } else if (type === 'water') {
+    for (let i = 0; i < count; i++) {
+      const h = document.createElement('span');
+      h.className = 'fx-water-splash';
+      h.style.left = (20 + Math.random() * 60) + '%';
+      h.style.bottom = '30%';
+      h.style.setProperty('--wx', (Math.random() * 60 - 30) + 'px');
+      h.style.setProperty('--wy', (-30 - Math.random() * 40) + 'px');
+      h.style.animationDelay = (i * 0.07) + 's';
+      layer.appendChild(h);
+    }
+  } else if (type === 'leaf') {
+    for (let i = 0; i < count; i++) {
+      const h = document.createElement('span');
+      h.className = 'fx-leaf';
+      h.style.left = (20 + Math.random() * 60) + '%';
+      h.style.bottom = '35%';
+      h.style.animationDelay = (i * 0.1) + 's';
+      h.style.background = ['#00B894','#55EFC4','#2E7D32'][i%3];
+      layer.appendChild(h);
+    }
+  } else if (type === 'magic') {
+    for (let i = 0; i < count; i++) {
+      const h = document.createElement('span');
+      h.className = 'fx-magic-star';
+      h.style.left = (15 + Math.random() * 70) + '%';
+      h.style.bottom = (20 + Math.random() * 40) + '%';
+      h.style.animationDelay = (i * 0.08) + 's';
+      h.style.background = ['#A29BFE','#FD79A8','#FFE66D','#74B9FF'][i%4];
+      layer.appendChild(h);
+    }
+  } else if (type === 'roar') {
+    for (let i = 0; i < 3; i++) {
+      const h = document.createElement('span');
+      h.className = 'fx-roar-wave';
+      h.style.animationDelay = (i * 0.15) + 's';
+      layer.appendChild(h);
+    }
   }
   setTimeout(() => { if (layer) layer.innerHTML = ''; }, 2200);
 }
@@ -2261,6 +2957,7 @@ function addStars(n) {
   save();
   document.querySelectorAll('[id^=star-count]').forEach(el => el.textContent = state.stars);
   bumpStars();
+  SFX.star();
   toast(`+${n} ⭐`);
   if (n >= 2) confetti(12);
   else starBurst();
@@ -2597,6 +3294,7 @@ function doFeed() {
       state.daily.feedCount++;
       save();
       setCharState(document.getElementById('care-stage'), 'eating');
+      SFX.eat();
       playFx('care-fx', 'sparkle', 8);
       const dlg = document.getElementById('care-dialog');
       dlg.textContent = 'Yummy! Terima kasih!';
@@ -2626,6 +3324,7 @@ function doDrink() {
   state.daily.drinkCount++;
   save();
   setCharState(document.getElementById('care-stage'), 'drinking');
+  SFX.drink();
   playFx('care-fx', 'drops', 7);
   const dlg = document.getElementById('care-dialog');
   dlg.textContent = 'Segar! Terima kasih!';
@@ -2647,6 +3346,7 @@ function doBath() {
   state.animals[state.activeAnimal] = st;
   save();
   setCharState(document.getElementById('care-stage'), 'bathing');
+  SFX.bath();
   playFx('care-fx', 'soap', 10);
   const dlg = document.getElementById('care-dialog');
   dlg.textContent = 'Segar dan bersih!';
@@ -2668,6 +3368,7 @@ function doSleep() {
   state.animals[state.activeAnimal] = st;
   save();
   setCharState(document.getElementById('care-stage'), 'sleeping');
+  SFX.sleep();
   playFx('care-fx', 'zzz', 3);
   const dlg = document.getElementById('care-dialog');
   dlg.textContent = 'Zzz... Selamat tidur...';
@@ -2682,6 +3383,7 @@ function doSleep() {
 
 // ==================== MINI GAMES ====================
 function startMiniGame(type) {
+  SFX.play();
   document.getElementById('play-games').classList.add('hidden');
   const area = document.getElementById('game-area');
   area.classList.remove('hidden');
@@ -2821,6 +3523,7 @@ function answerQuestion(choice, q, btn, container) {
     btn.classList.add('correct');
     document.getElementById('quiz-feedback').textContent = 'Pandainya! 🌟';
     document.getElementById('quiz-feedback').className = 'feedback good';
+    SFX.correct();
     speak('Pandainya!');
     confetti(10);
     addStars(1);
@@ -2837,6 +3540,7 @@ function answerQuestion(choice, q, btn, container) {
     btn.classList.add('wrong');
     document.getElementById('quiz-feedback').textContent = 'Tak mengapa. Mari cuba lagi! 💪';
     document.getElementById('quiz-feedback').className = 'feedback try';
+    SFX.wrong();
     speak('Tak mengapa. Mari cuba lagi!');
     // Highlight correct
     container.querySelectorAll('button').forEach(b => {
