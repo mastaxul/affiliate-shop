@@ -238,24 +238,157 @@ button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
   0% { transform: translate(0,0) scale(0.3); opacity: 0.9; }
   100% { transform: translate(var(--bx,20px), var(--by,-60px)) scale(1.1); opacity: 0; }
 }
-/* Animal stage with glow ring */
+/* ===== MODERN SVG CHARACTER SYSTEM ===== */
 .animal-stage {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 140px;
-  height: 140px;
+  width: 160px;
+  height: 160px;
   margin: 0 auto;
+}
+.animal-stage .platform {
+  position: absolute;
+  bottom: 8px;
+  width: 90px; height: 18px;
+  background: radial-gradient(ellipse, rgba(0,0,0,0.12) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: platformPulse 3s ease-in-out infinite;
+}
+@keyframes platformPulse {
+  0%, 100% { transform: scaleX(1); opacity: 0.5; }
+  50% { transform: scaleX(1.15); opacity: 0.3; }
 }
 .animal-stage::before {
   content: '';
   position: absolute;
-  width: 120px; height: 120px;
+  width: 130px; height: 130px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,230,109,0.35) 0%, rgba(162,155,254,0.15) 50%, transparent 70%);
+  background: radial-gradient(circle, rgba(255,230,109,0.25) 0%, rgba(162,155,254,0.12) 45%, transparent 70%);
   animation: glowPulse 3s ease-in-out infinite;
 }
+.char-svg {
+  width: 140px; height: 140px;
+  position: relative; z-index: 2;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.15));
+  overflow: visible;
+}
+.char-svg svg { width: 100%; height: 100%; overflow: visible; }
+
+/* SVG part animations */
+.char-body { transform-origin: center 70%; animation: bodyBob 3s ease-in-out infinite; }
+.char-head { transform-origin: center 40%; animation: headTilt 4s ease-in-out infinite; }
+.char-eye { transform-origin: center; animation: blink 4s ease-in-out infinite; }
+.char-wing-l { transform-origin: 60% 50%; animation: wingL 1.2s ease-in-out infinite; }
+.char-wing-r { transform-origin: 40% 50%; animation: wingR 1.2s ease-in-out infinite; }
+.char-tail { transform-origin: 20% 50%; animation: tailWag 1.5s ease-in-out infinite; }
+.char-ear-l { transform-origin: bottom center; animation: earL 2.5s ease-in-out infinite; }
+.char-ear-r { transform-origin: bottom center; animation: earR 2.5s ease-in-out infinite; }
+.char-leg-l { transform-origin: top center; animation: legL 2s ease-in-out infinite; }
+.char-leg-r { transform-origin: top center; animation: legR 2s ease-in-out infinite; }
+.char-horn { transform-origin: bottom center; animation: hornGlow 3s ease-in-out infinite; }
+.char-flame { transform-origin: bottom center; animation: flameDance 0.6s ease-in-out infinite; }
+.char-sparkle { animation: sparkleSpin 2s linear infinite; }
+
+@keyframes bodyBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes headTilt {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(3deg); }
+}
+@keyframes blink {
+  0%, 42%, 48%, 100% { transform: scaleY(1); }
+  45% { transform: scaleY(0.1); }
+}
+@keyframes wingL {
+  0%, 100% { transform: rotate(0deg) scaleY(1); }
+  50% { transform: rotate(-18deg) scaleY(1.05); }
+}
+@keyframes wingR {
+  0%, 100% { transform: rotate(0deg) scaleY(1); }
+  50% { transform: rotate(18deg) scaleY(1.05); }
+}
+@keyframes tailWag {
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(12deg); }
+}
+@keyframes earL {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(8deg); }
+}
+@keyframes earR {
+  0%, 100% { transform: rotate(5deg); }
+  50% { transform: rotate(-8deg); }
+}
+@keyframes legL {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(4deg); }
+}
+@keyframes legR {
+  0%, 100% { transform: rotate(3deg); }
+  50% { transform: rotate(-4deg); }
+}
+@keyframes hornGlow {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.4) drop-shadow(0 0 6px gold); }
+}
+@keyframes flameDance {
+  0%, 100% { transform: scaleY(1) scaleX(1) rotate(-3deg); }
+  50% { transform: scaleY(1.15) scaleX(0.9) rotate(3deg); }
+}
+@keyframes sparkleSpin {
+  0% { transform: rotate(0) scale(1); opacity: 1; }
+  50% { transform: rotate(180deg) scale(1.3); opacity: 0.6; }
+  100% { transform: rotate(360deg) scale(1); opacity: 1; }
+}
+
+/* State overrides on SVG character */
+.char-svg.happy .char-body { animation: bodyHappy 0.6s ease; }
+.char-svg.happy .char-head { animation: headHappy 0.6s ease; }
+.char-svg.eating .char-head { animation: headEat 0.8s ease; }
+.char-svg.drinking .char-head { animation: headDrink 0.9s ease; }
+.char-svg.bathing .char-body { animation: bodyBath 0.7s ease infinite; }
+.char-svg.sleeping .char-body { animation: bodySleep 2.5s ease-in-out infinite; }
+.char-svg.sleeping .char-eye { animation: none; transform: scaleY(0.15); }
+.char-svg.dance .char-body { animation: bodyHappy 0.45s ease infinite; }
+.char-svg.dance .char-wing-l { animation: wingL 0.4s ease-in-out infinite; }
+.char-svg.dance .char-wing-r { animation: wingR 0.4s ease-in-out infinite; }
+
+@keyframes bodyHappy {
+  0%, 100% { transform: translateY(0) scale(1); }
+  30% { transform: translateY(-18px) scale(1.08); }
+  50% { transform: translateY(-8px) scale(1.04) rotate(-5deg); }
+  70% { transform: translateY(-14px) scale(1.06) rotate(5deg); }
+}
+@keyframes headHappy {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-12deg); }
+  75% { transform: rotate(12deg); }
+}
+@keyframes headEat {
+  0%, 100% { transform: translateY(0); }
+  20%, 60% { transform: translateY(4px) rotate(-3deg); }
+  40%, 80% { transform: translateY(-2px) rotate(3deg); }
+}
+@keyframes headDrink {
+  0%, 100% { transform: rotate(0) translateY(0); }
+  30% { transform: rotate(-15deg) translateY(3px); }
+  60% { transform: rotate(-10deg) translateY(2px); }
+}
+@keyframes bodyBath {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  25% { transform: translateY(-10px) rotate(-6deg); }
+  75% { transform: translateY(-8px) rotate(6deg); }
+}
+@keyframes bodySleep {
+  0%, 100% { transform: translateY(4px) scale(0.97); }
+  50% { transform: translateY(6px) scale(0.95); }
+}
+
+/* Fallback emoji sprite (still available) */
 .animal-sprite {
   font-size: 5rem;
   line-height: 1;
@@ -265,7 +398,6 @@ button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
   user-select: none;
   position: relative;
   z-index: 2;
-  transition: filter 0.3s;
 }
 .animal-sprite.happy { animation: happy 0.9s cubic-bezier(0.34,1.56,0.64,1); }
 .animal-sprite.eating { animation: eat 1.1s ease; }
@@ -274,44 +406,98 @@ button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 .animal-sprite.sleeping { animation: sleep 2.5s ease-in-out infinite; }
 .animal-sprite.idle { animation: float 3.5s ease-in-out infinite; }
 .animal-sprite.dance { animation: happy 0.5s ease infinite; }
-/* Effect overlays on animal */
+
+/* Effect overlays */
 .fx-layer {
-  position: absolute; inset: -20px; pointer-events: none; z-index: 3; overflow: visible;
+  position: absolute; inset: -30px; pointer-events: none; z-index: 5; overflow: visible;
 }
 .fx-heart {
-  position: absolute; font-size: 1.4rem;
+  position: absolute; width: 20px; height: 20px;
   animation: heartFloat 1.2s ease-out forwards;
 }
-.fx-bubble {
-  position: absolute; font-size: 1.1rem;
-  animation: bubbleUp 1.4s ease-out forwards;
+.fx-heart svg { width: 100%; height: 100%; }
+.fx-bubble-css {
+  position: absolute; border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(116,185,255,0.4));
+  border: 2px solid rgba(255,255,255,0.6);
+  animation: bubbleUp 1.5s ease-out forwards;
 }
 .fx-zzz {
-  position: absolute; font-size: 1.3rem; font-weight: 900; color: #6C5CE7;
+  position: absolute; font-size: 1.1rem; font-weight: 900; color: #6C5CE7;
   animation: zzz 1.8s ease-out infinite;
+  font-family: Georgia, serif;
 }
-.fx-drop {
-  position: absolute; font-size: 1rem;
+.fx-drop-css {
+  position: absolute; width: 10px; height: 14px;
+  background: linear-gradient(180deg, #74B9FF, #0984E3);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
   animation: waterDrop 0.9s ease-out forwards;
 }
-.fx-soap {
-  position: absolute; font-size: 1.2rem;
-  animation: soapBubble 1.5s ease-out forwards;
+.fx-spark {
+  position: absolute; width: 8px; height: 8px;
+  background: #FFE66D; border-radius: 50%;
+  box-shadow: 0 0 8px #FFE66D, 0 0 16px #FDCB6E;
+  animation: heartFloat 1s ease-out forwards;
 }
-/* Confetti container */
+
+/* Modern confetti (CSS shapes) */
 #confetti-box {
   position: fixed; inset: 0; pointer-events: none; z-index: 3000; overflow: hidden;
 }
 .confetti-piece {
-  position: absolute; top: -10px;
-  font-size: 1.3rem;
+  position: absolute; top: -20px;
   animation: confettiFall linear forwards;
 }
-/* Star burst on reward */
+.confetti-piece.rect {
+  width: 10px; height: 16px; border-radius: 2px;
+}
+.confetti-piece.circle {
+  width: 10px; height: 10px; border-radius: 50%;
+}
+.confetti-piece.tri {
+  width: 0; height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 12px solid;
+}
 .star-burst {
   position: fixed; pointer-events: none; z-index: 2500;
-  font-size: 2rem;
+  width: 32px; height: 32px;
   animation: starPop 0.7s cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+
+/* Scene background layers */
+.scene-bg {
+  position: absolute; inset: 0; border-radius: var(--radius);
+  overflow: hidden; z-index: 0; pointer-events: none;
+}
+.scene-bg .cloud {
+  position: absolute; background: rgba(255,255,255,0.7);
+  border-radius: 40px;
+  animation: cloudMove linear infinite;
+}
+.scene-bg .cloud::before, .scene-bg .cloud::after {
+  content: ''; position: absolute; background: inherit; border-radius: 50%;
+}
+.scene-bg .hill {
+  position: absolute; bottom: 0; border-radius: 50% 50% 0 0;
+  animation: hillSway 8s ease-in-out infinite;
+}
+@keyframes cloudMove {
+  from { transform: translateX(-20%); }
+  to { transform: translateX(120%); }
+}
+@keyframes hillSway {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(1.02); }
+}
+
+/* Modern glass card */
+.card-glass {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.5);
 }
 .card {
   background: white;
@@ -712,22 +898,13 @@ input:focus, select:focus { border-color: var(--primary); }
 <!-- SCREENS -->
 <div id="screen-splash" class="screen active">
   <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;">
-    <div class="animal-stage" style="margin-bottom:8px;">
-      <div class="animal-sprite idle" style="font-size:5.5rem;animation:bounce 2s ease infinite;">🐉</div>
-    </div>
+    <div class="animal-stage" id="splash-char" style="margin-bottom:8px;width:180px;height:180px;"></div>
     <h1 class="title-main">ALAM FANTASIA</h1>
     <p style="font-size:1.1rem;font-weight:700;color:#6C5CE7;">Sahabat Naga & Haiwan Ajaib</p>
     <p class="subtitle">“Bela Dengan Kasih Sayang, Belajar Dengan Gembira!”</p>
-    <div style="font-size:2.5rem;margin:16px 0;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
-      <span style="animation:float 3s ease infinite;display:inline-block;">🦄</span>
-      <span style="animation:float 3s ease 0.3s infinite;display:inline-block;">🐲</span>
-      <span style="animation:float 3s ease 0.6s infinite;display:inline-block;">🔥</span>
-      <span style="animation:float 3s ease 0.9s infinite;display:inline-block;">🐢</span>
-      <span style="animation:float 3s ease 1.2s infinite;display:inline-block;">🧚</span>
-      <span style="animation:float 3s ease 1.5s infinite;display:inline-block;">🌊</span>
-    </div>
-    <button class="btn btn-primary btn-large" id="btn-start" style="margin-top:20px;animation:pulse 2s ease infinite;">Mula Bermain! ✨</button>
-    <button class="btn btn-soft" id="btn-continue" style="margin-top:12px;display:none;">Sambung Permainan 💾</button>
+    <div id="splash-row" style="display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin:12px 0;"></div>
+    <button class="btn btn-primary btn-large" id="btn-start" style="margin-top:20px;animation:pulse 2s ease infinite;">Mula Bermain!</button>
+    <button class="btn btn-soft" id="btn-continue" style="margin-top:12px;display:none;">Sambung Permainan</button>
   </div>
 </div>
 
@@ -766,13 +943,15 @@ input:focus, select:focus { border-color: var(--primary); }
     <div class="stars-display"><span>⭐</span> <span id="star-count">0</span></div>
   </div>
   <div class="timer-bar" id="timer-bar-wrap" style="display:none;"><div class="timer-fill" id="timer-fill" style="width:100%"></div></div>
-  <div class="card" style="text-align:center;">
-    <div class="animal-stage">
-      <div class="animal-sprite idle" id="home-animal-sprite">🦄</div>
+  <div class="card card-glass" style="text-align:center;position:relative;overflow:hidden;">
+    <div class="scene-bg" id="home-scene-bg"></div>
+    <div class="animal-stage" id="home-stage" data-char-id="home-char" data-fx-id="home-fx" style="position:relative;z-index:1;">
+      <div class="platform"></div>
+      <div class="char-svg idle" id="home-char"></div>
       <div class="fx-layer" id="home-fx"></div>
     </div>
-    <div class="dialog-bubble" id="home-dialog">Hai kawan! Jom bermain bersama!</div>
-    <div class="status-bars" id="home-status"></div>
+    <div class="dialog-bubble" id="home-dialog" style="position:relative;z-index:1;">Hai kawan! Jom bermain bersama!</div>
+    <div class="status-bars" id="home-status" style="position:relative;z-index:1;"></div>
   </div>
   <div class="grid-3" style="margin-top:8px;">
     <button class="menu-btn" data-go="care"><span class="icon">🍎</span>Jaga</button>
@@ -796,13 +975,15 @@ input:focus, select:focus { border-color: var(--primary); }
     <h2 style="flex:1;text-align:center;">Jaga Haiwan 💝</h2>
     <div class="stars-display"><span>⭐</span><span id="star-count-care">0</span></div>
   </div>
-  <div class="card" style="text-align:center;">
-    <div class="animal-stage">
-      <div class="animal-sprite idle" id="care-sprite">🦄</div>
+  <div class="card card-glass" style="text-align:center;position:relative;overflow:hidden;">
+    <div class="scene-bg" id="care-scene-bg"></div>
+    <div class="animal-stage" id="care-stage" data-char-id="care-char" data-fx-id="care-fx" style="position:relative;z-index:1;">
+      <div class="platform"></div>
+      <div class="char-svg idle" id="care-char"></div>
       <div class="fx-layer" id="care-fx"></div>
     </div>
-    <div class="dialog-bubble" id="care-dialog">Apa yang kita buat hari ini?</div>
-    <div class="status-bars" id="care-status"></div>
+    <div class="dialog-bubble" id="care-dialog" style="position:relative;z-index:1;">Apa yang kita buat hari ini?</div>
+    <div class="status-bars" id="care-status" style="position:relative;z-index:1;"></div>
   </div>
   <div class="grid-2">
     <button class="btn btn-orange btn-large" id="btn-feed">🍎 Makan<br><small id="feed-left">3/3</small></button>
@@ -1090,6 +1271,180 @@ const ANIMALS = [
     dialogs:{idle:['Tanduk saya bercahaya!','Jom cari bintang!','Lihat langit!'],
       happy:['Bintang bersinar!'], hungry:['Lapar...'], thirsty:['Minum...'], dirty:['Mandi...'], sleepy:['Tidur di bawah bintang...']} }
 ];
+
+/* ===== SVG CHARACTER BUILDER (modern layered sprites) ===== */
+const CHAR_PALETTES = {
+  awan:     { body:'#FFF5E6', accent:'#FF9FF3', wing:'#A29BFE', cheek:'#FFB8C6', eye:'#2D3436', horn:'#FFE66D' },
+  nunu:     { body:'#55EFC4', accent:'#00B894', wing:'#81ECEC', cheek:'#FF7675', eye:'#2D3436', horn:'#FDCB6E' },
+  bara:     { body:'#FF7675', accent:'#E17055', wing:'#FDCB6E', cheek:'#FAB1A0', eye:'#2D3436', horn:'#FFE66D' },
+  garuda:   { body:'#FDCB6E', accent:'#E17055', wing:'#E17055', cheek:'#FAB1A0', eye:'#2D3436', horn:'#FFE66D' },
+  suluh:    { body:'#FAB1A0', accent:'#E17055', wing:'#FFE66D', cheek:'#FF7675', eye:'#2D3436', horn:'#FFE66D' },
+  tutu:     { body:'#55EFC4', accent:'#00B894', wing:'#81ECEC', cheek:'#FFEAA7', eye:'#2D3436', horn:'#DFE6E9' },
+  seri:     { body:'#FD79A8', accent:'#E84393', wing:'#A29BFE', cheek:'#FFB8C6', eye:'#2D3436', horn:'#FFE66D' },
+  ombak:    { body:'#74B9FF', accent:'#0984E3', wing:'#81ECEC', cheek:'#55EFC4', eye:'#2D3436', horn:'#DFE6E9' },
+  baramerah:{ body:'#E17055', accent:'#D63031', wing:'#FDCB6E', cheek:'#FAB1A0', eye:'#2D3436', horn:'#FFE66D' },
+  bumi:     { body:'#00B894', accent:'#00695C', wing:'#55EFC4', cheek:'#FFEAA7', eye:'#2D3436', horn:'#A0522D' },
+  salju:    { body:'#81ECEC', accent:'#74B9FF', wing:'#DFE6E9', cheek:'#FD79A8', eye:'#2D3436', horn:'#FFFFFF' },
+  bintang:  { body:'#D4A574', accent:'#A0522D', wing:'#A29BFE', cheek:'#FFB8C6', eye:'#2D3436', horn:'#FFE66D' }
+};
+
+function buildCharSVG(animalId, size) {
+  const p = CHAR_PALETTES[animalId] || CHAR_PALETTES.awan;
+  const isDragon = ['nunu','ombak','baramerah','bumi','salju'].includes(animalId);
+  const isBird = ['bara','garuda'].includes(animalId);
+  const isFairy = animalId === 'seri';
+  const isLion = animalId === 'suluh';
+  const isTurtle = animalId === 'tutu';
+  const isDeer = animalId === 'bintang';
+  const isUnicorn = animalId === 'awan';
+
+  let extras = '';
+  // Wings for flying creatures
+  if (isUnicorn || isDragon || isBird || isFairy || isTurtle) {
+    extras += `
+      <g class="char-wing-l">
+        <ellipse cx="28" cy="58" rx="22" ry="14" fill="${p.wing}" opacity="0.85"/>
+        <ellipse cx="28" cy="58" rx="14" ry="8" fill="${p.accent}" opacity="0.4"/>
+      </g>
+      <g class="char-wing-r">
+        <ellipse cx="92" cy="58" rx="22" ry="14" fill="${p.wing}" opacity="0.85"/>
+        <ellipse cx="92" cy="58" rx="14" ry="8" fill="${p.accent}" opacity="0.4"/>
+      </g>`;
+  }
+  // Horn / antlers
+  if (isUnicorn) {
+    extras += `<g class="char-horn"><polygon points="60,8 56,28 64,28" fill="${p.horn}"/><polygon points="60,8 58,20 62,20" fill="#FFF8DC" opacity="0.6"/></g>`;
+  }
+  if (isDeer) {
+    extras += `<g class="char-horn">
+      <path d="M48,22 Q42,8 38,12 Q40,18 46,24" stroke="${p.horn}" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M72,22 Q78,8 82,12 Q80,18 74,24" stroke="${p.horn}" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <circle cx="38" cy="11" r="3" fill="${p.horn}" class="char-sparkle"/>
+      <circle cx="82" cy="11" r="3" fill="${p.horn}" class="char-sparkle"/>
+    </g>`;
+  }
+  if (isDragon || isLion) {
+    extras += `<g class="char-horn">
+      <ellipse cx="48" cy="22" rx="5" ry="8" fill="${p.horn}" transform="rotate(-20 48 22)"/>
+      <ellipse cx="72" cy="22" rx="5" ry="8" fill="${p.horn}" transform="rotate(20 72 22)"/>
+    </g>`;
+  }
+  // Flame for phoenix / fire creatures
+  if (animalId === 'bara' || animalId === 'baramerah' || animalId === 'suluh') {
+    extras += `<g class="char-flame">
+      <ellipse cx="60" cy="18" rx="8" ry="14" fill="#FFE66D" opacity="0.9"/>
+      <ellipse cx="60" cy="14" rx="5" ry="10" fill="#FF7675" opacity="0.8"/>
+      <ellipse cx="60" cy="10" rx="3" ry="6" fill="#FFF" opacity="0.7"/>
+    </g>`;
+  }
+  // Shell for turtle
+  if (isTurtle) {
+    extras += `<ellipse cx="60" cy="68" rx="32" ry="20" fill="${p.accent}" opacity="0.5"/>
+      <path d="M40,62 Q60,50 80,62" stroke="${p.body}" stroke-width="2" fill="none" opacity="0.5"/>
+      <path d="M42,70 Q60,60 78,70" stroke="${p.body}" stroke-width="2" fill="none" opacity="0.5"/>`;
+  }
+  // Mane for lion
+  if (isLion) {
+    extras += `<g>
+      <circle cx="40" cy="42" r="14" fill="${p.wing}" opacity="0.7"/>
+      <circle cx="80" cy="42" r="14" fill="${p.wing}" opacity="0.7"/>
+      <circle cx="50" cy="28" r="12" fill="${p.wing}" opacity="0.7"/>
+      <circle cx="70" cy="28" r="12" fill="${p.wing}" opacity="0.7"/>
+      <circle cx="60" cy="24" r="10" fill="${p.horn}" opacity="0.6"/>
+    </g>`;
+  }
+  // Fairy sparkles
+  if (isFairy) {
+    extras += `<g class="char-sparkle">
+      <circle cx="20" cy="40" r="3" fill="#FFE66D"/>
+      <circle cx="100" cy="35" r="2.5" fill="#A29BFE"/>
+      <circle cx="15" cy="70" r="2" fill="#FD79A8"/>
+      <circle cx="105" cy="65" r="3" fill="#55EFC4"/>
+    </g>`;
+  }
+  // Tail
+  extras += `<g class="char-tail">
+    <path d="M88,75 Q105,70 108,55 Q110,65 100,78" fill="${p.accent}" opacity="0.8"/>
+  </g>`;
+  // Ears
+  extras += `<g class="char-ear-l"><ellipse cx="38" cy="32" rx="8" ry="12" fill="${p.body}"/><ellipse cx="38" cy="34" rx="4" ry="7" fill="${p.cheek}" opacity="0.6"/></g>
+    <g class="char-ear-r"><ellipse cx="82" cy="32" rx="8" ry="12" fill="${p.body}"/><ellipse cx="82" cy="34" rx="4" ry="7" fill="${p.cheek}" opacity="0.6"/></g>`;
+
+  // Legs
+  const legs = `<g class="char-leg-l"><ellipse cx="45" cy="100" rx="8" ry="12" fill="${p.accent}"/><ellipse cx="45" cy="108" rx="9" ry="5" fill="${p.body}"/></g>
+    <g class="char-leg-r"><ellipse cx="75" cy="100" rx="8" ry="12" fill="${p.accent}"/><ellipse cx="75" cy="108" rx="9" ry="5" fill="${p.body}"/></g>`;
+
+  return `<div class="char-svg idle" data-animal="${animalId}">
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      ${extras}
+      <g class="char-body">
+        <!-- Body -->
+        <ellipse cx="60" cy="72" rx="28" ry="26" fill="${p.body}"/>
+        <ellipse cx="60" cy="78" rx="18" ry="14" fill="${p.accent}" opacity="0.25"/>
+        ${legs}
+        <!-- Head -->
+        <g class="char-head">
+          <circle cx="60" cy="42" r="26" fill="${p.body}"/>
+          <!-- Cheeks -->
+          <circle cx="42" cy="48" r="7" fill="${p.cheek}" opacity="0.7"/>
+          <circle cx="78" cy="48" r="7" fill="${p.cheek}" opacity="0.7"/>
+          <!-- Eyes -->
+          <g class="char-eye">
+            <ellipse cx="50" cy="40" rx="5" ry="6" fill="#fff"/>
+            <ellipse cx="70" cy="40" rx="5" ry="6" fill="#fff"/>
+            <circle cx="51" cy="41" r="3" fill="${p.eye}"/>
+            <circle cx="71" cy="41" r="3" fill="${p.eye}"/>
+            <circle cx="52" cy="39.5" r="1.2" fill="#fff"/>
+            <circle cx="72" cy="39.5" r="1.2" fill="#fff"/>
+          </g>
+          <!-- Smile -->
+          <path d="M52,52 Q60,58 68,52" stroke="${p.eye}" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <!-- Nose -->
+          <ellipse cx="60" cy="48" rx="3" ry="2" fill="${p.accent}" opacity="0.5"/>
+        </g>
+      </g>
+    </svg>
+  </div>`;
+}
+
+function setCharState(container, stateName) {
+  const char = container.querySelector('.char-svg');
+  if (!char) return;
+  char.className = 'char-svg ' + (stateName || 'idle');
+}
+
+function renderChar(containerId, animalId, stateName) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  // Keep fx-layer if present
+  const fx = el.parentElement?.querySelector('.fx-layer');
+  el.outerHTML = buildCharSVG(animalId, 140);
+  // Re-find and set state
+  const stage = document.querySelector(`#${containerId}`)?.parentElement || 
+                document.querySelector(`.char-svg[data-animal="${animalId}"]`)?.parentElement;
+  // Simpler: replace content of animal-stage
+}
+
+function updateCharInStage(stageSelector, animalId, animState) {
+  const stage = typeof stageSelector === 'string' ? document.querySelector(stageSelector) : stageSelector;
+  if (!stage) return;
+  const fxId = stage.dataset.fxId || (stage.querySelector('.fx-layer') || {}).id || '';
+  const charId = stage.dataset.charId || '';
+  stage.innerHTML = '';
+  const pl = document.createElement('div');
+  pl.className = 'platform';
+  stage.appendChild(pl);
+  const wrap = document.createElement('div');
+  wrap.innerHTML = buildCharSVG(animalId);
+  const char = wrap.firstElementChild;
+  char.className = 'char-svg ' + (animState || 'idle');
+  if (charId) char.id = charId;
+  stage.appendChild(char);
+  const newFx = document.createElement('div');
+  newFx.className = 'fx-layer';
+  if (fxId) newFx.id = fxId;
+  stage.appendChild(newFx);
+}
 
 const AREAS = [
   { id:'kampung', name:'Kampung Awan', emoji:'☁️', desc:'Tempat tinggal mesra di atas awan. Haiwan pertama kamu bermula di sini!', cost:0 },
@@ -1599,15 +1954,12 @@ function toast(msg, ms = 2000) {
 function spawnBgParticles() {
   const box = document.getElementById('bg-particles');
   if (!box) return;
-  const emojis = ['✨','⭐','🌸','💫','☁️','🦋','💛','💜','💚'];
+  const colors = ['#FFE66D','#FF6B9D','#A29BFE','#74B9FF','#55EFC4','#FD79A8','#ffffff'];
   box.innerHTML = '';
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 14; i++) {
     const s = document.createElement('span');
-    s.textContent = emojis[i % emojis.length];
-    s.style.left = Math.random() * 100 + '%';
-    s.style.animationDuration = (10 + Math.random() * 14) + 's';
-    s.style.animationDelay = (Math.random() * 8) + 's';
-    s.style.fontSize = (0.8 + Math.random() * 1.2) + 'rem';
+    const sz = 6 + Math.random() * 10;
+    s.style.cssText = `left:${Math.random()*100}%;width:${sz}px;height:${sz}px;border-radius:50%;background:${colors[i%colors.length]};opacity:0.4;animation-duration:${12+Math.random()*16}s;animation-delay:${Math.random()*10}s;box-shadow:0 0 ${sz}px ${colors[i%colors.length]};`;
     box.appendChild(s);
   }
 }
@@ -1615,24 +1967,27 @@ function spawnBgParticles() {
 function confetti(count = 18) {
   const box = document.getElementById('confetti-box');
   if (!box) return;
-  const bits = ['⭐','✨','🎉','💛','💜','🌟','💖','🟢','🔵'];
+  const colors = ['#FF6B9D','#FFE66D','#4ECDC4','#A29BFE','#74B9FF','#FD79A8','#00B894','#FAB1A0'];
+  const shapes = ['rect','circle','tri'];
   for (let i = 0; i < count; i++) {
     const el = document.createElement('div');
-    el.className = 'confetti-piece';
-    el.textContent = bits[Math.floor(Math.random() * bits.length)];
+    const shape = shapes[i % 3];
+    el.className = 'confetti-piece ' + shape;
+    const c = colors[Math.floor(Math.random() * colors.length)];
+    if (shape === 'tri') el.style.borderBottomColor = c;
+    else el.style.background = c;
     el.style.left = Math.random() * 100 + '%';
-    el.style.animationDuration = (1.5 + Math.random() * 2) + 's';
-    el.style.animationDelay = (Math.random() * 0.4) + 's';
-    el.style.fontSize = (1 + Math.random() * 1.2) + 'rem';
+    el.style.animationDuration = (1.5 + Math.random() * 2.2) + 's';
+    el.style.animationDelay = (Math.random() * 0.5) + 's';
     box.appendChild(el);
-    setTimeout(() => el.remove(), 4000);
+    setTimeout(() => el.remove(), 4500);
   }
 }
 
 function starBurst(x, y) {
   const el = document.createElement('div');
   el.className = 'star-burst';
-  el.textContent = '⭐';
+  el.innerHTML = `<svg viewBox="0 0 24 24" width="32" height="32"><polygon points="12,2 15,9 22,9 17,14 19,21 12,17 5,21 7,14 2,9 9,9" fill="#FFE66D" stroke="#FDCB6E" stroke-width="1"/></svg>`;
   el.style.left = (x || window.innerWidth / 2) + 'px';
   el.style.top = (y || window.innerHeight / 3) + 'px';
   document.body.appendChild(el);
@@ -1647,20 +2002,27 @@ function playFx(layerId, type, count = 5) {
     for (let i = 0; i < count; i++) {
       const h = document.createElement('span');
       h.className = 'fx-heart';
-      h.textContent = ['❤️','💖','💗','💕'][i % 4];
+      h.innerHTML = `<svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-8.5C.5 9 2.5 5 6.5 5c2 0 3.5 1.5 4.5 3 1-1.5 2.5-3 4.5-3 4 0 6 4 3.5 7.5C19 16.5 12 21 12 21z" fill="${['#FF6B9D','#FD79A8','#E84393','#FF7675'][i%4]}"/></svg>`;
       h.style.left = (20 + Math.random() * 60) + '%';
       h.style.bottom = '10%';
-      h.style.animationDelay = (i * 0.15) + 's';
+      h.style.animationDelay = (i * 0.12) + 's';
       layer.appendChild(h);
     }
-  } else if (type === 'bubbles') {
+  } else if (type === 'bubbles' || type === 'soap') {
     for (let i = 0; i < count; i++) {
       const h = document.createElement('span');
-      h.className = 'fx-bubble';
-      h.textContent = '🫧';
+      h.className = 'fx-bubble-css';
+      const sz = 12 + Math.random() * 18;
+      h.style.width = sz + 'px';
+      h.style.height = sz + 'px';
       h.style.left = (15 + Math.random() * 70) + '%';
       h.style.bottom = '5%';
-      h.style.animationDelay = (i * 0.12) + 's';
+      h.style.animationDelay = (i * 0.1) + 's';
+      if (type === 'soap') {
+        h.style.setProperty('--bx', (Math.random() * 60 - 30) + 'px');
+        h.style.setProperty('--by', (-40 - Math.random() * 50) + 'px');
+        h.style.animation = 'soapBubble 1.5s ease-out forwards';
+      }
       layer.appendChild(h);
     }
   } else if (type === 'zzz') {
@@ -1668,45 +2030,35 @@ function playFx(layerId, type, count = 5) {
       const h = document.createElement('span');
       h.className = 'fx-zzz';
       h.textContent = 'z';
-      h.style.right = (10 + i * 15) + '%';
-      h.style.top = (10 + i * 8) + '%';
-      h.style.animationDelay = (i * 0.4) + 's';
+      h.style.right = (10 + i * 18) + '%';
+      h.style.top = (8 + i * 10) + '%';
+      h.style.animationDelay = (i * 0.35) + 's';
+      h.style.fontSize = (1 + i * 0.2) + 'rem';
       layer.appendChild(h);
     }
   } else if (type === 'drops') {
     for (let i = 0; i < count; i++) {
       const h = document.createElement('span');
-      h.className = 'fx-drop';
-      h.textContent = '💧';
+      h.className = 'fx-drop-css';
       h.style.left = (15 + Math.random() * 70) + '%';
       h.style.top = '0';
-      h.style.animationDelay = (i * 0.1) + 's';
-      layer.appendChild(h);
-    }
-  } else if (type === 'soap') {
-    for (let i = 0; i < count; i++) {
-      const h = document.createElement('span');
-      h.className = 'fx-soap';
-      h.textContent = '🫧';
-      h.style.left = (20 + Math.random() * 60) + '%';
-      h.style.bottom = '15%';
-      h.style.setProperty('--bx', (Math.random() * 60 - 30) + 'px');
-      h.style.setProperty('--by', (-40 - Math.random() * 50) + 'px');
-      h.style.animationDelay = (i * 0.15) + 's';
+      h.style.animationDelay = (i * 0.08) + 's';
       layer.appendChild(h);
     }
   } else if (type === 'sparkle') {
     for (let i = 0; i < count; i++) {
       const h = document.createElement('span');
-      h.className = 'fx-heart';
-      h.textContent = ['✨','⭐','🌟'][i % 3];
+      h.className = 'fx-spark';
       h.style.left = (10 + Math.random() * 80) + '%';
-      h.style.bottom = '20%';
-      h.style.animationDelay = (i * 0.1) + 's';
+      h.style.bottom = (15 + Math.random() * 40) + '%';
+      h.style.animationDelay = (i * 0.08) + 's';
+      const colors = ['#FFE66D','#FF6B9D','#A29BFE','#4ECDC4'];
+      h.style.background = colors[i % 4];
+      h.style.boxShadow = `0 0 8px ${colors[i%4]}`;
       layer.appendChild(h);
     }
   }
-  setTimeout(() => { if (layer) layer.innerHTML = ''; }, 2000);
+  setTimeout(() => { if (layer) layer.innerHTML = ''; }, 2200);
 }
 
 function bumpStars() {
@@ -1796,12 +2148,12 @@ function renderHome() {
   const st = getActiveStatus();
   if (!animal) return;
   document.getElementById('home-greeting').textContent = `Hai, ${state.name}!`;
-  document.getElementById('home-animal-name').textContent = `${animal.emoji} ${animal.name} · Tahap ${st.level}`;
-  document.getElementById('home-animal-sprite').textContent = animal.emoji;
-  document.getElementById('home-animal-sprite').className = 'animal-sprite idle';
+  document.getElementById('home-animal-name').textContent = `${animal.name} · Tahap ${st.level}`;
   document.getElementById('star-count').textContent = state.stars;
 
-  // Smart dialog based on status
+  updateCharInStage('#home-stage', animal.id, 'idle');
+  paintSceneBg('home-scene-bg', animal.area || 'kampung');
+
   let dtype = 'idle';
   if (st.hunger < 30) dtype = 'hungry';
   else if (st.thirst < 30) dtype = 'thirsty';
@@ -1814,7 +2166,6 @@ function renderHome() {
   homeDlg.classList.remove('talk'); void homeDlg.offsetWidth; homeDlg.classList.add('talk');
   updateStatusBars('home-status', st);
 
-  // Timer bar
   if (state.timerMinutes > 0 && state.timerStarted) {
     document.getElementById('timer-bar-wrap').style.display = 'block';
     updateTimerBar();
@@ -1823,17 +2174,43 @@ function renderHome() {
   }
 }
 
+function paintSceneBg(id, areaId) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const themes = {
+    kampung: { bg:'linear-gradient(180deg,#E8F4FD 0%,#C3E4F7 60%,#A8D5A2 100%)', clouds:true, hills:'#7BC67E' },
+    hutan: { bg:'linear-gradient(180deg,#C8E6C9 0%,#81C784 50%,#4A7C59 100%)', clouds:false, hills:'#2E7D32' },
+    gunung: { bg:'linear-gradient(180deg,#B3E5FC 0%,#81D4FA 40%,#90A4AE 100%)', clouds:true, hills:'#78909C' },
+    laut: { bg:'linear-gradient(180deg,#E1F5FE 0%,#4FC3F7 50%,#0288D1 100%)', clouds:true, hills:null },
+    lembah: { bg:'linear-gradient(180deg,#FFF3E0 0%,#FFCC80 50%,#EF6C00 100%)', clouds:false, hills:'#E65100' },
+    gua: { bg:'linear-gradient(180deg,#E0F7FA 0%,#B2EBF2 50%,#80DEEA 100%)', clouds:false, hills:'#4DD0E1' },
+    taman: { bg:'linear-gradient(180deg,#FCE4EC 0%,#F8BBD0 50%,#F48FB1 100%)', clouds:true, hills:'#C2185B' },
+    default: { bg:'linear-gradient(180deg,#E8F4FD 0%,#C3E4F7 60%,#A8D5A2 100%)', clouds:true, hills:'#7BC67E' }
+  };
+  const t = themes[areaId] || themes.default;
+  let html = `<div style="position:absolute;inset:0;background:${t.bg};"></div>`;
+  if (t.clouds) {
+    html += `<div class="cloud" style="width:60px;height:24px;top:15%;left:0;animation-duration:18s;"></div>
+      <div class="cloud" style="width:40px;height:18px;top:25%;left:0;animation-duration:25s;animation-delay:3s;opacity:0.5;"></div>
+      <div class="cloud" style="width:50px;height:20px;top:10%;left:0;animation-duration:22s;animation-delay:7s;opacity:0.6;"></div>`;
+  }
+  if (t.hills) {
+    html += `<div class="hill" style="width:120%;height:40px;left:-10%;background:${t.hills};opacity:0.4;"></div>
+      <div class="hill" style="width:80%;height:28px;left:30%;background:${t.hills};opacity:0.3;animation-delay:2s;"></div>`;
+  }
+  el.innerHTML = html;
+}
+
 function renderCare() {
   const animal = getActiveAnimal();
   const st = getActiveStatus();
   if (!animal) return;
-  document.getElementById('care-sprite').textContent = animal.emoji;
-  document.getElementById('care-sprite').className = 'animal-sprite idle';
+  updateCharInStage('#care-stage', animal.id, 'idle');
+  paintSceneBg('care-scene-bg', animal.area || 'kampung');
   document.getElementById('care-dialog').textContent = randomDialog(animal, 'idle');
   document.getElementById('star-count-care').textContent = state.stars;
   updateStatusBars('care-status', st);
 
-  // Daily limits
   ensureDaily();
   const feedLeft = 3 - state.daily.feedCount;
   const drinkLeft = 3 - state.daily.drinkCount;
@@ -1856,8 +2233,11 @@ function renderCollection() {
   el.innerHTML = ANIMALS.map(a => {
     const owned = !!state.animals[a.id];
     const st = state.animals[a.id];
+    const mini = owned
+      ? `<div style="width:72px;height:72px;margin:0 auto;overflow:hidden;"><div style="transform:scale(0.5);transform-origin:top left;width:140px;height:140px;">${buildCharSVG(a.id)}</div></div>`
+      : `<div style="font-size:2.2rem;line-height:72px;">🔒</div>`;
     return `<div class="animal-option ${state.activeAnimal===a.id?'selected':''}" data-id="${a.id}" style="${owned?'':'opacity:0.45'}">
-      <div class="emoji">${owned ? a.emoji : '🔒'}</div>
+      ${mini}
       <div style="font-weight:800;font-size:0.9rem;">${a.name}</div>
       <div style="font-size:0.75rem;color:#636e72;">${owned ? 'Tahap '+(st?.level||1) : 'Terkunci'}</div>
     </div>`;
@@ -2033,8 +2413,6 @@ function doFeed() {
   }
   const menu = document.getElementById('food-menu');
   menu.classList.remove('hidden');
-  const animal = getActiveAnimal();
-  const favs = animal.food || ['🍎'];
   document.getElementById('food-options').innerHTML = FOODS.map(f =>
     `<button class="choice-btn" data-fid="${f.id}" style="font-size:2rem;">${f.emoji}<br><small style="font-size:0.7rem;">${f.name}</small></button>`
   ).join('');
@@ -2048,19 +2426,18 @@ function doFeed() {
       state.animals[state.activeAnimal] = st;
       state.daily.feedCount++;
       save();
-      const sprite = document.getElementById('care-sprite');
-      sprite.className = 'animal-sprite eating';
-      playFx('care-fx', 'sparkle', 6);
+      setCharState(document.getElementById('care-stage'), 'eating');
+      playFx('care-fx', 'sparkle', 8);
       const dlg = document.getElementById('care-dialog');
-      dlg.textContent = 'Yummy! Terima kasih! 😋';
+      dlg.textContent = 'Yummy! Terima kasih!';
       dlg.classList.remove('talk'); void dlg.offsetWidth; dlg.classList.add('talk');
       speak('Yummy! Terima kasih!');
       menu.classList.add('hidden');
       addExp(2);
       setTimeout(() => {
-        sprite.className = 'animal-sprite happy';
-        playFx('care-fx', 'hearts', 5);
-        setTimeout(() => renderCare(), 700);
+        setCharState(document.getElementById('care-stage'), 'happy');
+        playFx('care-fx', 'hearts', 6);
+        setTimeout(() => renderCare(), 800);
       }, 1100);
     });
   });
@@ -2078,15 +2455,18 @@ function doDrink() {
   state.animals[state.activeAnimal] = st;
   state.daily.drinkCount++;
   save();
-  const sprite = document.getElementById('care-sprite');
-  sprite.className = 'animal-sprite drinking';
-  playFx('care-fx', 'drops', 6);
+  setCharState(document.getElementById('care-stage'), 'drinking');
+  playFx('care-fx', 'drops', 7);
   const dlg = document.getElementById('care-dialog');
-  dlg.textContent = 'Segar! Terima kasih! 💧';
+  dlg.textContent = 'Segar! Terima kasih!';
   dlg.classList.remove('talk'); void dlg.offsetWidth; dlg.classList.add('talk');
   speak('Segar! Terima kasih!');
   addExp(1);
-  setTimeout(() => { sprite.className = 'animal-sprite happy'; playFx('care-fx', 'bubbles', 4); setTimeout(() => renderCare(), 600); }, 1000);
+  setTimeout(() => {
+    setCharState(document.getElementById('care-stage'), 'happy');
+    playFx('care-fx', 'bubbles', 5);
+    setTimeout(() => renderCare(), 700);
+  }, 1000);
 }
 
 function doBath() {
@@ -2096,16 +2476,19 @@ function doBath() {
   st.bond = Math.min(100, st.bond + 3);
   state.animals[state.activeAnimal] = st;
   save();
-  const sprite = document.getElementById('care-sprite');
-  sprite.className = 'animal-sprite bathing';
-  playFx('care-fx', 'soap', 8);
+  setCharState(document.getElementById('care-stage'), 'bathing');
+  playFx('care-fx', 'soap', 10);
   const dlg = document.getElementById('care-dialog');
-  dlg.textContent = 'Segar dan bersih! 🧼✨';
+  dlg.textContent = 'Segar dan bersih!';
   dlg.classList.remove('talk'); void dlg.offsetWidth; dlg.classList.add('talk');
   speak('Segar dan bersih!');
   addExp(2);
   addStars(1);
-  setTimeout(() => { sprite.className = 'animal-sprite happy'; playFx('care-fx', 'sparkle', 6); setTimeout(() => renderCare(), 700); }, 1400);
+  setTimeout(() => {
+    setCharState(document.getElementById('care-stage'), 'happy');
+    playFx('care-fx', 'sparkle', 8);
+    setTimeout(() => renderCare(), 800);
+  }, 1500);
 }
 
 function doSleep() {
@@ -2114,15 +2497,17 @@ function doSleep() {
   st.happy = Math.min(100, st.happy + 5);
   state.animals[state.activeAnimal] = st;
   save();
-  const sprite = document.getElementById('care-sprite');
-  sprite.className = 'animal-sprite sleeping';
+  setCharState(document.getElementById('care-stage'), 'sleeping');
   playFx('care-fx', 'zzz', 3);
   const dlg = document.getElementById('care-dialog');
-  dlg.textContent = 'Zzz... Selamat tidur... 😴';
+  dlg.textContent = 'Zzz... Selamat tidur...';
   dlg.classList.remove('talk'); void dlg.offsetWidth; dlg.classList.add('talk');
   speak('Selamat tidur');
   addExp(1);
-  setTimeout(() => { sprite.className = 'animal-sprite idle'; renderCare(); }, 2500);
+  setTimeout(() => {
+    setCharState(document.getElementById('care-stage'), 'idle');
+    renderCare();
+  }, 2800);
 }
 
 // ==================== MINI GAMES ====================
@@ -2191,19 +2576,19 @@ function startMiniGame(type) {
       if (timeLeft <= 0) endGame();
     }, 1000);
   } else if (type === 'dance') {
-    content.innerHTML = `<p style="font-weight:700;">Menari bersama! 💃</p>
-      <div class="animal-stage"><div class="animal-sprite dance" style="font-size:5rem;" id="dance-sprite">${getActiveAnimal().emoji}</div></div>
+    const aid = getActiveAnimal().id;
+    content.innerHTML = `<p style="font-weight:700;">Menari bersama!</p>
+      <div class="animal-stage" id="dance-stage" style="margin:8px auto;">${buildCharSVG(aid)}</div>
       <p id="dance-msg">Ketik butang mengikut rentak!</p>
       <div id="mg-score">0</div>
-      <button class="btn btn-primary btn-large" id="dance-btn" style="margin-top:12px;">💃 Tari!</button>`;
+      <button class="btn btn-primary btn-large" id="dance-btn" style="margin-top:12px;">Tari!</button>`;
+    setCharState(document.getElementById('dance-stage'), 'dance');
     timeLeft = 12;
     document.getElementById('dance-btn').onclick = () => {
       score++;
       document.getElementById('mg-score').textContent = score;
-      const sp = document.getElementById('dance-sprite');
-      sp.className = 'animal-sprite';
-      void sp.offsetWidth;
-      sp.className = 'animal-sprite happy';
+      setCharState(document.getElementById('dance-stage'), 'happy');
+      setTimeout(() => setCharState(document.getElementById('dance-stage'), 'dance'), 500);
       if (score % 3 === 0) confetti(6);
     };
     miniGameInterval = setInterval(() => {
@@ -2458,7 +2843,7 @@ function initSetup() {
   const stList = document.getElementById('starter-list');
   stList.innerHTML = starters.map(a =>
     `<div class="animal-option" data-id="${a.id}">
-      <div class="emoji">${a.emoji}</div>
+      <div style="width:80px;height:80px;margin:0 auto;overflow:hidden;"><div style="transform:scale(0.55);transform-origin:top left;width:140px;height:140px;">${buildCharSVG(a.id)}</div></div>
       <div style="font-weight:800;font-size:0.85rem;">${a.name}</div>
       <div style="font-size:0.7rem;color:#636e72;">${a.type}</div>
     </div>`
@@ -2640,7 +3025,21 @@ function init() {
   bindEvents();
   checkContinueBtn();
   spawnBgParticles();
-  // Soft decay of stats over time (gentle, no punishment)
+  // Splash hero character
+  const splash = document.getElementById('splash-char');
+  if (splash) {
+    splash.innerHTML = '<div class="platform"></div>' + buildCharSVG('nunu');
+    setCharState(splash, 'idle');
+  }
+  const row = document.getElementById('splash-row');
+  if (row) {
+    ['awan','bara','tutu','seri','ombak','bintang'].forEach((id, i) => {
+      const d = document.createElement('div');
+      d.style.cssText = `width:56px;height:56px;overflow:hidden;animation:float 3s ease ${i*0.25}s infinite;`;
+      d.innerHTML = `<div style="transform:scale(0.4);transform-origin:top left;width:140px;height:140px;">${buildCharSVG(id)}</div>`;
+      row.appendChild(d);
+    });
+  }
   setInterval(() => {
     if (!state || !state.activeAnimal) return;
     const st = state.animals[state.activeAnimal];
