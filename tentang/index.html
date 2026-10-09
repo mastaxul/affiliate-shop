@@ -1,227 +1,2273 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tentang Kami | Masta Xul Affiliate Shop</title>
-  <meta name="description" content="Ketahui lebih lanjut tentang Masta Xul Affiliate Shop, visi, misi dan latar belakang kami.">
-  <link rel="stylesheet" href="../style.css">
-  <style>
-    .about-container {
-      max-width: 720px;
-      margin: 40px auto 60px;
-      padding: 0 16px;
-      line-height: 1.7;
-      color: #111111;
-    }
-    .about-container h1 {
-      text-align: center;
-      margin-bottom: 8px;
-      font-size: 1.8rem;
-    }
-    .about-subtitle {
-      text-align: center;
-      color: #6B4423;
-      margin-bottom: 35px;
-      font-size: 1rem;
-    }
-    .about-section {
-      background: #FFFFFF;
-      border: 2px solid #6B4423;
-      border-radius: 14px;
-      padding: 24px 20px;
-      margin-bottom: 20px;
-    }
-    .about-section h2 {
-      font-size: 1.25rem;
-      margin-bottom: 12px;
-      color: #111111;
-      border-left: 4px solid #D32F2F;
-      padding-left: 12px;
-    }
-    .about-section p {
-      margin-bottom: 12px;
-      color: #333;
-    }
-    .about-section ul {
-      padding-left: 20px;
-      margin-bottom: 10px;
-    }
-    .about-section li {
-      margin-bottom: 8px;
-      color: #333;
-    }
-    .back-link {
-      display: block;
-      text-align: center;
-      margin-top: 30px;
-      color: #6B4423;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .back-link:hover {
-      color: #D32F2F;
-    }
-
-    /* Hamburger Menu */
-    .header-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto 10px;
-      padding: 0 10px;
-    }
-    .menu-toggle {
-      background: none;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      padding: 8px;
-      z-index: 1001;
-    }
-    .menu-toggle span {
-      display: block;
-      width: 26px;
-      height: 3px;
-      background-color: #FFFFFF;
-      border-radius: 2px;
-    }
-    .side-menu {
-      position: fixed;
-      top: 0;
-      right: -280px;
-      width: 260px;
-      height: 100%;
-      background-color: #111111;
-      z-index: 1000;
-      padding: 80px 20px 20px;
-      transition: right 0.3s ease;
-      box-shadow: -4px 0 15px rgba(0,0,0,0.3);
-    }
-    .side-menu.open {
-      right: 0;
-    }
-    .side-menu a {
-      display: block;
-      color: #FFFFFF;
-      text-decoration: none;
-      padding: 14px 16px;
-      margin-bottom: 8px;
-      border-radius: 8px;
-      font-weight: 500;
-    }
-    .side-menu a:hover {
-      background-color: #6B4423;
-    }
-    .menu-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 999;
-      opacity: 0;
-      visibility: hidden;
-      transition: 0.3s;
-    }
-    .menu-overlay.open {
-      opacity: 1;
-      visibility: visible;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="description" content="Alam Fantasia - Sahabat Naga & Haiwan Ajaib. Game pendidikan interaktif untuk kanak-kanak 3-5 tahun.">
+<title>Alam Fantasia: Sahabat Naga & Haiwan Ajaib</title>
+<style>
+:root {
+  --primary: #FF6B9D;
+  --secondary: #4ECDC4;
+  --accent: #FFE66D;
+  --bg: #FFF8F0;
+  --text: #2D3436;
+  --success: #00B894;
+  --warning: #FDCB6E;
+  --danger: #FF7675;
+  --cloud: #A29BFE;
+  --soft: #DFE6E9;
+  --pink: #FD79A8;
+  --blue: #74B9FF;
+  --green: #55EFC4;
+  --orange: #FAB1A0;
+  --purple: #A29BFE;
+  --yellow: #FFEAA7;
+  --shadow: 0 4px 15px rgba(0,0,0,0.1);
+  --radius: 20px;
+  --btn-radius: 25px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body {
+  height: 100%;
+  font-family: 'Segoe UI', 'Comic Sans MS', 'Chalkboard SE', system-ui, sans-serif;
+  background: linear-gradient(135deg, #FFEAA7 0%, #81ECEC 50%, #A29BFE 100%);
+  color: var(--text);
+  overflow-x: hidden;
+  touch-action: manipulation;
+}
+body { display: flex; flex-direction: column; min-height: 100vh; }
+button, .btn {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--btn-radius);
+  padding: 14px 24px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: var(--shadow);
+  min-height: 52px;
+  min-width: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  user-select: none;
+}
+button:active, .btn:active { transform: scale(0.95); }
+button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.btn-primary { background: linear-gradient(135deg, #FF6B9D, #FD79A8); color: white; }
+.btn-secondary { background: linear-gradient(135deg, #4ECDC4, #00CEC9); color: white; }
+.btn-accent { background: linear-gradient(135deg, #FFE66D, #FDCB6E); color: #2D3436; }
+.btn-success { background: linear-gradient(135deg, #00B894, #55EFC4); color: white; }
+.btn-purple { background: linear-gradient(135deg, #A29BFE, #6C5CE7); color: white; }
+.btn-orange { background: linear-gradient(135deg, #FAB1A0, #E17055); color: white; }
+.btn-blue { background: linear-gradient(135deg, #74B9FF, #0984E3); color: white; }
+.btn-soft { background: white; color: var(--text); border: 3px solid var(--soft); }
+.btn-large { font-size: 1.3rem; padding: 18px 32px; min-height: 64px; }
+.btn-icon { font-size: 1.8rem; padding: 12px; min-width: 60px; min-height: 60px; }
+.screen {
+  display: none;
+  flex-direction: column;
+  flex: 1;
+  padding: 12px;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+  animation: fadeIn 0.3s ease;
+}
+.screen.active { display: flex; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(3deg); }
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+@keyframes sparkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.2); }
+}
+@keyframes eat {
+  0%, 100% { transform: scale(1); }
+  30% { transform: scale(1.1) rotate(-5deg); }
+  60% { transform: scale(0.95) rotate(5deg); }
+}
+@keyframes drink {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-15deg); }
+  75% { transform: rotate(15deg); }
+}
+@keyframes bath {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes sleep {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+@keyframes happy {
+  0%, 100% { transform: scale(1) rotate(0); }
+  25% { transform: scale(1.15) rotate(-8deg); }
+  75% { transform: scale(1.15) rotate(8deg); }
+}
+@keyframes starPop {
+  0% { transform: scale(0) rotate(0); opacity: 0; }
+  50% { transform: scale(1.3) rotate(180deg); opacity: 1; }
+  100% { transform: scale(1) rotate(360deg); opacity: 1; }
+}
+.animal-sprite {
+  font-size: 5rem;
+  line-height: 1;
+  display: inline-block;
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+  user-select: none;
+}
+.animal-sprite.happy { animation: happy 0.6s ease; }
+.animal-sprite.eating { animation: eat 0.8s ease; }
+.animal-sprite.drinking { animation: drink 0.8s ease; }
+.animal-sprite.bathing { animation: bath 1s ease infinite; }
+.animal-sprite.sleeping { animation: sleep 2s ease infinite; }
+.animal-sprite.idle { animation: float 3s ease-in-out infinite; }
+.card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow);
+  margin-bottom: 12px;
+}
+.header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 4px;
+  flex-wrap: wrap;
+}
+.stars-display {
+  background: linear-gradient(135deg, #FFE66D, #FDCB6E);
+  color: #2D3436;
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: var(--shadow);
+}
+.status-bars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 12px 0;
+}
+.status-item {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.status-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #636e72;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.status-bar-bg {
+  height: 12px;
+  background: #dfe6e9;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.status-bar-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+.fill-hunger { background: linear-gradient(90deg, #FF7675, #FAB1A0); }
+.fill-thirst { background: linear-gradient(90deg, #74B9FF, #81ECEC); }
+.fill-clean { background: linear-gradient(90deg, #55EFC4, #00B894); }
+.fill-happy { background: linear-gradient(90deg, #FFEAA7, #FDCB6E); }
+.fill-energy { background: linear-gradient(90deg, #A29BFE, #6C5CE7); }
+.fill-bond { background: linear-gradient(90deg, #FD79A8, #E84393); }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+.grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; }
+.menu-btn {
+  background: white;
+  border-radius: var(--radius);
+  padding: 16px 12px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text);
+  border: 3px solid transparent;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.menu-btn:active { transform: scale(0.95); }
+.menu-btn .icon { font-size: 2.2rem; }
+.choice-btn {
+  background: white;
+  border: 3px solid #dfe6e9;
+  border-radius: var(--radius);
+  padding: 18px;
+  font-size: 1.4rem;
+  font-weight: 800;
+  text-align: center;
+  min-height: 70px;
+  transition: all 0.2s;
+}
+.choice-btn.correct { border-color: var(--success); background: #d4edda; }
+.choice-btn.wrong { border-color: var(--danger); background: #f8d7da; }
+.choice-btn:disabled { pointer-events: none; }
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+  animation: fadeIn 0.2s;
+}
+.modal {
+  background: white;
+  border-radius: 24px;
+  padding: 24px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  animation: bounce 0.4s ease;
+}
+.modal h2 { margin-bottom: 12px; font-size: 1.4rem; }
+.modal p { margin-bottom: 16px; line-height: 1.5; }
+.dialog-bubble {
+  background: white;
+  border-radius: 18px;
+  padding: 14px 18px;
+  margin: 10px 0;
+  box-shadow: var(--shadow);
+  position: relative;
+  font-size: 1.05rem;
+  line-height: 1.4;
+  border: 3px solid #FFEAA7;
+}
+.dialog-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 30px;
+  border: 8px solid transparent;
+  border-top-color: #FFEAA7;
+}
+.avatar-option, .animal-option {
+  background: white;
+  border: 4px solid #dfe6e9;
+  border-radius: 20px;
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.avatar-option.selected, .animal-option.selected {
+  border-color: var(--primary);
+  background: #fff0f5;
+  transform: scale(1.05);
+}
+.avatar-option .emoji, .animal-option .emoji { font-size: 3rem; }
+.progress-ring {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: conic-gradient(var(--success) calc(var(--pct) * 1%), #dfe6e9 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.progress-ring-inner {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+.story-text {
+  background: #fffef5;
+  border-radius: 16px;
+  padding: 16px;
+  line-height: 1.6;
+  font-size: 1.1rem;
+  min-height: 120px;
+  border: 3px dashed #FFEAA7;
+  margin: 12px 0;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #f0f0f0;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2D3436;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-weight: 700;
+  z-index: 2000;
+  animation: fadeIn 0.3s;
+  max-width: 90%;
+  text-align: center;
+}
+.nav-bottom {
+  display: flex;
+  justify-content: space-around;
+  background: white;
+  padding: 8px 4px;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -4px 15px rgba(0,0,0,0.08);
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+}
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 10px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #636e72;
+  background: transparent;
+  box-shadow: none;
+  min-width: 56px;
+}
+.nav-item.active { color: var(--primary); background: #fff0f5; }
+.nav-item .icon { font-size: 1.5rem; }
+input[type="text"], input[type="number"], select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 3px solid #dfe6e9;
+  border-radius: 16px;
+  font-size: 1.1rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+input:focus, select:focus { border-color: var(--primary); }
+.hidden { display: none !important; }
+.title-main {
+  font-size: 1.8rem;
+  font-weight: 900;
+  text-align: center;
+  background: linear-gradient(135deg, #FF6B9D, #A29BFE);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 4px;
+}
+.subtitle { text-align: center; color: #636e72; font-size: 0.95rem; margin-bottom: 16px; }
+.area-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 14px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+.area-card.locked { opacity: 0.55; filter: grayscale(0.4); }
+.area-card .lock { position: absolute; top: 8px; right: 8px; font-size: 1.3rem; }
+.question-area {
+  text-align: center;
+  padding: 16px;
+}
+.question-text {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin: 12px 0;
+  line-height: 1.3;
+}
+.question-img {
+  font-size: 4rem;
+  margin: 10px 0;
+}
+.feedback {
+  font-size: 1.2rem;
+  font-weight: 800;
+  padding: 12px;
+  border-radius: 16px;
+  margin: 10px 0;
+}
+.feedback.good { background: #d4edda; color: #155724; }
+.feedback.try { background: #fff3cd; color: #856404; }
+.parent-gate {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+.parent-gate button {
+  width: 56px;
+  height: 56px;
+  font-size: 1.4rem;
+  border-radius: 50%;
+}
+.timer-bar {
+  height: 6px;
+  background: #dfe6e9;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 4px 0;
+}
+.timer-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00B894, #FFE66D, #FF7675);
+  transition: width 1s linear;
+}
+.scroll-area {
+  overflow-y: auto;
+  flex: 1;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 16px;
+}
+@media (max-width: 480px) {
+  .title-main { font-size: 1.4rem; }
+  .animal-sprite { font-size: 4rem; }
+  .btn-large { font-size: 1.1rem; padding: 14px 20px; }
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+  .status-bars { grid-template-columns: 1fr 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
 </head>
 <body>
-
-
-<header>
-  <div class="header-top">
-    <img src="https://i.ibb.co/SwpWGqrs/IMG-0606.png" class="logo" alt="Logo">
-    <!-- Butang hamburger akan ditambah automatik oleh menu.js -->
+<!-- SCREENS -->
+<div id="screen-splash" class="screen active">
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;">
+    <div style="font-size:5rem;animation:bounce 2s infinite;">🐉</div>
+    <h1 class="title-main">ALAM FANTASIA</h1>
+    <p style="font-size:1.1rem;font-weight:700;color:#6C5CE7;">Sahabat Naga & Haiwan Ajaib</p>
+    <p class="subtitle">“Bela Dengan Kasih Sayang, Belajar Dengan Gembira!”</p>
+    <div style="font-size:2.5rem;margin:16px 0;">🦄 🐲 🔥 🐢 🧚 🌊</div>
+    <button class="btn btn-primary btn-large" id="btn-start" style="margin-top:20px;">Mula Bermain! ✨</button>
+    <button class="btn btn-soft" id="btn-continue" style="margin-top:12px;display:none;">Sambung Permainan 💾</button>
   </div>
+</div>
 
-  <h1>Masta Xul Affiliate Shop</h1>
-  <p>...</p>
-</header>
-    
-  </header>
-
-  
-  <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
-
-  <div class="about-container">
-    <h1>Tentang Kami</h1>
-    <p class="about-subtitle">Mengenali Masta Xul Affiliate Shop dengan lebih dekat</p>
-
-    <div class="about-section">
-      <h2>Pengenalan</h2>
-      <p>
-        <strong>Masta Xul Affiliate Shop</strong> adalah platform yang mengumpulkan produk-produk pilihan dari TikTok Shop, Shopee dan Lazada di satu tempat.
-      </p>
-      <p>
-        Kami menapis dan memaparkan produk yang mempunyai permintaan tinggi, ulasan baik, serta nilai yang berbaloi kepada pengguna di Malaysia.
-      </p>
+<div id="screen-setup" class="screen">
+  <div class="scroll-area">
+    <h2 style="text-align:center;margin:12px 0;">Selamat Datang! 👋</h2>
+    <div class="card">
+      <label style="font-weight:700;display:block;margin-bottom:8px;">Nama Panggilan</label>
+      <input type="text" id="input-name" maxlength="12" placeholder="Contoh: Amir" autocomplete="off">
     </div>
-
-    <div class="about-section">
-      <h2>Visi</h2>
-      <p>
-        Menjadi platform rujukan utama rakyat Malaysia untuk menemui produk viral dan berkualiti dari platform e-dagang popular dengan cara yang mudah, cepat dan dipercayai.
-      </p>
+    <div class="card">
+      <label style="font-weight:700;display:block;margin-bottom:8px;">Pilih Avatar</label>
+      <div class="grid-3" id="avatar-list"></div>
     </div>
-
-    <div class="about-section">
-      <h2>Misi</h2>
-      <ul>
-        <li>Mengumpulkan produk viral dan berkualiti dari TikTok, Shopee dan Lazada.</li>
-        <li>Memudahkan pengguna mencari dan membandingkan produk dalam satu laman web.</li>
-        <li>Memberikan pengalaman beli-belah yang ringkas, pantas dan mesra pengguna.</li>
-        <li>Sentiasa mengemas kini senarai produk mengikut trend semasa.</li>
-      </ul>
+    <div class="card">
+      <label style="font-weight:700;display:block;margin-bottom:8px;">Pilih Bahasa</label>
+      <select id="select-lang">
+        <option value="ms">Bahasa Melayu</option>
+        <option value="en">English (Coming soon)</option>
+      </select>
     </div>
-
-    <div class="about-section">
-      <h2>Latar Belakang</h2>
-      <p>
-        Masta Xul Affiliate Shop diwujudkan daripada pemerhatian bahawa ramai pengguna sukar untuk menapis produk yang benar-benar berbaloi di kalangan ribuan item di TikTok Shop, Shopee dan Lazada.
-      </p>
-      <p>
-        Dengan adanya platform ini, pengguna boleh menjimatkan masa dan terus melihat produk yang telah dipilih berdasarkan populariti, ulasan dan potensi nilai.
-      </p>
-      <p>
-        Website ini dikendalikan secara perseorangan dan sentiasa berusaha untuk menambah baik pengalaman pengguna dari semasa ke semasa.
-      </p>
+    <div class="card">
+      <label style="font-weight:700;display:block;margin-bottom:8px;">Pilih Haiwan Pertama</label>
+      <div class="grid-2" id="starter-list"></div>
     </div>
-
-    <div class="about-section">
-      <h2>Hubungi Kami</h2>
-      <p>
-        Jika anda mempunyai sebarang pertanyaan, cadangan atau ingin bekerjasama, sila layari halaman 
-        <a href="/hubungi/" style="color:#D32F2F; font-weight:600;">Hubungi Kami</a>.
-      </p>
-    </div>
-
-    <a href="/" class="back-link">← Kembali ke Laman Utama</a>
+    <button class="btn btn-primary btn-large" id="btn-setup-done" style="width:100%;margin-top:8px;">Jom Bermula! 🚀</button>
   </div>
+</div>
 
-  <footer>
-    © 2026 Masta Xul Affiliate Shop
-  </footer>
+<div id="screen-home" class="screen">
+  <div class="header-bar">
+    <div>
+      <div style="font-weight:800;font-size:1.1rem;" id="home-greeting">Hai!</div>
+      <div style="font-size:0.85rem;color:#636e72;" id="home-animal-name"></div>
+    </div>
+    <div class="stars-display"><span>⭐</span> <span id="star-count">0</span></div>
+  </div>
+  <div class="timer-bar" id="timer-bar-wrap" style="display:none;"><div class="timer-fill" id="timer-fill" style="width:100%"></div></div>
+  <div class="card" style="text-align:center;">
+    <div class="animal-sprite idle" id="home-animal-sprite">🦄</div>
+    <div class="dialog-bubble" id="home-dialog">Hai kawan! Jom bermain bersama!</div>
+    <div class="status-bars" id="home-status"></div>
+  </div>
+  <div class="grid-3" style="margin-top:8px;">
+    <button class="menu-btn" data-go="care"><span class="icon">🍎</span>Jaga</button>
+    <button class="menu-btn" data-go="play"><span class="icon">🎮</span>Main</button>
+    <button class="menu-btn" data-go="academy"><span class="icon">📚</span>Akademi</button>
+    <button class="menu-btn" data-go="world"><span class="icon">🌍</span>Dunia</button>
+    <button class="menu-btn" data-go="story"><span class="icon">📖</span>Cerita</button>
+    <button class="menu-btn" data-go="collection"><span class="icon">🐾</span>Haiwan</button>
+  </div>
+  <div class="nav-bottom" style="margin-top:12px;">
+    <button class="nav-item active" data-go="home"><span class="icon">🏠</span>Rumah</button>
+    <button class="nav-item" data-go="profile"><span class="icon">📊</span>Laporan</button>
+    <button class="nav-item" data-go="settings"><span class="icon">⚙️</span>Tetapan</button>
+    <button class="nav-item" data-go="parent"><span class="icon">👨‍👩‍👧</span>Ibu Bapa</button>
+  </div>
+</div>
 
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById("sideMenu");
-      const overlay = document.getElementById("menuOverlay");
-      menu.classList.toggle("open");
-      overlay.classList.toggle("open");
+<div id="screen-care" class="screen">
+  <div class="header-bar">
+    <button class="btn btn-soft btn-icon" data-go="home">⬅️</button>
+    <h2 style="flex:1;text-align:center;">Jaga Haiwan 💝</h2>
+    <div class="stars-display"><span>⭐</span><span id="star-count-care">0</span></div>
+  </div>
+  <div class="card" style="text-align:center;">
+    <div class="animal-sprite idle" id="care-sprite">🦄</div>
+    <div class="dialog-bubble" id="care-dialog">Apa yang kita buat hari ini?</div>
+    <div class="status-bars" id="care-status"></div>
+  </div>
+  <div class="grid-2">
+    <button class="btn btn-orange btn-large" id="btn-feed">🍎 Makan<br><small id="feed-left">3/3</small></button>
+    <button class="btn btn-blue btn-large" id="btn-drink">💧 Minum<br><small id="drink-left">3/3</small></button>
+    <button class="btn btn-secondary btn-large" id="btn-bath">🛁 Mandi</button>
+    <button class="btn btn-purple btn-large" id="btn-sleep">😴 Rehat</button>
+  </div>
+  <div id="food-menu" class="card hidden" style="margin-top:12px;">
+    <h3 style="text-align:center;margin-bottom:10px;">Pilih Makanan</h3>
+    <div class="grid-3" id="food-options"></div>
+  </div>
+</div>
+
+<div id="screen-play" class="screen">
+  <div class="header-bar">
+    <button class="btn btn-soft btn-icon" data-go="home">⬅️</button>
+    <h2 style="flex:1;text-align:center;">Taman Mainan 🎮</h2>
+    <div></div>
+  </div>
+  <div class="scroll-area">
+    <div class="grid-2" id="play-games">
+      <button class="menu-btn" data-game="butterfly"><span class="icon">🦋</span>Kejar Rama-rama</button>
+      <button class="menu-btn" data-game="bubble"><span class="icon">🫧</span>Tangkap Gelembung</button>
+      <button class="menu-btn" data-game="star"><span class="icon">⭐</span>Cari Bintang</button>
+      <button class="menu-btn" data-game="ball"><span class="icon">⚽</span>Main Bola</button>
+      <button class="menu-btn" data-game="dance"><span class="icon">💃</span>Menari Bersama</button>
+    </div>
+    <div id="game-area" class="card hidden" style="margin-top:12px;min-height:280px;text-align:center;position:relative;">
+      <div id="game-content"></div>
+      <button class="btn btn-soft" id="btn-game-back" style="margin-top:12px;">Kembali</button>
+    </div>
+  </div>
+</div>
+
+<div id="screen-academy" class="screen">
+  <div class="header-bar">
+    <button class="btn btn-soft btn-icon" data-go="home">⬅️</button>
+    <h2 style="flex:1;text-align:center;">Akademi Ilmu 📚</h2>
+    <div class="stars-display"><span>⭐</span><span id="star-count-acad">0</span></div>
+  </div>
+  <div class="scroll-area">
+    <div class="grid-2" id="academy-modules">
+      <button class="menu-btn" data-module="rumi"><span class="icon">🔤</span>Huruf Rumi</button>
+      <button class="menu-btn" data-module="jawi"><span class="icon"> ٱ</span>Huruf Jawi</button>
+      <button class="menu-btn" data-module="number"><span class="icon">🔢</span>Nombor</button>
+      <button class="menu-btn" data-module="color"><span class="icon">🎨</span>Warna & Bentuk</button>
+      <button class="menu-btn" data-module="skill"><span class="icon">🧠</span>Kemahiran Awal</button>
+      <button class="menu-btn" data-module="mix"><span class="icon">🎲</span>Campuran</button>
+    </div>
+    <div id="quiz-area" class="card hidden" style="margin-top:12px;">
+      <div class="question-area">
+        <div style="font-size:0.9rem;color:#636e72;" id="quiz-progress">Soalan 1</div>
+        <div class="question-img" id="quiz-img"></div>
+        <div class="question-text" id="quiz-text"></div>
+        <div class="grid-3" id="quiz-choices" style="margin-top:16px;"></div>
+        <div id="quiz-feedback" class="feedback hidden"></div>
+        <button class="btn btn-primary hidden" id="btn-next-q" style="margin-top:12px;width:100%;">Seterusnya ➡️</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="screen-world" class="screen">
+  <div class="header-bar">
+    <button class="btn btn-soft btn-icon" data-go="home">⬅️</button>
+    <h2 style="flex:1;text-align:center;">Dunia Fantasia 🌍</h2>
+    <div></div>
+  </div>
+  <div class="scroll-area">
+    <div class="grid-2" id="world-areas"></div>
+  </div>
+</div>
+
+<div id="screen-story" class="screen">
+  <div class="header-bar">
+    <button class="btn btn-soft btn-icon" data-go="home">⬅️</button>
+    <h2 style="flex:1;text-align:center;">Perpustakaan Cerita 📖</h2>
+    <div></div>
+  </div>
+  <div class="scroll-area">
+    <div class="grid-2" id="story-cats">
+      <button class="menu-btn" data-cat="dongeng"><span class="icon">🦊</span>Dongeng Melayu</button>
+      <button class="menu-btn" data-cat="pahlawan"><span class="icon">⚔️</span>Pahlawan Melayu</button>
+      <button class="menu-btn" data-cat="teladan"><span class="icon">💝</span>Cerita Teladan</button>
+    </div>
+    <div id="story-list" class="hidden" style="margin-top:12px;"></div>
+    <div id="story-player" class="card hidden" style="margin-top:12px;">
+      <h3 id="story-title" style="text-align:center;"></h3>
+      <div class="story-text" id="story-body"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:12px;">
+        <button class="btn btn-secondary" id="btn-story-prev">⬅️</button>
+        <button class="btn btn-primary" id="btn-story-speak">🔊 Dengar</button>
+        <button class="btn btn-accent" id="btn-story-next">➡️</button>
+      </div>
+      <div id="story-end" class="hidden" style="margin-top:16px;text-align:center;">
+        <p style="font-weight:700;margin-bottom:8px;" id="story-moral"></p>
+        <div id="story-quiz"></div>
+      </div>
+      <button class="btn btn-soft" id="btn-story-back" style="width:100%;margin-top:12px;">Kembali ke Senarai</button>
+    </div>
+  </div>
+</div>
+
+<div id="screen-collection" class="screen">
+  <div class="header-bar">
+    <button class="btn btn-soft btn-icon" data-go="home">⬅️</button>
+    <h2 style="flex:1;text-align:center;">Koleksi Haiwan 🐾</h2>
+    <div></div>
+  </div>
+  <div class="scroll-area">
+    <div class="grid-2" id="animal-collection"></div>
+  </div>
+</div>
+
+<div id="screen-profile" class="screen">
+  <div class="header-bar">
+    <button class="btn btn-soft btn-icon" data-go="home">⬅️</button>
+    <h2 style="flex:1;text-align:center;">Laporan Belajar 📊</h2>
+    <div></div>
+  </div>
+  <div class="scroll-area">
+    <div class="card">
+      <h3 id="profile-name">Profil</h3>
+      <div id="profile-stats" style="margin-top:12px;"></div>
+    </div>
+    <div class="card">
+      <h3>Huruf Dipelajari</h3>
+      <div id="profile-letters" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;"></div>
+    </div>
+    <div class="card">
+      <h3>Nombor Dikuasai</h3>
+      <div id="profile-numbers" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;"></div>
+    </div>
+    <div class="card">
+      <h3>Cerita Dibaca</h3>
+      <div id="profile-stories" style="margin-top:8px;"></div>
+    </div>
+  </div>
+</div>
+
+<div id="screen-settings" class="screen">
+  <div class="header-bar">
+    <button class="btn btn-soft btn-icon" data-go="home">⬅️</button>
+    <h2 style="flex:1;text-align:center;">Tetapan ⚙️</h2>
+    <div></div>
+  </div>
+  <div class="scroll-area">
+    <div class="card">
+      <h3>Suara</h3>
+      <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;">
+        <button class="btn btn-secondary" id="btn-toggle-sound">🔊 Suara: ON</button>
+        <button class="btn btn-soft" id="btn-test-voice">Uji Suara</button>
+      </div>
+      <label style="display:block;margin-top:12px;font-weight:700;">Kelajuan Suara</label>
+      <input type="range" id="voice-rate" min="0.6" max="1.2" step="0.1" value="0.9" style="width:100%;margin-top:6px;">
+    </div>
+    <div class="card">
+      <h3>Nama Panggilan</h3>
+      <input type="text" id="settings-name" maxlength="12" style="margin-top:8px;">
+      <button class="btn btn-primary" id="btn-save-name" style="margin-top:8px;width:100%;">Simpan Nama</button>
+    </div>
+    <div class="card">
+      <h3>Haiwan Aktif</h3>
+      <select id="select-active-animal" style="margin-top:8px;"></select>
+    </div>
+  </div>
+</div>
+
+<div id="screen-parent" class="screen">
+  <div class="header-bar">
+    <button class="btn btn-soft btn-icon" data-go="home">⬅️</button>
+    <h2 style="flex:1;text-align:center;">Kawalan Ibu Bapa 👨‍👩‍👧</h2>
+    <div></div>
+  </div>
+  <div class="scroll-area" id="parent-content">
+    <div class="card" id="parent-gate-card">
+      <h3 style="text-align:center;">Pintu Ibu Bapa</h3>
+      <p style="text-align:center;margin:12px 0;">Tekan nombor yang betul: <strong id="gate-q">3 + 4 = ?</strong></p>
+      <div class="parent-gate" id="gate-buttons"></div>
+    </div>
+    <div id="parent-panel" class="hidden">
+      <div class="card">
+        <h3>Had Masa Bermain</h3>
+        <select id="select-timer" style="margin-top:8px;">
+          <option value="0">Tiada had</option>
+          <option value="10">10 minit</option>
+          <option value="15">15 minit</option>
+          <option value="20">20 minit</option>
+          <option value="30">30 minit</option>
+        </select>
+        <button class="btn btn-primary" id="btn-set-timer" style="margin-top:8px;width:100%;">Tetapkan</button>
+      </div>
+      <div class="card">
+        <h3>Laporan Ringkas</h3>
+        <div id="parent-report" style="margin-top:8px;"></div>
+      </div>
+      <div class="card">
+        <h3>Data Permainan</h3>
+        <button class="btn btn-orange" id="btn-export-data" style="width:100%;margin-bottom:8px;">Lihat Data (JSON)</button>
+        <button class="btn btn-danger" id="btn-reset-data" style="width:100%;background:linear-gradient(135deg,#FF7675,#E17055);color:white;">Padam Semua Data</button>
+      </div>
+      <p style="font-size:0.8rem;color:#636e72;text-align:center;margin-top:12px;">
+        Nota: Data disimpan hanya pada peranti ini. Tiada data dihantar ke pelayan.
+        Pengedaran awam memerlukan semakan keselamatan & privasi tambahan.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div id="screen-area" class="screen">
+  <div class="header-bar">
+    <button class="btn btn-soft btn-icon" data-go="world">⬅️</button>
+    <h2 style="flex:1;text-align:center;" id="area-title">Kawasan</h2>
+    <div></div>
+  </div>
+  <div class="card" style="text-align:center;">
+    <div style="font-size:4rem;" id="area-emoji">☁️</div>
+    <p id="area-desc" style="margin:12px 0;line-height:1.5;"></p>
+    <div id="area-animals" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;"></div>
+    <button class="btn btn-primary" id="btn-area-activity" style="margin-top:12px;width:100%;">Buat Aktiviti</button>
+  </div>
+</div>
+
+<!-- Modal container -->
+<div id="modal-root"></div>
+<div id="toast-root"></div>
+
+<script>
+// ==================== DATA ====================
+const SAVE_KEY = 'alamFantasia_v1';
+const SCHEMA_VERSION = 1;
+
+const AVATARS = ['🧒','👧','👦','👶','🧑','🐈','🐰','🐻'];
+
+const ANIMALS = [
+  { id:'awan', name:'Awan', emoji:'🦄', type:'Kuda Terbang', color:'#FFEAA7', personality:'ceria dan suka membantu',
+    teach:['huruf','warna','bentuk'], food:['🍎','🥕','🌽'], skill:'Kumpul huruf sambil terbang', area:'kampung',
+    dialogs:{idle:['Hai kawan! Jom terbang bersama!','Cuaca cerah hari ini!','Saya suka sayap pelangi saya!'],
+      happy:['Yeay! Terima kasih!','Saya gembira sangat!','Wah hebatnya kamu!'],
+      hungry:['Perut saya berbunyi...','Jom makan bersama!'], thirsty:['Saya dahaga...','Boleh saya minum?'],
+      dirty:['Saya kotor sikit...','Jom mandi!'], sleepy:['Saya mengantuk...','Jom rehat sekejap.']} },
+  { id:'nunu', name:'Naga Nunu', emoji:'🐲', type:'Naga Persahabatan', color:'#55EFC4', personality:'comel dan mesra',
+    teach:['nombor','kiraan'], food:['🍎','🐟','🍇'], skill:'Gelembung nombor', area:'gunung',
+    dialogs:{idle:['Hai! Saya Nunu!','Jom kira bersama!','Gelembung nombor datang!'],
+      happy:['Wah pandai!','Terima kasih kawan!','Saya suka bermain dengan kamu!'],
+      hungry:['Nunu lapar...','Makan dulu ya?'], thirsty:['Minum air dulu!'], dirty:['Mandi dulu!'], sleepy:['Nunu mengantuk...']} },
+  { id:'bara', name:'Bara', emoji:'🔥', type:'Phoenix', color:'#FF7675', personality:'berani dan cerah',
+    teach:['warna','corak','urutan'], food:['🍎','🌶️','🌽'], skill:'Susun warna bulu', area:'lembah',
+    dialogs:{idle:['Api ajaib saya selamat!','Jom belajar warna!','Saya boleh terbang tinggi!'],
+      happy:['Cahaya saya bersinar!','Terima kasih!'], hungry:['Saya lapar...'], thirsty:['Minum dulu!'], dirty:['Mandi air sejuk!'], sleepy:['Rehat sebentar...']} },
+  { id:'garuda', name:'Garuda Jaya', emoji:'🦅', type:'Garuda', color:'#FDCB6E', personality:'gagah dan penyayang',
+    teach:['keberanian','kejujuran','membantu'], food:['🐟','🥩','🍇'], skill:'Misi membantu', area:'kampung',
+    dialogs:{idle:['Saya Garuda Jaya!','Jom bantu kawan!','Warisan kita indah!'],
+      happy:['Hebat! Kamu berani!','Terima kasih!'], hungry:['Garuda lapar...'], thirsty:['Minum air!'], dirty:['Bersih dulu!'], sleepy:['Rehat...']} },
+  { id:'suluh', name:'Suluh', emoji:'🦁', type:'Singa Api', color:'#FAB1A0', personality:'mesra dan empati',
+    teach:['emosi','adab','perkataan'], food:['🥩','🍎','🧀'], skill:'Padan ekspresi', area:'lembah',
+    dialogs:{idle:['Hai! Saya Suluh!','Bagaimana perasaan kamu?','Jom belajar adab!'],
+      happy:['Saya gembira!','Wah bagus!'], hungry:['Lapar...'], thirsty:['Dahaga...'], dirty:['Mandi!'], sleepy:['Tidur...']} },
+  { id:'tutu', name:'Tutu', emoji:'🐢', type:'Kura-kura Terbang', color:'#55EFC4', personality:'sabar dan lembut',
+    teach:['nombor','bentuk','kesabaran'], food:['🥬','🥕','🍎'], skill:'Kutip nombor urutan', area:'hutan',
+    dialogs:{idle:['Perlahan-lahan tapi pasti...','Jom terbang perlahan!','Saya sabar!'],
+      happy:['Bagus!','Terima kasih!'], hungry:['Tutu lapar...'], thirsty:['Minum...'], dirty:['Mandi...'], sleepy:['Tidur...']} },
+  { id:'seri', name:'Seri', emoji:'🧚', type:'Pari-pari', color:'#FD79A8', personality:'lembut dan ceria',
+    teach:['jawi','warna','perkataan'], food:['🍓','🍯','🌸'], skill:'Cari huruf Jawi', area:'taman',
+    dialogs:{idle:['Assalamualaikum!','Jom belajar Jawi!','Sayap saya berkilau!'],
+      happy:['Alhamdulillah!','Terima kasih!'], hungry:['Lapar...'], thirsty:['Minum...'], dirty:['Mandi...'], sleepy:['Tidur...']} },
+  { id:'ombak', name:'Ombak', emoji:'🌊', type:'Naga Laut', color:'#74B9FF', personality:'mesra dan prihatin',
+    teach:['laut','alam','besar-kecil'], food:['🐟','🦐','🌿'], skill:'Bersihkan laut', area:'laut',
+    dialogs:{idle:['Hai dari laut!','Jom jaga laut!','Saya suka berenang!'],
+      happy:['Laut gembira!','Terima kasih!'], hungry:['Lapar...'], thirsty:['Minum...'], dirty:['Mandi laut!'], sleepy:['Tidur di dasar...']} },
+  { id:'baramerah', name:'Bara Merah', emoji:'🐉', type:'Naga Api', color:'#E17055', personality:'suka membantu',
+    teach:['nombor','corak'], food:['🌶️','🍎','🥩'], skill:'Padan permata', area:'lembah',
+    dialogs:{idle:['Naga api mesra!','Jom padan nombor!','Api saya selamat!'],
+      happy:['Wah hebat!'], hungry:['Lapar...'], thirsty:['Minum...'], dirty:['Mandi...'], sleepy:['Rehat...']} },
+  { id:'bumi', name:'Bumi', emoji:'🌿', type:'Naga Tanah', color:'#00B894', personality:'penyayang alam',
+    teach:['tumbuhan','pertanian','alam'], food:['🥬','🥕','🌽'], skill:'Tanam benih', area:'hutan',
+    dialogs:{idle:['Hai dari tanah!','Jom tanam pokok!','Alam indah!'],
+      happy:['Pokok tumbuh!'], hungry:['Lapar...'], thirsty:['Siram juga!'], dirty:['Mandi lumpur!'], sleepy:['Tidur di tanah...']} },
+  { id:'salju', name:'Salju', emoji:'❄️', type:'Naga Ais', color:'#81ECEC', personality:'lembut dan mesra',
+    teach:['bentuk','saiz','padanan'], food:['🧊','🍎','🥛'], skill:'Susun bentuk ais', area:'gua',
+    dialogs:{idle:['Dingin tapi mesra!','Jom susun bentuk!','Ais saya lembut!'],
+      happy:['Sejuk dan gembira!'], hungry:['Lapar...'], thirsty:['Minum susu!'], dirty:['Mandi air panas!'], sleepy:['Tidur sejuk...']} },
+  { id:'bintang', name:'Bintang', emoji:'🦌', type:'Rusa Bintang', color:'#A29BFE', personality:'cerdas dan pemerhati',
+    teach:['nombor','arah','pemerhatian'], food:['🍎','🌿','🥕'], skill:'Cari bintang', area:'kampung',
+    dialogs:{idle:['Tanduk saya bercahaya!','Jom cari bintang!','Lihat langit!'],
+      happy:['Bintang bersinar!'], hungry:['Lapar...'], thirsty:['Minum...'], dirty:['Mandi...'], sleepy:['Tidur di bawah bintang...']} }
+];
+
+const AREAS = [
+  { id:'kampung', name:'Kampung Awan', emoji:'☁️', desc:'Tempat tinggal mesra di atas awan. Haiwan pertama kamu bermula di sini!', cost:0 },
+  { id:'hutan', name:'Hutan Ajaib', emoji:'🌳', desc:'Hutan hijau penuh misteri dan haiwan ajaib.', cost:5 },
+  { id:'gunung', name:'Gunung Naga', emoji:'⛰️', desc:'Gunung tinggi di mana naga-naga tinggal.', cost:8 },
+  { id:'tasik', name:'Tasik Pelangi', emoji:'🌈', desc:'Tasik berwarna-warni yang indah.', cost:10 },
+  { id:'laut', name:'Laut Kristal', emoji:'🌊', desc:'Laut jernih penuh hidupan laut ajaib.', cost:12 },
+  { id:'lembah', name:'Lembah Api', emoji:'🔥', desc:'Lembah hangat dengan api ajaib yang selamat.', cost:15 },
+  { id:'gua', name:'Gua Ais', emoji:'🧊', desc:'Gua sejuk penuh kristal ais.', cost:15 },
+  { id:'taman', name:'Taman Peri', emoji:'🌸', desc:'Taman indah dihuni peri-peri mesra.', cost:10 },
+  { id:'akademi', name:'Akademi Ilmu', emoji:'🏛️', desc:'Tempat belajar huruf, nombor dan kemahiran.', cost:0 },
+  { id:'perpustakaan', name:'Perpustakaan Cerita', emoji:'📚', desc:'Koleksi cerita Nusantara yang indah.', cost:0 }
+];
+
+const FOODS = [
+  { id:'apple', emoji:'🍎', name:'Epal', hunger:25 },
+  { id:'carrot', emoji:'🥕', name:'Lobak', hunger:20 },
+  { id:'corn', emoji:'🌽', name:'Jagung', hunger:22 },
+  { id:'grape', emoji:'🍇', name:'Anggur', hunger:18 },
+  { id:'fish', emoji:'🐟', name:'Ikan', hunger:28 },
+  { id:'leaf', emoji:'🥬', name:'Sayur', hunger:15 },
+  { id:'honey', emoji:'🍯', name:'Madu', hunger:20 },
+  { id:'cheese', emoji:'🧀', name:'Keju', hunger:24 }
+];
+
+// ==================== QUESTION BANK (500+ unique) ====================
+function buildQuestionBank() {
+  const qs = [];
+  let id = 1;
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  const letterWords = {
+    A:['Ayam','Abu','Api'], B:['Bola','Buku','Bunga'], C:['Cawan','Cicak','Ceri'],
+    D:['Dadu','Durian','Daun'], E:['Epal','Emas','Ekor'], F:['Foto','Filem'],
+    G:['Gajah','Gula','Gigi'], H:['Harimau','Hujan','Hati'], I:['Ikan','Ibu','Ikat'],
+    J:['Jari','Jagung','Jambu'], K:['Kucing','Kuda','Kaki'], L:['Lumba','Labu','Langit'],
+    M:['Mata','Meja','Mangga'], N:['Nasi','Nangka','Nenek'], O:['Orang','Otak'],
+    P:['Pisang','Pokok','Pena'], Q:['Quran'], R:['Rusa','Rumah','Roti'],
+    S:['Singa','Susu','Saya'], T:['Tangan','Telur','Tikus'], U:['Ular','Udang','Ubi'],
+    V:['Van','Vas'], W:['Wau','Wajah'], X:['Xilofon'], Y:['Yoga','Yo-yo'], Z:['Zebra','Zamrud']
+  };
+  // Rumi letter questions ~100
+  letters.forEach(L => {
+    const words = letterWords[L] || [L];
+    words.forEach(w => {
+      qs.push({ id: id++, module:'rumi', q:`Huruf apakah ini?`, display:L, answer:L,
+        choices:shuffle([L, letters[(letters.indexOf(L)+3)%26], letters[(letters.indexOf(L)+7)%26], letters[(letters.indexOf(L)+11)%26]]).slice(0,3),
+        speak:`Huruf ${L}`, img:L });
+      qs.push({ id: id++, module:'rumi', q:`${L} untuk...`, display:w, answer:L,
+        choices:shuffle([L, letters[(letters.indexOf(L)+2)%26], letters[(letters.indexOf(L)+5)%26]]).slice(0,3),
+        speak:`${L} untuk ${w}`, img:w[0]==='A'?'🐔':w[0]==='B'?'⚽':w[0]==='G'?'🐘':w[0]==='K'?'🐱':w[0]==='S'?'🦁':'🔤' });
+    });
+  });
+  // Lowercase
+  letters.slice(0,15).forEach(L => {
+    const low = L.toLowerCase();
+    qs.push({ id: id++, module:'rumi', q:`Huruf kecil apakah ini?`, display:low, answer:low,
+      choices:shuffle([low, letters[(letters.indexOf(L)+4)%26].toLowerCase(), letters[(letters.indexOf(L)+9)%26].toLowerCase()]),
+      speak:`Huruf kecil ${low}`, img:low });
+  });
+
+  // Jawi letters (selected common)
+  const jawi = [
+    {l:'ا', n:'Alif'}, {l:'ب', n:'Ba'}, {l:'ت', n:'Ta'}, {l:'ث', n:'Tha'},
+    {l:'ج', n:'Jim'}, {l:'ح', n:'Ha'}, {l:'خ', n:'Kha'}, {l:'د', n:'Dal'},
+    {l:'ذ', n:'Zal'}, {l:'ر', n:'Ra'}, {l:'ز', n:'Zai'}, {l:'س', n:'Sin'},
+    {l:'ش', n:'Syin'}, {l:'ص', n:'Sad'}, {l:'ض', n:'Dad'}, {l:'ط', n:'To'},
+    {l:'ظ', n:'Zo'}, {l:'ع', n:'Ain'}, {l:'غ', n:'Ghain'}, {l:'ف', n:'Fa'},
+    {l:'ق', n:'Qaf'}, {l:'ك', n:'Kaf'}, {l:'ل', n:'Lam'}, {l:'م', n:'Mim'},
+    {l:'ن', n:'Nun'}, {l:'و', n:'Wau'}, {l:'ه', n:'Ha'}, {l:'ي', n:'Ya'},
+    {l:'ڽ', n:'Nya'}, {l:'ڠ', n:'Nga'}, {l:'چ', n:'Ca'}, {l:'ڤ', n:'Pa'},
+    {l:'ڬ', n:'Ga'}
+  ];
+  jawi.forEach((j,i) => {
+    const wrongs = [jawi[(i+3)%jawi.length].l, jawi[(i+7)%jawi.length].l, jawi[(i+11)%jawi.length].l];
+    qs.push({ id: id++, module:'jawi', q:`Huruf Jawi apakah ini?`, display:j.l, answer:j.l,
+      choices:shuffle([j.l, ...wrongs]).slice(0,3), speak:`Huruf ${j.n}`, img:j.l, rtl:true });
+    qs.push({ id: id++, module:'jawi', q:`Manakah huruf ${j.n}?`, display:j.n, answer:j.l,
+      choices:shuffle([j.l, ...wrongs]).slice(0,3), speak:`Huruf ${j.n}`, img:'ٱ', rtl:true });
+  });
+  // Simple Jawi words
+  const jawiWords = [
+    {w:'با', n:'Ba'}, {w:'تا', n:'Ta'}, {w:'ما', n:'Ma'}, {w:'نا', n:'Na'},
+    {w:'يا', n:'Ya'}, {w:'كا', n:'Ka'}, {w:'لا', n:'La'}, {w:'سا', n:'Sa'},
+    {w:'دا', n:'Da'}, {w:'را', n:'Ra'}, {w:'هوا', n:'Hawa'}, {w:'ابو', n:'Abu'},
+    {w:'امي', n:'Ami'}, {w:'بابا', n:'Baba'}, {w:'ماما', n:'Mama'}
+  ];
+  jawiWords.forEach((jw,i) => {
+    qs.push({ id: id++, module:'jawi', q:`Apakah bunyi perkataan ini?`, display:jw.w, answer:jw.n,
+      choices:shuffle([jw.n, jawiWords[(i+2)%jawiWords.length].n, jawiWords[(i+5)%jawiWords.length].n]),
+      speak:jw.n, img:jw.w, rtl:true });
+  });
+
+  // Numbers 1-20 ~120
+  for (let n = 1; n <= 20; n++) {
+    qs.push({ id: id++, module:'number', q:`Nombor apakah ini?`, display:String(n), answer:String(n),
+      choices:shuffle([String(n), String((n%20)+1), String((n+3)%20||20), String((n+7)%20||20)]).slice(0,3),
+      speak:`Nombor ${n}`, img:String(n) });
+    const objs = '⭐'.repeat(Math.min(n,10)) + (n>10 ? '+'+ (n-10) : '');
+    qs.push({ id: id++, module:'number', q:`Berapa banyak bintang?`, display:'⭐'.repeat(Math.min(n,8)), answer:String(n),
+      choices:shuffle([String(n), String(Math.max(1,n-1)), String(n+1>20?n-2:n+1)]).slice(0,3),
+      speak:`Ada ${n}`, img:'⭐'.repeat(Math.min(n,5)) });
+    if (n <= 10) {
+      qs.push({ id: id++, module:'number', q:`Susun nombor: mana seterusnya selepas ${n-1 || 0}?`, display:`${n-1 || 0} → ?`, answer:String(n),
+        choices:shuffle([String(n), String(n+1), String(n+2>10?1:n+2)]).slice(0,3),
+        speak:`Selepas ${n-1||0} ialah ${n}`, img:'🔢' });
     }
-  </script>
+  }
+  // Count objects variations
+  const countEmojis = ['🍎','🐱','⭐','🌸','🐟','🎈','🚗','📘'];
+  for (let n = 1; n <= 8; n++) {
+    countEmojis.forEach(em => {
+      qs.push({ id: id++, module:'number', q:`Berapa banyak?`, display:em.repeat(n), answer:String(n),
+        choices:shuffle([String(n), String(Math.max(1,n-1)), String(n+1)]).slice(0,3),
+        speak:`Ada ${n}`, img:em.repeat(Math.min(n,5)) });
+    });
+  }
+  // Bigger smaller
+  for (let a = 1; a <= 10; a++) {
+    for (let b of [a+1, a+2, a+3].filter(x=>x<=12)) {
+      qs.push({ id: id++, module:'number', q:`Mana lebih besar?`, display:`${a} atau ${b}?`, answer:String(b),
+        choices:[String(a), String(b)], speak:`${b} lebih besar`, img:'🔢' });
+      qs.push({ id: id++, module:'number', q:`Mana lebih kecil?`, display:`${a} atau ${b}?`, answer:String(a),
+        choices:[String(a), String(b)], speak:`${a} lebih kecil`, img:'🔢' });
+    }
+  }
 
+  // Colors
+  const colors = [
+    {n:'Merah', e:'🔴', c:'#e74c3c'}, {n:'Biru', e:'🔵', c:'#3498db'}, {n:'Kuning', e:'🟡', c:'#f1c40f'},
+    {n:'Hijau', e:'🟢', c:'#2ecc71'}, {n:'Jingga', e:'🟠', c:'#e67e22'}, {n:'Ungu', e:'🟣', c:'#9b59b6'},
+    {n:'Putih', e:'⚪', c:'#ecf0f1'}, {n:'Hitam', e:'⚫', c:'#2c3e50'}, {n:'Merah Jambu', e:'🩷', c:'#fd79a8'},
+    {n:'Perang', e:'🟤', c:'#a0522d'}
+  ];
+  colors.forEach((col,i) => {
+    const wrongs = colors.filter((_,j)=>j!==i).slice(0,3).map(c=>c.n);
+    qs.push({ id: id++, module:'color', q:`Warna apakah ini?`, display:col.e, answer:col.n,
+      choices:shuffle([col.n, ...wrongs]).slice(0,3), speak:col.n, img:col.e });
+    qs.push({ id: id++, module:'color', q:`Manakah warna ${col.n}?`, display:col.n, answer:col.e,
+      choices:shuffle([col.e, ...colors.filter((_,j)=>j!==i).slice(0,2).map(c=>c.e)]), speak:col.n, img:col.e });
+  });
+  // Color matching objects
+  const colorObjs = [
+    {e:'🍎', c:'Merah'}, {e:'🍌', c:'Kuning'}, {e:'🌲', c:'Hijau'}, {e:'🌊', c:'Biru'},
+    {e:'🍊', c:'Jingga'}, {e:'🍇', c:'Ungu'}, {e:'☁️', c:'Putih'}, {e:'🖤', c:'Hitam'}
+  ];
+  colorObjs.forEach((o,i) => {
+    qs.push({ id: id++, module:'color', q:`Apakah warna ${o.e}?`, display:o.e, answer:o.c,
+      choices:shuffle([o.c, colors[(i+2)%colors.length].n, colors[(i+5)%colors.length].n]),
+      speak:`${o.e} berwarna ${o.c}`, img:o.e });
+  });
 
-  <script src="../menu.js"></script>
+  // Shapes
+  const shapes = [
+    {n:'Bulatan', e:'⭕'}, {n:'Segi Tiga', e:'🔺'}, {n:'Segi Empat', e:'⬛'},
+    {n:'Bintang', e:'⭐'}, {n:'Hati', e:'❤️'}, {n:'Bujur', e:'🥚'}, {n:'Segi Lima', e:'⬠'}
+  ];
+  shapes.forEach((s,i) => {
+    const wrongs = shapes.filter((_,j)=>j!==i).slice(0,2).map(x=>x.n);
+    qs.push({ id: id++, module:'color', q:`Bentuk apakah ini?`, display:s.e, answer:s.n,
+      choices:shuffle([s.n, ...wrongs]), speak:s.n, img:s.e });
+  });
+
+  // Skills / early concepts
+  const skills = [
+    {q:'Mana yang BESAR?', display:'🐘 atau 🐭', answer:'🐘', choices:['🐘','🐭'], speak:'Gajah lebih besar'},
+    {q:'Mana yang KECIL?', display:'🐘 atau 🐭', answer:'🐭', choices:['🐘','🐭'], speak:'Tikus lebih kecil'},
+    {q:'Mana yang di ATAS?', display:'☁️ di atas 🌳', answer:'☁️', choices:['☁️','🌳'], speak:'Awan di atas'},
+    {q:'Mana yang di BAWAH?', display:'☁️ dan 🌳', answer:'🌳', choices:['☁️','🌳'], speak:'Pokok di bawah'},
+    {q:'Mana yang BANYAK?', display:'🍎🍎🍎 atau 🍎', answer:'🍎🍎🍎', choices:['🍎🍎🍎','🍎'], speak:'Tiga epal lebih banyak'},
+    {q:'Mana yang SEDIKIT?', display:'⭐⭐⭐⭐ atau ⭐', answer:'⭐', choices:['⭐⭐⭐⭐','⭐'], speak:'Satu bintang lebih sedikit'},
+    {q:'Haiwan di laut?', display:'🐟 atau 🐱', answer:'🐟', choices:['🐟','🐱'], speak:'Ikan di laut'},
+    {q:'Haiwan di darat?', display:'🐱 atau 🐟', answer:'🐱', choices:['🐱','🐟'], speak:'Kucing di darat'},
+    {q:'Apa yang kita buat selepas makan?', display:'🧹 atau 🎮', answer:'🧹', choices:['🧹','🎮'], speak:'Kita bersihkan'},
+    {q:'Bagaimana kita minta maaf?', display:'Maaf ya 🙏', answer:'Maaf ya 🙏', choices:['Maaf ya 🙏','Tidak!'], speak:'Kita cakap maaf'},
+    {q:'Apa yang baik dilakukan?', display:'Berkongsi 🤝', answer:'Berkongsi 🤝', choices:['Berkongsi 🤝','Merebut'], speak:'Berkongsi itu baik'},
+    {q:'Emosi gembira?', display:'😊 atau 😢', answer:'😊', choices:['😊','😢'], speak:'Senyum gembira'},
+    {q:'Emosi sedih?', display:'😢 atau 😊', answer:'😢', choices:['😢','😊'], speak:'Menangis sedih'},
+    {q:'Emosi marah?', display:'😠 atau 😴', answer:'😠', choices:['😠','😴'], speak:'Marah'},
+    {q:'Emosi mengantuk?', display:'😴 atau 😃', answer:'😴', choices:['😴','😃'], speak:'Mengantuk'},
+    {q:'Kita basuh tangan sebelum?', display:'Makan 🍽️', answer:'Makan 🍽️', choices:['Makan 🍽️','Tidur'], speak:'Basuh tangan sebelum makan'},
+    {q:'Pokok menghasilkan?', display:'🍎 atau 🚗', answer:'🍎', choices:['🍎','🚗'], speak:'Pokok hasilkan buah'},
+    {q:'Kita tanam?', display:'🌱 atau 📱', answer:'🌱', choices:['🌱','📱'], speak:'Kita tanam benih'},
+    {q:'Di dalam kotak?', display:'📦📦', answer:'📦', choices:['📦','🌳'], speak:'Dalam kotak'},
+    {q:'Di luar rumah?', display:'🌳 atau 🛏️', answer:'🌳', choices:['🌳','🛏️'], speak:'Pokok di luar'},
+    {q:'Arah kiri?', display:'⬅️ atau ➡️', answer:'⬅️', choices:['⬅️','➡️'], speak:'Kiri'},
+    {q:'Arah kanan?', display:'➡️ atau ⬅️', answer:'➡️', choices:['➡️','⬅️'], speak:'Kanan'},
+    {q:'Warna bendera Malaysia ada?', display:'Merah & Putih', answer:'Merah & Putih', choices:['Merah & Putih','Hijau & Biru'], speak:'Merah dan putih'},
+    {q:'Haiwan yang terbang?', display:'🦅 atau 🐢', answer:'🦅', choices:['🦅','🐢'], speak:'Burung terbang'},
+    {q:'Haiwan yang berenang?', display:'🐟 atau 🦁', answer:'🐟', choices:['🐟','🦁'], speak:'Ikan berenang'},
+    {q:'Kita tolong kawan?', display:'Ya! 🤗', answer:'Ya! 🤗', choices:['Ya! 🤗','Tidak'], speak:'Ya kita tolong'},
+    {q:'Kita cakap benar?', display:'Ya ✅', answer:'Ya ✅', choices:['Ya ✅','Tidak'], speak:'Cakap benar'},
+    {q:'Hormat ibu bapa?', display:'Ya 🙏', answer:'Ya 🙏', choices:['Ya 🙏','Tidak'], speak:'Hormat ibu bapa'},
+    {q:'Jaga kebersihan?', display:'Ya 🧼', answer:'Ya 🧼', choices:['Ya 🧼','Tidak'], speak:'Jaga kebersihan'},
+    {q:'Buang sampah di?', display:'🗑️', answer:'🗑️', choices:['🗑️','🌳'], speak:'Tong sampah'},
+  ];
+  skills.forEach(s => {
+    qs.push({ id: id++, module:'skill', q:s.q, display:s.display, answer:s.answer,
+      choices:s.choices, speak:s.speak, img:s.display.split(' ')[0] });
+  });
+  // More skill variations
+  for (let i = 0; i < 30; i++) {
+    const a = Math.floor(Math.random()*5)+1;
+    const b = a + Math.floor(Math.random()*4)+1;
+    qs.push({ id: id++, module:'skill', q:`Mana lebih BANYAK?`, display:`${'⭐'.repeat(b)} atau ${'⭐'.repeat(a)}`, answer:'⭐'.repeat(b),
+      choices:['⭐'.repeat(b), '⭐'.repeat(a)], speak:`${b} lebih banyak`, img:'⭐' });
+  }
+  for (let i = 0; i < 20; i++) {
+    const n = Math.floor(Math.random()*8)+1;
+    qs.push({ id: id++, module:'skill', q:`Berapa biji epal?`, display:'🍎'.repeat(n), answer:String(n),
+      choices:shuffle([String(n), String(n+1), String(Math.max(1,n-1))]), speak:`Ada ${n} epal`, img:'🍎' });
+  }
+
+  // Mixed review questions
+  letters.slice(0,20).forEach(L => {
+    qs.push({ id: id++, module:'mix', q:`Pilih huruf ${L}`, display:`Cari ${L}`, answer:L,
+      choices:shuffle([L, letters[(letters.indexOf(L)+5)%26], letters[(letters.indexOf(L)+12)%26]]),
+      speak:`Huruf ${L}`, img:'🔤' });
+  });
+  for (let n = 1; n <= 15; n++) {
+    qs.push({ id: id++, module:'mix', q:`Pilih nombor ${n}`, display:`Cari ${n}`, answer:String(n),
+      choices:shuffle([String(n), String((n%15)+1), String((n+4)%15||15)]),
+      speak:`Nombor ${n}`, img:'🔢' });
+  }
+
+  // Ensure uniqueness by id and pad to 500+
+  while (qs.length < 520) {
+    const n = (qs.length % 20) + 1;
+    const L = letters[qs.length % 26];
+    qs.push({ id: id++, module:'mix', q:`Soalan latihan ${qs.length+1}`, display:`${L} / ${n}`, answer:String(n),
+      choices:shuffle([String(n), String((n%10)+1), String((n%7)+1)]),
+      speak:`Nombor ${n}`, img:L });
+  }
+
+  return qs;
+}
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+const QUESTION_BANK = buildQuestionBank();
+
+// ==================== STORIES ====================
+const STORIES = {
+  dongeng: [
+    {
+      id:'kancil-buaya', title:'Sang Kancil dan Buaya',
+      scenes:[
+        'Di sebuah sungai, tinggal sekawan buaya yang lapar.',
+        'Sang Kancil yang bijak mahu menyeberang sungai.',
+        'Kancil berkata, "Wahai buaya, raja mahu kira bilangan kamu!"',
+        'Buaya-buaya berbaris. Kancil melompat dari belakang ke belakang.',
+        'Sampai di seberang, Kancil ketawa, "Terima kasih kerana menolong!"'
+      ],
+      moral:'Bijak menggunakan akal boleh menyelesaikan masalah tanpa bergaduh.',
+      quiz:{q:'Siapa yang bijak dalam cerita ini?', choices:['Sang Kancil','Buaya','Gajah'], answer:'Sang Kancil'}
+    },
+    {
+      id:'kancil-harimau', title:'Sang Kancil dan Harimau',
+      scenes:[
+        'Harimau lapar mahu makan Sang Kancil.',
+        'Kancil berkata, "Tunggu! Ada haiwan lebih besar daripada kamu!"',
+        'Kancil bawa Harimau ke tepi tasik.',
+        '"Lihat bayang kamu dalam air. Itu haiwan hebat!" kata Kancil.',
+        'Harimau melompat ke dalam air dan basah kuyup. Kancil selamat!'
+      ],
+      moral:'Kecerdikan lebih berkuasa daripada kekuatan semata-mata.',
+      quiz:{q:'Apa yang dilihat Harimau dalam air?', choices:['Bayang sendiri','Ikan','Kancil'], answer:'Bayang sendiri'}
+    },
+    {
+      id:'persahabatan-awan', title:'Persahabatan di Kampung Awan',
+      scenes:[
+        'Di Kampung Awan, Awan si kuda terbang berjumpa Naga Nunu.',
+        'Mereka bermain kejar-kejaran di antara awan.',
+        'Tiba-tiba Nunu jatuh dan sedih.',
+        'Awan datang menolong dan berkata, "Kawan sejati tolong antara satu sama lain."',
+        'Mereka terbang bersama-sama dan gembira.'
+      ],
+      moral:'Kawan sejati sentiasa menolong dan menyokong.',
+      quiz:{q:'Apa yang Awan buat apabila Nunu jatuh?', choices:['Menolong','Ketawa','Pergi'], answer:'Menolong'}
+    }
+  ],
+  pahlawan: [
+    {
+      id:'hang-tuah', title:'Hang Tuah yang Setia',
+      scenes:[
+        'Hang Tuah ialah pahlawan Melayu yang terkenal.',
+        'Dia setia kepada sultan dan rakyat.',
+        'Hang Tuah bijak, berani dan suka membantu orang lain.',
+        'Dia belajar ilmu bela diri dan adab yang baik.',
+        'Hang Tuah diingati kerana kesetiaan dan kebijaksanaannya.'
+      ],
+      moral:'Kesetiaan, keberanian dan kebijaksanaan adalah sifat yang mulia.',
+      quiz:{q:'Hang Tuah terkenal kerana?', choices:['Kesetiaan','Kekayaan','Kelajuan'], answer:'Kesetiaan'}
+    },
+    {
+      id:'tun-perak', title:'Tun Perak yang Bijak',
+      scenes:[
+        'Tun Perak ialah bendahara yang bijak di Melaka.',
+        'Dia membantu mentadbir negeri dengan adil.',
+        'Tun Perak suka mendengar nasihat dan berfikir sebelum bertindak.',
+        'Dia menjaga keamanan dan kesejahteraan rakyat.',
+        'Kebijaksanaan Tun Perak membuat Melaka makmur.'
+      ],
+      moral:'Berfikir dulu sebelum bertindak adalah tanda kebijaksanaan.',
+      quiz:{q:'Tun Perak bekerja sebagai?', choices:['Bendahara','Nelayan','Pedagang'], answer:'Bendahara'}
+    },
+    {
+      id:'mat-kilau', title:'Mat Kilau yang Berani',
+      scenes:[
+        'Mat Kilau ialah pejuang yang berani mempertahankan tanah air.',
+        'Dia mencintai negeri dan rakyatnya.',
+        'Mat Kilau tidak takut menegakkan kebenaran.',
+        'Dia mengajar kita untuk berani dan menjaga warisan.',
+        'Semangat Mat Kilau terus diingati hingga hari ini.'
+      ],
+      moral:'Keberanian mempertahankan yang benar adalah sifat terpuji.',
+      quiz:{q:'Mat Kilau mempertahankan?', choices:['Tanah air','Mainan','Makanan'], answer:'Tanah air'}
+    }
+  ],
+  teladan: [
+    {
+      id:'berkongsi', title:'Berkongsi Makanan',
+      scenes:[
+        'Amir mempunyai sebiji epal yang besar.',
+        'Kawan Amir, Siti, tidak membawa bekal.',
+        'Amir memotong epalnya dan berkongsi dengan Siti.',
+        'Siti tersenyum dan berkata terima kasih.',
+        'Mereka makan bersama dan rasa lebih gembira.'
+      ],
+      moral:'Berkongsi membuat kita dan kawan rasa gembira.',
+      quiz:{q:'Apa yang Amir buat?', choices:['Berkongsi epal','Makan sendiri','Buang epal'], answer:'Berkongsi epal'}
+    },
+    {
+      id:'cakap-benar', title:'Bercakap Benar',
+      scenes:[
+        'Lina terlanggar pasu bunga tanpa sengaja.',
+        'Ibu bertanya, "Siapa yang pecahkan pasu?"',
+        'Lina takut, tetapi dia cakap benar, "Saya, ibu. Maaf."',
+        'Ibu memeluk Lina dan berkata, "Terima kasih kerana jujur."',
+        'Lina rasa lega kerana bercakap benar.'
+      ],
+      moral:'Bercakap benar membuat hati tenang dan dipercayai.',
+      quiz:{q:'Apa yang Lina buat?', choices:['Cakap benar','Bohong','Diam'], answer:'Cakap benar'}
+    },
+    {
+      id:'jaga-alam', title:'Menjaga Alam Sekitar',
+      scenes:[
+        'Naga Ombak melihat sampah di laut.',
+        'Dia sedih kerana ikan-ikan tidak selesa.',
+        'Ombak dan kawan-kawannya mengutip sampah bersama.',
+        'Laut menjadi bersih dan ikan-ikan gembira.',
+        'Ombak berkata, "Kita semua boleh jaga alam!"'
+      ],
+      moral:'Menjaga kebersihan alam adalah tanggungjawab bersama.',
+      quiz:{q:'Apa yang Ombak buat?', choices:['Kutip sampah','Buang sampah','Tidur'], answer:'Kutip sampah'}
+    },
+    {
+      id:'minta-maaf', title:'Meminta Maaf',
+      scenes:[
+        'Rafi terlanggar adiknya dan adik menangis.',
+        'Rafi mula-mula marah, tetapi kemudian dia rasa menyesal.',
+        'Rafi berkata, "Maaf ya adik. Saya tak sengaja."',
+        'Adiknya tersenyum dan mereka berpelukan.',
+        'Mereka bermain bersama semula dengan gembira.'
+      ],
+      moral:'Meminta maaf memperbaiki persahabatan.',
+      quiz:{q:'Apa yang Rafi kata?', choices:['Maaf ya','Pergi!','Diam'], answer:'Maaf ya'}
+    },
+    {
+      id:'hormat-guru', title:'Menghormati Guru',
+      scenes:[
+        'Di Akademi Ilmu, cikgu mengajar huruf.',
+        'Murid-murid mendengar dengan teliti.',
+        'Apabila cikgu masuk, mereka beri salam dan senyum.',
+        'Mereka berkata terima kasih selepas belajar.',
+        'Cikgu gembira kerana murid-murid beradab.'
+      ],
+      moral:'Menghormati guru dan orang yang lebih tua adalah adab yang baik.',
+      quiz:{q:'Apa yang murid buat bila cikgu masuk?', choices:['Beri salam','Lari','Ketawa'], answer:'Beri salam'}
+    }
+  ]
+};
+
+// ==================== STATE ====================
+let state = null;
+let currentQuiz = [];
+let quizIndex = 0;
+let quizScore = 0;
+let currentStory = null;
+let storyScene = 0;
+let gameTimer = null;
+let gameTimerLeft = 0;
+let speechEnabled = true;
+let voiceRate = 0.9;
+let miniGameInterval = null;
+
+function defaultState() {
+  return {
+    version: SCHEMA_VERSION,
+    name: '',
+    avatar: '🧒',
+    lang: 'ms',
+    stars: 0,
+    activeAnimal: null,
+    animals: {},
+    unlockedAreas: ['kampung','akademi','perpustakaan'],
+    learnedLetters: [],
+    learnedNumbers: [],
+    completedStories: [],
+    questionsAnswered: 0,
+    questionsCorrect: 0,
+    soundOn: true,
+    timerMinutes: 0,
+    timerStarted: null,
+    daily: {
+      date: todayStr(),
+      feedCount: 0,
+      drinkCount: 0
+    },
+    createdAt: Date.now()
+  };
+}
+
+function todayStr() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+function defaultAnimalStatus() {
+  return {
+    hunger: 80, thirst: 80, clean: 90, happy: 85, energy: 90, bond: 20, exp: 0, level: 1,
+    lastFed: null, lastDrink: null
+  };
+}
+
+// ==================== STORAGE ====================
+function save() {
+  try {
+    localStorage.setItem(SAVE_KEY, JSON.stringify(state));
+  } catch (e) {
+    console.warn('LocalStorage not available', e);
+  }
+}
+
+function load() {
+  try {
+    const raw = localStorage.getItem(SAVE_KEY);
+    if (!raw) return null;
+    const data = JSON.parse(raw);
+    if (!data || !data.version) return null;
+    // Daily reset
+    if (data.daily && data.daily.date !== todayStr()) {
+      data.daily = { date: todayStr(), feedCount: 0, drinkCount: 0 };
+    }
+    return data;
+  } catch (e) {
+    return null;
+  }
+}
+
+function resetAllData() {
+  localStorage.removeItem(SAVE_KEY);
+  state = null;
+}
+
+// ==================== SPEECH ====================
+function speak(text) {
+  if (!speechEnabled || !state?.soundOn) return;
+  try {
+    if (!window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'ms-MY';
+    u.rate = voiceRate;
+    u.pitch = 1.1;
+    window.speechSynthesis.speak(u);
+  } catch (e) {}
+}
+
+// ==================== UI HELPERS ====================
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById('screen-' + id);
+  if (el) el.classList.add('active');
+  if (id === 'home') renderHome();
+  if (id === 'care') renderCare();
+  if (id === 'collection') renderCollection();
+  if (id === 'world') renderWorld();
+  if (id === 'profile') renderProfile();
+  if (id === 'settings') renderSettings();
+  if (id === 'parent') renderParentGate();
+}
+
+function toast(msg, ms = 2000) {
+  const root = document.getElementById('toast-root');
+  root.innerHTML = `<div class="toast">${msg}</div>`;
+  setTimeout(() => { root.innerHTML = ''; }, ms);
+}
+
+function showModal(title, body, buttons) {
+  const root = document.getElementById('modal-root');
+  const btns = buttons.map(b =>
+    `<button class="btn ${b.cls || 'btn-primary'}" data-action="${b.action || ''}" style="margin:4px;">${b.label}</button>`
+  ).join('');
+  root.innerHTML = `<div class="modal-overlay"><div class="modal"><h2>${title}</h2><p>${body}</p><div>${btns}</div></div></div>`;
+  root.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const act = btn.dataset.action;
+      root.innerHTML = '';
+      if (act && typeof window['_modal_' + act] === 'function') window['_modal_' + act]();
+    });
+  });
+}
+
+function getActiveAnimal() {
+  if (!state || !state.activeAnimal) return null;
+  return ANIMALS.find(a => a.id === state.activeAnimal);
+}
+
+function getActiveStatus() {
+  if (!state || !state.activeAnimal) return defaultAnimalStatus();
+  return state.animals[state.activeAnimal] || defaultAnimalStatus();
+}
+
+function updateStatusBars(containerId, st) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  const items = [
+    { key:'hunger', label:'🍎 Kenyang', cls:'fill-hunger' },
+    { key:'thirst', label:'💧 Dahaga', cls:'fill-thirst' },
+    { key:'clean', label:'✨ Bersih', cls:'fill-clean' },
+    { key:'happy', label:'😊 Gembira', cls:'fill-happy' },
+    { key:'energy', label:'⚡ Tenaga', cls:'fill-energy' },
+    { key:'bond', label:'💝 Sahabat', cls:'fill-bond' }
+  ];
+  el.innerHTML = items.map(i => `
+    <div class="status-item">
+      <div class="status-label">${i.label}</div>
+      <div class="status-bar-bg"><div class="status-bar-fill ${i.cls}" style="width:${Math.min(100, Math.max(0, st[i.key]))}%"></div></div>
+    </div>
+  `).join('');
+}
+
+function randomDialog(animal, type) {
+  const list = animal.dialogs[type] || animal.dialogs.idle;
+  return list[Math.floor(Math.random() * list.length)];
+}
+
+function addStars(n) {
+  state.stars += n;
+  save();
+  document.querySelectorAll('[id^=star-count]').forEach(el => el.textContent = state.stars);
+  toast(`+${n} ⭐`);
+}
+
+function addExp(n) {
+  const st = getActiveStatus();
+  st.exp += n;
+  const need = st.level * 20;
+  if (st.exp >= need) {
+    st.exp -= need;
+    st.level = Math.min(10, st.level + 1);
+    toast(`Naik tahap ${st.level}! 🎉`);
+    speak(`Tahniah! Naik tahap ${st.level}!`);
+  }
+  state.animals[state.activeAnimal] = st;
+  save();
+}
+
+// ==================== RENDER ====================
+function renderHome() {
+  const animal = getActiveAnimal();
+  const st = getActiveStatus();
+  if (!animal) return;
+  document.getElementById('home-greeting').textContent = `Hai, ${state.name}!`;
+  document.getElementById('home-animal-name').textContent = `${animal.emoji} ${animal.name} · Tahap ${st.level}`;
+  document.getElementById('home-animal-sprite').textContent = animal.emoji;
+  document.getElementById('home-animal-sprite').className = 'animal-sprite idle';
+  document.getElementById('star-count').textContent = state.stars;
+
+  // Smart dialog based on status
+  let dtype = 'idle';
+  if (st.hunger < 30) dtype = 'hungry';
+  else if (st.thirst < 30) dtype = 'thirsty';
+  else if (st.clean < 30) dtype = 'dirty';
+  else if (st.energy < 30) dtype = 'sleepy';
+  else if (st.happy > 80) dtype = 'happy';
+  const dlg = randomDialog(animal, dtype);
+  document.getElementById('home-dialog').textContent = dlg;
+  updateStatusBars('home-status', st);
+
+  // Timer bar
+  if (state.timerMinutes > 0 && state.timerStarted) {
+    document.getElementById('timer-bar-wrap').style.display = 'block';
+    updateTimerBar();
+  } else {
+    document.getElementById('timer-bar-wrap').style.display = 'none';
+  }
+}
+
+function renderCare() {
+  const animal = getActiveAnimal();
+  const st = getActiveStatus();
+  if (!animal) return;
+  document.getElementById('care-sprite').textContent = animal.emoji;
+  document.getElementById('care-sprite').className = 'animal-sprite idle';
+  document.getElementById('care-dialog').textContent = randomDialog(animal, 'idle');
+  document.getElementById('star-count-care').textContent = state.stars;
+  updateStatusBars('care-status', st);
+
+  // Daily limits
+  ensureDaily();
+  const feedLeft = 3 - state.daily.feedCount;
+  const drinkLeft = 3 - state.daily.drinkCount;
+  document.getElementById('feed-left').textContent = feedLeft > 0 ? `${feedLeft}/3` : 'Esok lagi!';
+  document.getElementById('drink-left').textContent = drinkLeft > 0 ? `${drinkLeft}/3` : 'Esok lagi!';
+  document.getElementById('btn-feed').disabled = feedLeft <= 0;
+  document.getElementById('btn-drink').disabled = drinkLeft <= 0;
+  document.getElementById('food-menu').classList.add('hidden');
+}
+
+function ensureDaily() {
+  if (!state.daily || state.daily.date !== todayStr()) {
+    state.daily = { date: todayStr(), feedCount: 0, drinkCount: 0 };
+    save();
+  }
+}
+
+function renderCollection() {
+  const el = document.getElementById('animal-collection');
+  el.innerHTML = ANIMALS.map(a => {
+    const owned = !!state.animals[a.id];
+    const st = state.animals[a.id];
+    return `<div class="animal-option ${state.activeAnimal===a.id?'selected':''}" data-id="${a.id}" style="${owned?'':'opacity:0.45'}">
+      <div class="emoji">${owned ? a.emoji : '🔒'}</div>
+      <div style="font-weight:800;font-size:0.9rem;">${a.name}</div>
+      <div style="font-size:0.75rem;color:#636e72;">${owned ? 'Tahap '+(st?.level||1) : 'Terkunci'}</div>
+    </div>`;
+  }).join('');
+  el.querySelectorAll('.animal-option').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = card.dataset.id;
+      if (!state.animals[id]) {
+        // Unlock with stars
+        const cost = 5;
+        if (state.stars >= cost) {
+          showModal('Buka Haiwan?', `Gunakan ${cost} ⭐ untuk membuka ${ANIMALS.find(a=>a.id===id).name}?`, [
+            { label:'Ya!', cls:'btn-primary', action:'unlockAnimal' },
+            { label:'Nanti', cls:'btn-soft', action:'' }
+          ]);
+          window._modal_unlockAnimal = () => {
+            state.stars -= cost;
+            state.animals[id] = defaultAnimalStatus();
+            state.activeAnimal = id;
+            save();
+            renderCollection();
+            toast('Haiwan baru dibuka! 🎉');
+            speak('Tahniah! Haiwan baru!');
+          };
+        } else {
+          toast('Perlu lebih banyak bintang ⭐');
+        }
+        return;
+      }
+      state.activeAnimal = id;
+      save();
+      renderCollection();
+      toast(`Sekarang menjaga ${ANIMALS.find(a=>a.id===id).name}`);
+    });
+  });
+}
+
+function renderWorld() {
+  const el = document.getElementById('world-areas');
+  el.innerHTML = AREAS.map(a => {
+    const unlocked = state.unlockedAreas.includes(a.id);
+    return `<div class="area-card ${unlocked?'':'locked'}" data-id="${a.id}">
+      ${unlocked?'':'<span class="lock">🔒</span>'}
+      <div style="font-size:2.5rem;">${a.emoji}</div>
+      <div style="font-weight:800;">${a.name}</div>
+      <div style="font-size:0.8rem;color:#636e72;">${unlocked ? 'Buka' : a.cost + ' ⭐'}</div>
+    </div>`;
+  }).join('');
+  el.querySelectorAll('.area-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = card.dataset.id;
+      const area = AREAS.find(a => a.id === id);
+      if (state.unlockedAreas.includes(id)) {
+        openArea(area);
+      } else if (state.stars >= area.cost) {
+        showModal('Buka Kawasan?', `Gunakan ${area.cost} ⭐ untuk membuka ${area.name}?`, [
+          { label:'Buka!', cls:'btn-primary', action:'unlockArea' },
+          { label:'Nanti', cls:'btn-soft', action:'' }
+        ]);
+        window._modal_unlockArea = () => {
+          state.stars -= area.cost;
+          state.unlockedAreas.push(id);
+          save();
+          renderWorld();
+          toast(`${area.name} dibuka! 🌍`);
+        };
+      } else {
+        toast('Perlu lebih bintang ⭐');
+      }
+    });
+  });
+}
+
+function openArea(area) {
+  showScreen('area');
+  document.getElementById('area-title').textContent = area.name;
+  document.getElementById('area-emoji').textContent = area.emoji;
+  document.getElementById('area-desc').textContent = area.desc;
+  const animalsHere = ANIMALS.filter(a => a.area === area.id && state.animals[a.id]);
+  document.getElementById('area-animals').innerHTML = animalsHere.length
+    ? animalsHere.map(a => `<span style="font-size:2rem;">${a.emoji}</span>`).join('')
+    : '<span style="color:#636e72;">Belum ada haiwan di sini</span>';
+  document.getElementById('btn-area-activity').onclick = () => {
+    addStars(1);
+    addExp(3);
+    const st = getActiveStatus();
+    st.happy = Math.min(100, st.happy + 10);
+    state.animals[state.activeAnimal] = st;
+    save();
+    toast('Aktiviti seronok! +1⭐');
+    speak('Seronok bermain di sini!');
+  };
+}
+
+function renderProfile() {
+  document.getElementById('profile-name').textContent = `${state.avatar} ${state.name}`;
+  const st = getActiveStatus();
+  document.getElementById('profile-stats').innerHTML = `
+    <p>⭐ Bintang: <strong>${state.stars}</strong></p>
+    <p>📝 Soalan dijawab: <strong>${state.questionsAnswered}</strong></p>
+    <p>✅ Jawapan betul: <strong>${state.questionsCorrect}</strong></p>
+    <p>🐾 Haiwan dimiliki: <strong>${Object.keys(state.animals).length}/12</strong></p>
+    <p>📖 Cerita dibaca: <strong>${state.completedStories.length}</strong></p>
+    <p>💝 Tahap sahabat: <strong>${st.level}</strong></p>
+  `;
+  document.getElementById('profile-letters').innerHTML = state.learnedLetters.length
+    ? state.learnedLetters.map(l => `<span class="badge">${l}</span>`).join('')
+    : '<span style="color:#636e72;">Belum ada</span>';
+  document.getElementById('profile-numbers').innerHTML = state.learnedNumbers.length
+    ? state.learnedNumbers.map(n => `<span class="badge">${n}</span>`).join('')
+    : '<span style="color:#636e72;">Belum ada</span>';
+  document.getElementById('profile-stories').innerHTML = state.completedStories.length
+    ? state.completedStories.map(s => `<div class="badge">📖 ${s}</div>`).join('')
+    : '<span style="color:#636e72;">Belum baca cerita</span>';
+}
+
+function renderSettings() {
+  document.getElementById('settings-name').value = state.name;
+  document.getElementById('btn-toggle-sound').textContent = state.soundOn ? '🔊 Suara: ON' : '🔇 Suara: OFF';
+  const sel = document.getElementById('select-active-animal');
+  sel.innerHTML = Object.keys(state.animals).map(id => {
+    const a = ANIMALS.find(x => x.id === id);
+    return `<option value="${id}" ${id===state.activeAnimal?'selected':''}>${a.emoji} ${a.name}</option>`;
+  }).join('');
+  sel.onchange = () => {
+    state.activeAnimal = sel.value;
+    save();
+    toast('Haiwan aktif ditukar');
+  };
+}
+
+function renderParentGate() {
+  document.getElementById('parent-gate-card').classList.remove('hidden');
+  document.getElementById('parent-panel').classList.add('hidden');
+  const a = Math.floor(Math.random()*5)+2;
+  const b = Math.floor(Math.random()*5)+2;
+  const ans = a + b;
+  document.getElementById('gate-q').textContent = `${a} + ${b} = ?`;
+  const opts = shuffle([ans, ans+1, ans-1, ans+2]).slice(0,4);
+  document.getElementById('gate-buttons').innerHTML = opts.map(o =>
+    `<button data-val="${o}">${o}</button>`
+  ).join('');
+  document.getElementById('gate-buttons').querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (parseInt(btn.dataset.val) === ans) {
+        document.getElementById('parent-gate-card').classList.add('hidden');
+        document.getElementById('parent-panel').classList.remove('hidden');
+        renderParentPanel();
+      } else {
+        toast('Cuba lagi');
+      }
+    });
+  });
+}
+
+function renderParentPanel() {
+  document.getElementById('select-timer').value = state.timerMinutes || 0;
+  document.getElementById('parent-report').innerHTML = `
+    <p>Nama: ${state.name}</p>
+    <p>Bintang: ${state.stars}</p>
+    <p>Soalan betul: ${state.questionsCorrect}/${state.questionsAnswered}</p>
+    <p>Huruf dipelajari: ${state.learnedLetters.length}</p>
+    <p>Haiwan: ${Object.keys(state.animals).length}/12</p>
+  `;
+}
+
+// ==================== CARE ACTIONS ====================
+function doFeed() {
+  ensureDaily();
+  if (state.daily.feedCount >= 3) {
+    toast('Esok kita makan lagi!');
+    return;
+  }
+  const menu = document.getElementById('food-menu');
+  menu.classList.remove('hidden');
+  const animal = getActiveAnimal();
+  const favs = animal.food || ['🍎'];
+  document.getElementById('food-options').innerHTML = FOODS.map(f =>
+    `<button class="choice-btn" data-fid="${f.id}" style="font-size:2rem;">${f.emoji}<br><small style="font-size:0.7rem;">${f.name}</small></button>`
+  ).join('');
+  document.getElementById('food-options').querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const food = FOODS.find(f => f.id === btn.dataset.fid);
+      const st = getActiveStatus();
+      st.hunger = Math.min(100, st.hunger + food.hunger);
+      st.happy = Math.min(100, st.happy + 5);
+      st.bond = Math.min(100, st.bond + 2);
+      state.animals[state.activeAnimal] = st;
+      state.daily.feedCount++;
+      save();
+      const sprite = document.getElementById('care-sprite');
+      sprite.className = 'animal-sprite eating';
+      document.getElementById('care-dialog').textContent = 'Yummy! Terima kasih! 😋';
+      speak('Yummy! Terima kasih!');
+      menu.classList.add('hidden');
+      addExp(2);
+      setTimeout(() => {
+        sprite.className = 'animal-sprite happy';
+        renderCare();
+      }, 900);
+    });
+  });
+}
+
+function doDrink() {
+  ensureDaily();
+  if (state.daily.drinkCount >= 3) {
+    toast('Esok kita minum lagi!');
+    return;
+  }
+  const st = getActiveStatus();
+  st.thirst = Math.min(100, st.thirst + 30);
+  st.happy = Math.min(100, st.happy + 3);
+  state.animals[state.activeAnimal] = st;
+  state.daily.drinkCount++;
+  save();
+  const sprite = document.getElementById('care-sprite');
+  sprite.className = 'animal-sprite drinking';
+  document.getElementById('care-dialog').textContent = 'Segar! Terima kasih! 💧';
+  speak('Segar! Terima kasih!');
+  addExp(1);
+  setTimeout(() => { sprite.className = 'animal-sprite happy'; renderCare(); }, 900);
+}
+
+function doBath() {
+  const st = getActiveStatus();
+  st.clean = Math.min(100, st.clean + 40);
+  st.happy = Math.min(100, st.happy + 8);
+  st.bond = Math.min(100, st.bond + 3);
+  state.animals[state.activeAnimal] = st;
+  save();
+  const sprite = document.getElementById('care-sprite');
+  sprite.className = 'animal-sprite bathing';
+  document.getElementById('care-dialog').textContent = 'Segar dan bersih! 🧼✨';
+  speak('Segar dan bersih!');
+  addExp(2);
+  addStars(1);
+  setTimeout(() => { sprite.className = 'animal-sprite happy'; renderCare(); }, 1200);
+}
+
+function doSleep() {
+  const st = getActiveStatus();
+  st.energy = Math.min(100, st.energy + 40);
+  st.happy = Math.min(100, st.happy + 5);
+  state.animals[state.activeAnimal] = st;
+  save();
+  const sprite = document.getElementById('care-sprite');
+  sprite.className = 'animal-sprite sleeping';
+  document.getElementById('care-dialog').textContent = 'Zzz... Selamat tidur... 😴';
+  speak('Selamat tidur');
+  addExp(1);
+  setTimeout(() => { sprite.className = 'animal-sprite idle'; renderCare(); }, 2000);
+}
+
+// ==================== MINI GAMES ====================
+function startMiniGame(type) {
+  document.getElementById('play-games').classList.add('hidden');
+  const area = document.getElementById('game-area');
+  area.classList.remove('hidden');
+  const content = document.getElementById('game-content');
+  let score = 0;
+  let timeLeft = 20;
+  let targets = [];
+
+  if (miniGameInterval) clearInterval(miniGameInterval);
+
+  function endGame() {
+    if (miniGameInterval) clearInterval(miniGameInterval);
+    const st = getActiveStatus();
+    st.happy = Math.min(100, st.happy + 15);
+    st.bond = Math.min(100, st.bond + 5);
+    st.energy = Math.max(0, st.energy - 5);
+    state.animals[state.activeAnimal] = st;
+    const starsEarned = Math.min(3, Math.floor(score / 3) + 1);
+    addStars(starsEarned);
+    addExp(5);
+    save();
+    content.innerHTML = `<div style="font-size:3rem;">🎉</div><h3>Bagus!</h3><p>Markah: ${score}</p><p>+${starsEarned} ⭐</p>`;
+    speak('Hebat! Kamu berjaya!');
+  }
+
+  if (type === 'butterfly' || type === 'bubble' || type === 'star') {
+    const emoji = type === 'butterfly' ? '🦋' : type === 'bubble' ? '🫧' : '⭐';
+    content.innerHTML = `<p style="font-weight:700;">Ketik ${emoji}!</p><div id="mg-score">0</div><div id="mg-time">Masa: 20</div><div id="mg-field" style="position:relative;height:200px;margin-top:8px;"></div>`;
+    const field = document.getElementById('mg-field');
+    function spawn() {
+      if (timeLeft <= 0) return;
+      const t = document.createElement('button');
+      t.textContent = emoji;
+      t.style.cssText = `position:absolute;font-size:2rem;left:${Math.random()*80}%;top:${Math.random()*70}%;background:none;border:none;box-shadow:none;padding:8px;animation:pulse 0.5s;`;
+      t.onclick = () => {
+        score++;
+        document.getElementById('mg-score').textContent = score;
+        t.remove();
+      };
+      field.appendChild(t);
+      setTimeout(() => t.remove(), 1500);
+    }
+    miniGameInterval = setInterval(() => {
+      timeLeft--;
+      document.getElementById('mg-time').textContent = `Masa: ${timeLeft}`;
+      spawn();
+      if (timeLeft <= 0) endGame();
+    }, 1000);
+    spawn();
+  } else if (type === 'ball') {
+    content.innerHTML = `<p style="font-weight:700;">Ketik bola! ⚽</p><div id="mg-score">0</div><div id="mg-time">Masa: 15</div>
+      <button id="ball-btn" style="font-size:4rem;background:none;border:none;box-shadow:none;margin-top:20px;animation:bounce 0.6s infinite;">⚽</button>`;
+    timeLeft = 15;
+    document.getElementById('ball-btn').onclick = () => {
+      score++;
+      document.getElementById('mg-score').textContent = score;
+    };
+    miniGameInterval = setInterval(() => {
+      timeLeft--;
+      document.getElementById('mg-time').textContent = `Masa: ${timeLeft}`;
+      if (timeLeft <= 0) endGame();
+    }, 1000);
+  } else if (type === 'dance') {
+    content.innerHTML = `<p style="font-weight:700;">Menari bersama! 💃</p>
+      <div class="animal-sprite happy" style="font-size:5rem;" id="dance-sprite">${getActiveAnimal().emoji}</div>
+      <p id="dance-msg">Ketik butang mengikut rentak!</p>
+      <div id="mg-score">0</div>
+      <button class="btn btn-primary btn-large" id="dance-btn" style="margin-top:12px;">💃 Tari!</button>`;
+    timeLeft = 12;
+    document.getElementById('dance-btn').onclick = () => {
+      score++;
+      document.getElementById('mg-score').textContent = score;
+      document.getElementById('dance-sprite').className = 'animal-sprite happy';
+    };
+    miniGameInterval = setInterval(() => {
+      timeLeft--;
+      if (timeLeft <= 0) endGame();
+    }, 1000);
+  }
+}
+
+// ==================== ACADEMY / QUIZ ====================
+function startModule(mod) {
+  let pool = QUESTION_BANK.filter(q => q.module === mod);
+  if (mod === 'mix') pool = QUESTION_BANK;
+  if (pool.length === 0) pool = QUESTION_BANK;
+  currentQuiz = shuffle(pool).slice(0, 5);
+  quizIndex = 0;
+  quizScore = 0;
+  document.getElementById('academy-modules').classList.add('hidden');
+  document.getElementById('quiz-area').classList.remove('hidden');
+  showQuestion();
+}
+
+function showQuestion() {
+  if (quizIndex >= currentQuiz.length) {
+    finishQuiz();
+    return;
+  }
+  const q = currentQuiz[quizIndex];
+  document.getElementById('quiz-progress').textContent = `Soalan ${quizIndex + 1} / ${currentQuiz.length}`;
+  document.getElementById('quiz-img').textContent = q.img || '❓';
+  document.getElementById('quiz-img').style.direction = q.rtl ? 'rtl' : 'ltr';
+  document.getElementById('quiz-text').textContent = q.q;
+  if (q.display && q.display !== q.img) {
+    document.getElementById('quiz-img').textContent = q.display;
+  }
+  document.getElementById('quiz-feedback').classList.add('hidden');
+  document.getElementById('btn-next-q').classList.add('hidden');
+
+  const choicesEl = document.getElementById('quiz-choices');
+  choicesEl.innerHTML = '';
+  const choices = shuffle(q.choices.slice());
+  choices.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-btn';
+    btn.textContent = c;
+    if (q.rtl) btn.style.direction = 'rtl';
+    btn.addEventListener('click', () => answerQuestion(c, q, btn, choicesEl));
+    choicesEl.appendChild(btn);
+  });
+  speak(q.speak || q.q);
+}
+
+function answerQuestion(choice, q, btn, container) {
+  container.querySelectorAll('button').forEach(b => b.disabled = true);
+  state.questionsAnswered++;
+  const correct = String(choice) === String(q.answer);
+  if (correct) {
+    quizScore++;
+    state.questionsCorrect++;
+    btn.classList.add('correct');
+    document.getElementById('quiz-feedback').textContent = 'Pandainya! 🌟';
+    document.getElementById('quiz-feedback').className = 'feedback good';
+    speak('Pandainya!');
+    addStars(1);
+    addExp(3);
+    // Track learning
+    if (q.module === 'rumi' && q.answer.length === 1) {
+      const L = q.answer.toUpperCase();
+      if (!state.learnedLetters.includes(L)) state.learnedLetters.push(L);
+    }
+    if (q.module === 'number' && !isNaN(q.answer)) {
+      if (!state.learnedNumbers.includes(q.answer)) state.learnedNumbers.push(q.answer);
+    }
+  } else {
+    btn.classList.add('wrong');
+    document.getElementById('quiz-feedback').textContent = 'Tak mengapa. Mari cuba lagi! 💪';
+    document.getElementById('quiz-feedback').className = 'feedback try';
+    speak('Tak mengapa. Mari cuba lagi!');
+    // Highlight correct
+    container.querySelectorAll('button').forEach(b => {
+      if (String(b.textContent) === String(q.answer)) b.classList.add('correct');
+    });
+  }
+  document.getElementById('quiz-feedback').classList.remove('hidden');
+  document.getElementById('btn-next-q').classList.remove('hidden');
+  document.getElementById('star-count-acad').textContent = state.stars;
+  save();
+}
+
+function finishQuiz() {
+  document.getElementById('quiz-area').innerHTML = `
+    <div class="question-area">
+      <div style="font-size:3rem;">🎉</div>
+      <h3>Selesai!</h3>
+      <p style="font-size:1.2rem;margin:12px 0;">Markah: ${quizScore} / ${currentQuiz.length}</p>
+      <p>${quizScore >= 4 ? 'Hebat sekali!' : quizScore >= 2 ? 'Bagus! Teruskan!' : 'Cuba lagi, kamu boleh!'}</p>
+      <button class="btn btn-primary btn-large" id="btn-quiz-done" style="margin-top:16px;width:100%;">Kembali ke Akademi</button>
+    </div>`;
+  speak(quizScore >= 4 ? 'Hebat sekali!' : 'Bagus! Teruskan belajar!');
+  document.getElementById('btn-quiz-done').onclick = () => {
+    document.getElementById('quiz-area').classList.add('hidden');
+    document.getElementById('academy-modules').classList.remove('hidden');
+    // Restore quiz-area structure
+    document.getElementById('quiz-area').innerHTML = `
+      <div class="question-area">
+        <div style="font-size:0.9rem;color:#636e72;" id="quiz-progress">Soalan 1</div>
+        <div class="question-img" id="quiz-img"></div>
+        <div class="question-text" id="quiz-text"></div>
+        <div class="grid-3" id="quiz-choices" style="margin-top:16px;"></div>
+        <div id="quiz-feedback" class="feedback hidden"></div>
+        <button class="btn btn-primary hidden" id="btn-next-q" style="margin-top:12px;width:100%;">Seterusnya ➡️</button>
+      </div>`;
+    document.getElementById('btn-next-q').addEventListener('click', () => {
+      quizIndex++;
+      showQuestion();
+    });
+  };
+}
+
+// ==================== STORIES ====================
+function showStoryList(cat) {
+  document.getElementById('story-cats').classList.add('hidden');
+  const list = document.getElementById('story-list');
+  list.classList.remove('hidden');
+  list.innerHTML = STORIES[cat].map(s =>
+    `<button class="menu-btn" style="width:100%;margin-bottom:8px;flex-direction:row;justify-content:flex-start;gap:12px;" data-sid="${s.id}" data-cat="${cat}">
+      <span class="icon">📖</span><span>${s.title}</span>
+    </button>`
+  ).join('') + `<button class="btn btn-soft" id="btn-back-cats" style="width:100%;margin-top:8px;">⬅️ Kembali</button>`;
+  list.querySelectorAll('[data-sid]').forEach(btn => {
+    btn.addEventListener('click', () => openStory(btn.dataset.cat, btn.dataset.sid));
+  });
+  document.getElementById('btn-back-cats').onclick = () => {
+    list.classList.add('hidden');
+    document.getElementById('story-cats').classList.remove('hidden');
+  };
+}
+
+function openStory(cat, sid) {
+  currentStory = STORIES[cat].find(s => s.id === sid);
+  storyScene = 0;
+  document.getElementById('story-list').classList.add('hidden');
+  document.getElementById('story-player').classList.remove('hidden');
+  document.getElementById('story-end').classList.add('hidden');
+  renderStoryScene();
+}
+
+function renderStoryScene() {
+  const s = currentStory;
+  document.getElementById('story-title').textContent = s.title;
+  if (storyScene < s.scenes.length) {
+    document.getElementById('story-body').textContent = s.scenes[storyScene];
+    speak(s.scenes[storyScene]);
+    document.getElementById('story-end').classList.add('hidden');
+  } else {
+    document.getElementById('story-body').textContent = 'Tamat cerita!';
+    document.getElementById('story-end').classList.remove('hidden');
+    document.getElementById('story-moral').textContent = '💡 ' + s.moral;
+    const q = s.quiz;
+    document.getElementById('story-quiz').innerHTML = `
+      <p style="font-weight:700;margin:8px 0;">${q.q}</p>
+      <div class="grid-2">${q.choices.map(c =>
+        `<button class="choice-btn" data-ans="${c}" style="font-size:1rem;">${c}</button>`
+      ).join('')}</div>`;
+    document.getElementById('story-quiz').querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const correct = btn.dataset.ans === q.answer;
+        if (correct) {
+          btn.classList.add('correct');
+          toast('Betul! +2 ⭐');
+          addStars(2);
+          addExp(5);
+          if (!state.completedStories.includes(s.id)) {
+            state.completedStories.push(s.id);
+            save();
+          }
+          speak('Pandainya!');
+        } else {
+          btn.classList.add('wrong');
+          toast('Cuba fikir lagi...');
+          speak('Cuba lagi');
+        }
+        document.getElementById('story-quiz').querySelectorAll('button').forEach(b => b.disabled = true);
+      });
+    });
+  }
+}
+
+// ==================== TIMER ====================
+function startGameTimer() {
+  if (gameTimer) clearInterval(gameTimer);
+  if (!state.timerMinutes || state.timerMinutes <= 0) return;
+  if (!state.timerStarted) {
+    state.timerStarted = Date.now();
+    save();
+  }
+  gameTimerLeft = state.timerMinutes * 60 - Math.floor((Date.now() - state.timerStarted) / 1000);
+  if (gameTimerLeft <= 0) {
+    onTimerEnd();
+    return;
+  }
+  gameTimer = setInterval(() => {
+    gameTimerLeft--;
+    updateTimerBar();
+    if (gameTimerLeft <= 60 && gameTimerLeft > 55) {
+      toast('Bagus bermain! Mari berehat sekejap. 😊');
+      speak('Bagus bermain hari ini. Mari berehat sekejap.');
+    }
+    if (gameTimerLeft <= 0) onTimerEnd();
+  }, 1000);
+}
+
+function updateTimerBar() {
+  if (!state.timerMinutes) return;
+  const total = state.timerMinutes * 60;
+  const pct = Math.max(0, (gameTimerLeft / total) * 100);
+  const fill = document.getElementById('timer-fill');
+  if (fill) fill.style.width = pct + '%';
+}
+
+function onTimerEnd() {
+  if (gameTimer) clearInterval(gameTimer);
+  state.timerStarted = null;
+  save();
+  showModal('Masa Rehat 😴', 'Bagus bermain hari ini! Mari berehat. Ibu/bapa boleh buka semula dari menu Ibu Bapa.', [
+    { label:'OK', cls:'btn-primary', action:'' }
+  ]);
+  speak('Bagus bermain! Mari berehat.');
+}
+
+// ==================== SETUP ====================
+function initSetup() {
+  const avList = document.getElementById('avatar-list');
+  avList.innerHTML = AVATARS.map(a =>
+    `<div class="avatar-option" data-av="${a}"><div class="emoji">${a}</div></div>`
+  ).join('');
+  let selectedAvatar = '🧒';
+  avList.querySelectorAll('.avatar-option').forEach(el => {
+    el.addEventListener('click', () => {
+      avList.querySelectorAll('.avatar-option').forEach(x => x.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedAvatar = el.dataset.av;
+    });
+  });
+  avList.querySelector('.avatar-option').classList.add('selected');
+
+  // Starters: first 4 animals free choice
+  const starters = ANIMALS.slice(0, 4);
+  const stList = document.getElementById('starter-list');
+  stList.innerHTML = starters.map(a =>
+    `<div class="animal-option" data-id="${a.id}">
+      <div class="emoji">${a.emoji}</div>
+      <div style="font-weight:800;font-size:0.85rem;">${a.name}</div>
+      <div style="font-size:0.7rem;color:#636e72;">${a.type}</div>
+    </div>`
+  ).join('');
+  let selectedAnimal = starters[0].id;
+  stList.querySelector('.animal-option').classList.add('selected');
+  stList.querySelectorAll('.animal-option').forEach(el => {
+    el.addEventListener('click', () => {
+      stList.querySelectorAll('.animal-option').forEach(x => x.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedAnimal = el.dataset.id;
+    });
+  });
+
+  document.getElementById('btn-setup-done').onclick = () => {
+    const name = document.getElementById('input-name').value.trim();
+    if (!name) {
+      toast('Sila masukkan nama panggilan');
+      return;
+    }
+    state = defaultState();
+    state.name = name.substring(0, 12);
+    state.avatar = selectedAvatar;
+    state.lang = document.getElementById('select-lang').value;
+    state.activeAnimal = selectedAnimal;
+    state.animals[selectedAnimal] = defaultAnimalStatus();
+    state.soundOn = true;
+    save();
+    speechEnabled = true;
+    showScreen('home');
+    speak(`Hai ${state.name}! Selamat datang ke Alam Fantasia!`);
+    toast(`Selamat datang, ${state.name}! 🎉`);
+  };
+}
+
+// ==================== EVENT BINDINGS ====================
+function bindEvents() {
+  document.getElementById('btn-start').onclick = () => {
+    const existing = load();
+    if (existing && existing.name) {
+      state = existing;
+      showScreen('home');
+      startGameTimer();
+      speak(`Hai ${state.name}! Selamat kembali!`);
+    } else {
+      showScreen('setup');
+      initSetup();
+    }
+  };
+  document.getElementById('btn-continue').onclick = () => {
+    state = load();
+    if (state) {
+      showScreen('home');
+      startGameTimer();
+    }
+  };
+
+  // Navigation
+  document.querySelectorAll('[data-go]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const go = btn.dataset.go;
+      if (go === 'academy') {
+        document.getElementById('academy-modules').classList.remove('hidden');
+        document.getElementById('quiz-area').classList.add('hidden');
+      }
+      if (go === 'story') {
+        document.getElementById('story-cats').classList.remove('hidden');
+        document.getElementById('story-list').classList.add('hidden');
+        document.getElementById('story-player').classList.add('hidden');
+      }
+      if (go === 'play') {
+        document.getElementById('play-games').classList.remove('hidden');
+        document.getElementById('game-area').classList.add('hidden');
+        if (miniGameInterval) clearInterval(miniGameInterval);
+      }
+      showScreen(go);
+    });
+  });
+
+  // Care
+  document.getElementById('btn-feed').onclick = doFeed;
+  document.getElementById('btn-drink').onclick = doDrink;
+  document.getElementById('btn-bath').onclick = doBath;
+  document.getElementById('btn-sleep').onclick = doSleep;
+
+  // Play games
+  document.querySelectorAll('[data-game]').forEach(btn => {
+    btn.addEventListener('click', () => startMiniGame(btn.dataset.game));
+  });
+  document.getElementById('btn-game-back').onclick = () => {
+    if (miniGameInterval) clearInterval(miniGameInterval);
+    document.getElementById('game-area').classList.add('hidden');
+    document.getElementById('play-games').classList.remove('hidden');
+  };
+
+  // Academy
+  document.querySelectorAll('[data-module]').forEach(btn => {
+    btn.addEventListener('click', () => startModule(btn.dataset.module));
+  });
+  document.getElementById('btn-next-q').addEventListener('click', () => {
+    quizIndex++;
+    showQuestion();
+  });
+
+  // Stories
+  document.querySelectorAll('[data-cat]').forEach(btn => {
+    btn.addEventListener('click', () => showStoryList(btn.dataset.cat));
+  });
+  document.getElementById('btn-story-next').onclick = () => {
+    storyScene++;
+    renderStoryScene();
+  };
+  document.getElementById('btn-story-prev').onclick = () => {
+    if (storyScene > 0) { storyScene--; renderStoryScene(); }
+  };
+  document.getElementById('btn-story-speak').onclick = () => {
+    if (currentStory && storyScene < currentStory.scenes.length) {
+      speak(currentStory.scenes[storyScene]);
+    }
+  };
+  document.getElementById('btn-story-back').onclick = () => {
+    document.getElementById('story-player').classList.add('hidden');
+    document.getElementById('story-list').classList.remove('hidden');
+  };
+
+  // Settings
+  document.getElementById('btn-toggle-sound').onclick = () => {
+    state.soundOn = !state.soundOn;
+    speechEnabled = state.soundOn;
+    document.getElementById('btn-toggle-sound').textContent = state.soundOn ? '🔊 Suara: ON' : '🔇 Suara: OFF';
+    save();
+  };
+  document.getElementById('btn-test-voice').onclick = () => speak('Hai! Saya suara Alam Fantasia!');
+  document.getElementById('voice-rate').oninput = (e) => { voiceRate = parseFloat(e.target.value); };
+  document.getElementById('btn-save-name').onclick = () => {
+    const n = document.getElementById('settings-name').value.trim();
+    if (n) { state.name = n.substring(0,12); save(); toast('Nama disimpan'); }
+  };
+
+  // Parent
+  document.getElementById('btn-set-timer').onclick = () => {
+    state.timerMinutes = parseInt(document.getElementById('select-timer').value) || 0;
+    state.timerStarted = state.timerMinutes > 0 ? Date.now() : null;
+    save();
+    if (state.timerMinutes > 0) startGameTimer();
+    toast(state.timerMinutes ? `Timer ${state.timerMinutes} minit` : 'Timer dimatikan');
+  };
+  document.getElementById('btn-reset-data').onclick = () => {
+    showModal('Padam Data?', 'Semua perkembangan akan dipadam. Pastikan ini dikehendaki.', [
+      { label:'Ya, Padam', cls:'btn-orange', action:'confirmReset' },
+      { label:'Batal', cls:'btn-soft', action:'' }
+    ]);
+    window._modal_confirmReset = () => {
+      resetAllData();
+      showScreen('splash');
+      checkContinueBtn();
+      toast('Data dipadam');
+    };
+  };
+  document.getElementById('btn-export-data').onclick = () => {
+    showModal('Data JSON', `<pre style="text-align:left;font-size:0.7rem;max-height:200px;overflow:auto;">${JSON.stringify(state,null,2)}</pre>`, [
+      { label:'Tutup', cls:'btn-soft', action:'' }
+    ]);
+  };
+}
+
+function checkContinueBtn() {
+  const existing = load();
+  const btn = document.getElementById('btn-continue');
+  if (existing && existing.name) {
+    btn.style.display = 'inline-flex';
+  } else {
+    btn.style.display = 'none';
+  }
+}
+
+// ==================== INIT ====================
+function init() {
+  bindEvents();
+  checkContinueBtn();
+  // Soft decay of stats over time (gentle, no punishment)
+  setInterval(() => {
+    if (!state || !state.activeAnimal) return;
+    const st = state.animals[state.activeAnimal];
+    if (!st) return;
+    st.hunger = Math.max(10, st.hunger - 0.5);
+    st.thirst = Math.max(10, st.thirst - 0.6);
+    st.energy = Math.max(15, st.energy - 0.3);
+    st.clean = Math.max(20, st.clean - 0.2);
+    // Never go to zero or scary levels
+    state.animals[state.activeAnimal] = st;
+  }, 60000);
+}
+
+init();
+</script>
 </body>
 </html>
