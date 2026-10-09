@@ -265,102 +265,170 @@ button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
   position: absolute;
   width: 130px; height: 130px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,230,109,0.25) 0%, rgba(162,155,254,0.12) 45%, transparent 70%);
-  animation: glowPulse 3s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(255,230,109,0.3) 0%, rgba(162,155,254,0.15) 40%, transparent 70%);
+  animation: glowPulse 2.5s ease-in-out infinite;
+}
+.animal-stage::after {
+  content: '';
+  position: absolute;
+  width: 150px; height: 150px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,230,109,0.3);
+  animation: ringExpand 2.8s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes ringExpand {
+  0% { transform: scale(0.65); opacity: 0.55; }
+  100% { transform: scale(1.35); opacity: 0; }
 }
 .char-svg {
   width: 140px; height: 140px;
   position: relative; z-index: 2;
   filter: drop-shadow(0 8px 16px rgba(0,0,0,0.15));
   overflow: visible;
+  cursor: pointer;
+  transition: filter 0.3s;
 }
+.char-svg:hover { filter: drop-shadow(0 8px 22px rgba(255,107,157,0.4)) brightness(1.06); }
 .char-svg svg { width: 100%; height: 100%; overflow: visible; }
 
-/* SVG part animations */
-.char-body { transform-origin: center 70%; animation: bodyBob 3s ease-in-out infinite; }
-.char-head { transform-origin: center 40%; animation: headTilt 4s ease-in-out infinite; }
-.char-eye { transform-origin: center; animation: blink 4s ease-in-out infinite; }
-.char-wing-l { transform-origin: 60% 50%; animation: wingL 1.2s ease-in-out infinite; }
-.char-wing-r { transform-origin: 40% 50%; animation: wingR 1.2s ease-in-out infinite; }
-.char-tail { transform-origin: 20% 50%; animation: tailWag 1.5s ease-in-out infinite; }
-.char-ear-l { transform-origin: bottom center; animation: earL 2.5s ease-in-out infinite; }
-.char-ear-r { transform-origin: bottom center; animation: earR 2.5s ease-in-out infinite; }
-.char-leg-l { transform-origin: top center; animation: legL 2s ease-in-out infinite; }
-.char-leg-r { transform-origin: top center; animation: legR 2s ease-in-out infinite; }
-.char-horn { transform-origin: bottom center; animation: hornGlow 3s ease-in-out infinite; }
-.char-flame { transform-origin: bottom center; animation: flameDance 0.6s ease-in-out infinite; }
-.char-sparkle { animation: sparkleSpin 2s linear infinite; }
+.ambient-spark {
+  position: absolute; width: 6px; height: 6px; border-radius: 50%;
+  pointer-events: none; z-index: 4;
+  animation: ambientOrbit 3.5s ease-in-out infinite;
+}
+@keyframes ambientOrbit {
+  0% { transform: translate(0,0) scale(0.4); opacity: 0; }
+  15% { opacity: 1; }
+  50% { transform: translate(var(--ox,25px), var(--oy,-35px)) scale(1.3); opacity: 0.85; }
+  100% { transform: translate(var(--ox2,45px), var(--oy2,-70px)) scale(0.2); opacity: 0; }
+}
+
+/* SVG part animations — richer motion */
+.char-body { transform-origin: center 70%; animation: bodyBob 2.8s ease-in-out infinite; }
+.char-head { transform-origin: center 40%; animation: headTilt 3.5s ease-in-out infinite; }
+.char-eye { transform-origin: center; animation: blink 3.5s ease-in-out infinite; }
+.char-wing-l { transform-origin: 70% 55%; animation: wingL 1s ease-in-out infinite; }
+.char-wing-r { transform-origin: 30% 55%; animation: wingR 1s ease-in-out infinite; }
+.char-tail { transform-origin: 15% 50%; animation: tailWag 1.2s ease-in-out infinite; }
+.char-ear-l { transform-origin: bottom center; animation: earL 2s ease-in-out infinite; }
+.char-ear-r { transform-origin: bottom center; animation: earR 2s ease-in-out infinite; }
+.char-leg-l { transform-origin: top center; animation: legL 1.8s ease-in-out infinite; }
+.char-leg-r { transform-origin: top center; animation: legR 1.8s ease-in-out infinite; }
+.char-horn { transform-origin: bottom center; animation: hornGlow 2.5s ease-in-out infinite; }
+.char-flame { transform-origin: bottom center; animation: flameDance 0.5s ease-in-out infinite; }
+.char-sparkle { animation: sparkleSpin 1.8s linear infinite; }
+.char-cheek { animation: cheekPulse 2.5s ease-in-out infinite; }
+.char-shine { animation: shineMove 3s ease-in-out infinite; }
 
 @keyframes bodyBob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+  0%, 100% { transform: translateY(0) scaleY(1); }
+  40% { transform: translateY(-8px) scaleY(1.02); }
+  60% { transform: translateY(-5px) scaleY(0.98); }
 }
 @keyframes headTilt {
-  0%, 100% { transform: rotate(-2deg); }
-  50% { transform: rotate(3deg); }
+  0%, 100% { transform: rotate(-3deg) translateY(0); }
+  30% { transform: rotate(4deg) translateY(-2px); }
+  70% { transform: rotate(-2deg) translateY(1px); }
 }
 @keyframes blink {
-  0%, 42%, 48%, 100% { transform: scaleY(1); }
-  45% { transform: scaleY(0.1); }
+  0%, 38%, 46%, 100% { transform: scaleY(1); }
+  42% { transform: scaleY(0.08); }
+  80%, 86% { transform: scaleY(1); }
+  83% { transform: scaleY(0.08); }
 }
 @keyframes wingL {
-  0%, 100% { transform: rotate(0deg) scaleY(1); }
-  50% { transform: rotate(-18deg) scaleY(1.05); }
+  0%, 100% { transform: rotate(5deg) scaleY(1); }
+  50% { transform: rotate(-22deg) scaleY(1.08); }
 }
 @keyframes wingR {
-  0%, 100% { transform: rotate(0deg) scaleY(1); }
-  50% { transform: rotate(18deg) scaleY(1.05); }
+  0%, 100% { transform: rotate(-5deg) scaleY(1); }
+  50% { transform: rotate(22deg) scaleY(1.08); }
 }
 @keyframes tailWag {
-  0%, 100% { transform: rotate(-8deg); }
-  50% { transform: rotate(12deg); }
+  0%, 100% { transform: rotate(-12deg); }
+  25% { transform: rotate(8deg); }
+  50% { transform: rotate(-6deg); }
+  75% { transform: rotate(14deg); }
 }
 @keyframes earL {
-  0%, 100% { transform: rotate(-5deg); }
-  50% { transform: rotate(8deg); }
+  0%, 100% { transform: rotate(-6deg); }
+  40% { transform: rotate(10deg); }
+  70% { transform: rotate(-4deg); }
 }
 @keyframes earR {
-  0%, 100% { transform: rotate(5deg); }
-  50% { transform: rotate(-8deg); }
+  0%, 100% { transform: rotate(6deg); }
+  40% { transform: rotate(-10deg); }
+  70% { transform: rotate(4deg); }
 }
 @keyframes legL {
-  0%, 100% { transform: rotate(-3deg); }
-  50% { transform: rotate(4deg); }
+  0%, 100% { transform: rotate(-4deg) translateY(0); }
+  50% { transform: rotate(6deg) translateY(-2px); }
 }
 @keyframes legR {
-  0%, 100% { transform: rotate(3deg); }
-  50% { transform: rotate(-4deg); }
+  0%, 100% { transform: rotate(4deg) translateY(0); }
+  50% { transform: rotate(-6deg) translateY(-2px); }
 }
 @keyframes hornGlow {
-  0%, 100% { filter: brightness(1); }
-  50% { filter: brightness(1.4) drop-shadow(0 0 6px gold); }
+  0%, 100% { filter: brightness(1) drop-shadow(0 0 0 transparent); }
+  50% { filter: brightness(1.5) drop-shadow(0 0 8px gold); }
 }
 @keyframes flameDance {
-  0%, 100% { transform: scaleY(1) scaleX(1) rotate(-3deg); }
-  50% { transform: scaleY(1.15) scaleX(0.9) rotate(3deg); }
+  0%, 100% { transform: scaleY(1) scaleX(1) rotate(-4deg); opacity: 0.95; }
+  25% { transform: scaleY(1.2) scaleX(0.85) rotate(2deg); opacity: 1; }
+  50% { transform: scaleY(0.95) scaleX(1.1) rotate(-2deg); }
+  75% { transform: scaleY(1.15) scaleX(0.9) rotate(5deg); opacity: 1; }
 }
 @keyframes sparkleSpin {
   0% { transform: rotate(0) scale(1); opacity: 1; }
-  50% { transform: rotate(180deg) scale(1.3); opacity: 0.6; }
+  50% { transform: rotate(180deg) scale(1.4); opacity: 0.5; }
   100% { transform: rotate(360deg) scale(1); opacity: 1; }
+}
+@keyframes cheekPulse {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.12); }
+}
+@keyframes shineMove {
+  0%, 100% { opacity: 0.3; transform: translateX(-2px); }
+  50% { opacity: 0.7; transform: translateX(3px); }
 }
 
 /* State overrides on SVG character */
-.char-svg.happy .char-body { animation: bodyHappy 0.6s ease; }
-.char-svg.happy .char-head { animation: headHappy 0.6s ease; }
-.char-svg.eating .char-head { animation: headEat 0.8s ease; }
-.char-svg.drinking .char-head { animation: headDrink 0.9s ease; }
-.char-svg.bathing .char-body { animation: bodyBath 0.7s ease infinite; }
+.char-svg.happy .char-body { animation: bodyHappy 0.7s cubic-bezier(0.34,1.56,0.64,1); }
+.char-svg.happy .char-head { animation: headHappy 0.7s ease; }
+.char-svg.happy .char-tail { animation: tailWag 0.3s ease-in-out infinite; }
+.char-svg.happy .char-ear-l, .char-svg.happy .char-ear-r { animation: earL 0.3s ease-in-out infinite; }
+.char-svg.eating .char-head { animation: headEat 0.7s ease infinite; }
+.char-svg.eating .char-body { animation: bodyBob 0.7s ease infinite; }
+.char-svg.drinking .char-head { animation: headDrink 0.85s ease; }
+.char-svg.bathing .char-body { animation: bodyBath 0.6s ease infinite; }
+.char-svg.bathing .char-head { animation: headTilt 0.6s ease infinite; }
 .char-svg.sleeping .char-body { animation: bodySleep 2.5s ease-in-out infinite; }
-.char-svg.sleeping .char-eye { animation: none; transform: scaleY(0.15); }
-.char-svg.dance .char-body { animation: bodyHappy 0.45s ease infinite; }
-.char-svg.dance .char-wing-l { animation: wingL 0.4s ease-in-out infinite; }
-.char-svg.dance .char-wing-r { animation: wingR 0.4s ease-in-out infinite; }
+.char-svg.sleeping .char-eye { animation: none; transform: scaleY(0.12); }
+.char-svg.sleeping .char-wing-l, .char-svg.sleeping .char-wing-r { animation: none; }
+.char-svg.dance .char-body { animation: bodyHappy 0.4s ease infinite; }
+.char-svg.dance .char-wing-l { animation: wingL 0.35s ease-in-out infinite; }
+.char-svg.dance .char-wing-r { animation: wingR 0.35s ease-in-out infinite; }
+.char-svg.dance .char-tail { animation: tailWag 0.3s ease infinite; }
+.char-svg.petted .char-body { animation: bodyHappy 0.65s ease; }
+.char-svg.petted .char-head { animation: headHappy 0.65s ease; }
+.char-svg.petted .char-tail { animation: tailWag 0.25s ease infinite; }
+.char-svg.walk .char-leg-l { animation: walkL 0.35s ease-in-out infinite; }
+.char-svg.walk .char-leg-r { animation: walkR 0.35s ease-in-out infinite; }
+.char-svg.walk .char-body { animation: bodyBob 0.35s ease-in-out infinite; }
+@keyframes walkL {
+  0%, 100% { transform: rotate(-14deg) translateY(0); }
+  50% { transform: rotate(12deg) translateY(-5px); }
+}
+@keyframes walkR {
+  0%, 100% { transform: rotate(14deg) translateY(0); }
+  50% { transform: rotate(-12deg) translateY(-5px); }
+}
 
 @keyframes bodyHappy {
   0%, 100% { transform: translateY(0) scale(1); }
-  30% { transform: translateY(-18px) scale(1.08); }
-  50% { transform: translateY(-8px) scale(1.04) rotate(-5deg); }
+  25% { transform: translateY(-20px) scale(1.1); }
+  50% { transform: translateY(-6px) scale(1.05) rotate(-6deg); }
   70% { transform: translateY(-14px) scale(1.06) rotate(5deg); }
 }
 @keyframes headHappy {
@@ -472,24 +540,40 @@ button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
   overflow: hidden; z-index: 0; pointer-events: none;
 }
 .scene-bg .cloud {
-  position: absolute; background: rgba(255,255,255,0.7);
+  position: absolute; background: rgba(255,255,255,0.75);
   border-radius: 40px;
   animation: cloudMove linear infinite;
 }
-.scene-bg .cloud::before, .scene-bg .cloud::after {
+.scene-bg .cloud::before {
   content: ''; position: absolute; background: inherit; border-radius: 50%;
+  width: 50%; height: 120%; top: -40%; left: 15%;
+}
+.scene-bg .cloud::after {
+  content: ''; position: absolute; background: inherit; border-radius: 50%;
+  width: 40%; height: 100%; top: -30%; right: 10%;
 }
 .scene-bg .hill {
   position: absolute; bottom: 0; border-radius: 50% 50% 0 0;
   animation: hillSway 8s ease-in-out infinite;
 }
 @keyframes cloudMove {
-  from { transform: translateX(-20%); }
-  to { transform: translateX(120%); }
+  from { transform: translateX(-30%); }
+  to { transform: translateX(130%); }
 }
 @keyframes hillSway {
-  0%, 100% { transform: scaleX(1); }
-  50% { transform: scaleX(1.02); }
+  0%, 100% { transform: scaleX(1) translateY(0); }
+  50% { transform: scaleX(1.03) translateY(-2px); }
+}
+
+/* Button press ripple */
+.btn-ripple {
+  position: absolute; border-radius: 50%;
+  background: rgba(255,255,255,0.45);
+  transform: scale(0); animation: rippleOut 0.5s ease-out forwards;
+  pointer-events: none;
+}
+@keyframes rippleOut {
+  to { transform: scale(2.5); opacity: 0; }
 }
 
 /* Modern glass card */
@@ -1378,29 +1462,26 @@ function buildCharSVG(animalId, size) {
     <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
       ${extras}
       <g class="char-body">
-        <!-- Body -->
         <ellipse cx="60" cy="72" rx="28" ry="26" fill="${p.body}"/>
         <ellipse cx="60" cy="78" rx="18" ry="14" fill="${p.accent}" opacity="0.25"/>
+        <!-- Belly shine -->
+        <ellipse cx="55" cy="70" rx="8" ry="10" fill="#fff" opacity="0.15" class="char-shine"/>
         ${legs}
-        <!-- Head -->
         <g class="char-head">
           <circle cx="60" cy="42" r="26" fill="${p.body}"/>
-          <!-- Cheeks -->
-          <circle cx="42" cy="48" r="7" fill="${p.cheek}" opacity="0.7"/>
-          <circle cx="78" cy="48" r="7" fill="${p.cheek}" opacity="0.7"/>
-          <!-- Eyes -->
+          <ellipse cx="52" cy="36" rx="10" ry="8" fill="#fff" opacity="0.12" class="char-shine"/>
+          <circle cx="42" cy="48" r="7" fill="${p.cheek}" class="char-cheek"/>
+          <circle cx="78" cy="48" r="7" fill="${p.cheek}" class="char-cheek"/>
           <g class="char-eye">
-            <ellipse cx="50" cy="40" rx="5" ry="6" fill="#fff"/>
-            <ellipse cx="70" cy="40" rx="5" ry="6" fill="#fff"/>
-            <circle cx="51" cy="41" r="3" fill="${p.eye}"/>
-            <circle cx="71" cy="41" r="3" fill="${p.eye}"/>
-            <circle cx="52" cy="39.5" r="1.2" fill="#fff"/>
-            <circle cx="72" cy="39.5" r="1.2" fill="#fff"/>
+            <ellipse cx="50" cy="40" rx="5.5" ry="6.5" fill="#fff"/>
+            <ellipse cx="70" cy="40" rx="5.5" ry="6.5" fill="#fff"/>
+            <circle cx="51" cy="41" r="3.2" fill="${p.eye}"/>
+            <circle cx="71" cy="41" r="3.2" fill="${p.eye}"/>
+            <circle cx="52.2" cy="39.3" r="1.4" fill="#fff"/>
+            <circle cx="72.2" cy="39.3" r="1.4" fill="#fff"/>
           </g>
-          <!-- Smile -->
-          <path d="M52,52 Q60,58 68,52" stroke="${p.eye}" stroke-width="2" fill="none" stroke-linecap="round"/>
-          <!-- Nose -->
-          <ellipse cx="60" cy="48" rx="3" ry="2" fill="${p.accent}" opacity="0.5"/>
+          <path d="M52,53 Q60,60 68,53" stroke="${p.eye}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+          <ellipse cx="60" cy="48" rx="3.5" ry="2.2" fill="${p.accent}" opacity="0.55"/>
         </g>
       </g>
     </svg>
@@ -1439,11 +1520,68 @@ function updateCharInStage(stageSelector, animalId, animState) {
   const char = wrap.firstElementChild;
   char.className = 'char-svg ' + (animState || 'idle');
   if (charId) char.id = charId;
+  // Click to pet
+  char.addEventListener('click', (e) => {
+    e.stopPropagation();
+    petCharacter(stage, animalId);
+  });
   stage.appendChild(char);
   const newFx = document.createElement('div');
   newFx.className = 'fx-layer';
   if (fxId) newFx.id = fxId;
   stage.appendChild(newFx);
+  // Ambient floating sparks
+  spawnAmbientSparks(stage);
+}
+
+function spawnAmbientSparks(stage) {
+  const colors = ['#FFE66D','#FF6B9D','#A29BFE','#74B9FF','#55EFC4'];
+  for (let i = 0; i < 5; i++) {
+    const s = document.createElement('div');
+    s.className = 'ambient-spark';
+    s.style.background = colors[i % colors.length];
+    s.style.boxShadow = `0 0 6px ${colors[i % colors.length]}`;
+    s.style.left = (30 + Math.random() * 40) + '%';
+    s.style.top = (40 + Math.random() * 30) + '%';
+    s.style.setProperty('--ox', (Math.random() * 50 - 25) + 'px');
+    s.style.setProperty('--oy', (-20 - Math.random() * 30) + 'px');
+    s.style.setProperty('--ox2', (Math.random() * 60 - 30) + 'px');
+    s.style.setProperty('--oy2', (-50 - Math.random() * 40) + 'px');
+    s.style.animationDelay = (i * 0.6) + 's';
+    s.style.animationDuration = (3 + Math.random() * 2) + 's';
+    stage.appendChild(s);
+  }
+}
+
+function petCharacter(stage, animalId) {
+  setCharState(stage, 'petted');
+  const fxId = stage.dataset.fxId;
+  if (fxId) playFx(fxId, 'hearts', 5);
+  else {
+    const fx = stage.querySelector('.fx-layer');
+    if (fx) {
+      // temporary id
+      if (!fx.id) fx.id = 'tmp-fx-' + Date.now();
+      playFx(fx.id, 'hearts', 5);
+    }
+  }
+  if (state && state.activeAnimal) {
+    const st = getActiveStatus();
+    st.happy = Math.min(100, st.happy + 3);
+    st.bond = Math.min(100, st.bond + 1);
+    state.animals[state.activeAnimal] = st;
+    save();
+  }
+  const animal = ANIMALS.find(a => a.id === animalId) || getActiveAnimal();
+  if (animal) {
+    const dlg = document.getElementById('home-dialog') || document.getElementById('care-dialog');
+    if (dlg) {
+      dlg.textContent = randomDialog(animal, 'happy');
+      dlg.classList.remove('talk'); void dlg.offsetWidth; dlg.classList.add('talk');
+    }
+    speak(randomDialog(animal, 'happy'));
+  }
+  setTimeout(() => setCharState(stage, 'idle'), 900);
 }
 
 const AREAS = [
@@ -2178,25 +2316,57 @@ function paintSceneBg(id, areaId) {
   const el = document.getElementById(id);
   if (!el) return;
   const themes = {
-    kampung: { bg:'linear-gradient(180deg,#E8F4FD 0%,#C3E4F7 60%,#A8D5A2 100%)', clouds:true, hills:'#7BC67E' },
-    hutan: { bg:'linear-gradient(180deg,#C8E6C9 0%,#81C784 50%,#4A7C59 100%)', clouds:false, hills:'#2E7D32' },
-    gunung: { bg:'linear-gradient(180deg,#B3E5FC 0%,#81D4FA 40%,#90A4AE 100%)', clouds:true, hills:'#78909C' },
-    laut: { bg:'linear-gradient(180deg,#E1F5FE 0%,#4FC3F7 50%,#0288D1 100%)', clouds:true, hills:null },
-    lembah: { bg:'linear-gradient(180deg,#FFF3E0 0%,#FFCC80 50%,#EF6C00 100%)', clouds:false, hills:'#E65100' },
-    gua: { bg:'linear-gradient(180deg,#E0F7FA 0%,#B2EBF2 50%,#80DEEA 100%)', clouds:false, hills:'#4DD0E1' },
-    taman: { bg:'linear-gradient(180deg,#FCE4EC 0%,#F8BBD0 50%,#F48FB1 100%)', clouds:true, hills:'#C2185B' },
-    default: { bg:'linear-gradient(180deg,#E8F4FD 0%,#C3E4F7 60%,#A8D5A2 100%)', clouds:true, hills:'#7BC67E' }
+    kampung: { bg:'linear-gradient(180deg,#E8F4FD 0%,#C3E4F7 55%,#A8D5A2 100%)', clouds:true, hills:'#7BC67E', sun:true, birds:true },
+    hutan: { bg:'linear-gradient(180deg,#C8E6C9 0%,#81C784 50%,#4A7C59 100%)', clouds:false, hills:'#2E7D32', trees:true },
+    gunung: { bg:'linear-gradient(180deg,#B3E5FC 0%,#81D4FA 40%,#90A4AE 100%)', clouds:true, hills:'#78909C', sun:true },
+    laut: { bg:'linear-gradient(180deg,#E1F5FE 0%,#4FC3F7 45%,#0288D1 100%)', clouds:true, waves:true, birds:true },
+    lembah: { bg:'linear-gradient(180deg,#FFF3E0 0%,#FFCC80 50%,#EF6C00 100%)', hills:'#E65100', sun:true, heat:true },
+    gua: { bg:'linear-gradient(180deg,#E0F7FA 0%,#B2EBF2 50%,#80DEEA 100%)', hills:'#4DD0E1', crystals:true },
+    taman: { bg:'linear-gradient(180deg,#FCE4EC 0%,#F8BBD0 50%,#F48FB1 100%)', clouds:true, hills:'#C2185B', flowers:true },
+    default: { bg:'linear-gradient(180deg,#E8F4FD 0%,#C3E4F7 55%,#A8D5A2 100%)', clouds:true, hills:'#7BC67E', sun:true }
   };
   const t = themes[areaId] || themes.default;
   let html = `<div style="position:absolute;inset:0;background:${t.bg};"></div>`;
+  if (t.sun) {
+    html += `<div style="position:absolute;top:8%;right:12%;width:28px;height:28px;border-radius:50%;background:radial-gradient(circle,#FFE66D,#FDCB6E);box-shadow:0 0 20px #FFE66D,0 0 40px rgba(253,203,110,0.4);animation:glowPulse 3s ease-in-out infinite;"></div>`;
+  }
   if (t.clouds) {
-    html += `<div class="cloud" style="width:60px;height:24px;top:15%;left:0;animation-duration:18s;"></div>
-      <div class="cloud" style="width:40px;height:18px;top:25%;left:0;animation-duration:25s;animation-delay:3s;opacity:0.5;"></div>
-      <div class="cloud" style="width:50px;height:20px;top:10%;left:0;animation-duration:22s;animation-delay:7s;opacity:0.6;"></div>`;
+    html += `<div class="cloud" style="width:60px;height:24px;top:12%;left:0;animation-duration:16s;"></div>
+      <div class="cloud" style="width:42px;height:18px;top:22%;left:0;animation-duration:22s;animation-delay:2s;opacity:0.55;"></div>
+      <div class="cloud" style="width:50px;height:20px;top:8%;left:0;animation-duration:19s;animation-delay:5s;opacity:0.65;"></div>
+      <div class="cloud" style="width:35px;height:15px;top:28%;left:0;animation-duration:28s;animation-delay:8s;opacity:0.4;"></div>`;
   }
   if (t.hills) {
-    html += `<div class="hill" style="width:120%;height:40px;left:-10%;background:${t.hills};opacity:0.4;"></div>
-      <div class="hill" style="width:80%;height:28px;left:30%;background:${t.hills};opacity:0.3;animation-delay:2s;"></div>`;
+    html += `<div class="hill" style="width:130%;height:42px;left:-15%;background:${t.hills};opacity:0.4;"></div>
+      <div class="hill" style="width:90%;height:30px;left:25%;background:${t.hills};opacity:0.28;animation-delay:1.5s;"></div>`;
+  }
+  if (t.waves) {
+    html += `<div style="position:absolute;bottom:0;left:0;right:0;height:30px;background:repeating-linear-gradient(90deg,transparent,transparent 20px,rgba(255,255,255,0.15) 20px,rgba(255,255,255,0.15) 40px);animation:cloudMove 8s linear infinite;opacity:0.6;"></div>
+      <div style="position:absolute;bottom:8px;left:0;right:0;height:18px;background:repeating-linear-gradient(90deg,transparent,transparent 15px,rgba(255,255,255,0.2) 15px,rgba(255,255,255,0.2) 30px);animation:cloudMove 6s linear infinite reverse;opacity:0.5;"></div>`;
+  }
+  if (t.trees) {
+    for (let i = 0; i < 4; i++) {
+      const left = 8 + i * 24;
+      html += `<div style="position:absolute;bottom:18px;left:${left}%;width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-bottom:28px solid #2E7D32;opacity:0.5;animation:hillSway ${5+i}s ease-in-out ${i*0.3}s infinite;"></div>`;
+    }
+  }
+  if (t.birds) {
+    html += `<div style="position:absolute;top:18%;left:0;font-size:10px;opacity:0.45;animation:cloudMove 14s linear infinite;">🐦</div>
+      <div style="position:absolute;top:25%;left:0;font-size:8px;opacity:0.35;animation:cloudMove 18s linear 3s infinite;">🐦</div>`;
+  }
+  if (t.flowers) {
+    for (let i = 0; i < 5; i++) {
+      html += `<div style="position:absolute;bottom:${6+i%3*4}px;left:${10+i*18}%;width:8px;height:8px;border-radius:50%;background:${['#FF6B9D','#FFE66D','#A29BFE','#FD79A8','#55EFC4'][i]};opacity:0.6;animation:sparkle ${2+i*0.3}s ease-in-out ${i*0.2}s infinite;"></div>`;
+    }
+  }
+  if (t.crystals) {
+    for (let i = 0; i < 3; i++) {
+      html += `<div style="position:absolute;bottom:12px;left:${20+i*28}%;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:16px solid rgba(129,236,236,0.6);animation:hornGlow ${2.5+i}s ease-in-out infinite;"></div>`;
+    }
+  }
+  if (t.heat) {
+    html += `<div style="position:absolute;top:20%;left:20%;width:4px;height:20px;background:linear-gradient(transparent,#FF7675,transparent);opacity:0.3;animation:flameDance 1.5s ease-in-out infinite;border-radius:50%;"></div>
+      <div style="position:absolute;top:25%;left:60%;width:4px;height:16px;background:linear-gradient(transparent,#FDCB6E,transparent);opacity:0.25;animation:flameDance 1.8s ease-in-out 0.4s infinite;border-radius:50%;"></div>`;
   }
   el.innerHTML = html;
 }
@@ -2881,6 +3051,23 @@ function initSetup() {
 
 // ==================== EVENT BINDINGS ====================
 function bindEvents() {
+  // Ripple effect on all buttons
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('button, .btn, .menu-btn, .choice-btn');
+    if (!btn || btn.disabled) return;
+    const rect = btn.getBoundingClientRect();
+    const r = document.createElement('span');
+    r.className = 'btn-ripple';
+    const size = Math.max(rect.width, rect.height);
+    r.style.width = r.style.height = size + 'px';
+    r.style.left = (e.clientX - rect.left - size/2) + 'px';
+    r.style.top = (e.clientY - rect.top - size/2) + 'px';
+    btn.style.position = btn.style.position || 'relative';
+    btn.style.overflow = 'hidden';
+    btn.appendChild(r);
+    setTimeout(() => r.remove(), 500);
+  }, true);
+
   document.getElementById('btn-start').onclick = () => {
     const existing = load();
     if (existing && existing.name) {
