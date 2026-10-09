@@ -3,21 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<script>(function(){try{var t=localStorage.getItem('jomBelajar_theme')||(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <title>Jom Belajar! 🌈 - Rumi • Jawi • Nombor • Permainan</title>
 <style>
+:root {
+    color-scheme:light;
+    --bg1:#dff7ff; --bg2:#fff5d9; --text:#263238; --muted:#777; --card:#fff; --soft:#f5f4ff; --soft2:#f5f5ff; --soft3:#f8f9ff;
+    --border:#ddd; --input:#fff; --accent:#6c63ff; --accent2:#5b50d6; --big:#6c63ff; --ok-bg:#d9ffd9; --ok-bd:#32a852;
+    --bad-bg:#ffdede; --bad-bd:#e53935; --drag:#ffe082; --drop:#e3f2fd; --drop-bd:#64b5f6; --canvas:#fffef5;
+    --sky1:#e1f5fe; --sky2:#fffde7; --head1:#6c63ff; --head2:#8e7dff; --shadow:rgba(0,0,0,.12); --warn-bg:#fff8e1;
+    --warn-bd:#ffb300; --track:#e0e0e0; --cell:#fff; --cellbd:#b0bec5; --given:#e8e7ff; --tile:#ffe082; --tilebd:#ffd54f;
+    --slot:#e3f2fd; --cardup:#fff8e1; --guide:#e3e0ff; --guideline:#9e9ad8; --ink:#6c63ff; --demo:#fff3e0; --demotx:#e65100;
+    --okt:#2e9d45; --badt:#e53935;
+}
+html[data-theme="dark"] {
+    color-scheme:dark;
+    --bg1:#0d1424; --bg2:#161a2c; --text:#e2e8f4; --muted:#9aa5bd; --card:#1b2440; --soft:#263050; --soft2:#2a3558; --soft3:#222b49;
+    --border:#3b4670; --input:#141c34; --accent:#8a83ff; --accent2:#b4afff; --big:#a9a4ff; --ok-bg:#1e4630; --ok-bd:#4caf70;
+    --bad-bg:#552a30; --bad-bd:#e57373; --drag:#7d6420; --drop:#1d3454; --drop-bd:#4f86c6; --canvas:#161e38;
+    --sky1:#13284a; --sky2:#1c2640; --head1:#363188; --head2:#4842a5; --shadow:rgba(0,0,0,.55); --warn-bg:#3a3220;
+    --warn-bd:#b88a1a; --track:#34406a; --cell:#222c4c; --cellbd:#4a5784; --given:#323f78; --tile:#7d6420; --tilebd:#a8861f;
+    --slot:#1d3454; --cardup:#3a3220; --guide:#303969; --guideline:#6f78c8; --ink:#a39dff; --demo:#3a2a18; --demotx:#ffb067;
+    --okt:#6fd48c; --badt:#ff8a80;
+}
 * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; margin:0; padding:0; }
-body { font-family:"Arial Rounded MT Bold","Trebuchet MS",Arial,sans-serif; background:linear-gradient(135deg,#dff7ff,#fff5d9); color:#263238; min-height:100vh; overflow-x:hidden; }
-header { background:linear-gradient(135deg,#6c63ff,#8e7dff); color:#fff; text-align:center; padding:16px 12px; box-shadow:0 5px 15px rgba(0,0,0,.15); position:sticky; top:0; z-index:100; }
+body { font-family:"Arial Rounded MT Bold","Trebuchet MS",Arial,sans-serif; background:linear-gradient(135deg,var(--bg1),var(--bg2)); background-attachment:fixed; color:var(--text); min-height:100vh; overflow-x:hidden; transition:background .3s,color .3s; }
+header { background:linear-gradient(135deg,var(--head1),var(--head2)); color:#fff; text-align:center; padding:16px 12px; box-shadow:0 5px 15px var(--shadow); position:sticky; top:0; z-index:100; }
 header h1 { font-size:26px; }
 header p { margin-top:4px; font-size:14px; opacity:.9; }
+
+/* Suis tema */
+.theme-sw { position:absolute; right:10px; top:10px; display:flex; align-items:center; gap:4px; font-size:14px; cursor:pointer; user-select:none; }
+.theme-sw input { position:absolute; opacity:0; width:0; height:0; }
+.theme-sw i { position:relative; width:42px; height:22px; border-radius:11px; background:rgba(255,255,255,.35); transition:background .25s; flex:0 0 42px; }
+.theme-sw i::after { content:""; position:absolute; top:2px; left:2px; width:18px; height:18px; border-radius:50%; background:#fff; transition:transform .25s; box-shadow:0 1px 3px rgba(0,0,0,.35); }
+.theme-sw input:checked + i { background:rgba(0,0,0,.35); }
+.theme-sw input:checked + i::after { transform:translateX(20px); }
+.theme-sw input:focus-visible + i { outline:2px solid #fff; }
+
 .container { width:min(720px,96%); margin:16px auto; padding-bottom:40px; }
-.card { background:#fff; border-radius:24px; padding:22px; margin-bottom:16px; box-shadow:0 8px 25px rgba(0,0,0,.12); }
+.card { background:var(--card); border-radius:24px; padding:22px; margin-bottom:16px; box-shadow:0 8px 25px var(--shadow); transition:background .3s; }
 .start-screen { text-align:center; }
 .logo { font-size:70px; margin-bottom:8px; }
-.start-screen h2 { color:#5b50d6; font-size:24px; margin-bottom:8px; }
+.start-screen h2 { color:var(--accent2); font-size:24px; margin-bottom:8px; }
 label { display:block; text-align:left; margin-top:14px; font-weight:bold; font-size:15px; }
-input, select { width:100%; padding:14px; margin-top:6px; border-radius:14px; border:2px solid #ddd; font-size:17px; outline:none; font-family:inherit; background:#fff; }
-input:focus, select:focus { border-color:#6c63ff; }
+input, select { width:100%; padding:14px; margin-top:6px; border-radius:14px; border:2px solid var(--border); font-size:17px; outline:none; font-family:inherit; background:var(--input); color:var(--text); }
+input:focus, select:focus { border-color:var(--accent); }
 .btn { width:100%; border:0; padding:15px; border-radius:16px; margin-top:18px; font-size:18px; font-weight:bold; cursor:pointer; background:linear-gradient(135deg,#6c63ff,#8e7dff); color:#fff; box-shadow:0 5px 12px rgba(108,99,255,.35); font-family:inherit; }
 .btn:active { transform:scale(.97); }
 .btn:disabled { opacity:.6; cursor:not-allowed; }
@@ -25,66 +56,66 @@ input:focus, select:focus { border-color:#6c63ff; }
 .btn-row { display:flex; gap:10px; }
 .btn-row .btn { margin-top:10px; font-size:15px; padding:13px 8px; }
 .game-info { display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
-.info-box { flex:1; min-width:100px; background:#f5f4ff; padding:10px; border-radius:14px; text-align:center; font-weight:bold; font-size:14px; }
+.info-box { flex:1; min-width:100px; background:var(--card); padding:10px; border-radius:14px; text-align:center; font-weight:bold; font-size:14px; }
 .question-card { text-align:center; position:relative; }
-.speak { position:absolute; top:10px; right:10px; width:42px; height:42px; border:0; border-radius:50%; background:#f5f4ff; font-size:20px; cursor:pointer; }
-.question-number { color:#777; font-size:14px; margin-bottom:8px; }
+.speak { position:absolute; top:10px; right:10px; width:42px; height:42px; border:0; border-radius:50%; background:var(--soft); font-size:20px; cursor:pointer; }
+.question-number { color:var(--muted); font-size:14px; margin-bottom:8px; }
 .question { font-size:22px; font-weight:bold; margin:12px 0; line-height:1.3; white-space:pre-line; }
-.big-letter { font-size:100px; font-weight:bold; color:#6c63ff; margin:12px 0; line-height:1.15; font-family:Arial,"Segoe UI",sans-serif; word-break:break-all; }
+.big-letter { font-size:100px; font-weight:bold; color:var(--big); margin:12px 0; line-height:1.15; font-family:Arial,"Segoe UI",sans-serif; word-break:break-all; }
 .big-letter.med { font-size:52px; }
 .options { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:16px; }
-.option { flex:1 1 40%; min-width:110px; max-width:160px; background:#f5f5ff; border:3px solid transparent; border-radius:18px; padding:18px 12px; font-size:26px; font-weight:bold; cursor:pointer; min-height:72px; display:flex; align-items:center; justify-content:center; transition:all .2s; user-select:none; font-family:inherit; color:inherit; }
-.option:hover, .option:active { border-color:#6c63ff; transform:scale(1.03); }
-.option.correct { background:#d9ffd9; border-color:#32a852; }
-.option.wrong { background:#ffdede; border-color:#e53935; }
+.option { flex:1 1 40%; min-width:110px; max-width:160px; background:var(--soft2); border:3px solid transparent; border-radius:18px; padding:18px 12px; font-size:26px; font-weight:bold; cursor:pointer; min-height:72px; display:flex; align-items:center; justify-content:center; transition:all .2s; user-select:none; font-family:inherit; color:var(--text); }
+.option:hover, .option:active { border-color:var(--accent); transform:scale(1.03); }
+.option.correct { background:var(--ok-bg); border-color:var(--ok-bd); }
+.option.wrong { background:var(--bad-bg); border-color:var(--bad-bd); }
 .option:disabled { pointer-events:none; }
 
 /* Drag */
 .drag-area { display:flex; flex-direction:column; align-items:center; gap:22px; margin-top:20px; }
 .drag-row { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
 .drag-item, .drop-zone { width:100px; height:100px; border-radius:22px; display:flex; align-items:center; justify-content:center; font-size:40px; font-weight:bold; user-select:none; }
-.drag-item { background:#ffe082; cursor:grab; box-shadow:0 4px 12px rgba(0,0,0,.15); position:relative; z-index:10; touch-action:none; }
+.drag-item { background:var(--drag); color:var(--text); cursor:grab; box-shadow:0 4px 12px var(--shadow); position:relative; z-index:10; touch-action:none; }
 .drag-item.dragging { z-index:50; opacity:.85; }
-.drop-zone { background:#e3f2fd; border:4px dashed #64b5f6; transition:all .2s; }
-.drop-zone.over { background:#bbdefb; border-color:#1976d2; transform:scale(1.05); }
-.drop-zone.filled { background:#c8e6c9; border-color:#43a047; border-style:solid; }
+.drop-zone { background:var(--drop); border:4px dashed var(--drop-bd); transition:all .2s; }
+.drop-zone.over { transform:scale(1.05); border-color:var(--accent); }
+.drop-zone.filled { background:var(--ok-bg); border-color:var(--ok-bd); border-style:solid; }
 
 /* Match */
 .match-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px; }
 .match-column { display:flex; flex-direction:column; gap:10px; }
-.match-item { padding:16px; background:#f5f5ff; border-radius:16px; text-align:center; font-size:26px; font-weight:bold; cursor:pointer; border:3px solid transparent; transition:all .2s; user-select:none; }
-.match-item.selected { border-color:#6c63ff; background:#e8e7ff; transform:scale(1.04); }
-.match-item.matched { background:#d9ffd9; border-color:#32a852; pointer-events:none; }
-.match-item.wrong-temp { background:#ffdede; border-color:#e53935; }
+.match-item { padding:16px; background:var(--soft2); border-radius:16px; text-align:center; font-size:26px; font-weight:bold; cursor:pointer; border:3px solid transparent; transition:all .2s; user-select:none; }
+.match-item.selected { border-color:var(--accent); background:var(--given); transform:scale(1.04); }
+.match-item.matched { background:var(--ok-bg); border-color:var(--ok-bd); pointer-events:none; }
+.match-item.wrong-temp { background:var(--bad-bg); border-color:var(--bad-bd); }
 
 /* Fill */
-.fill-input { width:100%; max-width:200px; padding:16px; font-size:28px; text-align:center; border-radius:16px; border:3px solid #ddd; margin:16px auto; display:block; font-weight:bold; }
-.fill-input:focus { border-color:#6c63ff; outline:none; }
+.fill-input { width:100%; max-width:200px; padding:16px; font-size:28px; text-align:center; border-radius:16px; border:3px solid var(--border); margin:16px auto; display:block; font-weight:bold; }
 
-/* Spell */
+/* Spell / susun */
 .slots, .tiles { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:12px 0; }
-.slot, .tile { width:48px; height:56px; border-radius:12px; font-size:26px; font-weight:bold; border:3px solid #ddd; background:#fff; cursor:pointer; font-family:inherit; color:#263238; }
-.slot { border-style:dashed; border-color:#64b5f6; background:#e3f2fd; }
-.tile { background:#ffe082; border-color:#ffd54f; }
+.slot, .tile { min-width:48px; height:56px; border-radius:12px; font-size:26px; font-weight:bold; border:3px solid var(--border); background:var(--card); cursor:pointer; font-family:inherit; color:var(--text); padding:0 6px; }
+.slot { border-style:dashed; border-color:var(--drop-bd); background:var(--slot); }
+.tile { background:var(--tile); border-color:var(--tilebd); }
 .tile:disabled { opacity:.2; }
+.slot.wide, .tile.wide { font-size:15px; height:auto; min-height:46px; padding:8px 10px; }
 .shake { animation:shake .4s; }
 @keyframes shake { 25% { transform:translateX(-6px); } 75% { transform:translateX(6px); } }
 
 /* Crossword */
 .clues { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; font-size:24px; margin:6px 0; }
 .cgrid { display:grid; gap:3px; justify-content:center; margin:12px auto; }
-.cell { width:40px; height:40px; border-radius:8px; background:#fff; border:2px solid #b0bec5; font-size:22px; font-weight:bold; display:flex; align-items:center; justify-content:center; position:relative; cursor:pointer; }
+.cell { width:40px; height:40px; border-radius:8px; background:var(--cell); border:2px solid var(--cellbd); font-size:22px; font-weight:bold; display:flex; align-items:center; justify-content:center; position:relative; cursor:pointer; }
 .cell.blank { visibility:hidden; }
-.cell.given { background:#e8e7ff; color:#5b50d6; }
-.cell.sel { border-color:#6c63ff; background:#fff8e1; }
-.cell.bad { background:#ffdede; border-color:#e53935; }
-.cell small { position:absolute; top:0; left:3px; font-size:9px; color:#888; font-weight:normal; }
+.cell.given { background:var(--given); color:var(--accent2); }
+.cell.sel { border-color:var(--accent); background:var(--cardup); }
+.cell.bad { background:var(--bad-bg); border-color:var(--bad-bd); }
+.cell small { position:absolute; top:0; left:3px; font-size:9px; color:var(--muted); font-weight:normal; }
 .keys { display:flex; flex-wrap:wrap; gap:5px; justify-content:center; margin-top:10px; }
-.key { width:34px; height:40px; border:0; border-radius:8px; background:#f5f5ff; font-size:18px; font-weight:bold; font-family:inherit; color:#263238; }
-.key:active { background:#d9d7ff; }
+.key { width:34px; height:40px; border:0; border-radius:8px; background:var(--soft2); font-size:18px; font-weight:bold; font-family:inherit; color:var(--text); }
+.key:active { background:var(--given); }
 
 /* Pecah Belon */
-.bfield { position:relative; height:300px; overflow:hidden; border-radius:18px; background:linear-gradient(#e1f5fe,#fffde7); margin-top:12px; touch-action:manipulation; }
+.bfield { position:relative; height:300px; overflow:hidden; border-radius:18px; background:linear-gradient(var(--sky1),var(--sky2)); margin-top:12px; touch-action:manipulation; }
 .bw { position:absolute; bottom:-80px; width:54px; animation:rise linear infinite; }
 @keyframes rise { from { transform:translateY(0); } to { transform:translateY(-390px); } }
 .balloon { width:54px; height:66px; border-radius:50% 50% 50% 50% / 55% 55% 45% 45%; display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:bold; color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.35); cursor:pointer; user-select:none; position:relative; }
@@ -96,40 +127,50 @@ input:focus, select:focus { border-color:#6c63ff; }
 .mgrid { display:grid; gap:8px; justify-content:center; margin:14px auto; }
 .mcard { width:68px; height:68px; border-radius:14px; background:linear-gradient(135deg,#8e7dff,#6c63ff); display:flex; align-items:center; justify-content:center; cursor:pointer; color:#fff; font-size:28px; font-weight:bold; user-select:none; }
 .mcard .face { display:none; }
-.mcard.up, .mcard.done { background:#fff8e1; color:#263238; border:3px solid #ffca28; }
-.mcard.done { background:#d9ffd9; border-color:#32a852; }
+.mcard.up, .mcard.done { background:var(--cardup); color:var(--text); border:3px solid #ffca28; }
+.mcard.done { background:var(--ok-bg); border-color:var(--ok-bd); }
 .mcard.up .face, .mcard.done .face { display:inline; }
 .mcard.up .back, .mcard.done .back { display:none; }
 
-/* Jejak */
-.tcanvas { width:100%; max-width:300px; background:#fffef5; border-radius:18px; border:3px dashed #b0bec5; touch-action:none; margin-top:12px; }
+/* Jejak, puzzle, mewarna */
+.tcanvas { width:100%; max-width:300px; background:var(--canvas); border-radius:18px; border:3px dashed var(--cellbd); touch-action:none; margin-top:12px; }
+.pgrid { display:grid; gap:4px; justify-content:center; margin:12px auto; }
+.pgrid canvas { border-radius:8px; border:3px solid var(--cellbd); cursor:pointer; display:block; }
+.pgrid canvas.sel { border-color:var(--accent); transform:scale(.95); }
+.palette { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:10px 0; }
+.sw { width:36px; height:36px; border-radius:50%; border:3px solid transparent; cursor:pointer; }
+.sw.on { border-color:var(--text); transform:scale(1.15); }
+.bodysvg { width:100%; max-width:240px; margin:8px auto 0; display:block; touch-action:manipulation; }
+.bodysvg [data-part] { cursor:pointer; }
+.bodysvg [data-part]:hover { filter:brightness(1.1); }
+.bodysvg .hit { stroke:#ffc107; stroke-width:4; }
 
 /* Album & laporan */
 .sgrid { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin:12px 0; }
-.sticker { font-size:34px; background:#f5f4ff; border-radius:14px; padding:8px 2px; position:relative; }
+.sticker { font-size:34px; background:var(--soft); border-radius:14px; padding:8px 2px; position:relative; }
 .sticker.locked { filter:grayscale(1); opacity:.3; }
-.sticker small { position:absolute; right:4px; bottom:1px; font-size:11px; color:#5b50d6; font-weight:bold; }
+.sticker small { position:absolute; right:4px; bottom:1px; font-size:11px; color:var(--accent2); font-weight:bold; }
 .rrow { margin:10px 0; font-size:15px; text-align:left; }
-.rbox { background:#f5f4ff; border-radius:14px; padding:12px; margin:10px 0; font-size:14px; line-height:1.6; text-align:left; }
+.rbox { background:var(--soft); border-radius:14px; padding:12px; margin:10px 0; font-size:14px; line-height:1.6; text-align:left; }
 
 #fireworks { position:fixed; inset:0; pointer-events:none; z-index:9999; overflow:hidden; }
 .spark { position:absolute; width:10px; height:10px; border-radius:50%; animation:explode 900ms ease-out forwards; }
 @keyframes explode { from { transform:translate(0,0) scale(1); opacity:1; } to { transform:translate(var(--x),var(--y)) scale(.15); opacity:0; } }
 
 .feedback { font-size:22px; font-weight:bold; margin-top:16px; min-height:32px; }
-.correct-text { color:#2e9d45; }
-.wrong-text { color:#e53935; }
+.correct-text { color:var(--okt); }
+.wrong-text { color:var(--badt); }
 .result { text-align:center; }
 .result-stars { font-size:48px; color:#ffb300; margin:12px 0; }
-.result-score { font-size:32px; font-weight:bold; color:#5b50d6; margin:8px 0; }
+.result-score { font-size:32px; font-weight:bold; color:var(--accent2); margin:8px 0; }
 .new-stickers { font-size:40px; margin:8px 0; }
 .hidden { display:none !important; }
-.token-box { background:#fff8e1; border:2px dashed #ffb300; border-radius:14px; padding:12px; margin-top:12px; font-size:14px; }
+.token-box { background:var(--warn-bg); border:2px dashed var(--warn-bd); border-radius:14px; padding:12px; margin-top:12px; font-size:14px; }
 .token-status { font-size:13px; margin-top:6px; font-weight:bold; }
-.token-ok { color:#2e7d32; }
-.token-fail { color:#c62828; }
-.demo-note { background:#fff3e0; border-radius:12px; padding:8px; margin-top:10px; font-size:13px; color:#e65100; font-weight:bold; }
-.progress-bar { height:8px; background:#e0e0e0; border-radius:4px; margin:10px 0; overflow:hidden; }
+.token-ok { color:var(--okt); }
+.token-fail { color:var(--badt); }
+.demo-note { background:var(--demo); border-radius:12px; padding:8px; margin-top:10px; font-size:13px; color:var(--demotx); font-weight:bold; }
+.progress-bar { height:8px; background:var(--track); border-radius:4px; margin:10px 0; overflow:hidden; }
 .progress-fill { height:100%; background:linear-gradient(90deg,#6c63ff,#8e7dff); border-radius:4px; transition:width .3s; }
 @media (max-width:500px) {
     header h1 { font-size:22px; }
@@ -145,8 +186,9 @@ input:focus, select:focus { border-color:#6c63ff; }
 <body>
 
 <header>
+    <label class="theme-sw" title="Tema cerah / gelap">☀️<input type="checkbox" id="themeSwitch" onchange="applyTheme(this.checked?'dark':'light')" aria-label="Tema gelap"><i></i>🌙</label>
     <h1>🌈 Jom Belajar!</h1>
-    <p>Rumi • Jawi • Nombor • Warna • Permainan</p>
+    <p>Rumi • Jawi • Nombor • Warna • 25 Topik & Permainan</p>
 </header>
 
 <div class="container">
@@ -178,17 +220,34 @@ input:focus, select:focus { border-color:#6c63ff; }
 
         <label>Topik / Game</label>
         <select id="category">
-            <option value="semua">🌈 Semua Topik</option>
-            <option value="belon">🎈 Pecah Belon</option>
-            <option value="kad">🃏 Padan Kad</option>
-            <option value="tulis">✍️ Jejak Huruf & Nombor</option>
-            <option value="warna">🎨 Warna & Bentuk</option>
-            <option value="corak">🔁 Teka Corak</option>
-            <option value="gambar">🖼️ Teka Gambar</option>
-            <option value="silang">🧩 Silang Kata</option>
-            <option value="rumi">🔤 Huruf Rumi</option>
-            <option value="jawi">🕌 Huruf Jawi</option>
-            <option value="nombor">🔢 Nombor</option>
+            <option value="semua">🌈 Semua Topik (campuran)</option>
+            <optgroup label="🎮 Permainan">
+                <option value="belon">🎈 Pecah Belon</option>
+                <option value="kad">🃏 Padan Kad</option>
+                <option value="puzzle">🧩 Puzzle Gambar</option>
+                <option value="mewarna">🖍️ Mewarna</option>
+                <option value="tulis">✍️ Jejak Huruf & Nombor</option>
+                <option value="silang">🔠 Silang Kata</option>
+                <option value="gambar">🖼️ Teka Gambar</option>
+                <option value="corak">🔁 Teka Corak</option>
+            </optgroup>
+            <optgroup label="📚 Belajar">
+                <option value="rumi">🔤 Huruf Rumi</option>
+                <option value="jawi">🕌 Huruf Jawi</option>
+                <option value="sukukata">🔡 Suku Kata</option>
+                <option value="nombor">🔢 Nombor</option>
+                <option value="warna">🎨 Warna & Bentuk</option>
+                <option value="badan">🧍 Anggota Badan</option>
+                <option value="haiwan">🐮 Haiwan & Bunyi</option>
+                <option value="buah">🍎 Buah & Sayur</option>
+                <option value="kenderaan">🚗 Kenderaan</option>
+                <option value="kerjaya">👩‍⚕️ Pekerjaan</option>
+                <option value="lawan">↔️ Lawan Kata</option>
+                <option value="perasaan">😊 Perasaan & Adab</option>
+                <option value="masa">📅 Hari & Bulan</option>
+                <option value="agama">🕌 Islam & Hijaiyah</option>
+                <option value="rutin">🧼 Rutin & Kebersihan</option>
+            </optgroup>
         </select>
 
         <label>Masa Bermain</label>
@@ -213,11 +272,14 @@ input:focus, select:focus { border-color:#6c63ff; }
             <option value="drag">Seret & Lepas</option>
             <option value="match">Padankan</option>
             <option value="fill">Isi Tempat Kosong</option>
-            <option value="spell">Susun Huruf</option>
+            <option value="spell">Susun (huruf / suku kata)</option>
             <option value="cross">Silang Kata</option>
             <option value="balloon">Pecah Belon</option>
             <option value="memory">Padan Kad</option>
             <option value="trace">Jejak</option>
+            <option value="body">Tunjuk Anggota Badan</option>
+            <option value="puzzle">Puzzle</option>
+            <option value="color">Mewarna</option>
         </select>
 
         <button class="btn" onclick="startGame()">🚀 MULA BERMAIN</button>
@@ -273,6 +335,7 @@ input:focus, select:focus { border-color:#6c63ff; }
         <h2>Laporan Ibu Bapa</h2>
         <select id="repSel" onchange="renderReport()"></select>
         <div id="repBody"></div>
+        <button class="btn" onclick="downloadReportPDF()">📄 Muat Turun PDF</button>
         <button class="btn btn-secondary" onclick="backToStart()">🏠 KEMBALI</button>
     </div>
 </div>
@@ -299,6 +362,11 @@ const JAWI_MAP = [
     { jawi:"ڽ", rumi:"Ny", nama:"Nya" }
 ];
 
+// Huruf hijaiyah (nama unik sahaja; Ha ه dan Hamzah tidak dimasukkan kerana nama berulang)
+const HIJA = [["ا","Alif"],["ب","Ba"],["ت","Ta"],["ث","Tha"],["ج","Jim"],["ح","Ha"],["خ","Kha"],["د","Dal"],["ذ","Zal"],
+    ["ر","Ra"],["ز","Zai"],["س","Sin"],["ش","Syin"],["ص","Sod"],["ض","Dod"],["ط","Tho"],["ظ","Zho"],["ع","Ain"],
+    ["غ","Ghain"],["ف","Fa"],["ق","Qaf"],["ك","Kaf"],["ل","Lam"],["م","Mim"],["ن","Nun"],["و","Wau"],["ي","Ya"]];
+
 const NUM_WORDS = ["sifar","satu","dua","tiga","empat","lima","enam","tujuh","lapan","sembilan","sepuluh"];
 const COUNT_EMOJI = ["🍎","⭐","🐱","🐶","🎈","🌸","🐟","🚗","🍓","🦋"];
 const PATTERN_EMOJI = ["🍎","🍌","🍇","🍓","🐱","🐶","⭐","🌸","🚗","🎈","🐟","🦋"];
@@ -309,7 +377,9 @@ const START_WORDS = [
     ["F","Flamingo","🦩"],["G","Gajah","🐘"],["H","Harimau","🐯"],["I","Ikan","🐟"],["J","Jerung","🦈"],
     ["K","Kucing","🐱"],["L","Lebah","🐝"],["M","Monyet","🐒"],["N","Nanas","🍍"],["O","Oren","🍊"],
     ["P","Pisang","🍌"],["R","Rama-rama","🦋"],["S","Strawberi","🍓"],["T","Tikus","🐭"],["U","Ular","🐍"],
-    ["V","Violin","🎻"],["W","Wau","🪁"],["Y","Yoyo","🪀"],["Z","Zirafah","🦒"]
+    ["V","Violin","🎻"],["W","Wau","🪁"],["Y","Yoyo","🪀"],["Z","Zirafah","🦒"],
+    ["B","Beruang","🐻"],["K","Kuda","🐴"],["T","Tembikai","🍉"],["M","Mangga","🥭"],["P","Penguin","🐧"],
+    ["R","Rusa","🦌"],["S","Singa","🦁"],["K","Kelapa","🥥"],["L","Lampu","💡"],["B","Buku","📖"],["T","Topi","🧢"]
 ];
 
 // [PERKATAAN, emoji] - huruf A-Z sahaja (bahasa Melayu)
@@ -327,24 +397,146 @@ const WORDS = [
     ["DOLFIN","🐬"],["JERUNG","🦈"],["HELANG","🦅"],["WAU","🪁"],["MANGGA","🥭"],["KELAPA","🥥"],["SUDU","🥄"],
     ["PINTU","🚪"],["KERUSI","🪑"],["KATIL","🛏️"],["MATAHARI","☀️"],["PENGUIN","🐧"],["BERUANG","🐻"],
     ["ARNAB","🐰"],["RUSA","🦌"],["PANDA","🐼"],["KOALA","🐨"],["KAMBING","🐐"],["KERBAU","🐃"],["TUPAI","🐿️"],
-    ["SEMUT","🐜"]
+    ["SEMUT","🐜"],["TELINGA","👂"],["LIDAH","👅"],["MULUT","👄"],["OTAK","🧠"],["TELEFON","📱"],["KAMERA","📷"],
+    ["RADIO","📻"],["PENSIL","✏️"],["GUNTING","✂️"],["BEG","🎒"],["BAJU","👕"],["MAHKOTA","👑"],["CINCIN","💍"],
+    ["BUMI","🌍"],["GUNUNG","⛰️"],["PANTAI","🏖️"],["JAMBATAN","🌉"],["KHEMAH","⛺"],["LORI","🚚"],["TRAKTOR","🚜"],
+    ["AMBULANS","🚑"],["MOTOSIKAL","🏍️"],["TEMBIKAI","🍉"],["TOMATO","🍅"],["TERUNG","🍆"],["BROKOLI","🥦"],
+    ["KENTANG","🥔"],["BAWANG","🧅"],["CILI","🌶️"],["MADU","🍯"],["AISKRIM","🍦"],["BURGER","🍔"],["KOPI","☕"],
+    ["HELIKOPTER","🚁"],["PESAWAT","✈️"],["MUZIK","🎵"],["TROFI","🏆"],["BERUS","🪥"]
 ];
 
 const COLORS = [["🔴","Merah"],["🟠","Oren"],["🟡","Kuning"],["🟢","Hijau"],["🔵","Biru"],["🟣","Ungu"],["🟤","Coklat"],["⚫","Hitam"],["⚪","Putih"]];
 const SHAPES = [["⭕","Bulatan"],["🟦","Segi empat"],["🔺","Segi tiga"],["⭐","Bintang"],["❤️","Hati"],["🌙","Bulan sabit"],["🔶","Berlian"]];
 const OBJ_COLOR = [["🍎","Merah"],["🍌","Kuning"],["🍊","Oren"],["🍇","Ungu"],["🥒","Hijau"],["🥕","Oren"],["🍓","Merah"],
-    ["🐸","Hijau"],["🍋","Kuning"],["🫐","Biru"],["🌻","Kuning"],["🌳","Hijau"],["🌊","Biru"],["🍆","Ungu"]];
+    ["🐸","Hijau"],["🍋","Kuning"],["🫐","Biru"],["🌻","Kuning"],["🌳","Hijau"],["🌊","Biru"],["🍆","Ungu"],["🍅","Merah"],
+    ["🥦","Hijau"],["☁️","Putih"],["🌙","Kuning"],["🐻","Coklat"],["🐼","Hitam dan putih"]];
+
+// ---- Anggota badan
+const BODY_PARTS = ["rambut","muka","mata","telinga","hidung","mulut","leher","badan","lengan","tangan","lutut","kaki"];
+const BODY = [["👁️","Mata","melihat"],["👂","Telinga","mendengar"],["👃","Hidung","menghidu bau"],["👄","Mulut","makan dan bercakap"],
+    ["👅","Lidah","merasa makanan"],["🦷","Gigi","mengunyah makanan"],["✋","Tangan","memegang benda"],["🦶","Kaki","berjalan dan berlari"],
+    ["🧠","Otak","berfikir"],["💪","Lengan","mengangkat benda"]];
+const BODY_COUNT = [["👁️","mata",2],["👂","telinga",2],["👃","hidung",1],["👄","mulut",1],["✋","tangan",2],["🦶","kaki",2],["👅","lidah",1],["🧠","otak",1]];
+
+// ---- Haiwan: [emoji, nama, bunyi, bilangan kaki]
+const ANIMALS = [["🐱","Kucing","Meow",4],["🐶","Anjing","Hong hong",4],["🐄","Lembu","Moo",4],["🐐","Kambing","Meh",4],
+    ["🦆","Itik","Kuak kuak",2],["🐔","Ayam","Kok kok",2],["🐴","Kuda","",4],["🐘","Gajah","",4],["🐒","Monyet","",2],
+    ["🐦","Burung","",2],["🐍","Ular","",0],["🐟","Ikan","",0],["🐜","Semut","",6],["🐢","Penyu","",4],["🐸","Katak","",4],
+    ["🦁","Singa","",4],["🐰","Arnab","",4]];
+const FLY = ["🐦","🦅","🦋","🐝","🦇","🦆"], SWIM = ["🐟","🐬","🦈","🐙","🦀","🐳","🦐"], WALK = ["🐘","🐯","🐒","🦁","🐴","🐄","🐱","🐶","🐰"];
+const FOOD = [["🐄","🌿"],["🐱","🐟"],["🐒","🍌"],["🐰","🥕"],["🐝","🍯"],["🐔","🌽"],["🐶","🦴"],["🐼","🎋"]];
+
+// ---- Buah & sayur, kenderaan, kerjaya
+const FRUIT = [["🍎","Epal"],["🍌","Pisang"],["🍊","Oren"],["🍇","Anggur"],["🍓","Strawberi"],["🍍","Nanas"],["🍉","Tembikai"],["🥭","Mangga"],
+    ["🥥","Kelapa"],["🍋","Lemon"],["🍐","Pear"],["🍑","Pic"],["🍒","Ceri"],["🥝","Kiwi"]];
+const VEG = [["🥕","Karot"],["🥒","Timun"],["🌽","Jagung"],["🍅","Tomato"],["🍆","Terung"],["🥦","Brokoli"],["🥔","Kentang"],
+    ["🧅","Bawang"],["🌶️","Cili"],["🥬","Sawi"]];
+const VEH = [["🚗","Kereta","Darat"],["🚌","Bas","Darat"],["🚲","Basikal","Darat"],["🏍️","Motosikal","Darat"],["🚚","Lori","Darat"],
+    ["🚑","Ambulans","Darat"],["🚒","Kereta bomba","Darat"],["🚓","Kereta polis","Darat"],["🚜","Traktor","Darat"],["🚂","Kereta api","Darat"],
+    ["✈️","Kapal terbang","Udara"],["🚁","Helikopter","Udara"],["🚀","Roket","Udara"],["🚢","Kapal","Air"],["⛵","Bot layar","Air"]];
+const JOBS = [["👨‍⚕️","Doktor","merawat orang sakit"],["👮","Polis","menjaga keselamatan"],["👩‍🏫","Guru","mengajar murid"],
+    ["👨‍🚒","Bomba","memadam api"],["👨‍🍳","Tukang masak","memasak makanan"],["👨‍🌾","Petani","menanam sayur"],
+    ["👨‍✈️","Juruterbang","menerbangkan kapal terbang"],["👷","Pekerja binaan","membina rumah"],["🧑‍🔧","Mekanik","membaiki kereta"]];
+
+// ---- Lawan kata
+const OPP = [["besar","kecil"],["panjang","pendek"],["tinggi","rendah"],["panas","sejuk"],["siang","malam"],["atas","bawah"],["laju","perlahan"],
+    ["berat","ringan"],["penuh","kosong"],["basah","kering"],["gemuk","kurus"],["tua","muda"],["buka","tutup"],["naik","turun"],["depan","belakang"],
+    ["kiri","kanan"],["bersih","kotor"],["gembira","sedih"],["banyak","sedikit"],["baru","lama"],["keras","lembut"],["terang","gelap"],
+    ["dekat","jauh"],["masuk","keluar"]];
+
+// ---- Perasaan & situasi
+const EMO = [["😊","Gembira"],["😢","Sedih"],["😠","Marah"],["😴","Mengantuk"],["😲","Terkejut"],["😨","Takut"],["🤒","Sakit"],["🥰","Sayang"]];
+const SITUASI = [
+    ["Ali jatuh basikal dan menangis. Dia rasa?", "Sedih"],
+    ["Adik dapat hadiah hari jadi. Dia rasa?", "Gembira"],
+    ["Mainan Aina diambil kawan tanpa izin. Dia rasa?", "Marah"],
+    ["Terdengar bunyi guruh yang kuat. Sara rasa?", "Takut"],
+    ["Hari sudah malam dan mata Amir hampir tertutup. Dia rasa?", "Mengantuk"],
+    ["Ada kek kejutan di rumah! Mereka rasa?", "Terkejut"],
+    ["Ibu memeluk Dani dengan penuh kasih. Dani rasa?", "Sayang"],
+    ["Kepala dan badan Sofia panas. Dia rasa?", "Sakit"],
+    ["Kawan kita sedih. Apa patut kita buat?", "Pujuk dan temankan", ["Ketawakan dia", "Tinggalkan dia"]],
+    ["Kita buat kawan sedih kerana tersilap. Kita cakap?", "Maaf", ["Biarkan sahaja", "Salahkan dia"]],
+    ["Ada orang tolong kita. Kita cakap?", "Terima kasih", ["Maaf", "Selamat tinggal"]],
+    ["Hendak pinjam barang kawan. Kita cakap?", "Boleh saya pinjam?", ["Bagi sini!", "Ambil sahaja"]],
+    ["Kita nak lalu di depan orang tua. Kita cakap?", "Tumpang lalu", ["Tepi!", "Diam sahaja"]]
+];
+
+// ---- Rutin harian: [tajuk, emoji, langkah...]
+const ROUTINES = [
+    ["Menggosok gigi", "🪥", ["Ambil berus gigi", "Letak ubat gigi", "Gosok gigi", "Kumur mulut"]],
+    ["Membasuh tangan", "🧼", ["Basahkan tangan", "Sabun tangan", "Gosok tangan", "Bilas dan lap"]],
+    ["Makan", "🍽️", ["Basuh tangan", "Baca Bismillah", "Makan", "Baca Alhamdulillah"]],
+    ["Mandi", "🛁", ["Basahkan badan", "Sabun badan", "Bilas badan", "Lap badan"]],
+    ["Memakai baju", "👕", ["Ambil baju", "Masukkan kepala", "Masukkan tangan", "Betulkan baju"]],
+    ["Menanam pokok", "🌱", ["Gali tanah", "Letak biji", "Tutup tanah", "Siram air"]],
+    ["Hendak tidur", "😴", ["Gosok gigi", "Pakai baju tidur", "Baca doa", "Tidur"]],
+    ["Pergi sekolah", "🎒", ["Bangun tidur", "Mandi", "Pakai uniform", "Ke sekolah"]]
+];
+const HYGIENE_QA = [
+    ["Berapa kali kita patut gosok gigi sehari?", "Dua kali", ["Sekali seminggu", "Tidak perlu"]],
+    ["Bila kita patut basuh tangan?", "Sebelum makan", ["Selepas tidur sahaja", "Tidak perlu"]],
+    ["Apa kita buat bila batuk atau bersin?", "Tutup mulut", ["Teruskan sahaja", "Tiup kawan"]],
+    ["Sampah dibuang di mana?", "Tong sampah", ["Atas lantai", "Dalam sungai"]],
+    ["Makanan yang baik untuk badan?", "Sayur dan buah", ["Gula-gula sahaja", "Coklat sahaja"]],
+    ["Apa kita minum untuk sihat?", "Air kosong", ["Minuman manis", "Air bergas"]],
+    ["Selepas bermain di luar, kita patut?", "Basuh tangan dan kaki", ["Terus makan", "Terus tidur"]],
+    ["Bila sesat, kita minta tolong daripada?", "Polis atau guru", ["Orang yang tidak dikenali", "Diam sahaja"]]
+];
+
+// ---- Hari & bulan
+const DAYS = ["Ahad","Isnin","Selasa","Rabu","Khamis","Jumaat","Sabtu"];
+const MONTHS = ["Januari","Februari","Mac","April","Mei","Jun","Julai","Ogos","September","Oktober","November","Disember"];
+const TIME_QA = [
+    ["Seminggu ada berapa hari?", "7", ["5", "10"]],
+    ["Setahun ada berapa bulan?", "12", ["10", "7"]],
+    ["Sehari ada berapa jam?", "24", ["12", "60"]],
+    ["Bila kita nampak bulan?", "Malam", ["Pagi", "Tengah hari"]],
+    ["Matahari terbit pada waktu?", "Pagi", ["Malam", "Petang"]],
+    ["Waktu kita biasanya tidur?", "Malam", ["Pagi", "Tengah hari"]],
+    ["Bulan puasa umat Islam ialah?", "Ramadan", ["Januari", "Disember"]]
+];
+
+// ---- Agama (Islam asas)
+const ISLAM_QA = [
+    ["Apa kita sebut sebelum makan?", "Bismillah", ["Alhamdulillah", "Astaghfirullah"]],
+    ["Apa kita sebut selepas makan?", "Alhamdulillah", ["Bismillah", "Astaghfirullah"]],
+    ["Apakah salam dalam Islam?", "Assalamualaikum", ["Selamat pagi", "Selamat tinggal"]],
+    ["Jawapan bagi salam Assalamualaikum?", "Waalaikumussalam", ["Terima kasih", "Selamat pagi"]],
+    ["Apa kita sebut apabila bersin?", "Alhamdulillah", ["Bismillah", "Assalamualaikum"]],
+    ["Apa kita sebut ketika hendak memulakan kerja?", "Bismillah", ["Alhamdulillah", "Astaghfirullah"]],
+    ["Apa kita sebut apabila kagum melihat ciptaan Allah?", "MasyaAllah", ["Bismillah", "Assalamualaikum"]],
+    ["Apa kita sebut apabila membuat kesilapan?", "Astaghfirullah", ["Alhamdulillah", "Bismillah"]],
+    ["Apa kita sebut apabila berjanji akan buat sesuatu?", "InsyaAllah", ["Bismillah", "Assalamualaikum"]],
+    ["Rukun Islam ada berapa?", "5", ["3", "6"]],
+    ["Kita solat fardu berapa kali sehari?", "5", ["3", "7"]],
+    ["Apa nama kitab suci umat Islam?", "Al-Quran", ["Injil", "Zabur"]],
+    ["Siapakah nabi yang terakhir?", "Nabi Muhammad SAW", ["Nabi Adam", "Nabi Musa"]],
+    ["Apa nama tempat umat Islam solat berjemaah?", "Masjid", ["Pasar", "Sekolah"]]
+];
+
+// ---- Suku kata: [suku kata..., PERKATAAN, emoji]
+const SYL_WORDS = [
+    [["bo","la"],"BOLA","⚽"],[["ku","da"],"KUDA","🐴"],[["ka","ki"],"KAKI","🦶"],[["ma","ta"],"MATA","👁️"],[["bu","ku"],"BUKU","📖"],
+    [["ro","ti"],"ROTI","🍞"],[["na","si"],"NASI","🍚"],[["su","su"],"SUSU","🥛"],[["ba","ju"],"BAJU","👕"],[["to","pi"],"TOPI","🧢"],
+    [["gi","gi"],"GIGI","🦷"],[["ko","pi"],"KOPI","☕"],[["sa","tu"],"SATU","1️⃣"],[["li","ma"],"LIMA","5️⃣"],[["ja","ri"],"JARI","☝️"],
+    [["ke","la","pa"],"KELAPA","🥥"],[["ke","ru","si"],"KERUSI","🪑"],[["ka","me","ra"],"KAMERA","📷"],[["ra","di","o"],"RADIO","📻"]
+];
+const CONS = "bcdfghjklmnprstwy".split(""), VOW = "aeiou".split("");
 
 const STICKERS = ["🦄","🐼","🦁","🐯","🐸","🐵","🦊","🐙","🦋","🐞","🐠","🐳","🦖","🚀","🛸","🌈","🍭","🍩","🎂","🎁",
     "🏆","👑","💎","🪁","⚽","🏀","🎨","🎸","🥇","🐧","🐨","🐰","🦉","🐬","🦒","🐘","🚒","🚁","🎠","🧸"];
 
 const CAT_LABEL = { rumi:"🔤 Huruf Rumi", jawi:"🕌 Huruf Jawi", nombor:"🔢 Nombor", gambar:"🖼️ Teka Gambar",
     silang:"🧩 Silang Kata", warna:"🎨 Warna & Bentuk", tulis:"✍️ Jejak Huruf", corak:"🔁 Teka Corak",
-    belon:"🎈 Pecah Belon", kad:"🃏 Padan Kad" };
+    belon:"🎈 Pecah Belon", kad:"🃏 Padan Kad", badan:"🧍 Anggota Badan", sukukata:"🔡 Suku Kata", haiwan:"🐮 Haiwan & Bunyi",
+    puzzle:"🧩 Puzzle Gambar", buah:"🍎 Buah & Sayur", kenderaan:"🚗 Kenderaan", kerjaya:"👩‍⚕️ Pekerjaan", lawan:"↔️ Lawan Kata",
+    perasaan:"😊 Perasaan & Adab", masa:"📅 Hari & Bulan", agama:"🕌 Islam & Hijaiyah", mewarna:"🖍️ Mewarna", rutin:"🧼 Rutin & Kebersihan" };
 
 /* ============================================================
    GENERATOR SOALAN
-   - Cuba hasilkan soalan unik dahulu; jika ruang unik habis, ulang dibenarkan
+   - Hanya soalan unik dijana (tiada pendua)
+   - Setiap soalan ada "ck" (kunci kandungan) untuk elak soalan sama dalam satu sesi
 ============================================================ */
 const rnd = n => Math.floor(Math.random() * n);
 const pick = arr => arr[rnd(arr.length)];
@@ -357,9 +549,13 @@ function pickWrong(correct, pool, count) {
     const uniq = [...new Set(pool.map(String))].filter(x => x !== String(correct));
     return shuffle(uniq).slice(0, count);
 }
-const keyOf = q => JSON.stringify([q.type, q.question, q.display, q.answer, q.glyph, q.mode, q.target, q.seq,
+const opts = (ans, pool, n) => shuffle([String(ans), ...pickWrong(ans, pool, n || 2)]);
+function hash(s) { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); }
+const keyOf = q => JSON.stringify([q.category, q.type, q.question, q.display, q.answer, q.glyph, q.mode, q.target, q.seq, q.emoji, q.rows, q.cols, q.draw, q.parts,
     (q.options || q.items || q.decoys || []).slice().sort(),
     (q.pairs || []).map(p => p.join("=")).sort(), q.cross || null]);
+const coarseKey = q => hash(JSON.stringify([q.category, q.type, q.question, q.display, q.answer, q.glyph, q.mode, q.target, q.seq, q.emoji, q.rows, q.cols, q.draw, q.parts,
+    (q.pairs || []).map(p => p.join("=")).sort(), q.cross || null]));
 
 function sequenceQ(pool, label) {
     const i = rnd(pool.length - 2);
@@ -396,124 +592,124 @@ function genPattern() {
     return { shown:full.slice(0, len).join(" ") + " ❓", answer:full[len] };
 }
 
+// Pilihan jawapan teks (soalan & jawapan tetap)
+function qaGen(list, icon, poolFallback) {
+    return () => {
+        const e = pick(list);
+        const wr = e[2] || pickWrong(e[1], poolFallback, 2);
+        return { type:"choice", question:e[0], display:icon, options:shuffle([e[1], ...wr]), answer:e[1] };
+    };
+}
+
 function generateQuestions() {
     const qs = [], seen = new Set();
     const add = (category, quota, gen) => {
         let n = 0, t = 0;
-        while (n < quota && t < quota * 20) {
+        while (n < quota && t < quota * 25) {
             t++;
             const q = gen();
             if (!q) continue;
-            const k = category + "|" + keyOf(q);
+            q.category = category;
+            const k = keyOf(q);
             if (seen.has(k)) continue;
-            seen.add(k); q.category = category; qs.push(q); n++;
-        }
-        t = 0;
-        while (n < quota && t < quota * 5) {   // ruang unik habis: ulang dibenarkan
-            t++;
-            const q = gen();
-            if (!q) continue;
-            q.category = category; qs.push(q); n++;
+            seen.add(k); q.ck = coarseKey(q); qs.push(q); n++;
         }
     };
     const N10 = Array.from({ length:10 }, (_, i) => String(i + 1));
     const N20 = Array.from({ length:20 }, (_, i) => String(i + 1));
     const N0_9 = ["0", ...N20.slice(0, 9)];
+    const ch = (question, display, answer, pool, extra) => Object.assign({ type:"choice", question, display, options:opts(answer, pool), answer:String(answer) }, extra || {});
 
-    // ---- RUMI
-    add("rumi", 160, () => { const l = pick(RUMI);
-        return { type:"choice", question:"Huruf besar apakah ini?", display:l, speak:l, options:shuffle([l, ...pickWrong(l, RUMI, 2)]), answer:l }; });
-    add("rumi", 120, () => { const l = pick(RUMI_LOWER);
-        return { type:"choice", question:"Huruf kecil apakah ini?", display:l, speak:l, options:shuffle([l, ...pickWrong(l, RUMI_LOWER, 2)]), answer:l }; });
-    add("rumi", 80, () => { const [a, b] = shuffle(RUMI).slice(0, 2);
+    // ================= RUMI
+    add("rumi", 500, () => { const l = pick(RUMI); return ch("Huruf besar apakah ini?", l, l, RUMI, { speak:l }); });
+    add("rumi", 400, () => { const l = pick(RUMI_LOWER); return ch("Huruf kecil apakah ini?", l, l, RUMI_LOWER, { speak:l }); });
+    add("rumi", 300, () => { const [a, b] = shuffle(RUMI).slice(0, 2);
         return { type:"match", question:"Padankan huruf besar dan kecil", pairs:[[a, a.toLowerCase()], [b, b.toLowerCase()]] }; });
-    add("rumi", 160, () => { const [L, w, e] = pick(START_WORDS);
-        return { type:"choice", question:w + " bermula dengan huruf apa?", display:e, options:shuffle([L, ...pickWrong(L, RUMI, 2)]), answer:L }; });
-    add("rumi", 100, () => { const l = pick(RUMI);
-        return { type:"drag", question:"Seret huruf " + l + " ke kotak!", items:shuffle([l, ...pickWrong(l, RUMI, 2)]), answer:l }; });
-    add("rumi", 120, () => sequenceQ(RUMI, "Huruf apa yang hilang?"));
+    add("rumi", 300, () => { const s = shuffle(RUMI).slice(0, 3);
+        return { type:"match", question:"Padankan huruf besar dan kecil", pairs:s.map(a => [a, a.toLowerCase()]) }; });
+    add("rumi", 500, () => { const [L, w, e] = pick(START_WORDS); return ch(w + " bermula dengan huruf apa?", e, L, RUMI); });
+    add("rumi", 300, () => { const l = pick(RUMI);
+        return { type:"drag", question:"Seret huruf " + l + " ke kotak!", items:opts(l, RUMI), answer:l }; });
+    add("rumi", 150, () => sequenceQ(RUMI, "Huruf apa yang hilang?"));
+    add("rumi", 100, () => { const i = rnd(25); return ch("Huruf apa selepas " + RUMI[i] + "?", RUMI[i], RUMI[i + 1], RUMI); });
+    add("rumi", 100, () => { const i = 1 + rnd(25); return ch("Huruf apa sebelum " + RUMI[i] + "?", RUMI[i], RUMI[i - 1], RUMI); });
+    add("rumi", 150, () => { const v = pick("AEIOU".split("")); const cons = RUMI.filter(x => !"AEIOU".includes(x));
+        return { type:"choice", question:"Mana satu huruf vokal?", display:"🗣️", options:shuffle([v, ...shuffle(cons).slice(0, 2)]), answer:v }; });
 
-    // ---- JAWI
+    // ================= JAWI
     const JR = JAWI_MAP.map(j => j.rumi), JN = JAWI_MAP.map(j => j.nama), JJ = JAWI_MAP.map(j => j.jawi);
-    add("jawi", 160, () => { const j = pick(JAWI_MAP);
-        return { type:"choice", question:"Huruf Jawi ini sama dengan huruf?", display:j.jawi, options:shuffle([j.rumi, ...pickWrong(j.rumi, JR, 2)]), answer:j.rumi }; });
-    add("jawi", 120, () => { const j = pick(JAWI_MAP);
-        return { type:"choice", question:"Apakah nama huruf ini?", display:j.jawi, options:shuffle([j.nama, ...pickWrong(j.nama, JN, 2)]), answer:j.nama }; });
-    add("jawi", 140, () => { const j = pick(JAWI_MAP);
-        return { type:"choice", question:"Mana huruf Jawi untuk huruf " + j.rumi + "?", display:j.rumi, options:shuffle([j.jawi, ...pickWrong(j.jawi, JJ, 2)]), answer:j.jawi }; });
-    add("jawi", 100, () => { const j = pick(JAWI_MAP);
-        return { type:"drag", question:"Seret huruf " + j.nama + " ke kotak!", items:shuffle([j.jawi, ...pickWrong(j.jawi, JJ, 2)]), answer:j.jawi }; });
-    add("jawi", 120, () => { const s = shuffle(JAWI_MAP).slice(0, 2 + rnd(2));
+    add("jawi", 400, () => { const j = pick(JAWI_MAP); return ch("Huruf Jawi ini sama dengan huruf?", j.jawi, j.rumi, JR); });
+    add("jawi", 300, () => { const j = pick(JAWI_MAP); return ch("Apakah nama huruf ini?", j.jawi, j.nama, JN); });
+    add("jawi", 400, () => { const j = pick(JAWI_MAP); return ch("Mana huruf Jawi untuk huruf " + j.rumi + "?", j.rumi, j.jawi, JJ); });
+    add("jawi", 300, () => { const j = pick(JAWI_MAP);
+        return { type:"drag", question:"Seret huruf " + j.nama + " ke kotak!", items:opts(j.jawi, JJ), answer:j.jawi }; });
+    add("jawi", 500, () => { const s = shuffle(JAWI_MAP).slice(0, 2 + rnd(2));
         return { type:"match", question:"Padankan huruf Jawi dengan Rumi", pairs:s.map(j => [j.jawi, j.rumi]) }; });
 
-    // ---- NOMBOR
-    add("nombor", 120, () => { const n = pick(N20);
-        return { type:"choice", question:"Nombor apakah ini?", display:n, speak:n, options:shuffle([n, ...pickWrong(n, N20, 2)]), answer:n }; });
-    add("nombor", 160, () => { const c = 1 + rnd(10), e = pick(COUNT_EMOJI);
-        return { type:"choice", question:"Berapa banyak?", display:e.repeat(c), options:shuffle([String(c), ...pickWrong(c, N10, 2)]), answer:String(c) }; });
-    add("nombor", 160, () => { const a = 1 + rnd(5), b = 1 + rnd(5), e = pick(COUNT_EMOJI);
+    // ================= NOMBOR
+    add("nombor", 300, () => { const n = pick(N20); return ch("Nombor apakah ini?", n, n, N20, { speak:n }); });
+    add("nombor", 400, () => { const c = 1 + rnd(10), e = pick(COUNT_EMOJI); return ch("Berapa banyak?", e.repeat(c), c, N10); });
+    add("nombor", 300, () => { const c = 1 + rnd(9), e = pick(COUNT_EMOJI);
+        return { type:"fill", question:"Berapa banyak?\n" + e.repeat(c), answer:String(c), numeric:true }; });
+    add("nombor", 400, () => { const a = 1 + rnd(5), b = 1 + rnd(5), e = pick(COUNT_EMOJI);
         const useE = Math.random() < .5 && a + b <= 6;
-        const d = useE ? e.repeat(a) + " + " + e.repeat(b) : a + " + " + b;
-        return { type:"choice", question:"Berapa jumlahnya?", display:d, options:shuffle([String(a + b), ...pickWrong(a + b, N10, 2)]), answer:String(a + b) }; });
-    add("nombor", 120, () => { const a = 2 + rnd(8), b = 1 + rnd(a - 1);
-        return { type:"choice", question:"Berapa bakinya?", display:a + " − " + b, options:shuffle([String(a - b), ...pickWrong(a - b, N0_9, 2)]), answer:String(a - b) }; });
-    add("nombor", 100, () => sequenceQ(Array.from({ length:20 }, (_, i) => i + 1), "Nombor apa yang hilang?"));
-    add("nombor", 80, () => { const n = pick(N10);
-        return { type:"drag", question:"Seret nombor " + n + " ke kotak!", items:shuffle([n, ...pickWrong(n, N10, 2)]), answer:n }; });
-    add("nombor", 80, () => { const s = shuffle(N10.map(Number)).slice(0, 2 + rnd(2));
+        return ch("Berapa jumlahnya?", useE ? e.repeat(a) + " + " + e.repeat(b) : a + " + " + b, a + b, N10); });
+    add("nombor", 300, () => { const a = 2 + rnd(8), b = 1 + rnd(a - 1); return ch("Berapa bakinya?", a + " − " + b, a - b, N0_9); });
+    add("nombor", 150, () => sequenceQ(Array.from({ length:20 }, (_, i) => i + 1), "Nombor apa yang hilang?"));
+    add("nombor", 150, () => { const n = pick(N10);
+        return { type:"drag", question:"Seret nombor " + n + " ke kotak!", items:opts(n, N10), answer:n }; });
+    add("nombor", 200, () => { const s = shuffle(N10.map(Number)).slice(0, 2 + rnd(2));
         return { type:"match", question:"Padankan nombor dengan perkataan", pairs:s.map(n => [String(n), NUM_WORDS[n]]) }; });
-    add("nombor", 80, () => { const [a, b] = shuffle(N20).slice(0, 2);
+    add("nombor", 250, () => { const [a, b] = shuffle(N20).slice(0, 2);
         return { type:"choice", question:"Mana nombor yang lebih besar?", display:"🤔", options:[a, b], answer:String(Math.max(+a, +b)) }; });
-    add("nombor", 80, () => { const e = pick(COUNT_EMOJI); const a = 1 + rnd(9); let b = 1 + rnd(9); if (b === a) b = a === 9 ? 8 : a + 1;
+    add("nombor", 250, () => { const [a, b] = shuffle(N20).slice(0, 2);
+        return { type:"choice", question:"Mana nombor yang lebih kecil?", display:"🤔", options:[a, b], answer:String(Math.min(+a, +b)) }; });
+    add("nombor", 300, () => { const e = pick(COUNT_EMOJI); const a = 1 + rnd(9); let b = 1 + rnd(9); if (b === a) b = a === 9 ? 8 : a + 1;
         return { type:"choice", question:"Sebelah mana yang lebih banyak?", display:e.repeat(a) + "  |  " + e.repeat(b), options:["Kiri", "Kanan"], answer:a > b ? "Kiri" : "Kanan" }; });
+    add("nombor", 100, () => { const n = 1 + rnd(19); return ch("Nombor apa selepas " + n + "?", String(n), n + 1, N20.concat(["21"])); });
+    add("nombor", 100, () => { const n = 2 + rnd(19); return ch("Nombor apa sebelum " + n + "?", String(n), n - 1, N20); });
 
-    // ---- TEKA GAMBAR
+    // ================= TEKA GAMBAR
     const WN = WORDS.map(w => w[0]);
-    add("gambar", 360, () => { const [w, e] = pick(WORDS);
-        return { type:"choice", question:"Gambar apakah ini?", display:e, options:shuffle([w, ...pickWrong(w, WN, 2)]), answer:w }; });
-    add("gambar", 140, () => { const [w, e] = pick(WORDS.filter(x => x[0].length <= 7));
+    add("gambar", 900, () => { const [w, e] = pick(WORDS); return ch("Gambar apakah ini?", e, w, WN); });
+    add("gambar", 200, () => { const [w, e] = pick(WORDS); return ch("Mana gambar untuk perkataan " + w + "?", w, e, WORDS.map(x => x[1]), { speak:w }); });
+    add("gambar", 160, () => { const [w, e] = pick(WORDS.filter(x => x[0].length <= 7));
         return { type:"spell", question:"Susun huruf untuk namakan gambar!", display:e, answer:w }; });
 
-    // ---- SILANG KATA
-    add("silang", 200, genCross);
+    // ================= SILANG KATA
+    add("silang", 700, genCross);
 
-    // ---- WARNA & BENTUK
+    // ================= WARNA & BENTUK
     const CN = COLORS.map(c => c[1]), CE = COLORS.map(c => c[0]), SN = SHAPES.map(s => s[1]), SE = SHAPES.map(s => s[0]);
-    add("warna", 100, () => { const [e, n] = pick(COLORS);
-        return { type:"choice", question:"Warna apakah ini?", display:e, options:shuffle([n, ...pickWrong(n, CN, 2)]), answer:n }; });
-    add("warna", 80, () => { const [e, n] = pick(COLORS);
-        return { type:"choice", question:"Mana warna " + n + "?", display:"🎨", options:shuffle([e, ...pickWrong(e, CE, 2)]), answer:e }; });
-    add("warna", 80, () => { const [e, n] = pick(SHAPES);
-        return { type:"choice", question:"Bentuk apakah ini?", display:e, options:shuffle([n, ...pickWrong(n, SN, 2)]), answer:n }; });
-    add("warna", 60, () => { const [e, n] = pick(SHAPES);
-        return { type:"choice", question:"Mana bentuk " + n + "?", display:"🔍", options:shuffle([e, ...pickWrong(e, SE, 2)]), answer:e }; });
-    add("warna", 80, () => { const [e, n] = pick(OBJ_COLOR);
-        return { type:"choice", question:"Apakah warna benda ini?", display:e, options:shuffle([n, ...pickWrong(n, CN, 2)]), answer:n }; });
-    add("warna", 60, () => { const s = shuffle(COLORS).slice(0, 2 + rnd(2));
+    add("warna", 100, () => { const [e, n] = pick(COLORS); return ch("Warna apakah ini?", e, n, CN); });
+    add("warna", 100, () => { const [e, n] = pick(COLORS); return ch("Mana warna " + n + "?", "🎨", e, CE); });
+    add("warna", 100, () => { const [e, n] = pick(SHAPES); return ch("Bentuk apakah ini?", e, n, SN); });
+    add("warna", 100, () => { const [e, n] = pick(SHAPES); return ch("Mana bentuk " + n + "?", "🔍", e, SE); });
+    add("warna", 120, () => { const [e, n] = pick(OBJ_COLOR); return ch("Apakah warna benda ini?", e, n, CN.concat(["Hitam dan putih"])); });
+    add("warna", 200, () => { const s = shuffle(COLORS).slice(0, 2 + rnd(2));
         return { type:"match", question:"Padankan warna dengan namanya", pairs:s.map(c => [c[0], c[1]]) }; });
-    add("warna", 60, () => { const [e, n] = pick(COLORS);
-        return { type:"drag", question:"Seret warna " + n + " ke kotak!", items:shuffle([e, ...pickWrong(e, CE, 2)]), answer:e }; });
+    add("warna", 100, () => { const [e, n] = pick(COLORS);
+        return { type:"drag", question:"Seret warna " + n + " ke kotak!", items:opts(e, CE), answer:e }; });
 
-    // ---- JEJAK HURUF & NOMBOR
-    add("tulis", 150, () => {
+    // ================= JEJAK
+    add("tulis", 100, () => {
         const k = rnd(3);
         if (k === 0) { const l = pick(RUMI); return { type:"trace", question:"Jejak huruf besar " + l + " ikut garisan!", glyph:l }; }
         if (k === 1) { const l = pick(RUMI_LOWER); return { type:"trace", question:"Jejak huruf kecil " + l + " ikut garisan!", glyph:l }; }
         const n = String(rnd(10)); return { type:"trace", question:"Jejak nombor " + n + " ikut garisan!", glyph:n };
     });
 
-    // ---- TEKA CORAK
-    add("corak", 200, () => { const p = genPattern(); const wr = pickWrong(p.answer, PATTERN_EMOJI, 2);
-        return { type:"choice", question:"Apa yang seterusnya?", display:p.shown, options:shuffle([p.answer, ...wr]), answer:p.answer }; });
-    add("corak", 120, () => { const [a, b] = shuffle(PATTERN_EMOJI).slice(0, 2); const arr = Array(4).fill(a); arr[rnd(4)] = b;
+    // ================= CORAK
+    add("corak", 600, () => { const p = genPattern(); return ch("Apa yang seterusnya?", p.shown, p.answer, PATTERN_EMOJI); });
+    add("corak", 300, () => { const [a, b] = shuffle(PATTERN_EMOJI).slice(0, 2); const arr = Array(4).fill(a); arr[rnd(4)] = b;
         return { type:"choice", question:"Mana yang berbeza?", display:arr.join(" "), options:shuffle([a, b]), answer:b }; });
-    add("corak", 80, () => { const p = genPattern(); const wr = pickWrong(p.answer, PATTERN_EMOJI, 2);
-        return { type:"drag", question:"Apa yang seterusnya?\n" + p.shown + "\nSeret ke kotak!", items:shuffle([p.answer, ...wr]), answer:p.answer }; });
+    add("corak", 300, () => { const p = genPattern();
+        return { type:"drag", question:"Apa yang seterusnya?\n" + p.shown + "\nSeret ke kotak!", items:opts(p.answer, PATTERN_EMOJI), answer:p.answer }; });
 
-    // ---- PECAH BELON
-    add("belon", 160, () => {
+    // ================= PECAH BELON
+    add("belon", 300, () => {
         const k = rnd(4);
-        if (k < 2) { // turutan nombor / huruf
+        if (k < 2) {
             const len = 3 + rnd(3);
             let s;
             if (k === 0) { const st = 1 + rnd(11 - len); s = Array.from({ length:len }, (_, i) => String(st + i)); }
@@ -526,21 +722,185 @@ function generateQuestions() {
             question:"Pecah semua belon " + (isNum ? "nombor " : "huruf ") + target + "!" };
     });
 
-    // ---- PADAN KAD
-    add("kad", 160, () => {
-        const pc = 2 + rnd(4), kind = rnd(6);
+    // ================= PADAN KAD
+    add("kad", 500, () => {
+        const pc = 2 + rnd(4), kind = rnd(7);
         if (kind === 0) return { type:"memory", question:"Cari kad gambar yang sama!", pairs:shuffle(COUNT_EMOJI).slice(0, pc).map(e => [e, e]) };
         if (kind === 1) return { type:"memory", question:"Cari huruf yang sama!", pairs:shuffle(RUMI).slice(0, pc).map(e => [e, e]) };
         if (kind === 2) return { type:"memory", question:"Cari nombor yang sama!", pairs:shuffle(N10).slice(0, pc).map(e => [e, e]) };
         if (kind === 3) return { type:"memory", question:"Padankan huruf besar dan kecil!", pairs:shuffle(RUMI).slice(0, pc).map(e => [e, e.toLowerCase()]) };
         if (kind === 4) return { type:"memory", question:"Padankan nombor dengan perkataan!", pairs:shuffle(N10.map(Number)).slice(0, pc).map(n => [String(n), NUM_WORDS[n]]) };
+        if (kind === 5) return { type:"memory", question:"Padankan haiwan dengan makanannya!", pairs:shuffle(FOOD).slice(0, pc).map(f => [f[0], f[1]]) };
         return { type:"memory", question:"Padankan gambar dengan nama!", pairs:shuffle(WORDS.filter(w => w[0].length <= 6)).slice(0, pc).map(w => [w[1], w[0]]) };
     });
+
+    // ================= ANGGOTA BADAN
+    const BN = BODY.map(b => b[1]), BE = BODY.map(b => b[0]), BF = BODY.map(b => b[2]);
+    add("badan", 40, () => { const p = pick(BODY_PARTS), f = pick(["Mana " + p + "?", "Sentuh " + p + " pada gambar!", "Tekan " + p + "!"]);
+        return { type:"body", question:f, target:p }; });
+    add("badan", 60, () => { const [e, n] = pick(BODY); return ch("Bahagian badan apakah ini?", e, n, BN); });
+    add("badan", 60, () => { const [e, n] = pick(BODY); return ch("Mana gambar " + n.toLowerCase() + "?", "🧍", e, BE); });
+    add("badan", 60, () => { const [e, n, f] = pick(BODY); return ch("Kita guna " + n.toLowerCase() + " untuk apa?", e, f, BF); });
+    add("badan", 60, () => { const [e, n, f] = pick(BODY); return ch("Kita guna apa untuk " + f + "?", e, n, BN); });
+    add("badan", 40, () => { const [e, n, c] = pick(BODY_COUNT); return ch("Berapa banyak " + n + " yang kita ada?", e, c, ["1", "2", "3", "4", "5"]); });
+    add("badan", 20, () => ch("Berapa jari di dua tangan kita?", "🙌", 10, ["5", "8", "10", "12"]));
+    add("badan", 100, () => { const s = shuffle(BODY).slice(0, 2 + rnd(2));
+        return { type:"match", question:"Padankan gambar dengan nama", pairs:s.map(b => [b[0], b[1]]) }; });
+    add("badan", 60, () => { const [e, n] = pick(BODY);
+        return { type:"drag", question:"Seret " + n.toLowerCase() + " ke kotak!", items:opts(e, BE), answer:e }; });
+
+    // ================= SUKU KATA
+    const SYLS = []; CONS.forEach(c => VOW.forEach(v => SYLS.push(c + v)));
+    add("sukukata", 85, () => { const s = pick(SYLS), c = s[0], v = s[1];
+        const wr = rnd(2) ? VOW.filter(x => x !== v).map(x => c + x) : CONS.filter(x => x !== c).map(x => x + v);
+        return { type:"choice", question:"Suku kata apakah ini?", display:s, speak:s, options:shuffle([s, ...shuffle(wr).slice(0, 2)]), answer:s }; });
+    add("sukukata", 85, () => { const s = pick(SYLS), c = s[0], v = s[1];
+        const wr = rnd(2) ? VOW.filter(x => x !== v).map(x => c + x) : CONS.filter(x => x !== c).map(x => x + v);
+        return { type:"choice", question:"Mana suku kata \"" + s + "\"?", display:"🔊", speak:s, options:shuffle([s, ...shuffle(wr).slice(0, 2)]), answer:s }; });
+    const SW = SYL_WORDS.map(x => x[1]);
+    add("sukukata", 60, () => { const [p, w] = pick(SYL_WORDS); return ch("Gabungkan suku kata menjadi perkataan", p.join(" + ") + " = ?", w, SW, { speak:p.join(" ") }); });
+    add("sukukata", 60, () => { const [p, w, e] = pick(SYL_WORDS);
+        const alt = p.map((s, i) => { const o = VOW.filter(x => x !== s[s.length - 1]); return p.map((t, j) => j === i ? s.slice(0, -1) + pick(o) : t).join("-"); });
+        const ans = p.join("-");
+        const wr = [...new Set(alt)].filter(x => x !== ans);
+        if (wr.length < 2) wr.push([...p].reverse().join("-"));
+        return { type:"choice", question:"Pecahkan " + w.toLowerCase() + " kepada suku kata", display:e, options:shuffle([ans, ...shuffle(wr).slice(0, 2)]), answer:ans }; });
+    add("sukukata", 60, () => { const [p, w, e] = pick(SYL_WORDS); const s = p[0], c = s[0];
+        const wr = VOW.filter(x => x !== s[1]).map(x => c + x);
+        return { type:"choice", question:"Perkataan " + w.toLowerCase() + " bermula dengan suku kata?", display:e, options:shuffle([s, ...shuffle(wr).slice(0, 2)]), answer:s }; });
+    add("sukukata", 20, () => { const [p, w, e] = pick(SYL_WORDS);
+        return { type:"spell", question:"Susun suku kata untuk gambar ini!", display:e, parts:p, answer:p.join("|") }; });
+
+    // ================= HAIWAN & BUNYI
+    const SND = ANIMALS.filter(a => a[2]), SNDN = SND.map(a => a[2]), AE = ANIMALS.map(a => a[0]), AN = ANIMALS.map(a => a[1]);
+    add("haiwan", 30, () => { const [e, n, s] = pick(SND); return ch("Haiwan apa yang berbunyi macam ini?", "🔊 " + s, e, AE, { speak:s }); });
+    add("haiwan", 30, () => { const [e, n, s] = pick(SND); return ch("Apakah bunyi " + n.toLowerCase() + "?", e, s, SNDN, { speak:s }); });
+    add("haiwan", 60, () => { const [e, n] = pick(ANIMALS); return ch("Haiwan apakah ini?", e, n, AN); });
+    add("haiwan", 60, () => { const k = pick([["terbang", FLY, SWIM.concat(WALK)], ["berenang di dalam air", SWIM, FLY.concat(WALK)], ["berjalan di atas tanah", WALK, FLY.concat(SWIM)]]);
+        const a = pick(k[1]); return ch("Mana haiwan yang boleh " + k[0] + "?", "🐾", a, [a, ...shuffle(k[2]).slice(0, 4)]); });
+    add("haiwan", 60, () => { const [e, n, s, k] = pick(ANIMALS); return ch("Berapa kaki " + n.toLowerCase() + "?", e, k, ["0", "2", "4", "6"]); });
+    add("haiwan", 30, () => { const [a, f] = pick(FOOD); return ch("Apa yang dimakan oleh haiwan ini?", a, f, FOOD.map(x => x[1])); });
+    add("haiwan", 150, () => { const s = shuffle(SND).slice(0, 2 + rnd(2));
+        return { type:"match", question:"Padankan haiwan dengan bunyinya", pairs:s.map(a => [a[0], a[2]]) }; });
+    add("haiwan", 150, () => { const s = shuffle(FOOD).slice(0, 2 + rnd(2));
+        return { type:"match", question:"Padankan haiwan dengan makanannya", pairs:s.map(a => [a[0], a[1]]) }; });
+    add("haiwan", 40, () => { const [e, n] = pick(ANIMALS);
+        return { type:"drag", question:"Seret " + n.toLowerCase() + " ke kotak!", items:opts(e, AE), answer:e }; });
+
+    // ================= PUZZLE GAMBAR
+    const PZ = [...new Set(WORDS.map(w => w[1]))].filter(e => !e.includes("\uFE0F"));
+    add("puzzle", 600, () => { const [r, c] = pick([[2, 2], [2, 2], [2, 3], [3, 3]]);
+        return { type:"puzzle", question:"Susun semula gambar!\nTekan dua kepingan untuk tukar tempat.", emoji:pick(PZ), rows:r, cols:c }; });
+
+    // ================= BUAH & SAYUR
+    const FN = FRUIT.map(f => f[1]), VN = VEG.map(f => f[1]), ALLFV = FRUIT.concat(VEG);
+    add("buah", 40, () => { const [e, n] = pick(FRUIT); return ch("Buah apakah ini?", e, n, FN); });
+    add("buah", 40, () => { const [e, n] = pick(VEG); return ch("Sayur apakah ini?", e, n, VN); });
+    add("buah", 60, () => { const [e, n] = pick(ALLFV); return ch("Mana gambar " + n.toLowerCase() + "?", n, e, ALLFV.map(x => x[0]), { speak:n }); });
+    add("buah", 60, () => { const [e, n] = pick(ALLFV); const isF = FRUIT.some(f => f[0] === e);
+        return { type:"choice", question:"Ini buah atau sayur?", display:e, options:["Buah", "Sayur"], answer:isF ? "Buah" : "Sayur" }; });
+    add("buah", 60, () => { const f = pick(FRUIT); const v = shuffle(VEG).slice(0, 2);
+        return { type:"choice", question:"Mana satu buah?", display:"🧺", options:shuffle([f[0], v[0][0], v[1][0]]), answer:f[0] }; });
+    add("buah", 60, () => { const v = pick(VEG); const f = shuffle(FRUIT).slice(0, 2);
+        return { type:"choice", question:"Mana satu sayur?", display:"🥗", options:shuffle([v[0], f[0][0], f[1][0]]), answer:v[0] }; });
+    add("buah", 200, () => { const s = shuffle(ALLFV).slice(0, 2 + rnd(2));
+        return { type:"match", question:"Padankan gambar dengan nama", pairs:s.map(a => [a[0], a[1]]) }; });
+    add("buah", 60, () => { const [e, n] = pick(ALLFV);
+        return { type:"drag", question:"Seret " + n.toLowerCase() + " ke kotak!", items:opts(e, ALLFV.map(x => x[0])), answer:e }; });
+
+    // ================= KENDERAAN
+    const VNm = VEH.map(v => v[1]), VEm = VEH.map(v => v[0]);
+    add("kenderaan", 30, () => { const [e, n] = pick(VEH); return ch("Kenderaan apakah ini?", e, n, VNm); });
+    add("kenderaan", 30, () => { const [e, n] = pick(VEH); return ch("Mana gambar " + n.toLowerCase() + "?", n, e, VEm, { speak:n }); });
+    add("kenderaan", 30, () => { const [e, n, m] = pick(VEH); return { type:"choice", question:"Kenderaan ini bergerak di mana?", display:e, options:["Darat", "Air", "Udara"], answer:m }; });
+    add("kenderaan", 60, () => { const m = pick(["Darat", "Air", "Udara"]); const a = pick(VEH.filter(v => v[2] === m));
+        const wr = shuffle(VEH.filter(v => v[2] !== m)).slice(0, 2);
+        return { type:"choice", question:"Mana satu bergerak di " + m.toLowerCase() + "?", display:"🗺️", options:shuffle([a[0], wr[0][0], wr[1][0]]), answer:a[0] }; });
+    add("kenderaan", 150, () => { const s = shuffle(VEH).slice(0, 2 + rnd(2));
+        return { type:"match", question:"Padankan kenderaan dengan namanya", pairs:s.map(a => [a[0], a[1]]) }; });
+    add("kenderaan", 40, () => { const [e, n] = pick(VEH);
+        return { type:"drag", question:"Seret " + n.toLowerCase() + " ke kotak!", items:opts(e, VEm), answer:e }; });
+
+    // ================= PEKERJAAN
+    const JN2 = JOBS.map(j => j[1]), JF = JOBS.map(j => j[2]), JE = JOBS.map(j => j[0]);
+    add("kerjaya", 30, () => { const [e, n] = pick(JOBS); return ch("Siapakah ini?", e, n, JN2); });
+    add("kerjaya", 30, () => { const [e, n, f] = pick(JOBS); return ch("Siapa yang " + f + "?", "🤔", n, JN2); });
+    add("kerjaya", 30, () => { const [e, n, f] = pick(JOBS); return ch("Apa kerja " + n.toLowerCase() + "?", e, f, JF); });
+    add("kerjaya", 100, () => { const s = shuffle(JOBS).slice(0, 2 + rnd(2));
+        return { type:"match", question:"Padankan pekerjaan dengan namanya", pairs:s.map(a => [a[0], a[1]]) }; });
+    add("kerjaya", 30, () => { const [e, n] = pick(JOBS);
+        return { type:"drag", question:"Seret " + n.toLowerCase() + " ke kotak!", items:opts(e, JE), answer:e }; });
+
+    // ================= LAWAN KATA
+    const OW = OPP.flat();
+    add("lawan", 60, () => { const p = pick(OPP), r = rnd(2); const a = p[r], b = p[1 - r];
+        return ch("Lawan kata bagi \"" + a + "\" ialah?", a, b, OW, { speak:"Lawan kata " + a }); });
+    add("lawan", 200, () => { const s = shuffle(OPP).slice(0, 2 + rnd(2));
+        return { type:"match", question:"Padankan lawan kata", pairs:s.map(p => [p[0], p[1]]) }; });
+    add("lawan", 60, () => { const p = pick(OPP), r = rnd(2);
+        return { type:"drag", question:"Seret lawan kata bagi \"" + p[r] + "\" ke kotak!", items:opts(p[1 - r], OW), answer:p[1 - r] }; });
+
+    // ================= PERASAAN & ADAB
+    const EN = EMO.map(e => e[1]), EE = EMO.map(e => e[0]);
+    add("perasaan", 20, () => { const [e, n] = pick(EMO); return ch("Apakah perasaan ini?", e, n, EN); });
+    add("perasaan", 20, () => { const [e, n] = pick(EMO); return ch("Mana wajah yang " + n.toLowerCase() + "?", "🤔", e, EE); });
+    add("perasaan", 40, () => { const e = pick(SITUASI); const wr = e[2] || pickWrong(e[1], EN, 2);
+        return { type:"choice", question:e[0], display:"💭", options:shuffle([e[1], ...wr]), answer:e[1] }; });
+    add("perasaan", 100, () => { const s = shuffle(EMO).slice(0, 2 + rnd(2));
+        return { type:"match", question:"Padankan wajah dengan perasaan", pairs:s.map(a => [a[0], a[1]]) }; });
+
+    // ================= HARI & BULAN
+    add("masa", 30, () => { const i = rnd(7); return ch("Selepas hari " + DAYS[i] + ", hari apa?", DAYS[i], DAYS[(i + 1) % 7], DAYS); });
+    add("masa", 30, () => { const i = rnd(7); return ch("Sebelum hari " + DAYS[i] + ", hari apa?", DAYS[i], DAYS[(i + 6) % 7], DAYS); });
+    add("masa", 30, () => { const i = rnd(7); return ch("Hari apa di tengah-tengah?", DAYS[i] + "  ___  " + DAYS[(i + 2) % 7], DAYS[(i + 1) % 7], DAYS); });
+    add("masa", 30, () => { const i = rnd(12); return ch("Selepas bulan " + MONTHS[i] + ", bulan apa?", MONTHS[i], MONTHS[(i + 1) % 12], MONTHS); });
+    add("masa", 30, () => { const i = rnd(12); return ch("Sebelum bulan " + MONTHS[i] + ", bulan apa?", MONTHS[i], MONTHS[(i + 11) % 12], MONTHS); });
+    add("masa", 20, qaGen(TIME_QA, "⏰"));
+    add("masa", 100, () => { const i = rnd(7); const s = [0, 1, 2].map(k => DAYS[(i + k) % 7]);
+        return { type:"spell", question:"Susun hari mengikut turutan!", display:"📅", parts:s, answer:s.join("|") }; });
+
+    // ================= ISLAM & HIJAIYAH
+    const HJ = HIJA.map(h => h[0]), HN = HIJA.map(h => h[1]);
+    add("agama", 30, qaGen(ISLAM_QA, "🕌"));
+    add("agama", 150, () => { const [a, n] = pick(HIJA); return ch("Apakah nama huruf hijaiyah ini?", a, n, HN); });
+    add("agama", 150, () => { const [a, n] = pick(HIJA); return ch("Mana huruf hijaiyah " + n + "?", n, a, HJ, { speak:n }); });
+    add("agama", 100, () => { const [a, n] = pick(HIJA);
+        return { type:"drag", question:"Seret huruf " + n + " ke kotak!", items:opts(a, HJ), answer:a }; });
+    add("agama", 200, () => { const s = shuffle(HIJA).slice(0, 2 + rnd(2));
+        return { type:"match", question:"Padankan huruf hijaiyah dengan namanya", pairs:s.map(h => [h[0], h[1]]) }; });
+
+    // ================= MEWARNA
+    const DRAWS = [["rumah", "rumah"], ["bunga", "bunga"], ["ikan", "ikan"], ["kereta", "kereta"], ["bintang", "bintang"], ["pokok", "pokok"]];
+    add("mewarna", 18, () => { const d = pick(DRAWS);
+        return { type:"color", draw:d[0], question:pick(["Warnakan " + d[1] + " dengan cantik!", "Mari mewarna " + d[1] + "!", "Warnakan " + d[1] + " guna warna kegemaran anda!"]) }; });
+
+    // ================= RUTIN & KEBERSIHAN
+    add("rutin", 8, () => { const r = pick(ROUTINES);
+        return { type:"spell", question:"Susun langkah: " + r[0].toLowerCase() + "!", display:r[1], parts:r[2], answer:r[2].join("|") }; });
+    add("rutin", 30, () => { const r = pick(ROUTINES); const i = rnd(3);
+        return ch("Apa langkah selepas \"" + r[2][i].toLowerCase() + "\" ketika " + r[0].toLowerCase() + "?", r[1], r[2][i + 1], r[2].concat(pick(ROUTINES)[2])); });
+    add("rutin", 10, () => { const r = pick(ROUTINES);
+        return ch("Apa langkah pertama ketika " + r[0].toLowerCase() + "?", r[1], r[2][0], r[2]); });
+    add("rutin", 20, qaGen(HYGIENE_QA, "🧼"));
 
     return shuffle(qs);
 }
 const ALL_QUESTIONS = generateQuestions();
-console.log("Jumlah soalan:", ALL_QUESTIONS.length);
+console.log("Jumlah soalan:", ALL_QUESTIONS.length, "| kandungan berbeza:", new Set(ALL_QUESTIONS.map(q => q.ck)).size);
+
+/* Bina senarai soalan satu sesi: gilir antara topik, elak kandungan sama,
+   utamakan soalan yang belum pernah dilihat murid ini */
+function buildSession(pool, seen) {
+    const by = {};
+    shuffle(pool).forEach(q => { (by[q.category] = by[q.category] || new Map()); if (!by[q.category].has(q.ck)) by[q.category].set(q.ck, q); });
+    const lists = shuffle(Object.keys(by)).map(c => [...by[c].values()].sort((a, b) => (seen[a.ck] || 0) - (seen[b.ck] || 0)));
+    const out = [], used = new Set();
+    for (let i = 0, any = true; any; i++) {
+        any = false;
+        lists.forEach(l => { if (i < l.length) { out.push(l[i]); used.add(l[i]); any = true; } });
+    }
+    return out.concat(shuffle(pool.filter(q => !used.has(q))));   // variasi lain selepas semua kandungan unik habis
+}
 
 /* ============================================================
    TOKEN + DEVICE LOCK
@@ -659,7 +1019,7 @@ function showStartScreen() {
 ============================================================ */
 const PROFILES_KEY = "jomBelajar_students";
 const profKey = n => "jomBelajar_p_" + n.toLowerCase();
-const newProfile = n => ({ name:n, stickers:{}, stats:{}, sessions:[] });
+const newProfile = n => ({ name:n, stickers:{}, stats:{}, sessions:[], seen:{} });
 function loadProfile(n) {
     try { return JSON.parse(localStorage.getItem(profKey(n))) || newProfile(n); } catch (e) { return newProfile(n); }
 }
@@ -774,11 +1134,11 @@ function startGame() {
     if (qType !== "semua") pool = pool.filter(q => q.type === qType);
     if (!pool.length) { alert("Tiada soalan untuk pilihan ini. Cuba pilih 'Semua'."); return; }
 
-    currentQuestions = shuffle(pool);
+    profile = loadProfile(name); profile.seen = profile.seen || {};
+    currentQuestions = buildSession(pool, profile.seen);
     if (isDemo()) currentQuestions = currentQuestions.slice(0, 5);
 
     soundOn = $("soundSel").value === "1";
-    profile = loadProfile(name);
     $("playerName").textContent = name;
     currentIndex = 0; score = 0; correctAnswers = 0; totalAnswered = 0; isAnswering = false;
     $("score").textContent = "0";
@@ -805,6 +1165,7 @@ function showQuestion() {
     if (currentIndex >= currentQuestions.length) return finishGame();
     isAnswering = false; qMistakes = 0;
     const q = currentQuestions[currentIndex];
+    if (profile) { profile.seen = profile.seen || {}; profile.seen[q.ck] = (profile.seen[q.ck] || 0) + 1; }
     $("questionNumber").textContent = currentIndex + 1;
     $("feedback").textContent = "";
     $("feedback").className = "feedback";
@@ -812,7 +1173,8 @@ function showQuestion() {
     const area = $("questionArea");
     area.innerHTML = "";
     ({ choice:showChoice, fill:showFill, drag:showDrag, match:showMatch, spell:showSpell,
-       cross:showCross, balloon:showBalloon, memory:showMemory, trace:showTrace })[q.type](q, area);
+       cross:showCross, balloon:showBalloon, memory:showMemory, trace:showTrace,
+       body:showBody, puzzle:showPuzzle, color:showColor })[q.type](q, area);
     curSpeech = q.question + (q.speak ? ". " + q.speak : "");
     speak(curSpeech);
 }
@@ -950,19 +1312,21 @@ function selectMatch(el, pairs) {
     }
 }
 
-/* ---------- SPELL ---------- */
+/* ---------- SUSUN (huruf / suku kata / langkah) ---------- */
 function showSpell(q, area) {
-    const w = q.answer;
-    let tiles = shuffle([...w]), guard = 0;
-    while (tiles.join("") === w && guard++ < 10) tiles = shuffle([...w]);
-    let slots = Array(w.length).fill(-1), locked = false;
+    const parts = q.parts || [...q.answer];
+    const target = parts.join("|");
+    const wide = parts.some(p => [...p].length > 2);
+    let tiles = shuffle(parts), guard = 0;
+    while (tiles.join("|") === target && guard++ < 10) tiles = shuffle(parts);
+    let slots = Array(parts.length).fill(-1), locked = false;
 
     function draw(cls) {
         area.innerHTML = `
             <div>${escapeHTML(q.question)}</div>
             <div class="big-letter">${escapeHTML(q.display)}</div>
-            <div class="slots ${cls || ""}">${slots.map((t, i) => `<button class="slot" data-i="${i}">${t >= 0 ? tiles[t] : ""}</button>`).join("")}</div>
-            <div class="tiles">${tiles.map((c, i) => `<button class="tile" data-i="${i}" ${slots.includes(i) ? "disabled" : ""}>${c}</button>`).join("")}</div>`;
+            <div class="slots ${cls || ""}">${slots.map((t, i) => `<button class="slot${wide ? " wide" : ""}" data-i="${i}">${t >= 0 ? escapeHTML(tiles[t]) : (wide ? (i + 1) + "." : "")}</button>`).join("")}</div>
+            <div class="tiles">${tiles.map((c, i) => `<button class="tile${wide ? " wide" : ""}" data-i="${i}" ${slots.includes(i) ? "disabled" : ""}>${escapeHTML(c)}</button>`).join("")}</div>`;
         area.querySelectorAll(".tile").forEach(b => b.onclick = () => {
             if (locked || isAnswering) return;
             const s = slots.indexOf(-1);
@@ -977,14 +1341,342 @@ function showSpell(q, area) {
         });
     }
     function check() {
-        const attempt = slots.map(t => tiles[t]).join("");
-        if (attempt === w) { isAnswering = true; draw(); correct(); nextQuestion(1100); return; }
+        const attempt = slots.map(t => tiles[t]).join("|");
+        if (attempt === target) { isAnswering = true; draw(); correct(); nextQuestion(1100); return; }
         locked = true;
         draw("shake");
         tryAgain("🙂 Belum betul, cuba lagi!");
-        setTimeout(() => { slots = Array(w.length).fill(-1); locked = false; draw(); }, 700);
+        setTimeout(() => { slots = Array(parts.length).fill(-1); locked = false; draw(); }, 700);
     }
     draw();
+}
+
+/* ---------- ANGGOTA BADAN (tekan bahagian pada gambar) ---------- */
+function showBody(q, area) {
+    const svg = `
+    <svg class="bodysvg" viewBox="0 0 200 300" id="bodysvg" role="img" aria-label="Gambar budak">
+      <g data-part="lengan"><rect x="40" y="132" width="22" height="64" rx="11" fill="#64b5f6"/><rect x="138" y="132" width="22" height="64" rx="11" fill="#64b5f6"/></g>
+      <g data-part="tangan"><circle cx="51" cy="206" r="13" fill="#ffcc99"/><circle cx="149" cy="206" r="13" fill="#ffcc99"/></g>
+      <g data-part="kaki"><rect x="74" y="206" width="22" height="70" rx="10" fill="#5c6bc0"/><rect x="104" y="206" width="22" height="70" rx="10" fill="#5c6bc0"/><ellipse cx="82" cy="284" rx="17" ry="9" fill="#8d6e63"/><ellipse cx="118" cy="284" rx="17" ry="9" fill="#8d6e63"/></g>
+      <g data-part="lutut"><circle cx="85" cy="242" r="9" fill="#7986cb" stroke="#3949ab" stroke-width="2"/><circle cx="115" cy="242" r="9" fill="#7986cb" stroke="#3949ab" stroke-width="2"/></g>
+      <g data-part="badan"><rect x="66" y="130" width="68" height="86" rx="16" fill="#64b5f6"/></g>
+      <g data-part="leher"><rect x="91" y="112" width="18" height="22" rx="6" fill="#ffcc99"/></g>
+      <g data-part="telinga"><circle cx="57" cy="86" r="10" fill="#ffb380"/><circle cx="143" cy="86" r="10" fill="#ffb380"/></g>
+      <g data-part="muka"><circle cx="100" cy="84" r="42" fill="#ffcc99"/></g>
+      <g data-part="rambut"><path d="M58 80 Q58 36 100 36 Q142 36 142 80 Q128 58 100 56 Q72 58 58 80 Z" fill="#5d4037"/></g>
+      <g data-part="mata"><circle cx="84" cy="82" r="14" fill="transparent"/><circle cx="116" cy="82" r="14" fill="transparent"/><circle cx="84" cy="82" r="8" fill="#fff"/><circle cx="116" cy="82" r="8" fill="#fff"/><circle cx="85" cy="83" r="4" fill="#263238"/><circle cx="117" cy="83" r="4" fill="#263238"/></g>
+      <g data-part="hidung"><ellipse cx="100" cy="96" rx="11" ry="11" fill="transparent"/><ellipse cx="100" cy="96" rx="6" ry="8" fill="#f0a070"/></g>
+      <g data-part="mulut"><ellipse cx="100" cy="113" rx="20" ry="10" fill="transparent"/><path d="M84 108 Q100 124 116 108" fill="none" stroke="#d84315" stroke-width="5" stroke-linecap="round"/></g>
+    </svg>`;
+    area.innerHTML = `<div>${escapeHTML(q.question)}</div>${svg}`;
+    $("bodysvg").addEventListener("click", e => {
+        const g = e.target.closest("[data-part]");
+        if (!g || isAnswering) return;
+        const part = g.dataset.part;
+        if (part === q.target) {
+            g.querySelectorAll("*").forEach(x => x.classList.add("hit"));
+            isAnswering = true; correct(); nextQuestion(1400);
+        } else {
+            tryAgain("🙂 Itu " + part + ". Cari " + q.target + "!");
+        }
+    });
+}
+
+/* ---------- PUZZLE GAMBAR (tekan dua kepingan untuk tukar) ---------- */
+function showPuzzle(q, area) {
+    const R = q.rows, C = q.cols;
+    const size = Math.floor(Math.min(300 / C, 300 / R, 150));
+    const W = C * size, H = R * size;
+    const src = document.createElement("canvas");
+    src.width = W; src.height = H;
+    const sc = src.getContext("2d");
+    sc.fillStyle = cssVar("--canvas"); sc.fillRect(0, 0, W, H);
+    const fs = Math.floor(Math.min(W, H) * 0.78);
+    sc.font = fs + "px 'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif";
+    sc.textAlign = "center"; sc.textBaseline = "middle";
+    sc.fillText(q.emoji, W / 2, H / 2 + fs * 0.05);
+
+    let order = shuffle([...Array(R * C).keys()]), g = 0;
+    while (order.every((v, i) => v === i) && g++ < 20) order = shuffle([...Array(R * C).keys()]);
+    let sel = -1, done = false;
+    area.innerHTML = `<div>${escapeHTML(q.question)}</div><div style="font-size:15px;margin-top:6px;">Contoh gambar: <span style="font-size:34px;vertical-align:middle;">${escapeHTML(q.emoji)}</span></div><div class="pgrid" id="pg" style="grid-template-columns:repeat(${C},${size}px)"></div>`;
+    const pg = $("pg");
+    function render() {
+        pg.innerHTML = "";
+        order.forEach((idx, pos) => {
+            const cv = document.createElement("canvas");
+            cv.width = size; cv.height = size;
+            cv.style.width = size + "px"; cv.style.height = size + "px";
+            cv.getContext("2d").drawImage(src, (idx % C) * size, Math.floor(idx / C) * size, size, size, 0, 0, size, size);
+            if (pos === sel) cv.classList.add("sel");
+            cv.onclick = () => tap(pos);
+            pg.appendChild(cv);
+        });
+    }
+    function tap(pos) {
+        if (done || isAnswering) return;
+        if (sel < 0) sel = pos;
+        else if (sel === pos) sel = -1;
+        else {
+            [order[sel], order[pos]] = [order[pos], order[sel]];
+            sel = -1;
+            if (order.every((v, i) => v === i)) { done = true; isAnswering = true; render(); correct(); nextQuestion(1600); return; }
+        }
+        render();
+    }
+    render();
+}
+
+/* ---------- MEWARNA (tekan ruang untuk isi warna) ---------- */
+function showColor(q, area) {
+    const PAL = ["#ef5350", "#ff9800", "#fdd835", "#66bb6a", "#42a5f5", "#ab47bc", "#8d6e63", "#ec407a"];
+    const L = document.createElement("canvas");
+    L.width = L.height = 300;
+    const lc = L.getContext("2d");
+    lc.fillStyle = "#fff"; lc.fillRect(0, 0, 300, 300);
+    lc.lineWidth = 4; lc.strokeStyle = "#222"; lc.lineJoin = "round"; lc.lineCap = "round";
+    const S = fn => { lc.beginPath(); fn(lc); lc.closePath(); lc.fillStyle = "#fff"; lc.fill(); lc.stroke(); };
+    const poly = pts => S(c => { c.moveTo(pts[0][0], pts[0][1]); pts.slice(1).forEach(p => c.lineTo(p[0], p[1])); });
+    const rect = (x, y, w, h) => S(c => c.rect(x, y, w, h));
+    const circ = (x, y, r) => S(c => c.arc(x, y, r, 0, Math.PI * 2));
+    const ell = (x, y, rx, ry, rot) => S(c => c.ellipse(x, y, rx, ry, rot || 0, 0, Math.PI * 2));
+    const line = (a, b, c2, d) => { lc.beginPath(); lc.moveTo(a, b); lc.lineTo(c2, d); lc.stroke(); };
+    const union = circles => {   // gabungan bulatan tanpa garisan di dalam
+        lc.lineWidth = 8;
+        circles.forEach(([x, y, r]) => { lc.beginPath(); lc.arc(x, y, r, 0, Math.PI * 2); lc.stroke(); });
+        lc.fillStyle = "#fff";
+        circles.forEach(([x, y, r]) => { lc.beginPath(); lc.arc(x, y, r, 0, Math.PI * 2); lc.fill(); });
+        lc.lineWidth = 4;
+    };
+    const DRAW = {
+        rumah() { circ(255, 45, 22); rect(10, 258, 280, 32); rect(60, 140, 180, 120); poly([[40, 142], [150, 60], [260, 142]]);
+            rect(128, 190, 44, 70); rect(80, 165, 36, 36); rect(184, 165, 36, 36); },
+        bunga() { rect(146, 170, 8, 110); ell(122, 225, 24, 10, -0.5); ell(178, 205, 24, 10, 0.5);
+            const cs = []; for (let k = 0; k < 8; k++) cs.push([150 + 46 * Math.cos(k * Math.PI / 4), 105 + 46 * Math.sin(k * Math.PI / 4), 26]);
+            cs.push([150, 105, 30]); union(cs); circ(150, 105, 14); },
+        ikan() { poly([[222, 150], [275, 105], [275, 195]]); poly([[125, 108], [160, 72], [178, 112]]); ell(145, 150, 85, 50);
+            circ(100, 138, 8); circ(45, 70, 10); circ(30, 105, 7); },
+        kereta() { rect(10, 244, 280, 34); poly([[80, 150], [105, 105], [200, 105], [225, 150]]); rect(40, 150, 220, 60);
+            poly([[92, 148], [110, 115], [145, 115], [145, 148]]); poly([[155, 115], [195, 115], [212, 148], [155, 148]]);
+            circ(95, 215, 26); circ(205, 215, 26); circ(95, 215, 10); circ(205, 215, 10); },
+        bintang() { const pts = [], inner = []; for (let k = 0; k < 10; k++) { const a = -Math.PI / 2 + k * Math.PI / 5, r = k % 2 ? 48 : 115;
+                const p = [150 + r * Math.cos(a), 150 + r * Math.sin(a)]; pts.push(p); if (k % 2) inner.push(p); }
+            poly(pts); inner.forEach(p => line(150, 150, p[0], p[1])); },
+        pokok() { rect(10, 268, 280, 22); rect(130, 170, 40, 100); union([[150, 95, 55], [105, 135, 40], [195, 135, 40]]);
+            circ(125, 100, 9); circ(175, 125, 9); circ(110, 140, 9); }
+    };
+    DRAW[q.draw]();
+
+    // peta sempadan (garisan) untuk isi warna
+    const ld = lc.getImageData(0, 0, 300, 300).data;
+    const bound = new Uint8Array(90000);
+    for (let i = 0; i < 90000; i++) bound[i] = (ld[i * 4] * .3 + ld[i * 4 + 1] * .59 + ld[i * 4 + 2] * .11) < 150 ? 1 : 0;
+
+    const dark = document.documentElement.getAttribute("data-theme") === "dark";
+    const paper = dark ? "#cfcbc0" : "#ffffff";
+    const F = document.createElement("canvas");
+    F.width = F.height = 300;
+    const fc = F.getContext("2d");
+    fc.fillStyle = paper; fc.fillRect(0, 0, 300, 300);
+    let fd = fc.getImageData(0, 0, 300, 300);
+
+    area.innerHTML = `
+        <div>${escapeHTML(q.question)}</div>
+        <canvas id="cc" class="tcanvas" width="300" height="300" style="border-style:solid;background:${paper};"></canvas>
+        <div class="palette" id="pal">${PAL.map((c, i) => `<div class="sw${i === 0 ? " on" : ""}" data-c="${c}" style="background:${c}"></div>`).join("")}</div>
+        <div class="btn-row" style="max-width:320px;margin:0 auto;">
+            <button class="btn btn-secondary" id="cclr">🧽 Padam</button>
+            <button class="btn" id="cdone">✓ SIAP</button>
+        </div>`;
+    const cv = $("cc"), ctx = cv.getContext("2d");
+    let color = PAL[0], fills = 0;
+    function compose() {
+        fc.putImageData(fd, 0, 0);
+        ctx.globalCompositeOperation = "source-over";
+        ctx.drawImage(F, 0, 0);
+        ctx.globalCompositeOperation = "multiply";
+        ctx.drawImage(L, 0, 0);
+        ctx.globalCompositeOperation = "source-over";
+    }
+    function flood(sx, sy) {
+        let seed = sy * 300 + sx;
+        if (bound[seed]) {
+            seed = -1;
+            for (let d = 1; d <= 4 && seed < 0; d++) for (let dy = -d; dy <= d && seed < 0; dy++) for (let dx = -d; dx <= d; dx++) {
+                const x = sx + dx, y = sy + dy;
+                if (x >= 0 && y >= 0 && x < 300 && y < 300 && !bound[y * 300 + x]) { seed = y * 300 + x; break; }
+            }
+            if (seed < 0) return;
+        }
+        const n = parseInt(color.slice(1), 16), r = n >> 16 & 255, g = n >> 8 & 255, b = n & 255;
+        const seen = new Uint8Array(90000), stack = [seed], px = fd.data;
+        seen[seed] = 1;
+        const paint = i => { px[i * 4] = r; px[i * 4 + 1] = g; px[i * 4 + 2] = b; px[i * 4 + 3] = 255; };
+        while (stack.length) {
+            const i = stack.pop(), x = i % 300, y = (i / 300) | 0;
+            paint(i);
+            [[x - 1, y], [x + 1, y], [x, y - 1], [x, y + 1]].forEach(([a, c]) => {
+                if (a < 0 || c < 0 || a > 299 || c > 299) return;
+                const j = c * 300 + a;
+                if (seen[j]) return;
+                seen[j] = 1;
+                if (bound[j]) paint(j); else stack.push(j);   // warna meresap ke garisan supaya tiada ruang putih
+            });
+        }
+        fills++;
+        compose();
+    }
+    cv.addEventListener("pointerdown", e => {
+        if (isAnswering) return;
+        const r = cv.getBoundingClientRect(), s = 300 / r.width;
+        flood(Math.max(0, Math.min(299, Math.floor((e.clientX - r.left) * s))), Math.max(0, Math.min(299, Math.floor((e.clientY - r.top) * s))));
+        e.preventDefault();
+    });
+    area.querySelectorAll(".sw").forEach(sw => sw.onclick = () => {
+        area.querySelectorAll(".sw").forEach(x => x.classList.remove("on"));
+        sw.classList.add("on"); color = sw.dataset.c;
+    });
+    $("cclr").onclick = () => { if (isAnswering) return; fc.fillStyle = paper; fc.fillRect(0, 0, 300, 300); fd = fc.getImageData(0, 0, 300, 300); fills = 0; compose(); };
+    $("cdone").onclick = () => {
+        if (isAnswering) return;
+        if (fills < 3) { hint("🖍️ Warnakan sekurang-kurangnya 3 bahagian dulu ya!"); return; }
+        isAnswering = true; correct(); nextQuestion(1500);
+    };
+    compose();
+}
+
+/* ============================================================
+   TEMA GELAP / CERAH
+============================================================ */
+const THEME_KEY = "jomBelajar_theme";
+function cssVar(n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+function applyTheme(t) {
+    document.documentElement.setAttribute("data-theme", t);
+    const sw = $("themeSwitch");
+    if (sw) sw.checked = (t === "dark");
+    try { localStorage.setItem(THEME_KEY, t); } catch (e) {}
+}
+
+/* ============================================================
+   LAPORAN PDF (dijana dalam pelayar, tiada pustaka luar)
+============================================================ */
+function reportData(p) {
+    let T = 0, C = 0;
+    const rows = Object.keys(p.stats).map(k => {
+        const s = p.stats[k]; T += s.t; C += s.c;
+        return { k, t:s.t, c:s.c, pct:s.t ? Math.round(s.c / s.t * 100) : 0 };
+    }).filter(r => r.t > 0).sort((a, b) => b.pct - a.pct);
+    const enough = rows.filter(r => r.t >= 5);
+    return { T, C, rows, strong:enough[0] || null, weak:enough.length > 1 ? enough[enough.length - 1] : null,
+        stickers:STICKERS.filter(s => p.stickers[s]).length, sessions:(p.sessions || []).slice(-8).reverse() };
+}
+
+function buildReportPDF(p) {
+    const W = 595, H = 842, M = 40;
+    const d = reportData(p);
+    const f = v => (+v).toFixed(2);
+    const esc = s => String(s).replace(/[\\()]/g, m => "\\" + m);
+    const clean = s => String(s).replace(/[^\x20-\x7E\xA0-\xFF]/g, "").replace(/\s+/g, " ").trim();
+    const col = h => { const n = parseInt(h.slice(1), 16); return [(n >> 16 & 255) / 255, (n >> 8 & 255) / 255, (n & 255) / 255].map(v => v.toFixed(3)).join(" "); };
+    const pages = []; let c = null, y = 0;
+    const T = (x, yy, s, size, bold, color) => c.push(`BT /${bold ? "F2" : "F1"} ${size} Tf ${col(color || "#263238")} rg ${f(x)} ${f(H - yy)} Td (${esc(clean(s))}) Tj ET`);
+    const R = (x, yy, w, h, color) => c.push(`${col(color)} rg ${f(x)} ${f(H - yy - h)} ${f(w)} ${f(h)} re f`);
+    const newPage = first => {
+        c = []; pages.push(c);
+        c.push(`q /GS2 gs ${col("#5b50d6")} rg BT /F2 80 Tf 0.819 0.574 -0.574 0.819 100 250 Tm (mastaxul.my) Tj ET Q`);   // tera air halus
+        if (first) {
+            R(0, 0, W, 78, "#5b50d6");
+            T(M, 40, "Laporan Ibu Bapa", 24, true, "#ffffff");
+            T(M, 62, "Jom Belajar! - Rumi, Jawi, Nombor & Permainan", 11, false, "#e6e3ff");
+            T(W - M - 78, 62, "mastaxul.my", 12, true, "#ffffff");
+            y = 108;
+        } else y = 60;
+    };
+    const ensure = h => { if (y + h > H - 60) newPage(false); };
+    const wrap = (s, max) => { const out = []; let line = ""; s.split(" ").forEach(w => { if ((line + " " + w).trim().length > max) { out.push(line); line = w; } else line = (line + " " + w).trim(); }); if (line) out.push(line); return out; };
+    const now = new Date(), dt = String(now.getDate()).padStart(2, "0") + "/" + String(now.getMonth() + 1).padStart(2, "0") + "/" + now.getFullYear();
+
+    newPage(true);
+    T(M, y, "Nama murid: " + p.name, 15, true); y += 20;
+    T(M, y, "Tarikh laporan: " + dt, 10.5, false, "#555555"); y += 24;
+
+    const bw = (W - 2 * M - 20) / 3;
+    [["Soalan dijawab", String(d.T)], ["Betul percubaan pertama", (d.T ? Math.round(d.C / d.T * 100) : 0) + "%"], ["Stiker dikumpul", d.stickers + "/" + STICKERS.length]].forEach((b, i) => {
+        const x = M + i * (bw + 10);
+        R(x, y, bw, 58, "#f1efff");
+        T(x + 10, y + 18, b[0], 9, false, "#666666");
+        T(x + 10, y + 46, b[1], 22, true, "#5b50d6");
+    });
+    y += 78;
+    if (d.strong) { T(M, y, "Paling kuat: " + CAT_LABEL[d.strong.k] + " (" + d.strong.pct + "%)", 11, false, "#2e7d32"); y += 16; }
+    if (d.weak && d.weak.pct < 75) { T(M, y, "Perlu latihan lagi: " + CAT_LABEL[d.weak.k] + " (" + d.weak.pct + "%)", 11, false, "#c62828"); y += 16; }
+    y += 8;
+
+    T(M, y, "Prestasi mengikut topik", 13, true, "#5b50d6"); y += 18;
+    if (!d.rows.length) { T(M, y, "Belum ada rekod. Main beberapa permainan dahulu.", 10.5); y += 20; }
+    d.rows.forEach(r => {
+        ensure(30);
+        T(M, y, (CAT_LABEL[r.k] || r.k) + "   " + r.pct + "%   (" + r.c + "/" + r.t + ")", 10.5);
+        R(M, y + 6, 300, 8, "#e6e6ee");
+        R(M, y + 6, Math.max(2, 300 * r.pct / 100), 8, r.pct >= 75 ? "#43a047" : r.pct >= 50 ? "#ffa000" : "#e53935");
+        y += 28;
+    });
+
+    if (d.sessions.length) {
+        y += 6; ensure(40);
+        T(M, y, "Sesi terkini", 13, true, "#5b50d6"); y += 18;
+        d.sessions.forEach(s => {
+            ensure(18);
+            const t = new Date(s.d);
+            T(M, y, t.getDate() + "/" + (t.getMonth() + 1) + "/" + t.getFullYear() + "  |  " + s.cat + "  |  markah " + s.score + "  |  betul " + s.c + "/" + s.t, 9.5);
+            y += 16;
+        });
+    }
+    y += 10; ensure(40);
+    wrap("Nota: 'Betul percubaan pertama' bermaksud jawapan betul tanpa tersilap dahulu. Rekod ini disimpan dalam peranti murid dan dijana oleh aplikasi Jom Belajar!", 105)
+        .forEach(l => { T(M, y, l, 8.5, false, "#777777"); y += 12; });
+
+    // Cop mastaxul.my di halaman terakhir
+    ensure(110);
+    const sx = W - M - 100, sy = Math.min(H - 110, Math.max(y + 60, 600));
+    const cs = Math.cos(-12 * Math.PI / 180), sn = Math.sin(-12 * Math.PI / 180);
+    c.push(`q /GS1 gs ${col("#5b50d6")} RG ${col("#5b50d6")} rg 1 0 0 1 ${f(sx)} ${f(H - sy)} cm ${f(cs)} ${f(sn)} ${f(-sn)} ${f(cs)} 0 0 cm 3 w -80 -36 160 72 re S 1.2 w -74 -30 148 60 re S ` +
+        `BT /F2 8 Tf -38 18 Td (LAPORAN KEMAJUAN) Tj ET BT /F2 20 Tf -62 -2 Td (mastaxul.my) Tj ET BT /F2 9 Tf -33 -17 Td (JOM BELAJAR!) Tj ET BT /F1 8 Tf -24 -27 Td (${dt}) Tj ET Q`);
+
+    pages.forEach((pg, i) => {
+        c = pg;
+        T(M, H - 24, "Dijana oleh Jom Belajar!  |  mastaxul.my  |  Halaman " + (i + 1) + "/" + pages.length, 8, false, "#888888");
+    });
+
+    let pdf = "%PDF-1.4\n"; const offs = [];
+    const obj = (id, body) => { offs[id] = pdf.length; pdf += id + " 0 obj\n" + body + "\nendobj\n"; };
+    obj(1, "<< /Type /Catalog /Pages 2 0 R >>");
+    obj(2, `<< /Type /Pages /Kids [${pages.map((_, i) => (7 + 2 * i) + " 0 R").join(" ")}] /Count ${pages.length} >>`);
+    obj(3, "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>");
+    obj(4, "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>");
+    obj(5, "<< /Type /ExtGState /ca 0.65 /CA 0.65 >>");
+    obj(6, "<< /Type /ExtGState /ca 0.07 /CA 0.07 >>");
+    pages.forEach((pg, i) => {
+        const s = pg.join("\n");
+        obj(7 + 2 * i, `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${W} ${H}] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> /ExtGState << /GS1 5 0 R /GS2 6 0 R >> >> /Contents ${8 + 2 * i} 0 R >>`);
+        obj(8 + 2 * i, `<< /Length ${s.length} >>\nstream\n${s}\nendstream`);
+    });
+    const n = 7 + 2 * pages.length, xref = pdf.length;
+    pdf += `xref\n0 ${n}\n0000000000 65535 f \n`;
+    for (let i = 1; i < n; i++) pdf += String(offs[i]).padStart(10, "0") + " 00000 n \n";
+    pdf += `trailer\n<< /Size ${n} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`;
+    return Uint8Array.from(pdf, ch => ch.charCodeAt(0) & 255);
+}
+
+function downloadReportPDF() {
+    const n = $("repSel").value;
+    if (!n) { alert("Belum ada rekod murid. Main dulu ya!"); return; }
+    const bytes = buildReportPDF(loadProfile(n));
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([bytes], { type:"application/pdf" }));
+    a.download = "Laporan-JomBelajar-" + n.replace(/[^\w\-]+/g, "_") + ".pdf";
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 5000);
 }
 
 /* ---------- CROSSWORD ---------- */
@@ -1162,9 +1854,9 @@ function showTrace(q, area) {
     function guide() {
         ctx.clearRect(0, 0, 300, 300);
         ctx.font = FONT; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-        ctx.fillStyle = "#e3e0ff";
+        ctx.fillStyle = cssVar("--guide");
         ctx.fillText(q.glyph, 150, 165);
-        ctx.setLineDash([6, 6]); ctx.lineWidth = 1.5; ctx.strokeStyle = "#9e9ad8";
+        ctx.setLineDash([6, 6]); ctx.lineWidth = 1.5; ctx.strokeStyle = cssVar("--guideline");
         ctx.strokeText(q.glyph, 150, 165);
         ctx.setLineDash([]);
     }
@@ -1196,7 +1888,7 @@ function showTrace(q, area) {
     }
     let drawing = false, last = null;
     function stroke(a, b) {
-        ctx.strokeStyle = "#6c63ff"; ctx.lineWidth = BRUSH * 2; ctx.lineCap = "round"; ctx.lineJoin = "round";
+        ctx.strokeStyle = cssVar("--ink"); ctx.lineWidth = BRUSH * 2; ctx.lineCap = "round"; ctx.lineJoin = "round";
         ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
         pathLen += Math.hypot(b.x - a.x, b.y - a.y);
         inPts.forEach(p => { if (!p.hit && segDist(p.x, p.y, a.x, a.y, b.x, b.y) <= BRUSH + 2) p.hit = true; });
@@ -1307,6 +1999,7 @@ function escapeHTML(v) {
    INIT - sentiasa semak semula dengan server (kecuali demo / offline)
 ============================================================ */
 (async function init() {
+    applyTheme(document.documentElement.getAttribute("data-theme") || "light");
     if (!("speechSynthesis" in window)) $("speakBtn").style.display = "none";
     const p = getUrlParams();
     if (p.token) $("tokenInput").value = p.token;
