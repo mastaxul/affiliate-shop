@@ -3942,19 +3942,27 @@ function bindEvents() {
     setTimeout(() => r.remove(), 500);
   }, true);
 
-  document.getElementById('btn-start').onclick = () => {
-    const existing = load();
-    if (existing && existing.name) {
-      state = existing;
-      showScreen('home');
-      startGameTimer();
-      speak(`Hai ${state.name}! Selamat kembali!`);
-    } else {
+  const btnStart = document.getElementById('btn-start');
+  if (btnStart) btnStart.onclick = () => {
+    try {
+      const existing = load();
+      if (existing && existing.name) {
+        state = existing;
+        showScreen('home');
+        startGameTimer();
+        speak('Hai ' + state.name + '! Selamat kembali!');
+      } else {
+        showScreen('setup');
+        initSetup();
+      }
+    } catch (err) {
+      console.error('start error', err);
       showScreen('setup');
-      initSetup();
+      try { initSetup(); } catch (e2) { console.error(e2); }
     }
   };
-  document.getElementById('btn-continue').onclick = () => {
+  const btnCont = document.getElementById('btn-continue');
+  if (btnCont) btnCont.onclick = () => {
     state = load();
     if (state) {
       showScreen('home');
@@ -4004,7 +4012,8 @@ function bindEvents() {
   document.querySelectorAll('[data-module]').forEach(btn => {
     btn.addEventListener('click', () => startModule(btn.dataset.module));
   });
-  document.getElementById('btn-next-q').addEventListener('click', () => {
+  const btnNextQ = document.getElementById('btn-next-q');
+  if (btnNextQ) btnNextQ.addEventListener('click', () => {
     quizIndex++;
     showQuestion();
   });
@@ -4504,19 +4513,19 @@ function generateQuestions() {
         return { type:"spell", question:"Susun suku kata untuk gambar ini!", display:e, parts:p, answer:p.join("|") }; });
 
     // ================= HAIWAN & BUNYI
-    const SND = ANIMALS.filter(a => a[2]), SNDN = SND.map(a => a[2]), AE = ANIMALS.map(a => a[0]), AN = ANIMALS.map(a => a[1]);
+    const SND = JB_ANIMALS.filter(a => a[2]), SNDN = SND.map(a => a[2]), AE = JB_ANIMALS.map(a => a[0]), AN = JB_ANIMALS.map(a => a[1]);
     add("haiwan", 30, () => { const [e, n, s] = pick(SND); return ch("Haiwan apa yang berbunyi macam ini?", "🔊 " + s, e, AE, { speak:s }); });
     add("haiwan", 30, () => { const [e, n, s] = pick(SND); return ch("Apakah bunyi " + n.toLowerCase() + "?", e, s, SNDN, { speak:s }); });
-    add("haiwan", 60, () => { const [e, n] = pick(ANIMALS); return ch("Haiwan apakah ini?", e, n, AN); });
+    add("haiwan", 60, () => { const [e, n] = pick(JB_ANIMALS); return ch("Haiwan apakah ini?", e, n, AN); });
     add("haiwan", 60, () => { const k = pick([["terbang", FLY, SWIM.concat(WALK)], ["berenang di dalam air", SWIM, FLY.concat(WALK)], ["berjalan di atas tanah", WALK, FLY.concat(SWIM)]]);
         const a = pick(k[1]); return ch("Mana haiwan yang boleh " + k[0] + "?", "🐾", a, [a, ...shuffle(k[2]).slice(0, 4)]); });
-    add("haiwan", 60, () => { const [e, n, s, k] = pick(ANIMALS); return ch("Berapa kaki " + n.toLowerCase() + "?", e, k, ["0", "2", "4", "6"]); });
+    add("haiwan", 60, () => { const [e, n, s, k] = pick(JB_ANIMALS); return ch("Berapa kaki " + n.toLowerCase() + "?", e, k, ["0", "2", "4", "6"]); });
     add("haiwan", 30, () => { const [a, f] = pick(FOOD); return ch("Apa yang dimakan oleh haiwan ini?", a, f, FOOD.map(x => x[1])); });
     add("haiwan", 150, () => { const s = shuffle(SND).slice(0, 2 + rnd(2));
         return { type:"match", question:"Padankan haiwan dengan bunyinya", pairs:s.map(a => [a[0], a[2]]) }; });
     add("haiwan", 150, () => { const s = shuffle(FOOD).slice(0, 2 + rnd(2));
         return { type:"match", question:"Padankan haiwan dengan makanannya", pairs:s.map(a => [a[0], a[1]]) }; });
-    add("haiwan", 40, () => { const [e, n] = pick(ANIMALS);
+    add("haiwan", 40, () => { const [e, n] = pick(JB_ANIMALS);
         return { type:"drag", question:"Seret " + n.toLowerCase() + " ke kotak!", items:opts(e, AE), answer:e }; });
 
     // ================= PUZZLE GAMBAR
@@ -4617,8 +4626,14 @@ function generateQuestions() {
 
     return shuffle(qs);
 }
-const ALL_JB_QUESTIONS = generateQuestions();
-console.log("JB Qs:", ALL_JB_QUESTIONS.length);
+let ALL_JB_QUESTIONS = [];
+try {
+  ALL_JB_QUESTIONS = generateQuestions();
+  console.log("JB Qs:", ALL_JB_QUESTIONS.length);
+} catch (err) {
+  console.error("JB generateQuestions failed:", err);
+  ALL_JB_QUESTIONS = [];
+}
 
 /* ===== Academy bridge: Jom Belajar engine ===== */
 let isAnswering = false;
@@ -5478,25 +5493,26 @@ function showTrace(q, area) {
 }
 
 function init() {
-  bindEvents();
-  checkContinueBtn();
-  spawnBgParticles();
-  // Splash hero character
-  const splash = document.getElementById('splash-char');
-  if (splash) {
-    splash.innerHTML = '<div class="platform"></div>' + buildCharSVG('nunu');
-    setCharState(splash, 'idle');
-  }
-  const row = document.getElementById('splash-row');
-  if (row) {
-    ['awan','bara','tutu','seri','ombak','bintang'].forEach((id, i) => {
-      const d = document.createElement('div');
-      d.style.cssText = `width:56px;height:56px;overflow:hidden;animation:float 3s ease ${i*0.25}s infinite;`;
-      d.innerHTML = `<div style="transform:scale(0.4);transform-origin:top left;width:140px;height:140px;">${buildCharSVG(id)}</div>`;
-      row.appendChild(d);
-    });
-  }
-  setInterval(() => {
+  try { bindEvents(); } catch (e) { console.error('bindEvents', e); }
+  try { checkContinueBtn(); } catch (e) {}
+  try { spawnBgParticles(); } catch (e) {}
+  try {
+    const splash = document.getElementById('splash-char');
+    if (splash && typeof buildCharSVG === 'function') {
+      splash.innerHTML = '<div class="platform"></div>' + buildCharSVG('nunu');
+      if (typeof setCharState === 'function') setCharState(splash, 'idle');
+    }
+    const row = document.getElementById('splash-row');
+    if (row && typeof buildCharSVG === 'function') {
+      ['awan','bara','tutu','seri','ombak','bintang'].forEach(function(id, i) {
+        const d = document.createElement('div');
+        d.style.cssText = 'width:56px;height:56px;overflow:hidden;animation:float 3s ease '+(i*0.25)+'s infinite;';
+        d.innerHTML = '<div style="transform:scale(0.4);transform-origin:top left;width:140px;height:140px;">'+buildCharSVG(id)+'</div>';
+        row.appendChild(d);
+      });
+    }
+  } catch (e) { console.error('splash', e); }
+  setInterval(function() {
     if (!state || !state.activeAnimal) return;
     const st = state.animals[state.activeAnimal];
     if (!st) return;
@@ -5508,7 +5524,12 @@ function init() {
   }, 60000);
 }
 
-init();
+// Ensure start works even if something above failed
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
 </script>
 </body>
 </html>
