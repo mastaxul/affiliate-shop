@@ -21,7 +21,7 @@
       color: #e2e8f0;
     }
 
-    .login-card {
+    .card {
       background: #1e293b;
       border: 1px solid #334155;
       border-radius: 16px;
@@ -81,20 +81,6 @@
       box-shadow: 0 0 0 3px rgb(56 189 248 / 0.15);
     }
 
-    .email-wrapper {
-      position: relative;
-    }
-
-    .email-domain {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #64748b;
-      font-size: 0.9rem;
-      pointer-events: none;
-    }
-
     button {
       width: 100%;
       padding: 0.85rem;
@@ -113,18 +99,6 @@
       background: #0284c7;
     }
 
-    .footer {
-      text-align: center;
-      margin-top: 1.75rem;
-      font-size: 0.85rem;
-      color: #64748b;
-    }
-
-    .footer a {
-      color: #38bdf8;
-      text-decoration: none;
-    }
-
     .error {
       background: #7f1d1d;
       color: #fecaca;
@@ -133,35 +107,65 @@
       font-size: 0.875rem;
       margin-bottom: 1rem;
       display: none;
+      text-align: center;
+    }
+
+    .success-box {
+      display: none;
+      text-align: center;
+    }
+
+    .success-box h2 {
+      color: #4ade80;
+      margin-bottom: 0.75rem;
+    }
+
+    .success-box p {
+      color: #94a3b8;
+      margin-bottom: 1.5rem;
+    }
+
+    .logout-btn {
+      background: #ef4444;
+    }
+
+    .logout-btn:hover {
+      background: #dc2626;
+    }
+
+    .info {
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      color: #64748b;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <div class="login-card">
+
+  <!-- LOGIN FORM -->
+  <div class="card" id="loginCard">
     <div class="logo">
       <h1>mastax<span>ul</span>.my</h1>
-      <p>Login ke akaun anda</p>
+      <p>Simulasi Login</p>
     </div>
 
-    <div class="error" id="errorMsg">Email atau kata laluan tidak sah</div>
+    <div class="error" id="errorMsg">Username atau password salah</div>
 
     <form id="loginForm">
       <div class="form-group">
-        <label for="email">Email</label>
-        <div class="email-wrapper">
-          <input 
-            type="text" 
-            id="email" 
-            placeholder="nama" 
-            required 
-            autocomplete="username"
-          />
-          <span class="email-domain">@mastaxul.my</span>
-        </div>
+        <label for="username">Username</label>
+        <input 
+          type="text" 
+          id="username" 
+          placeholder="Masukkan username" 
+          required 
+          autocomplete="username"
+        />
       </div>
 
       <div class="form-group">
-        <label for="password">Kata Laluan</label>
+        <label for="password">Password</label>
         <input 
           type="password" 
           id="password" 
@@ -174,38 +178,56 @@
       <button type="submit">Log Masuk</button>
     </form>
 
-    <div class="footer">
-      <a href="#">Lupa kata laluan?</a>
+    <div class="info">
+      Username: <strong>admin</strong> | Password: <strong>276669</strong>
     </div>
   </div>
 
+  <!-- DASHBOARD SELEPAS LOGIN BERJAYA -->
+  <div class="card success-box" id="dashboard">
+    <div class="logo">
+      <h1>mastax<span>ul</span>.my</h1>
+    </div>
+    <h2>Login Berjaya!</h2>
+    <p>Selamat datang, <strong>Admin</strong></p>
+    <p style="font-size: 0.9rem; color: #64748b;">
+      Ini adalah simulasi dashboard.<br>
+      Email domain: @mastaxul.my
+    </p>
+    <button class="logout-btn" onclick="logout()">Log Keluar</button>
+  </div>
+
   <script>
+    // Data login simulasi
+    const VALID_USER = "admin";
+    const VALID_PASS = "276669";
+
     document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      
-      const emailInput = document.getElementById('email').value.trim();
+
+      const username = document.getElementById('username').value.trim();
       const password = document.getElementById('password').value;
-      const fullEmail = emailInput + '@mastaxul.my';
+      const errorMsg = document.getElementById('errorMsg');
 
-      // Contoh validasi ringkas
-      if (!emailInput) {
-        showError('Sila masukkan email');
-        return;
+      // Semak login
+      if (username === VALID_USER && password === VALID_PASS) {
+        // Berjaya
+        document.getElementById('loginCard').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        errorMsg.style.display = 'none';
+      } else {
+        // Gagal
+        errorMsg.style.display = 'block';
+        document.getElementById('password').value = '';
       }
-
-      console.log('Login attempt:', fullEmail);
-
-      // Di sini kau sambungkan ke backend / API kau
-      // Contoh: Firebase Auth, Supabase, custom API, dsb.
-      
-      // Buat masa ni hanya simulation
-      alert('Cuba login dengan: ' + fullEmail + '\n\nSambungkan ke backend anda untuk authentication sebenar.');
     });
 
-    function showError(msg) {
-      const err = document.getElementById('errorMsg');
-      err.textContent = msg;
-      err.style.display = 'block';
+    function logout() {
+      document.getElementById('dashboard').style.display = 'none';
+      document.getElementById('loginCard').style.display = 'block';
+      document.getElementById('username').value = '';
+      document.getElementById('password').value = '';
+      document.getElementById('errorMsg').style.display = 'none';
     }
   </script>
 </body>
