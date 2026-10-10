@@ -181,6 +181,102 @@ input:focus, select:focus { border-color:var(--accent); }
     .drag-item, .drop-zone { width:84px; height:84px; font-size:32px; }
     .match-item { font-size:22px; padding:14px; }
 }
+/* ===== V2: kedai, labirin, tersembunyi, tangkap ===== */
+.coin { display:inline-flex; width:84px; height:84px; border-radius:50%; background:radial-gradient(circle at 30% 30%,#fff3b0,#e0b84a); border:5px solid #c49a1c; color:#6b4e00; align-items:center; justify-content:center; font-size:20px; font-weight:bold; text-align:center; line-height:1.1; }
+.note { display:inline-flex; width:140px; height:72px; border-radius:8px; border:3px solid rgba(0,0,0,.25); align-items:center; justify-content:center; font-size:26px; font-weight:bold; color:#fff; background:var(--nc,#555); text-shadow:0 1px 2px rgba(0,0,0,.4); }
+.option .coin { width:60px; height:60px; font-size:15px; border-width:4px; }
+.option .note { width:110px; height:56px; font-size:20px; }
+.paybox { font-size:20px; font-weight:bold; color:var(--accent2); margin:8px 0; }
+.payrow { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:8px 0; min-height:30px; }
+.paytok { background:none; border:0; padding:2px; cursor:pointer; border-radius:12px; }
+.paytok:active { transform:scale(.9); }
+.paytok .coin { width:70px; height:70px; font-size:17px; }
+.paytok .note { width:110px; height:58px; font-size:20px; }
+.mini { background:var(--soft); border-radius:10px; padding:4px 8px; font-size:14px; font-weight:bold; }
+.dpad { display:flex; flex-direction:column; align-items:center; gap:6px; margin-top:12px; }
+.dpad > div { display:flex; gap:6px; }
+.dpad button { width:60px; height:52px; border-radius:14px; border:0; background:var(--soft2); color:var(--text); font-size:22px; cursor:pointer; box-shadow:0 3px 8px var(--shadow); }
+.dpad button:active { background:var(--given); }
+.hgrid { display:grid; grid-template-columns:repeat(6,1fr); gap:6px; margin:12px auto; max-width:340px; }
+.hcell { aspect-ratio:1; border:2px solid var(--border); border-radius:12px; background:var(--soft); font-size:24px; cursor:pointer; padding:0; }
+.hcell.hit { background:var(--ok-bg); border-color:var(--ok-bd); }
+.cfield { position:relative; height:280px; overflow:hidden; border-radius:18px; background:linear-gradient(var(--sky1),var(--sky2)); margin-top:12px; touch-action:manipulation; }
+.cdrop { position:absolute; top:-60px; width:52px; height:52px; border-radius:50%; border:0; font-size:24px; font-weight:bold; background:var(--card); color:var(--text); box-shadow:0 3px 8px var(--shadow); animation:cfall linear forwards; cursor:pointer; }
+@keyframes cfall { to { transform:translateY(350px); } }
+.cdrop.pop { animation:pop .3s forwards; pointer-events:none; }
+
+/* ===== V2: toast & modal ===== */
+.toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:#2D3436; color:#fff; padding:12px 22px; border-radius:30px; font-weight:bold; z-index:9998; max-width:90%; text-align:center; display:none; box-shadow:0 8px 30px rgba(0,0,0,.35); font-size:15px; }
+.mdl { position:fixed; inset:0; background:rgba(0,0,0,.5); display:flex; align-items:center; justify-content:center; z-index:9990; padding:16px; }
+.mdl-box { background:var(--card); color:var(--text); border-radius:22px; padding:22px; max-width:380px; width:100%; text-align:center; box-shadow:0 12px 40px rgba(0,0,0,.4); font-size:17px; }
+.mdl-btns { display:flex; flex-direction:column; gap:8px; margin-top:12px; }
+.mdl-btns .btn { margin-top:0; font-size:16px; padding:12px; background:var(--soft2); color:var(--text); box-shadow:none; }
+.mdl-btns .btn.btn-secondary { background:linear-gradient(135deg,#26a69a,#4db6ac); color:#fff; }
+.mdl-btns .btn:first-child:not(.btn-secondary) { background:linear-gradient(135deg,#6c63ff,#8e7dff); color:#fff; }
+
+/* ===== V2: rumah, sahabat ===== */
+.hub-top { display:flex; gap:8px; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+.chip { background:var(--soft); color:var(--text); border:0; border-radius:20px; padding:8px 14px; font-weight:bold; font-size:14px; font-family:inherit; cursor:pointer; }
+.pet-stage { position:relative; width:180px; height:170px; margin:6px auto; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+.pet-stage::before { content:""; position:absolute; width:140px; height:140px; border-radius:50%; background:radial-gradient(circle,rgba(255,230,109,.35),rgba(162,155,254,.15) 50%,transparent 70%); }
+.pet-svg { width:150px; height:150px; overflow:visible; position:relative; filter:drop-shadow(0 8px 14px rgba(0,0,0,.2)); }
+.p-body { transform-origin:60px 90px; animation:pBob 2.8s ease-in-out infinite; }
+.p-head { transform-origin:60px 55px; animation:pTilt 3.5s ease-in-out infinite; }
+.p-eye { transform-origin:60px 42px; animation:pBlink 4s infinite; }
+.p-wl { transform-origin:44px 60px; animation:pWL 1s ease-in-out infinite; }
+.p-wr { transform-origin:76px 60px; animation:pWR 1s ease-in-out infinite; }
+.p-tail { transform-origin:88px 78px; animation:pTail 1.4s ease-in-out infinite; }
+@keyframes pBob { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
+@keyframes pTilt { 0%,100% { transform:rotate(-3deg); } 50% { transform:rotate(4deg); } }
+@keyframes pBlink { 0%,92%,100% { transform:scaleY(1); } 96% { transform:scaleY(.08); } }
+@keyframes pWL { 0%,100% { transform:rotate(4deg); } 50% { transform:rotate(-20deg); } }
+@keyframes pWR { 0%,100% { transform:rotate(-4deg); } 50% { transform:rotate(20deg); } }
+@keyframes pTail { 0%,100% { transform:rotate(-10deg); } 50% { transform:rotate(12deg); } }
+@keyframes pHappy { 0%,100% { transform:translateY(0); } 30% { transform:translateY(-22px) scale(1.06); } 60% { transform:translateY(-8px); } }
+@keyframes pEat { 0%,100% { transform:translateY(0); } 50% { transform:translateY(5px) rotate(-4deg); } }
+@keyframes pBath { 0%,100% { transform:rotate(-6deg); } 50% { transform:rotate(6deg) translateY(-8px); } }
+@keyframes pSleep { 0%,100% { transform:translateY(4px) scale(.97); } 50% { transform:translateY(7px) scale(.94); } }
+.pet-stage.happy .p-body { animation:pHappy .7s ease; }
+.pet-stage.eat .p-head { animation:pEat .45s infinite; }
+.pet-stage.bath .p-body { animation:pBath .5s infinite; }
+.pet-stage.sleep .p-body { animation:pSleep 1.6s infinite; }
+.pet-stage.sleep .p-eye { animation:none; transform:scaleY(.1); }
+.fxe { position:absolute; bottom:35%; font-size:22px; pointer-events:none; animation:fxUp 1.5s ease-out forwards; z-index:5; }
+@keyframes fxUp { 0% { transform:translateY(0) scale(.4); opacity:0; } 20% { opacity:1; } 100% { transform:translateY(-90px) scale(1.2); opacity:0; } }
+.bubble { background:var(--card); border:3px solid #FFEAA7; border-radius:18px; padding:10px 16px; margin:8px 0 12px; font-weight:bold; font-size:16px; box-shadow:0 4px 12px var(--shadow); }
+.sbars { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:10px 0 4px; }
+.sitem { background:var(--soft); border-radius:12px; padding:7px 10px; text-align:left; }
+.slabel { font-size:12px; font-weight:bold; color:var(--muted); margin-bottom:3px; }
+.sbg { height:11px; background:var(--track); border-radius:8px; overflow:hidden; }
+.sfill { height:100%; border-radius:8px; transition:width .6s; }
+.hub-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:6px; }
+.hbtn { background:var(--card); color:var(--text); border:3px solid transparent; border-radius:20px; padding:16px 10px; font-weight:bold; font-size:15px; font-family:inherit; cursor:pointer; box-shadow:0 5px 14px var(--shadow); display:flex; flex-direction:column; align-items:center; gap:4px; }
+.hbtn:active { transform:scale(.95); }
+.hbtn .ic { font-size:32px; }
+.hbtn.row { flex-direction:row; justify-content:flex-start; gap:12px; width:100%; margin-bottom:8px; text-align:left; }
+.hbtn.big { grid-column:1/-1; background:linear-gradient(135deg,#6c63ff,#8e7dff); color:#fff; }
+.chips { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:8px; }
+.chips .chip { background:var(--soft2); }
+.starter-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:10px 0; }
+.starter { background:var(--soft); border:4px solid transparent; border-radius:18px; padding:8px; text-align:center; cursor:pointer; display:flex; flex-direction:column; align-items:center; }
+.starter.on { border-color:var(--accent); background:var(--given); }
+.starter.lock { opacity:.55; }
+.starter small { color:var(--muted); font-size:12px; }
+.pet-mini { width:90px; height:90px; }
+.pet-mini .pet-svg { width:90px; height:90px; }
+.foodgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:8px; }
+.foodbtn { background:var(--soft2); border:0; border-radius:16px; padding:10px; font-size:30px; cursor:pointer; display:flex; flex-direction:column; align-items:center; color:var(--text); }
+.foodbtn small { font-size:12px; font-weight:bold; }
+.area-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.area { border-radius:20px; padding:16px 8px; text-align:center; cursor:pointer; color:#263238; display:flex; flex-direction:column; align-items:center; gap:2px; box-shadow:0 5px 14px var(--shadow); }
+.area.lock { filter:grayscale(.6); opacity:.7; }
+.area small { font-size:13px; font-weight:bold; }
+.story-emoji { font-size:76px; text-align:center; animation:pBob 3s ease-in-out infinite; }
+.story-text { background:var(--warn-bg); border:3px dashed var(--warn-bd); border-radius:16px; padding:16px; font-size:19px; line-height:1.5; min-height:110px; margin:10px 0; }
+.dots { display:flex; gap:5px; justify-content:center; margin:6px 0; }
+.dots i { width:9px; height:9px; border-radius:50%; background:var(--track); }
+.dots i.on { background:var(--accent); }
+.back-link { margin-top:10px; width:100%; }
 </style>
 </head>
 <body>
@@ -188,7 +284,7 @@ input:focus, select:focus { border-color:var(--accent); }
 <header>
     <label class="theme-sw" title="Tema cerah / gelap">☀️<input type="checkbox" id="themeSwitch" onchange="applyTheme(this.checked?'dark':'light')" aria-label="Tema gelap"><i></i>🌙</label>
     <h1>🌈 Jom Belajar!</h1>
-    <p>Rumi • Jawi • Nombor • Warna • 25 Topik & Permainan</p>
+    <p>Rumah Sahabat • 29 Topik & Permainan • Cerita • Pulau Pengembaraan</p>
 </header>
 
 <div class="container">
@@ -227,6 +323,7 @@ input:focus, select:focus { border-color:var(--accent); }
                 <option value="puzzle">🧩 Puzzle Gambar</option>
                 <option value="mewarna">🖍️ Mewarna</option>
                 <option value="tulis">✍️ Jejak Huruf & Nombor</option>
+                <option value="arkad">🎯 Arkad Laju</option>
                 <option value="silang">🔠 Silang Kata</option>
                 <option value="gambar">🖼️ Teka Gambar</option>
                 <option value="corak">🔁 Teka Corak</option>
@@ -247,6 +344,11 @@ input:focus, select:focus { border-color:var(--accent); }
                 <option value="masa">📅 Hari & Bulan</option>
                 <option value="agama">🕌 Islam & Hijaiyah</option>
                 <option value="rutin">🧼 Rutin & Kebersihan</option>
+                <option value="inggeris">🇬🇧 Bahasa Inggeris</option>
+                <option value="duit">💰 Duit RM & Kedai</option>
+                <option value="jam">🕐 Baca Jam</option>
+                <option value="malaysia">🇲🇾 Malaysia Kita</option>
+                <option value="sains">🔬 Sains Mudah</option>
             </optgroup>
         </select>
 
@@ -280,6 +382,10 @@ input:focus, select:focus { border-color:var(--accent); }
             <option value="body">Tunjuk Anggota Badan</option>
             <option value="puzzle">Puzzle</option>
             <option value="color">Mewarna</option>
+            <option value="pay">Kedai (bayar)</option>
+            <option value="maze">Labirin</option>
+            <option value="hidden">Cari Tersembunyi</option>
+            <option value="catch">Tangkap</option>
         </select>
 
         <button class="btn" onclick="startGame()">🚀 MULA BERMAIN</button>
@@ -287,6 +393,7 @@ input:focus, select:focus { border-color:var(--accent); }
             <button class="btn btn-secondary" onclick="openAlbum()">📒 Album Stiker</button>
             <button class="btn btn-secondary" onclick="openReport()">📊 Laporan Ibu Bapa</button>
         </div>
+        <button class="btn btn-secondary" style="margin-top:10px" onclick="goHome()">🏠 Rumah Sahabat</button>
         <button class="btn" style="background:linear-gradient(135deg,#ef5350,#e57373);" onclick="logoutToken()">🔓 Tukar Token</button>
     </div>
 
@@ -299,7 +406,7 @@ input:focus, select:focus { border-color:var(--accent); }
         </div>
         <div class="progress-bar"><div id="progressFill" class="progress-fill" style="width:0%"></div></div>
         <div class="card question-card">
-            <button class="speak" id="speakBtn" onclick="speak(curSpeech,true)">🔊</button>
+            <button class="speak" id="speakBtn" onclick="speak(curSpeech,true,curLang)">🔊</button>
             <div class="question-number">Soalan <span id="questionNumber">1</span></div>
             <div id="questionArea" class="question"></div>
             <div id="feedback" class="feedback"></div>
@@ -315,8 +422,10 @@ input:focus, select:focus { border-color:var(--accent); }
         <div id="resultScore" class="result-score"></div>
         <p id="resultDetail" style="margin:10px 0;color:#555;"></p>
         <div id="newStickers" class="new-stickers"></div>
+        <div id="petEarn" class="rbox" style="text-align:center"></div>
         <button class="btn" onclick="restartGame()">🔄 MAIN SEMULA</button>
-        <button class="btn btn-secondary" style="margin-top:10px;" onclick="backToStart()">🏠 KEMBALI</button>
+        <button class="btn btn-secondary" style="margin-top:10px;" onclick="showStartScreen()">🎮 MENU MAIN</button>
+        <button class="btn btn-secondary" style="margin-top:10px;" onclick="backToStart()">🏠 RUMAH SAHABAT</button>
     </div>
 
     <!-- ALBUM -->
@@ -338,6 +447,137 @@ input:focus, select:focus { border-color:var(--accent); }
         <button class="btn" onclick="downloadReportPDF()">📄 Muat Turun PDF</button>
         <button class="btn btn-secondary" onclick="backToStart()">🏠 KEMBALI</button>
     </div>
+    <!-- SETUP MURID + SAHABAT -->
+    <div id="setupScreen" class="card start-screen hidden">
+        <div class="logo">🐲</div>
+        <h2>Jom Kenal Kawan Baru!</h2>
+        <p>Taip nama murid dan pilih sahabat pertama.</p>
+        <label>Nama Murid</label>
+        <input type="text" id="setupName" placeholder="Contoh: Ali" maxlength="25">
+        <label>Pilih Sahabat</label>
+        <div class="starter-grid" id="starterList"></div>
+        <button class="btn" onclick="finishSetup()">🚀 MULA!</button>
+        <button class="btn btn-secondary" style="margin-top:10px" onclick="curName() ? goHome() : showScreen('tokenScreen')">⬅️ Kembali</button>
+    </div>
+
+    <!-- RUMAH (HUB) -->
+    <div id="hubScreen" class="hidden">
+        <div class="card" style="text-align:center">
+            <div class="hub-top">
+                <button class="chip" onclick="switchStudent()">👧 <span id="hubName"></span> ▾</button>
+                <span class="chip">⭐ <b id="hubStars">0</b></span>
+                <span class="chip">🔥 <b id="hubStreak">0</b> hari</span>
+            </div>
+            <div class="pet-stage" id="hubStage"></div>
+            <div style="font-weight:bold;color:var(--accent2)" id="hubPetName"></div>
+            <div class="bubble" id="hubBubble">Hai!</div>
+            <div class="sbars" id="hubBars"></div>
+        </div>
+        <div class="hub-grid">
+            <button class="hbtn big" onclick="showStartScreen()"><span class="ic">🎮</span>Main & Belajar (23+ topik)</button>
+            <button class="hbtn" onclick="openCare()"><span class="ic">🍎</span>Jaga Sahabat</button>
+            <button class="hbtn" onclick="openWorld()"><span class="ic">🏝️</span>Pulau Pengembaraan</button>
+            <button class="hbtn" onclick="openStories()"><span class="ic">📖</span>Cerita Bersuara</button>
+            <button class="hbtn" onclick="openPets()"><span class="ic">🐲</span>Koleksi Sahabat</button>
+            <button class="hbtn" onclick="openWork()"><span class="ic">🖨️</span>Lembaran Kerja</button>
+            <button class="hbtn" onclick="openCert()"><span class="ic">🏅</span>Sijil & Streak</button>
+            <button class="hbtn" onclick="openAlbum()"><span class="ic">📒</span>Album Stiker</button>
+            <button class="hbtn" onclick="openReport()"><span class="ic">📊</span>Laporan Ibu Bapa</button>
+        </div>
+        <div class="card" style="margin-top:12px;text-align:center">
+            <b>⚡ Main Pantas</b>
+            <div class="chips">
+                <button class="chip" onclick="quickPlay('arkad')">🎯 Arkad</button>
+                <button class="chip" onclick="quickPlay('inggeris')">🇬🇧 English</button>
+                <button class="chip" onclick="quickPlay('duit')">💰 Duit & Kedai</button>
+                <button class="chip" onclick="quickPlay('jam')">🕐 Jam</button>
+                <button class="chip" onclick="quickPlay('malaysia')">🇲🇾 Malaysia</button>
+                <button class="chip" onclick="quickPlay('sains')">🔬 Sains</button>
+                <button class="chip" onclick="quickPlay('badan')">🧍 Badan</button>
+                <button class="chip" onclick="quickPlay('haiwan')">🐮 Haiwan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAGA SAHABAT -->
+    <div id="careScreen" class="hidden">
+        <div class="card" style="text-align:center">
+            <div class="hub-top"><button class="chip" onclick="goHome()">⬅️ Rumah</button><span class="chip">⭐ <b id="careStars">0</b></span></div>
+            <div class="pet-stage" id="careStage"></div>
+            <div style="font-weight:bold;color:var(--accent2)" id="careName"></div>
+            <div class="bubble" id="careBubble"></div>
+            <div class="sbars" id="careBars"></div>
+        </div>
+        <div class="hub-grid">
+            <button class="hbtn" id="btnFeed" onclick="careFeed()"><span class="ic">🍎</span>Makan <small id="feedLeft"></small></button>
+            <button class="hbtn" id="btnDrink" onclick="careDrink()"><span class="ic">💧</span>Minum <small id="drinkLeft"></small></button>
+            <button class="hbtn" onclick="careBath()"><span class="ic">🛁</span>Mandi</button>
+            <button class="hbtn" onclick="careSleep()"><span class="ic">😴</span>Rehat</button>
+        </div>
+        <div id="foodMenu" class="card hidden" style="margin-top:12px;text-align:center"><b>Pilih makanan</b><div class="foodgrid" id="foodOpts"></div></div>
+        <div class="rbox" style="margin-top:12px">💡 Jawab soalan untuk kumpul ⭐. Bintang boleh digunakan untuk membuka sahabat dan kawasan baru. Sahabat akan lapar jika lama tidak dijaga!</div>
+    </div>
+
+    <!-- KOLEKSI SAHABAT -->
+    <div id="petsScreen" class="card start-screen hidden">
+        <div class="hub-top"><button class="chip" onclick="goHome()">⬅️ Rumah</button><span class="chip">⭐ <b id="petsStars">0</b></span></div>
+        <h2 style="margin-top:10px">Koleksi Sahabat</h2>
+        <div class="starter-grid" id="petList"></div>
+    </div>
+
+    <!-- PULAU PENGEMBARAAN -->
+    <div id="worldScreen" class="card start-screen hidden">
+        <div class="hub-top"><button class="chip" onclick="goHome()">⬅️ Rumah</button><span class="chip">⭐ <b id="worldStars">0</b></span></div>
+        <h2 style="margin-top:10px">🏝️ Pulau Pengembaraan</h2>
+        <p style="font-size:14px;color:var(--muted)">Pilih kawasan, jawab 6 soalan dan dapat bintang. Buka kawasan baru dengan ⭐.</p>
+        <div class="area-grid" id="worldList" style="margin-top:12px"></div>
+    </div>
+
+    <!-- CERITA -->
+    <div id="storyScreen" class="card start-screen hidden">
+        <div class="hub-top"><button class="chip" onclick="goHome()">⬅️ Rumah</button></div>
+        <h2 style="margin-top:10px">📖 Cerita Bersuara</h2>
+        <div id="storyCats">
+            <button class="hbtn row" onclick="showStoryList('dongeng')"><span class="ic">🦌</span><span>Dongeng Haiwan</span></button>
+            <button class="hbtn row" onclick="showStoryList('pahlawan')"><span class="ic">⚔️</span><span>Pahlawan Melayu</span></button>
+            <button class="hbtn row" onclick="showStoryList('teladan')"><span class="ic">💝</span><span>Cerita Teladan</span></button>
+        </div>
+        <div id="storyList" class="hidden"></div>
+        <div id="storyPlayer" class="hidden">
+            <div class="story-emoji" id="storyEmoji"></div>
+            <h3 id="storyTitle" style="color:var(--accent2)"></h3>
+            <div class="dots" id="storyDots"></div>
+            <div class="story-text" id="storyText"></div>
+            <div class="btn-row">
+                <button class="btn btn-secondary" onclick="if(storyIdx>0){storyIdx--;renderScene()}">⬅️</button>
+                <button class="btn" onclick="speak(curStory.scenes[storyIdx]||'',true)">🔊 Dengar</button>
+                <button class="btn btn-secondary" onclick="if(storyIdx<=curStory.scenes.length-1){storyIdx++;renderScene()}">➡️</button>
+            </div>
+            <div id="storyEnd" class="hidden" style="margin-top:14px">
+                <div class="rbox" id="storyMoral"></div>
+                <div id="storyQ"></div>
+            </div>
+            <button class="btn btn-secondary back-link" onclick="showStoryList(Object.keys(STORIES).find(k=>STORIES[k].includes(curStory)))">📚 Senarai Cerita</button>
+        </div>
+    </div>
+
+    <!-- LEMBARAN KERJA -->
+    <div id="workScreen" class="card start-screen hidden">
+        <div class="hub-top"><button class="chip" onclick="goHome()">⬅️ Rumah</button></div>
+        <h2 style="margin-top:10px">🖨️ Lembaran Kerja</h2>
+        <p style="font-size:14px;color:var(--muted);margin-bottom:10px">Muat turun PDF, cetak di rumah dan biar anak menulis dengan pensel. Lembaran tambah-tolak dijana baru setiap kali.</p>
+        <div id="workList"></div>
+    </div>
+
+    <!-- SIJIL -->
+    <div id="certScreen" class="card start-screen hidden">
+        <div class="hub-top"><button class="chip" onclick="goHome()">⬅️ Rumah</button></div>
+        <div class="logo">🏅</div>
+        <h2>Sijil & Streak</h2>
+        <div id="certBody"></div>
+        <button class="btn" onclick="makeCertificate()">📄 Muat Turun Sijil (PDF)</button>
+    </div>
+
 </div>
 
 <div id="fireworks"></div>
@@ -531,7 +771,193 @@ const CAT_LABEL = { rumi:"🔤 Huruf Rumi", jawi:"🕌 Huruf Jawi", nombor:"🔢
     silang:"🧩 Silang Kata", warna:"🎨 Warna & Bentuk", tulis:"✍️ Jejak Huruf", corak:"🔁 Teka Corak",
     belon:"🎈 Pecah Belon", kad:"🃏 Padan Kad", badan:"🧍 Anggota Badan", sukukata:"🔡 Suku Kata", haiwan:"🐮 Haiwan & Bunyi",
     puzzle:"🧩 Puzzle Gambar", buah:"🍎 Buah & Sayur", kenderaan:"🚗 Kenderaan", kerjaya:"👩‍⚕️ Pekerjaan", lawan:"↔️ Lawan Kata",
-    perasaan:"😊 Perasaan & Adab", masa:"📅 Hari & Bulan", agama:"🕌 Islam & Hijaiyah", mewarna:"🖍️ Mewarna", rutin:"🧼 Rutin & Kebersihan" };
+    perasaan:"😊 Perasaan & Adab", masa:"📅 Hari & Bulan", agama:"🕌 Islam & Hijaiyah", mewarna:"🖍️ Mewarna", rutin:"🧼 Rutin & Kebersihan", inggeris:"🇬🇧 Bahasa Inggeris", duit:"💰 Duit RM & Kedai", jam:"🕐 Baca Jam", malaysia:"🇲🇾 Malaysia Kita", sains:"🔬 Sains Mudah", arkad:"🎯 Arkad Laju" };
+
+/* ============================================================
+   DATA V2: Inggeris, Duit RM, Jam, Malaysia, Sains, Arkad
+============================================================ */
+const EN_ANIMALS = [["🐱","cat"],["🐶","dog"],["🐄","cow"],["🐴","horse"],["🐔","chicken"],["🦆","duck"],["🐟","fish"],["🐘","elephant"],["🦁","lion"],
+    ["🐒","monkey"],["🐰","rabbit"],["🐦","bird"],["🐢","turtle"],["🐸","frog"],["🐍","snake"],["🦒","giraffe"],["🐼","panda"],["🐻","bear"],["🦋","butterfly"],["🐝","bee"]];
+const EN_FRUIT = [["🍎","apple"],["🍌","banana"],["🍊","orange"],["🍇","grapes"],["🍓","strawberry"],["🍉","watermelon"],["🍍","pineapple"],["🥭","mango"],
+    ["🍋","lemon"],["🥕","carrot"],["🍅","tomato"],["🌽","corn"]];
+const EN_THINGS = [["⚽","ball"],["📖","book"],["🚗","car"],["🚌","bus"],["✈️","plane"],["🏠","house"],["🌳","tree"],["🌸","flower"],["⭐","star"],["🌙","moon"],
+    ["☀️","sun"],["☁️","cloud"],["🍞","bread"],["🥛","milk"],["🥚","egg"],["🎈","balloon"],["🎁","gift"],["👕","shirt"],["👟","shoe"],["🧢","cap"],
+    ["🎒","bag"],["✏️","pencil"],["⏰","clock"],["🛏️","bed"],["🪑","chair"],["🚪","door"],["📱","phone"],["🔑","key"],["💡","lamp"]];
+const EN_BODY = [["👁️","eye"],["👂","ear"],["👃","nose"],["👄","mouth"],["✋","hand"],["🦶","foot"],["🦷","tooth"],["👅","tongue"]];
+const EN_COLORS = [["🔴","red"],["🔵","blue"],["🟡","yellow"],["🟢","green"],["🟠","orange"],["🟣","purple"],["🟤","brown"],["⚫","black"],["⚪","white"]];
+const EN_NUMS = ["zero","one","two","three","four","five","six","seven","eight","nine","ten"];
+const EN_ABC = [["A","apple","🍎"],["B","ball","⚽"],["C","cat","🐱"],["D","dog","🐶"],["E","egg","🥚"],["F","fish","🐟"],["G","goat","🐐"],["H","hat","🎩"],
+    ["I","ice cream","🍦"],["J","juice","🧃"],["K","kite","🪁"],["L","lion","🦁"],["M","moon","🌙"],["N","nest","🪺"],["O","orange","🍊"],["P","pig","🐷"],
+    ["Q","queen","👸"],["R","rabbit","🐰"],["S","sun","☀️"],["T","tiger","🐯"],["U","umbrella","☂️"],["V","van","🚐"],["W","watch","⌚"],["Y","yo-yo","🪀"],["Z","zebra","🦓"]];
+const EN_MS = [["cat","kucing"],["dog","anjing"],["cow","lembu"],["horse","kuda"],["fish","ikan"],["bird","burung"],["apple","epal"],["banana","pisang"],
+    ["water","air"],["book","buku"],["house","rumah"],["sun","matahari"],["moon","bulan"],["car","kereta"],["red","merah"],["blue","biru"],["green","hijau"],
+    ["one","satu"],["two","dua"],["three","tiga"],["eye","mata"],["hand","tangan"],["milk","susu"],["bread","roti"],["tree","pokok"],["flower","bunga"]];
+
+// ---- Duit RM
+const MONEY = [5, 10, 20, 50, 100, 500, 1000, 2000, 5000];
+const FMT = sen => sen < 100 ? sen + " sen" : "RM" + (sen % 100 === 0 ? sen / 100 : (sen / 100).toFixed(2));
+const NOTE_COL = { 100:"#4a6fb5", 500:"#43a047", 1000:"#e53935", 2000:"#fb8c00", 5000:"#00897b" };
+function moneyHTML(sen) {
+    if (sen < 100) return `<span class="coin">${sen}<br>sen</span>`;
+    return `<span class="note" style="--nc:${NOTE_COL[sen] || "#8e24aa"}">RM${sen / 100}</span>`;
+}
+const SHOP = [["🍎","epal"],["🍌","pisang"],["🍪","biskut"],["🍦","aiskrim"],["🥛","susu"],["🍬","gula-gula"],["🎈","belon"],["✏️","pensil"],["🍞","roti"],["🧃","jus"],["🍩","donat"],["🍫","coklat"]];
+const MONEY_QA = [
+    ["Berapa keping 10 sen untuk jadi RM1?", "10 keping", ["5 keping", "20 keping"]],
+    ["5 keping 20 sen sama dengan?", "RM1", ["50 sen", "RM2"]],
+    ["2 keping 50 sen sama dengan?", "RM1", ["RM2", "50 sen"]],
+    ["Mata wang Malaysia ialah?", "Ringgit", ["Dolar", "Rupiah"]],
+    ["Di mana kita simpan duit dengan selamat?", "Tabung atau bank", ["Atas jalan", "Dalam sungai"]],
+    ["Sebelum beli, kita patut?", "Tengok harga", ["Lari", "Tutup mata"]],
+    ["Selepas membayar, kita patut ambil?", "Baki dan resit", ["Tiada apa", "Kasut"]],
+    ["Mana yang lebih banyak nilainya?", "RM5", ["50 sen", "20 sen"]]
+];
+
+// ---- Jam
+function clockSVG(h, m) {
+    let s = '<svg viewBox="0 0 120 120" width="150" height="150" role="img" aria-label="jam"><circle cx="60" cy="60" r="55" fill="#fff" stroke="#5b50d6" stroke-width="4"/>';
+    for (let i = 0; i < 12; i++) {
+        const a = i * Math.PI / 6, x1 = 60 + 48 * Math.sin(a), y1 = 60 - 48 * Math.cos(a), x2 = 60 + (i % 3 ? 44 : 40) * Math.sin(a), y2 = 60 - (i % 3 ? 44 : 40) * Math.cos(a);
+        s += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#555" stroke-width="${i % 3 ? 1.5 : 3}"/>`;
+    }
+    [[12, 60, 24], [3, 96, 64], [6, 60, 104], [9, 24, 64]].forEach(n => { s += `<text x="${n[1]}" y="${n[2]}" text-anchor="middle" font-size="13" font-weight="bold" fill="#263238">${n[0]}</text>`; });
+    const ha = ((h % 12) + m / 60) * 30 * Math.PI / 180, ma = m * 6 * Math.PI / 180;
+    s += `<line x1="60" y1="60" x2="${(60 + 26 * Math.sin(ha)).toFixed(1)}" y2="${(60 - 26 * Math.cos(ha)).toFixed(1)}" stroke="#263238" stroke-width="6" stroke-linecap="round"/>`;
+    s += `<line x1="60" y1="60" x2="${(60 + 40 * Math.sin(ma)).toFixed(1)}" y2="${(60 - 40 * Math.cos(ma)).toFixed(1)}" stroke="#e53935" stroke-width="4" stroke-linecap="round"/>`;
+    return s + '<circle cx="60" cy="60" r="4" fill="#263238"/></svg>';
+}
+const TIME_DAY_QA = [
+    ["Kita gosok gigi sebelum tidur pada waktu?", "Malam", ["Pagi", "Tengah hari"]],
+    ["Matahari terbit pada waktu?", "Pagi", ["Malam", "Petang"]],
+    ["Kita makan tengah hari pada waktu?", "Tengah hari", ["Malam", "Pagi"]],
+    ["Bintang kelihatan pada waktu?", "Malam", ["Pagi", "Tengah hari"]],
+    ["Kita pergi sekolah pada waktu?", "Pagi", ["Malam", "Tengah malam"]],
+    ["Matahari terbenam pada waktu?", "Petang", ["Pagi", "Tengah hari"]],
+    ["Jarum pendek pada jam menunjukkan?", "Jam", ["Minit", "Hari"]],
+    ["Jarum panjang pada jam menunjukkan?", "Minit", ["Jam", "Bulan"]],
+    ["Sejam ada berapa minit?", "60 minit", ["30 minit", "100 minit"]]
+];
+
+// ---- Malaysia
+const MY_QA = [
+    ["Apa nama bendera Malaysia?", "Jalur Gemilang", ["Bendera Cinta", "Panji Kuning"]],
+    ["Apakah warna pada bendera Malaysia?", "Merah, putih, biru, kuning", ["Hijau dan hitam", "Ungu dan jingga"]],
+    ["Apa nama ibu negara Malaysia?", "Kuala Lumpur", ["Ipoh", "Kuching"]],
+    ["Menara Berkembar Petronas ada di?", "Kuala Lumpur", ["Melaka", "Kedah"]],
+    ["Apa bahasa kebangsaan Malaysia?", "Bahasa Melayu", ["Bahasa Jepun", "Bahasa Perancis"]],
+    ["Apa nama lagu kebangsaan Malaysia?", "Negaraku", ["Hari Raya", "Rasa Sayang"]],
+    ["Apa bunga kebangsaan Malaysia?", "Bunga Raya", ["Bunga Mawar", "Bunga Matahari"]],
+    ["Apa haiwan kebangsaan Malaysia?", "Harimau Malaya", ["Singa", "Gajah"]],
+    ["Hari Kebangsaan disambut pada?", "31 Ogos", ["1 Januari", "25 Disember"]],
+    ["Malaysia mempunyai berapa buah negeri?", "13", ["7", "20"]],
+    ["Siapa Perdana Menteri Malaysia yang pertama?", "Tunku Abdul Rahman", ["Hang Tuah", "Tun Perak"]],
+    ["Makanan Malaysia yang dimasak dengan santan?", "Nasi lemak", ["Burger", "Pizza"]],
+    ["Minuman sejuk Malaysia dengan santan dan gula Melaka?", "Cendol", ["Kopi panas", "Teh ais lemon"]],
+    ["Makanan bakar atas lidi dengan kuah kacang?", "Satay", ["Spageti", "Sushi"]],
+    ["Permainan tradisional yang diterbangkan?", "Wau", ["Congkak", "Gasing"]],
+    ["Permainan tradisional yang berpusing?", "Gasing", ["Wau", "Batu Seremban"]],
+    ["Permainan tradisional dengan bola rotan?", "Sepak takraw", ["Boling", "Golf"]],
+    ["Pakaian tradisional wanita Melayu?", "Baju kurung", ["Cheongsam", "Sari"]],
+    ["Pakaian tradisional lelaki Melayu?", "Baju Melayu", ["Kimono", "Kot"]],
+    ["Perayaan umat Islam selepas Ramadan?", "Hari Raya Aidilfitri", ["Deepavali", "Krismas"]],
+    ["Perayaan kaum Cina pada awal tahun?", "Tahun Baru Cina", ["Deepavali", "Hari Raya"]],
+    ["Perayaan cahaya kaum India?", "Deepavali", ["Tahun Baru Cina", "Hari Merdeka"]]
+];
+
+// ---- Sains
+const SAINS_FLOAT = [["🍃","Terapung"],["🪵","Terapung"],["🏐","Terapung"],["🦆","Terapung"],["🪨","Tenggelam"],["🔑","Tenggelam"],["🪙","Tenggelam"],["⚓","Tenggelam"]];
+const SAINS_QA = [
+    ["Apa yang diperlukan pokok untuk hidup?", "Air dan cahaya matahari", ["Gula-gula", "Mainan"]],
+    ["Hujan datang dari?", "Awan", ["Lantai", "Pokok"]],
+    ["Siang kita nampak?", "Matahari", ["Bintang yang banyak", "Bulan penuh"]],
+    ["Malam kita nampak?", "Bulan dan bintang", ["Matahari", "Pelangi"]],
+    ["Ais itu terasa?", "Sejuk", ["Panas", "Pedas"]],
+    ["Api itu terasa?", "Panas", ["Sejuk", "Manis"]],
+    ["Magnet menarik benda daripada?", "Besi", ["Kertas", "Kain"]],
+    ["Planet yang kita tinggal ialah?", "Bumi", ["Marikh", "Zuhal"]],
+    ["Matahari ialah?", "Bintang", ["Planet", "Awan"]],
+    ["Bulan mengelilingi?", "Bumi", ["Matahari", "Pokok"]],
+    ["Pelangi muncul selepas?", "Hujan dan ada matahari", ["Gempa bumi", "Malam"]],
+    ["Haiwan yang makan tumbuhan dipanggil?", "Herbivor", ["Karnivor", "Serangga"]],
+    ["Pokok mengeluarkan?", "Oksigen", ["Asap kereta", "Plastik"]],
+    ["Kita bernafas menggunakan?", "Hidung dan paru-paru", ["Telinga", "Kaki"]],
+    ["Air yang sangat sejuk menjadi?", "Ais", ["Api", "Asap"]],
+    ["Air yang dipanaskan menjadi?", "Wap", ["Batu", "Tanah"]],
+    ["Berapa banyak planet dalam Sistem Suria?", "8", ["3", "20"]]
+];
+
+/* ============================================================
+   GENERATOR V2 (dipanggil dari generateQuestions)
+============================================================ */
+function genV2(add, ch) {
+    const N10 = Array.from({ length:10 }, (_, i) => String(i + 1));
+    const ENW = [...EN_ANIMALS, ...EN_FRUIT, ...EN_THINGS, ...EN_BODY];
+    const ENN = ENW.map(x => x[1]), ENE = ENW.map(x => x[0]);
+    const EN = { lang:"en-US" };
+
+    // ===== BAHASA INGGERIS
+    add("inggeris", 400, () => { const [e, w] = pick(ENW); return ch("What is this?", e, w, ENN, { ...EN, sayAfter:w }); });
+    add("inggeris", 300, () => { const [e, w] = pick(ENW); return ch("Which one is " + w + "?", w, e, ENE, { ...EN, speak:w }); });
+    add("inggeris", 100, () => { const [e, w] = pick(EN_COLORS); return ch("What color is this?", e, w, EN_COLORS.map(c => c[1]), { ...EN, sayAfter:w }); });
+    add("inggeris", 100, () => { const c = 1 + rnd(10), e = pick(COUNT_EMOJI); return ch("How many?", e.repeat(c), EN_NUMS[c], EN_NUMS.slice(1), { ...EN, sayAfter:EN_NUMS[c] }); });
+    add("inggeris", 100, () => { const [l, w] = pick(EN_ABC); return ch(l + " is for...?", l, w, EN_ABC.map(x => x[1]), { ...EN, sayAfter:l + " is for " + w }); });
+    add("inggeris", 100, () => { const [l, w, e] = pick(EN_ABC); return ch("What letter does \"" + w + "\" start with?", e, l, RUMI, { ...EN, sayAfter:w }); });
+    add("inggeris", 120, () => { const [e, w] = pick(ENW.filter(x => x[1].length <= 6 && !x[1].includes(" ")));
+        return { type:"spell", question:"Spell the word!", display:e, answer:w.toUpperCase(), lang:"en-US" }; });
+    add("inggeris", 300, () => { const s = shuffle(ENW).slice(0, 2 + rnd(2));
+        return { type:"match", question:"Match the picture and the word", pairs:s.map(x => [x[0], x[1]]), lang:"en-US" }; });
+    add("inggeris", 80, () => { const [en, ms] = pick(EN_MS); return ch("\"" + en + "\" dalam Bahasa Melayu ialah?", en, ms, EN_MS.map(x => x[1]), { lang:"en-US", speak:en }); });
+    add("inggeris", 80, () => { const [en, ms] = pick(EN_MS); return ch("Apakah \"" + ms + "\" dalam Bahasa Inggeris?", ms, en, EN_MS.map(x => x[0]), { sayAfter:en, lang:"en-US" }); });
+
+    // ===== DUIT RM & KEDAI
+    add("duit", 60, () => { const s = pick(MONEY); return ch("Berapakah nilai wang ini?", moneyHTML(s), FMT(s), MONEY.map(FMT), { html:true }); });
+    add("duit", 60, () => { const s = pick(MONEY); return ch("Mana wang " + FMT(s) + "?", "💵", moneyHTML(s), MONEY.map(moneyHTML), { htmlOpts:true }); });
+    add("duit", 60, () => { const [a, b] = shuffle(MONEY).slice(0, 2);
+        return { type:"choice", question:"Mana nilai yang lebih besar?", display:"💰", options:[FMT(a), FMT(b)], answer:FMT(Math.max(a, b)) }; });
+    add("duit", 100, () => { const v = [10, 20, 50, 100], a = pick(v), b = pick(v), s = a + b;
+        const wr = [s + 10, s + 50, s - 10, s + 100, s - 50].filter(x => x > 0 && x !== s);
+        return { type:"choice", question:"Berapa jumlahnya?", display:FMT(a) + " + " + FMT(b), options:shuffle([FMT(s), ...shuffle(wr).slice(0, 2).map(FMT)]), answer:FMT(s) }; });
+    add("duit", 200, () => { const [e, n] = pick(SHOP), p = (5 + rnd(85)) * 10, pay = p < 500 ? 500 : 1000, ch2 = pay - p;
+        const wr = [ch2 + 10, ch2 - 10, ch2 + 50, ch2 - 50, ch2 + 100].filter(x => x > 0 && x !== ch2);
+        return { type:"choice", question:"Beli " + n + " " + FMT(p) + ". Bayar " + FMT(pay) + ". Berapa baki?", display:e,
+            options:shuffle([FMT(ch2), ...shuffle(wr).slice(0, 2).map(FMT)]), answer:FMT(ch2) }; });
+    add("duit", 120, () => { const [e, n] = pick(SHOP), have = (1 + rnd(9)) * 100, p = (1 + rnd(9)) * 100;
+        if (have === p) return null;
+        return { type:"choice", question:"Ada " + FMT(have) + ". " + n + " harga " + FMT(p) + ". Cukup tak?", display:e, options:["Cukup", "Tidak cukup"], answer:have >= p ? "Cukup" : "Tidak cukup" }; });
+    add("duit", 40, qaGen(MONEY_QA, "💰"));
+    add("duit", 400, () => { const [e, n] = pick(SHOP), p = (3 + rnd(33)) * 10;
+        return { type:"pay", question:"Kedai mini: beli " + n + ". Harganya " + FMT(p) + ". Bayar tepat!", item:e, price:p }; });
+
+    // ===== JAM
+    const T = (h, m) => h + ":" + String(m).padStart(2, "0");
+    add("jam", 40, () => { const h = 1 + rnd(12), m = rnd(2) * 30, ans = T(h, m);
+        const pool = []; for (let hh = 1; hh <= 12; hh++) [0, 30].forEach(mm => pool.push(T(hh, mm)));
+        const wr = [T(h, 30 - m), T(h % 12 + 1, m), T((h + 10) % 12 + 1, m)].filter(x => x !== ans);
+        return { type:"choice", question:"Pukul berapa sekarang?", display:clockSVG(h, m), html:true, options:shuffle([ans, ...shuffle([...new Set(wr)]).slice(0, 2)]), answer:ans }; });
+    add("jam", 40, qaGen(TIME_DAY_QA, "⏰"));
+    add("jam", 20, () => { const p = [["Pagi", "Tengah hari", "Petang", "Malam"]][0];
+        return { type:"spell", question:"Susun waktu dalam sehari!", display:"🕐", parts:p, answer:p.join("|") }; });
+
+    // ===== MALAYSIA
+    add("malaysia", 60, qaGen(MY_QA, "🇲🇾"));
+    add("malaysia", 100, () => { const s = shuffle([["Nasi lemak", "🍛"], ["Satay", "🍢"], ["Cendol", "🍧"], ["Laksa", "🍜"], ["Teh tarik", "🍵"], ["Kuih", "🍡"]]).slice(0, 2 + rnd(2));
+        return { type:"match", question:"Padankan makanan Malaysia", pairs:s.map(a => [a[1], a[0]]) }; });
+
+    // ===== SAINS MUDAH
+    add("sains", 40, () => { const [e, a] = pick(SAINS_FLOAT);
+        return { type:"choice", question:"Terapung atau tenggelam dalam air?", display:e, options:["Terapung", "Tenggelam"], answer:a }; });
+    add("sains", 60, qaGen(SAINS_QA, "🔬"));
+
+    // ===== ARKAD LAJU
+    const AVA = [["🐭", "🧀"], ["🐰", "🥕"], ["🐱", "🐟"], ["🐶", "🦴"], ["🐒", "🍌"], ["🧒", "🏠"], ["🚗", "⛽"], ["🐝", "🌸"]];
+    add("arkad", 60, () => { const [a, g] = pick(AVA), n = 4 + rnd(4);
+        return { type:"maze", question:"Bantu " + a + " cari " + g + "! (" + n + "×" + n + ")", size:n, avatar:a, goal:g }; });
+    const NOISE = ["🍎", "🍌", "🍇", "🍓", "🐱", "🐶", "⭐", "🌸", "🚗", "🎈", "🐟", "🦋", "🍊", "🌳"];
+    add("arkad", 120, () => { const t = pick(NOISE), c = 2 + rnd(3), noise = pickWrong(t, NOISE, 4);
+        return { type:"hidden", question:"Cari " + c + " " + t + " yang tersembunyi!", target:t, count:c, noise }; });
+    add("arkad", 120, () => { const isN = rnd(2), pool = isN ? N10 : RUMI, t = pick(pool);
+        return { type:"catch", question:"Tangkap " + (isN ? "nombor " : "huruf ") + t + " yang jatuh!", target:t, pool:pickWrong(t, pool, 5), need:5, secs:22 }; });
+}
 
 /* ============================================================
    GENERATOR SOALAN
@@ -883,6 +1309,7 @@ function generateQuestions() {
         return ch("Apa langkah pertama ketika " + r[0].toLowerCase() + "?", r[1], r[2][0], r[2]); });
     add("rutin", 20, qaGen(HYGIENE_QA, "🧼"));
 
+    genV2(add, ch);
     return shuffle(qs);
 }
 const ALL_QUESTIONS = generateQuestions();
@@ -910,7 +1337,7 @@ const TOKEN_KEY = "jomBelajar_token", LINK_ID_KEY = "jomBelajar_linkId",
       DEVICE_ID_KEY = "jomBelajar_deviceId", ACTIVATED_KEY = "jomBelajar_activated";
 const DEMO_TOKEN = "JBL-DEMO-0000";
 const $ = id => document.getElementById(id);
-const SCREENS = ["tokenScreen", "startScreen", "gameScreen", "resultScreen", "albumScreen", "reportScreen"];
+const SCREENS = ["tokenScreen", "startScreen", "gameScreen", "resultScreen", "albumScreen", "reportScreen", "setupScreen", "hubScreen", "careScreen", "petsScreen", "worldScreen", "storyScreen", "workScreen", "certScreen"];
 function showScreen(id) {
     SCREENS.forEach(s => $(s).classList.add("hidden"));
     $(id).classList.remove("hidden");
@@ -968,7 +1395,7 @@ function handleVerifyResult(result, linkId, token) {
     if (result.success && result.status === "Lulus") {
         saveLocalActivation(linkId, token);
         showTokenMessage("Diluluskan! Selamat datang.", true);
-        setTimeout(showStartScreen, 700);
+        setTimeout(goHome, 700);
         return;
     }
     const icons = { "Dalam Proses":"⏳ ", "Banned":"🚫 ", "DeviceLocked":"🔒 " };
@@ -1011,6 +1438,7 @@ function logoutToken() {
 }
 function showStartScreen() {
     showScreen("startScreen");
+    if (!$("studentName").value && typeof curName === "function") $("studentName").value = curName();
     $("demoNote").classList.toggle("hidden", !isDemo());
 }
 
@@ -1019,9 +1447,9 @@ function showStartScreen() {
 ============================================================ */
 const PROFILES_KEY = "jomBelajar_students";
 const profKey = n => "jomBelajar_p_" + n.toLowerCase();
-const newProfile = n => ({ name:n, stickers:{}, stats:{}, sessions:[], seen:{} });
+const newProfile = n => ({ name:n, stickers:{}, stats:{}, sessions:[], seen:{}, pet:newPet() });
 function loadProfile(n) {
-    try { return JSON.parse(localStorage.getItem(profKey(n))) || newProfile(n); } catch (e) { return newProfile(n); }
+    try { const p = JSON.parse(localStorage.getItem(profKey(n))) || newProfile(n); if (!p.pet) p.pet = newPet(); if (!p.seen) p.seen = {}; return p; } catch (e) { return newProfile(n); }
 }
 function saveProfile(p) {
     try {
@@ -1104,14 +1532,14 @@ function awardStickers() {
    SUARA (bacaan soalan guna suara peranti)
 ============================================================ */
 let soundOn = true, curSpeech = "";
-function speak(text, force) {
+function speak(text, force, lang) {
     if ((!soundOn && !force) || !text || !("speechSynthesis" in window)) return;
     try {
         const t = String(text).replace(/___/g, " apa ").replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, " ").replace(/\n/g, ", ").trim();
         if (!t) return;
         speechSynthesis.cancel();
         const u = new SpeechSynthesisUtterance(t);
-        u.lang = "ms-MY"; u.rate = .85;
+        u.lang = lang || "ms-MY"; u.rate = .85;
         speechSynthesis.speak(u);
     } catch (e) {}
 }
@@ -1135,6 +1563,7 @@ function startGame() {
     if (!pool.length) { alert("Tiada soalan untuk pilihan ini. Cuba pilih 'Semua'."); return; }
 
     profile = loadProfile(name); profile.seen = profile.seen || {};
+    setCur(name); adventure = null; touchStreak();
     currentQuestions = buildSession(pool, profile.seen);
     if (isDemo()) currentQuestions = currentQuestions.slice(0, 5);
 
@@ -1162,6 +1591,7 @@ function updateTimer() {
 }
 
 function showQuestion() {
+    if (cleanupFn) { try { cleanupFn(); } catch (e) {} cleanupFn = null; }
     if (currentIndex >= currentQuestions.length) return finishGame();
     isAnswering = false; qMistakes = 0;
     const q = currentQuestions[currentIndex];
@@ -1174,21 +1604,23 @@ function showQuestion() {
     area.innerHTML = "";
     ({ choice:showChoice, fill:showFill, drag:showDrag, match:showMatch, spell:showSpell,
        cross:showCross, balloon:showBalloon, memory:showMemory, trace:showTrace,
-       body:showBody, puzzle:showPuzzle, color:showColor })[q.type](q, area);
+       body:showBody, puzzle:showPuzzle, color:showColor,
+       pay:showPay, maze:showMaze, hidden:showHidden, catch:showCatch })[q.type](q, area);
     curSpeech = q.question + (q.speak ? ". " + q.speak : "");
-    speak(curSpeech);
+    curLang = q.lang || "ms-MY";
+    speak(curSpeech, false, curLang);
 }
 
 /* ---------- CHOICE ---------- */
 function showChoice(q, area) {
-    const med = [...q.display].length > 2;
+    const med = q.html ? true : [...q.display].length > 2;
     area.innerHTML = `
         <div>${escapeHTML(q.question)}</div>
-        <div class="big-letter${med ? " med" : ""}" id="bigDisp">${escapeHTML(q.display)}</div>
+        <div class="big-letter${med ? " med" : ""}" id="bigDisp">${q.html ? q.display : escapeHTML(q.display)}</div>
         <div class="options">
-            ${q.options.map(o => `<button class="option" style="font-size:${o.length > 5 ? 20 : 26}px" data-value="${escapeHTML(o)}">${escapeHTML(o)}</button>`).join("")}
+            ${q.options.map(o => `<button class="option" style="font-size:${o.length > 5 ? 20 : 26}px" data-value="${escapeHTML(o)}">${q.htmlOpts ? o : escapeHTML(o)}</button>`).join("")}
         </div>`;
-    if (q.speak) { $("bigDisp").style.cursor = "pointer"; $("bigDisp").onclick = () => speak(q.speak, true); }
+    if (q.speak) { $("bigDisp").style.cursor = "pointer"; $("bigDisp").onclick = () => speak(q.speak, true, q.lang); }
     area.querySelectorAll(".option").forEach(btn => btn.addEventListener("click", () => {
         if (isAnswering) return;
         isAnswering = true;
@@ -1201,6 +1633,7 @@ function showChoice(q, area) {
             all.forEach(b => { if (b.dataset.value === q.answer) b.classList.add("correct"); });
             wrong("😊 Tak apa! Jawapan: " + q.answer);
         }
+        if (q.sayAfter) speak(q.sayAfter, true, q.lang);
         nextQuestion(ok ? 1100 : 1900);
     }));
 }
@@ -1916,11 +2349,779 @@ function showTrace(q, area) {
 }
 
 /* ============================================================
+   JENIS SOALAN BARU: kedai (pay), labirin, cari tersembunyi, tangkap
+============================================================ */
+let cleanupFn = null, curLang = "ms-MY", adventure = null;
+
+function showPay(q, area) {
+    const COINS = [100, 50, 20, 10];
+    let paid = [];
+    const total = () => paid.reduce((a, b) => a + b, 0);
+    area.innerHTML = `
+        <div>${escapeHTML(q.question)}</div>
+        <div class="big-letter">${escapeHTML(q.item)}</div>
+        <div class="paybox" id="payTotal"></div>
+        <div class="payrow" id="payTray"></div>
+        <div class="payrow">${COINS.map(c => `<button class="paytok" data-v="${c}">${moneyHTML(c)}</button>`).join("")}</div>
+        <div class="btn-row" style="max-width:340px;margin:8px auto 0;">
+            <button class="btn btn-secondary" id="payClr">🧽 Kosongkan</button>
+            <button class="btn" id="payOk">✓ BAYAR</button>
+        </div>`;
+    const draw = () => {
+        $("payTotal").textContent = "Dibayar: " + FMT(total()) + " / " + FMT(q.price);
+        $("payTray").innerHTML = paid.map(v => `<span class="mini">${FMT(v)}</span>`).join("");
+    };
+    area.querySelectorAll(".paytok").forEach(b => b.onclick = () => { if (isAnswering) return; paid.push(+b.dataset.v); draw(); });
+    $("payClr").onclick = () => { if (isAnswering) return; paid = []; draw(); };
+    $("payOk").onclick = () => {
+        if (isAnswering) return;
+        const t = total();
+        if (t === q.price) { isAnswering = true; correct(); nextQuestion(1200); }
+        else tryAgain(t < q.price ? "🙂 Kurang lagi " + FMT(q.price - t) + "!" : "🙂 Terlebih " + FMT(t - q.price) + ". Tekan Kosongkan.");
+    };
+    draw();
+}
+
+function showMaze(q, area) {
+    const N = q.size, CELL = Math.floor(300 / N), S = CELL * N;
+    const Wl = Array.from({ length:N }, () => Array.from({ length:N }, () => ({ t:1, r:1, b:1, l:1 })));
+    const vis = Array.from({ length:N }, () => Array(N).fill(false));
+    const stack = [[0, 0]]; vis[0][0] = true;
+    while (stack.length) {
+        const [r, c] = stack[stack.length - 1];
+        const nb = [[r - 1, c, "t", "b"], [r, c + 1, "r", "l"], [r + 1, c, "b", "t"], [r, c - 1, "l", "r"]]
+            .filter(([rr, cc]) => rr >= 0 && cc >= 0 && rr < N && cc < N && !vis[rr][cc]);
+        if (!nb.length) { stack.pop(); continue; }
+        const [rr, cc, a, b] = pick(nb);
+        Wl[r][c][a] = 0; Wl[rr][cc][b] = 0; vis[rr][cc] = true; stack.push([rr, cc]);
+    }
+    let pr = 0, pc = 0;
+    area.innerHTML = `
+        <div>${escapeHTML(q.question)}</div>
+        <canvas id="mz" class="tcanvas" width="${S}" height="${S}" style="max-width:${S}px;border-style:solid;"></canvas>
+        <div class="dpad"><button data-d="u">▲</button><div><button data-d="l">◀</button><button data-d="d">▼</button><button data-d="r">▶</button></div></div>`;
+    const cv = $("mz"), ctx = cv.getContext("2d");
+    const FONTS = "'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif";
+    function draw() {
+        ctx.fillStyle = cssVar("--canvas"); ctx.fillRect(0, 0, S, S);
+        ctx.strokeStyle = cssVar("--text"); ctx.lineWidth = 3; ctx.lineCap = "round";
+        ctx.beginPath();
+        for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) {
+            const w = Wl[r][c], x = c * CELL, y = r * CELL;
+            if (w.t) { ctx.moveTo(x, y); ctx.lineTo(x + CELL, y); }
+            if (w.l) { ctx.moveTo(x, y); ctx.lineTo(x, y + CELL); }
+            if (r === N - 1 && w.b) { ctx.moveTo(x, y + CELL); ctx.lineTo(x + CELL, y + CELL); }
+            if (c === N - 1 && w.r) { ctx.moveTo(x + CELL, y); ctx.lineTo(x + CELL, y + CELL); }
+        }
+        ctx.stroke();
+        ctx.font = Math.floor(CELL * 0.62) + "px " + FONTS; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+        ctx.fillText(q.goal, (N - 1) * CELL + CELL / 2, (N - 1) * CELL + CELL / 2 + 2);
+        ctx.fillText(q.avatar, pc * CELL + CELL / 2, pr * CELL + CELL / 2 + 2);
+    }
+    function move(d) {
+        if (isAnswering) return;
+        const w = Wl[pr][pc];
+        if (d === "u" && !w.t) pr--; else if (d === "d" && !w.b) pr++; else if (d === "l" && !w.l) pc--; else if (d === "r" && !w.r) pc++; else return;
+        draw();
+        if (pr === N - 1 && pc === N - 1) { isAnswering = true; correct(); nextQuestion(1300); }
+    }
+    area.querySelectorAll(".dpad button").forEach(b => b.onclick = () => move(b.dataset.d));
+    let sx = 0, sy = 0, on = false;
+    cv.addEventListener("pointerdown", e => { on = true; sx = e.clientX; sy = e.clientY; cv.setPointerCapture(e.pointerId); e.preventDefault(); });
+    cv.addEventListener("pointermove", e => {
+        if (!on) return;
+        const dx = e.clientX - sx, dy = e.clientY - sy, th = CELL * 0.7;
+        if (Math.abs(dx) > th || Math.abs(dy) > th) { move(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? "r" : "l") : (dy > 0 ? "d" : "u")); sx = e.clientX; sy = e.clientY; }
+    });
+    cv.addEventListener("pointerup", () => { on = false; });
+    const key = e => { const m = { ArrowUp:"u", ArrowDown:"d", ArrowLeft:"l", ArrowRight:"r" }[e.key]; if (m) { e.preventDefault(); move(m); } };
+    document.addEventListener("keydown", key);
+    cleanupFn = () => document.removeEventListener("keydown", key);
+    draw();
+}
+
+function showHidden(q, area) {
+    const n = 30, set = new Set(shuffle([...Array(n).keys()]).slice(0, q.count));
+    const items = Array.from({ length:n }, (_, i) => set.has(i) ? q.target : pick(q.noise));
+    let found = 0;
+    area.innerHTML = `
+        <div>${escapeHTML(q.question)}</div>
+        <div class="hgrid">${items.map((e, i) => `<button class="hcell" data-i="${i}">${escapeHTML(e)}</button>`).join("")}</div>
+        <div id="hcount" style="font-size:16px;margin-top:8px;">Dijumpai: 0/${q.count}</div>`;
+    area.querySelectorAll(".hcell").forEach(b => b.onclick = () => {
+        if (isAnswering || b.classList.contains("hit")) return;
+        if (set.has(+b.dataset.i)) {
+            b.classList.add("hit"); found++;
+            $("hcount").textContent = "Dijumpai: " + found + "/" + q.count;
+            fireworks(8);
+            if (found >= q.count) { isAnswering = true; correct(); nextQuestion(1200); } else hint("👍 Jumpa!");
+        } else {
+            tryAgain("🙂 Itu bukan " + q.target + ". Cari lagi!");
+            b.classList.add("shake"); setTimeout(() => b.classList.remove("shake"), 400);
+        }
+    });
+}
+
+function showCatch(q, area) {
+    area.innerHTML = `<div>${escapeHTML(q.question)}</div><div class="cfield" id="cfield"></div><div id="cinfo" style="font-size:16px;margin-top:8px;"></div>`;
+    const f = $("cfield");
+    let got = 0, left = q.secs, done = false;
+    const upd = () => { $("cinfo").textContent = "Tangkap: " + got + "/" + q.need + "  |  Masa: " + Math.max(0, left); };
+    function finish(ok) {
+        if (done) return;
+        done = true; clearInterval(sp); clearInterval(tm); isAnswering = true;
+        if (ok) { correct(); nextQuestion(1100); } else { wrong("😊 Tak apa! Cuba lagi nanti."); nextQuestion(1500); }
+    }
+    function spawn() {
+        if (done) return;
+        const isT = Math.random() < 0.45, label = isT ? q.target : pick(q.pool);
+        const el = document.createElement("button");
+        el.className = "cdrop"; el.textContent = label;
+        el.style.left = (2 + rnd(80)) + "%"; el.style.animationDuration = (3.2 + Math.random() * 2) + "s";
+        el.onclick = () => {
+            if (done || el.classList.contains("pop")) return;
+            el.classList.add("pop");
+            if (label === q.target) { got++; upd(); fireworks(8); if (got >= q.need) finish(true); }
+            else tryAgain("🙂 Bukan itu! Cari " + q.target);
+        };
+        el.addEventListener("animationend", () => el.remove());
+        f.appendChild(el);
+    }
+    const sp = setInterval(spawn, 650), tm = setInterval(() => { left--; upd(); if (left <= 0) finish(false); }, 1000);
+    cleanupFn = () => { done = true; clearInterval(sp); clearInterval(tm); };
+    upd(); spawn();
+}
+
+/* ============================================================
+   UTIL V2: toast, modal, tarikh
+============================================================ */
+function toast(msg, ms) {
+    let t = $("toastBox");
+    if (!t) { t = document.createElement("div"); t.id = "toastBox"; t.className = "toast"; document.body.appendChild(t); }
+    t.textContent = msg; t.style.display = "block";
+    clearTimeout(t._h); t._h = setTimeout(() => { t.style.display = "none"; }, ms || 2200);
+}
+function askModal(html, buttons) {
+    const m = document.createElement("div");
+    m.className = "mdl";
+    m.innerHTML = `<div class="mdl-box"><div>${html}</div><div class="mdl-btns">${buttons.map((b, i) => `<button class="btn ${b.cls || ""}" data-i="${i}">${b.label}</button>`).join("")}</div></div>`;
+    m.querySelectorAll("button").forEach(btn => btn.onclick = () => { const b = buttons[+btn.dataset.i]; m.remove(); if (b.fn) b.fn(); });
+    document.body.appendChild(m);
+}
+const ymd = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+const curName = () => { try { return localStorage.getItem("jomBelajar_current") || ""; } catch (e) { return ""; } };
+const setCur = n => { try { localStorage.setItem("jomBelajar_current", n); } catch (e) {} };
+
+/* ============================================================
+   SAHABAT (haiwan peliharaan maya)
+============================================================ */
+const PETS = [
+    { id:"nunu", name:"Nunu", type:"Naga Gelembung", body:"#55EFC4", acc:"#00B894", wing:"#81ECEC", cheek:"#FF7675", kind:"dragon", cost:0 },
+    { id:"awan", name:"Awan", type:"Kuda Terbang", body:"#FFF5E6", acc:"#FF9FF3", wing:"#A29BFE", cheek:"#FFB8C6", kind:"unicorn", cost:0 },
+    { id:"bara", name:"Bara", type:"Phoenix Ceria", body:"#FF7675", acc:"#E17055", wing:"#FDCB6E", cheek:"#FAB1A0", kind:"bird", cost:0 },
+    { id:"tutu", name:"Tutu", type:"Kura-kura Terbang", body:"#7BDCB5", acc:"#00B894", wing:"#81ECEC", cheek:"#FFEAA7", kind:"turtle", cost:0 },
+    { id:"seri", name:"Seri", type:"Pari-pari", body:"#FD79A8", acc:"#E84393", wing:"#A29BFE", cheek:"#FFB8C6", kind:"fairy", cost:5 },
+    { id:"suluh", name:"Suluh", type:"Singa Mesra", body:"#FAB1A0", acc:"#E17055", wing:"#FFE66D", cheek:"#FF7675", kind:"lion", cost:6 },
+    { id:"garuda", name:"Garuda", type:"Garuda Gagah", body:"#FDCB6E", acc:"#E17055", wing:"#E17055", cheek:"#FAB1A0", kind:"bird", cost:8 },
+    { id:"ombak", name:"Ombak", type:"Naga Laut", body:"#74B9FF", acc:"#0984E3", wing:"#81ECEC", cheek:"#55EFC4", kind:"dragon", cost:8 },
+    { id:"bumi", name:"Bumi", type:"Naga Tanah", body:"#00B894", acc:"#00695C", wing:"#55EFC4", cheek:"#FFEAA7", kind:"dragon", cost:10 },
+    { id:"salju", name:"Salju", type:"Naga Ais", body:"#81ECEC", acc:"#74B9FF", wing:"#DFE6E9", cheek:"#FD79A8", kind:"dragon", cost:10 },
+    { id:"bintang", name:"Bintang", type:"Rusa Bintang", body:"#D4A574", acc:"#A0522D", wing:"#A29BFE", cheek:"#FFB8C6", kind:"deer", cost:12 },
+    { id:"api", name:"Api Kecil", type:"Naga Api", body:"#E17055", acc:"#D63031", wing:"#FDCB6E", cheek:"#FAB1A0", kind:"dragon", cost:15 }
+];
+const PET_FOODS = [["🍎", "Epal", 25], ["🥕", "Lobak", 20], ["🌽", "Jagung", 22], ["🍇", "Anggur", 18], ["🐟", "Ikan", 28], ["🍯", "Madu", 20]];
+const PET_LINES = {
+    idle:["Hai kawan! Jom bermain!", "Hari ini cerah, kan?", "Saya suka kamu!"],
+    happy:["Yeay! Saya gembira sangat!", "Terima kasih, kawan!", "Wah, seronoknya!"],
+    hungry:["Perut saya berbunyi...", "Jom makan bersama!"],
+    thirsty:["Saya dahaga...", "Boleh saya minum?"],
+    dirty:["Saya kotor sikit...", "Jom mandi!"],
+    sleepy:["Saya mengantuk...", "Jom rehat sekejap."]
+};
+
+function newPet() { return { active:null, animals:{}, stars:0, areas:["kampung", "akademi"], daily:{ d:"", feed:0, drink:0 }, stories:[], streak:{ last:"", count:0, best:0 }, adv:{}, t:Date.now() }; }
+const newStatus = () => ({ hunger:80, thirst:80, clean:90, happy:85, energy:90, bond:20, exp:0, level:1 });
+const petInfo = id => PETS.find(p => p.id === id) || PETS[0];
+const curStatus = () => profile && profile.pet && profile.pet.animals[profile.pet.active];
+
+function petSVG(id) {
+    const P = petInfo(id), b = P.body, a = P.acc, w = P.wing, c = P.cheek, k = P.kind;
+    let x = "";
+    if (["unicorn", "dragon", "bird", "fairy", "turtle"].includes(k))
+        x += `<g class="p-wl"><ellipse cx="26" cy="60" rx="22" ry="14" fill="${w}" opacity=".85"/><ellipse cx="26" cy="60" rx="13" ry="7" fill="${a}" opacity=".35"/></g>
+              <g class="p-wr"><ellipse cx="94" cy="60" rx="22" ry="14" fill="${w}" opacity=".85"/><ellipse cx="94" cy="60" rx="13" ry="7" fill="${a}" opacity=".35"/></g>`;
+    if (k === "unicorn") x += `<polygon points="60,4 55,26 65,26" fill="#FFE66D"/>`;
+    if (k === "dragon") x += `<ellipse cx="46" cy="20" rx="5" ry="8" fill="#FFE66D" transform="rotate(-20 46 20)"/><ellipse cx="74" cy="20" rx="5" ry="8" fill="#FFE66D" transform="rotate(20 74 20)"/>`;
+    if (k === "deer") x += `<path d="M48 22 Q40 6 36 10 Q38 18 46 24" stroke="#A0522D" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M72 22 Q80 6 84 10 Q82 18 74 24" stroke="#A0522D" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="36" cy="9" r="3" fill="#FFE66D"/><circle cx="84" cy="9" r="3" fill="#FFE66D"/>`;
+    if (k === "lion") x += `<circle cx="38" cy="44" r="16" fill="${w}" opacity=".75"/><circle cx="82" cy="44" r="16" fill="${w}" opacity=".75"/><circle cx="48" cy="26" r="13" fill="${w}" opacity=".75"/><circle cx="72" cy="26" r="13" fill="${w}" opacity=".75"/>`;
+    if (k === "bird") x += `<ellipse cx="60" cy="14" rx="8" ry="13" fill="#FFE66D" opacity=".9"/><ellipse cx="60" cy="11" rx="4.5" ry="9" fill="#FF7675" opacity=".85"/>`;
+    if (k === "turtle") x += `<ellipse cx="60" cy="72" rx="34" ry="22" fill="${a}" opacity=".55"/><path d="M40 66 Q60 54 80 66" stroke="${b}" stroke-width="2" fill="none" opacity=".6"/>`;
+    if (k === "fairy") x += `<circle cx="18" cy="38" r="3" fill="#FFE66D"/><circle cx="104" cy="34" r="2.5" fill="#A29BFE"/><circle cx="14" cy="76" r="2" fill="#FD79A8"/><circle cx="106" cy="70" r="3" fill="#55EFC4"/>`;
+    x += `<g class="p-tail"><path d="M88 78 Q106 72 109 56 Q111 68 100 82" fill="${a}" opacity=".85"/></g>`;
+    return `<svg class="pet-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${P.name}">${x}
+      <g class="p-body"><ellipse cx="60" cy="74" rx="28" ry="26" fill="${b}"/><ellipse cx="60" cy="80" rx="18" ry="14" fill="${a}" opacity=".25"/>
+        <ellipse cx="45" cy="102" rx="9" ry="12" fill="${a}"/><ellipse cx="75" cy="102" rx="9" ry="12" fill="${a}"/>
+        <g class="p-head"><circle cx="60" cy="44" r="26" fill="${b}"/><ellipse cx="38" cy="30" rx="8" ry="12" fill="${b}"/><ellipse cx="82" cy="30" rx="8" ry="12" fill="${b}"/>
+          <circle cx="43" cy="50" r="6.5" fill="${c}" opacity=".7"/><circle cx="77" cy="50" r="6.5" fill="${c}" opacity=".7"/>
+          <g class="p-eye"><ellipse cx="50" cy="42" rx="5.5" ry="6.5" fill="#fff"/><ellipse cx="70" cy="42" rx="5.5" ry="6.5" fill="#fff"/>
+            <circle cx="51" cy="43" r="3.2" fill="#2D3436"/><circle cx="71" cy="43" r="3.2" fill="#2D3436"/><circle cx="52.2" cy="41.3" r="1.4" fill="#fff"/><circle cx="72.2" cy="41.3" r="1.4" fill="#fff"/></g>
+          <path d="M52 55 Q60 62 68 55" stroke="#2D3436" stroke-width="2.2" fill="none" stroke-linecap="round"/><ellipse cx="60" cy="50" rx="3.5" ry="2.2" fill="${a}" opacity=".55"/></g></g></svg>`;
+}
+
+function petFx(stage, list, n) {
+    for (let i = 0; i < (n || 6); i++) {
+        const s = document.createElement("span");
+        s.className = "fxe"; s.textContent = pick(list);
+        s.style.left = (15 + Math.random() * 70) + "%"; s.style.animationDelay = (i * 0.1) + "s";
+        stage.appendChild(s); setTimeout(() => s.remove(), 1800);
+    }
+}
+function petState(stage, cls, ms) { stage.classList.add(cls); setTimeout(() => stage.classList.remove(cls), ms || 1000); }
+
+function sfx(kind) {
+    if (!soundOn) return;
+    try {
+        const A = window.AudioContext || window.webkitAudioContext; if (!A) return;
+        window._ac = window._ac || new A();
+        const seq = { ok:[[523, .1], [659, .1], [784, .18]], no:[[300, .18]], eat:[[220, .08], [180, .08], [240, .1]], star:[[880, .08], [1100, .14]], water:[[400, .12], [320, .12]] }[kind] || [];
+        let t = window._ac.currentTime;
+        seq.forEach(([f, d]) => {
+            const o = window._ac.createOscillator(), g = window._ac.createGain();
+            o.frequency.value = f; o.type = "sine"; g.gain.setValueAtTime(.08, t); g.gain.exponentialRampToValueAtTime(.001, t + d);
+            o.connect(g); g.connect(window._ac.destination); o.start(t); o.stop(t + d); t += d;
+        });
+    } catch (e) {}
+}
+
+function tickPet() {
+    if (!profile) return;
+    const P = profile.pet, now = Date.now(), h = Math.min(48, (now - (P.t || now)) / 3600000);
+    P.t = now;
+    if (h < 0.05) return;
+    Object.values(P.animals).forEach(s => {
+        s.hunger = Math.max(15, s.hunger - 6 * h); s.thirst = Math.max(15, s.thirst - 7 * h);
+        s.clean = Math.max(20, s.clean - 3 * h); s.energy = Math.max(15, s.energy - 2 * h); s.happy = Math.max(20, s.happy - 2 * h);
+    });
+    if (P.daily.d !== ymd(new Date())) P.daily = { d:ymd(new Date()), feed:0, drink:0 };
+    saveProfile(profile);
+}
+
+function petMood(s) {
+    if (s.hunger < 30) return "hungry"; if (s.thirst < 30) return "thirsty"; if (s.clean < 30) return "dirty";
+    if (s.energy < 30) return "sleepy"; return s.happy > 80 ? "happy" : "idle";
+}
+function petBars(el, s) {
+    const items = [["hunger", "🍎 Kenyang", "#FF7675,#FAB1A0"], ["thirst", "💧 Dahaga", "#74B9FF,#81ECEC"], ["clean", "✨ Bersih", "#55EFC4,#00B894"],
+        ["happy", "😊 Gembira", "#FFEAA7,#FDCB6E"], ["energy", "⚡ Tenaga", "#A29BFE,#6C5CE7"], ["bond", "💝 Sahabat", "#FD79A8,#E84393"]];
+    el.innerHTML = items.map(i => `<div class="sitem"><div class="slabel">${i[1]}</div><div class="sbg"><div class="sfill" style="width:${Math.max(0, Math.min(100, s[i[0]]))}%;background:linear-gradient(90deg,${i[2]})"></div></div></div>`).join("");
+}
+
+function touchStreak() {
+    if (!profile) return;
+    const P = profile.pet, s = P.streak, t = ymd(new Date());
+    if (s.last === t) return;
+    s.count = s.last === ymd(new Date(Date.now() - 864e5)) ? s.count + 1 : 1;
+    s.best = Math.max(s.best, s.count); s.last = t; P.stars += 1;
+    let msg = "🔥 Hari ke-" + s.count + " berturut-turut! +1 ⭐";
+    if (s.count % 3 === 0) { P.stars += 3; msg += " (bonus +3 ⭐)"; }
+    saveProfile(profile); toast(msg, 3200);
+}
+
+function goHome() {
+    if (isDemo()) { showStartScreen(); return; }
+    if (!curName()) { openSetup(); return; }
+    renderHub(); showScreen("hubScreen");
+}
+function openSetup() {
+    $("setupName").value = "";
+    $("starterList").innerHTML = PETS.filter(p => p.cost === 0).map((p, i) => `<div class="starter${i === 0 ? " on" : ""}" data-id="${p.id}"><div class="pet-mini">${petSVG(p.id)}</div><b>${p.name}</b><small>${p.type}</small></div>`).join("");
+    $("starterList").querySelectorAll(".starter").forEach(el => el.onclick = () => { $("starterList").querySelectorAll(".starter").forEach(x => x.classList.remove("on")); el.classList.add("on"); });
+    showScreen("setupScreen");
+}
+function finishSetup() {
+    const n = $("setupName").value.trim();
+    if (!n) { toast("Sila taip nama murid dulu 😊"); return; }
+    const id = ($("starterList").querySelector(".starter.on") || {}).dataset.id || "nunu";
+    setCur(n);
+    profile = loadProfile(n);
+    if (!profile.pet.active) { profile.pet.active = id; profile.pet.animals[id] = newStatus(); }
+    saveProfile(profile);
+    $("studentName").value = n;
+    goHome();
+    speak("Hai " + n + "! Selamat datang!", false);
+}
+function switchStudent() {
+    const names = studentList();
+    askModal("<b>Pilih murid</b>", [...names.map(n => ({ label:"👧 " + n, cls:"btn-secondary", fn:() => { setCur(n); $("studentName").value = n; goHome(); } })),
+        { label:"➕ Murid baru", fn:openSetup }, { label:"Batal" }]);
+}
+
+function renderHub() {
+    const n = curName();
+    profile = loadProfile(n);
+    if (!profile.pet.active) { profile.pet.active = "nunu"; profile.pet.animals.nunu = newStatus(); }
+    tickPet();
+    const P = profile.pet, s = curStatus(), info = petInfo(P.active);
+    $("hubName").textContent = n; $("hubStars").textContent = P.stars; $("hubStreak").textContent = P.streak.count;
+    $("hubStage").innerHTML = petSVG(P.active);
+    $("hubStage").onclick = () => petTap($("hubStage"), "hubBubble");
+    $("hubPetName").textContent = info.name + " • Tahap " + s.level;
+    $("hubBubble").textContent = pick(PET_LINES[petMood(s)]);
+    petBars($("hubBars"), s);
+}
+function petTap(stage, bubbleId) {
+    const s = curStatus(); if (!s) return;
+    s.happy = Math.min(100, s.happy + 3); s.bond = Math.min(100, s.bond + 1);
+    saveProfile(profile);
+    petState(stage, "happy", 800); petFx(stage, ["❤️", "✨", "💖"], 5); sfx("ok");
+    const t = pick(PET_LINES.happy); $(bubbleId).textContent = t; speak(t);
+}
+function addExp(n) {
+    const s = curStatus(); if (!s) return;
+    s.exp += n;
+    const need = s.level * 20;
+    if (s.exp >= need && s.level < 10) { s.exp -= need; s.level++; profile.pet.stars += 2; toast("🎉 Sahabat naik tahap " + s.level + "! +2 ⭐"); speak("Tahniah! Naik tahap " + s.level); }
+    saveProfile(profile);
+}
+
+/* ---- Jaga sahabat ---- */
+function openCare() {
+    profile = loadProfile(curName()); tickPet(); touchStreak();
+    renderCare(); showScreen("careScreen");
+}
+function renderCare() {
+    const P = profile.pet, s = curStatus(), info = petInfo(P.active);
+    if (P.daily.d !== ymd(new Date())) P.daily = { d:ymd(new Date()), feed:0, drink:0 };
+    $("careStage").innerHTML = petSVG(P.active);
+    $("careStage").onclick = () => petTap($("careStage"), "careBubble");
+    $("careStars").textContent = P.stars;
+    $("careName").textContent = info.name + " • Tahap " + s.level;
+    $("careBubble").textContent = pick(PET_LINES[petMood(s)]);
+    petBars($("careBars"), s);
+    $("feedLeft").textContent = 3 - P.daily.feed > 0 ? (3 - P.daily.feed) + "/3" : "Esok lagi";
+    $("drinkLeft").textContent = 3 - P.daily.drink > 0 ? (3 - P.daily.drink) + "/3" : "Esok lagi";
+    $("btnFeed").disabled = P.daily.feed >= 3; $("btnDrink").disabled = P.daily.drink >= 3;
+    $("foodMenu").classList.add("hidden");
+}
+function careSay(t) { $("careBubble").textContent = t; speak(t); }
+function careDone(state, fx, text, snd) {
+    const st = $("careStage"); petState(st, state, 1400); petFx(st, fx, 7); sfx(snd);
+    careSay(text); addExp(2); saveProfile(profile);
+    setTimeout(() => { petState(st, "happy", 900); petFx(st, ["❤️", "✨"], 4); renderCare(); }, 1500);
+}
+function careFeed() {
+    $("foodOpts").innerHTML = PET_FOODS.map((f, i) => `<button class="foodbtn" data-i="${i}">${f[0]}<small>${f[1]}</small></button>`).join("");
+    $("foodMenu").classList.remove("hidden");
+    $("foodOpts").querySelectorAll("button").forEach(b => b.onclick = () => {
+        const f = PET_FOODS[+b.dataset.i], s = curStatus();
+        s.hunger = Math.min(100, s.hunger + f[2]); s.happy = Math.min(100, s.happy + 5); s.bond = Math.min(100, s.bond + 2);
+        profile.pet.daily.feed++; $("foodMenu").classList.add("hidden");
+        careDone("eat", [f[0], "✨"], "Yummy! Terima kasih!", "eat");
+    });
+}
+function careDrink() {
+    const s = curStatus(); s.thirst = Math.min(100, s.thirst + 30); s.happy = Math.min(100, s.happy + 3); profile.pet.daily.drink++;
+    careDone("eat", ["💧", "🫧"], "Segar! Terima kasih!", "water");
+}
+function careBath() {
+    const s = curStatus(); s.clean = Math.min(100, s.clean + 40); s.happy = Math.min(100, s.happy + 8); s.bond = Math.min(100, s.bond + 3);
+    careDone("bath", ["🫧", "🛁", "✨"], "Segar dan bersih!", "water");
+}
+function careSleep() {
+    const s = curStatus(); s.energy = Math.min(100, s.energy + 40); s.happy = Math.min(100, s.happy + 5);
+    careDone("sleep", ["💤", "🌙"], "Zzz... selamat tidur...", "star");
+}
+
+/* ---- Koleksi sahabat ---- */
+function openPets() { profile = loadProfile(curName()); renderPets(); showScreen("petsScreen"); }
+function renderPets() {
+    const P = profile.pet;
+    $("petsStars").textContent = P.stars;
+    $("petList").innerHTML = PETS.map(p => {
+        const own = !!P.animals[p.id];
+        return `<div class="starter${P.active === p.id ? " on" : ""}${own ? "" : " lock"}" data-id="${p.id}"><div class="pet-mini">${own ? petSVG(p.id) : "<div style='font-size:42px;line-height:90px'>🔒</div>"}</div><b>${p.name}</b><small>${own ? (P.active === p.id ? "Aktif" : "Pilih") : p.cost + " ⭐"}</small></div>`;
+    }).join("");
+    $("petList").querySelectorAll(".starter").forEach(el => el.onclick = () => {
+        const p = petInfo(el.dataset.id);
+        if (P.animals[p.id]) { P.active = p.id; saveProfile(profile); renderPets(); toast("Sahabat aktif: " + p.name); }
+        else if (P.stars >= p.cost) askModal("Buka <b>" + p.name + "</b> (" + p.type + ") dengan " + p.cost + " ⭐?", [
+            { label:"Buka!", fn:() => { P.stars -= p.cost; P.animals[p.id] = newStatus(); P.active = p.id; saveProfile(profile); renderPets(); toast("Sahabat baru! 🎉"); speak("Tahniah! Sahabat baru!"); } }, { label:"Nanti" }]);
+        else toast("Perlu " + p.cost + " ⭐. Jawab soalan untuk kumpul bintang!");
+    });
+}
+
+/* ============================================================
+   PULAU PENGEMBARAAN
+============================================================ */
+const AREAS = [
+    { id:"kampung", name:"Kampung Awan", emoji:"☁️", cost:0, cats:["rumi", "badan", "haiwan", "buah"], bg:"#BFE6FF,#CFF0D0" },
+    { id:"akademi", name:"Akademi Ilmu", emoji:"🏛️", cost:0, cats:"semua", bg:"#FFE7A8,#FFD0E0" },
+    { id:"hutan", name:"Hutan Ajaib", emoji:"🌳", cost:5, cats:["haiwan", "buah", "sukukata", "kenderaan"], bg:"#C8E6C9,#81C784" },
+    { id:"gunung", name:"Gunung Naga", emoji:"⛰️", cost:8, cats:["nombor", "duit", "jam", "corak"], bg:"#B3E5FC,#90A4AE" },
+    { id:"laut", name:"Laut Kristal", emoji:"🌊", cost:10, cats:["warna", "sains", "gambar", "inggeris"], bg:"#E1F5FE,#4FC3F7" },
+    { id:"taman", name:"Taman Peri", emoji:"🌸", cost:10, cats:["jawi", "agama", "perasaan", "malaysia"], bg:"#FCE4EC,#F48FB1" },
+    { id:"lembah", name:"Lembah Api", emoji:"🔥", cost:12, cats:["arkad", "belon", "kad", "puzzle"], bg:"#FFF3E0,#FFB74D" },
+    { id:"gua", name:"Gua Ais", emoji:"🧊", cost:12, cats:["silang", "tulis", "lawan", "masa", "kerjaya"], bg:"#E0F7FA,#80DEEA" }
+];
+function openWorld() { profile = loadProfile(curName()); renderWorld(); showScreen("worldScreen"); }
+function renderWorld() {
+    const P = profile.pet; $("worldStars").textContent = P.stars;
+    $("worldList").innerHTML = AREAS.map(a => {
+        const open = P.areas.includes(a.id), r = P.adv[a.id] || 0;
+        return `<div class="area${open ? "" : " lock"}" data-id="${a.id}" style="background:linear-gradient(135deg,${a.bg})"><div style="font-size:38px">${open ? a.emoji : "🔒"}</div><b>${a.name}</b><small>${open ? ("⭐".repeat(r) + "☆".repeat(3 - r)) : a.cost + " ⭐ untuk buka"}</small></div>`;
+    }).join("");
+    $("worldList").querySelectorAll(".area").forEach(el => el.onclick = () => {
+        const a = AREAS.find(x => x.id === el.dataset.id);
+        if (P.areas.includes(a.id)) return startAdventure(a);
+        if (P.stars >= a.cost) askModal("Buka <b>" + a.name + "</b> dengan " + a.cost + " ⭐?", [{ label:"Buka!", fn:() => { P.stars -= a.cost; P.areas.push(a.id); saveProfile(profile); renderWorld(); toast(a.name + " dibuka! 🌍"); } }, { label:"Nanti" }]);
+        else toast("Perlu " + a.cost + " ⭐ untuk buka kawasan ini.");
+    });
+}
+function startAdventure(a) {
+    const name = curName(); profile = loadProfile(name); touchStreak();
+    soundOn = $("soundSel").value === "1";
+    const pool = ALL_QUESTIONS.filter(q => a.cats === "semua" || a.cats.includes(q.category));
+    currentQuestions = buildSession(pool, profile.seen || {}).slice(0, 6);
+    adventure = a.id; totalSeconds = 1800;
+    $("studentName").value = name; $("playerName").textContent = name;
+    currentIndex = 0; score = 0; correctAnswers = 0; totalAnswered = 0; isAnswering = false; $("score").textContent = "0";
+    showScreen("gameScreen"); startTimer(); showQuestion();
+}
+function quickPlay(cat) {
+    $("studentName").value = curName(); $("category").value = cat; $("qType").value = "semua"; $("gameTime").value = "10";
+    adventure = null; startGame();
+}
+
+/* ============================================================
+   CERITA BERSUARA
+============================================================ */
+const STORIES = {
+    dongeng: [
+        { id:"kancil-buaya", emoji:"🦌", title:"Sang Kancil dan Buaya", scenes:[
+            "Sang Kancil mahu makan buah di seberang sungai.", "Tetapi sungai itu penuh dengan buaya yang lapar.",
+            "Kancil berkata, \"Wahai buaya, raja mahu mengira jumlah kamu!\"", "Buaya-buaya gembira lalu berbaris dari tepi ke tepi sungai.",
+            "Kancil melompat di atas belakang mereka sambil mengira: satu, dua, tiga...", "Sampai di seberang, Kancil ketawa dan berkata, \"Terima kasih, buaya!\"",
+            "Buaya-buaya terkejut kerana mereka telah ditipu.", "Kancil makan buah dengan selamat. Dia bijak menggunakan akalnya."],
+          moral:"Berfikir dengan bijak boleh menyelesaikan masalah.", quiz:["Siapa yang bijak dalam cerita ini?", "Sang Kancil", ["Buaya", "Gajah"]] },
+        { id:"kancil-harimau", emoji:"🐯", title:"Sang Kancil dan Harimau", scenes:[
+            "Pada suatu pagi, Harimau yang lapar berjalan di hutan.", "Dia bertemu Sang Kancil dan berkata, \"Hari ini aku mahu makan kamu!\"",
+            "Kancil tidak lari. Dia berfikir dengan tenang.", "\"Tunggu, Harimau. Ada haiwan yang lebih besar daripada kamu di tasik itu!\"",
+            "Harimau melihat ke dalam air dan nampak bayang dirinya yang besar.", "\"Itulah dia!\" kata Kancil. Harimau marah lalu melompat ke dalam air.",
+            "BYURRR! Harimau basah kuyup dan bulunya melekat.", "Kancil sudah lari jauh. Harimau belajar supaya jangan mudah marah."],
+          moral:"Bertenang dan berfikir lebih baik daripada marah.", quiz:["Apa yang Harimau nampak dalam air?", "Bayang sendiri", ["Ikan", "Kancil"]] },
+        { id:"awan-nunu", emoji:"🦄", title:"Awan dan Nunu Belajar Terbang", scenes:[
+            "Di Kampung Awan, Awan si kuda terbang bermain kejar-kejar.", "Dia nampak Naga Nunu yang sedang bersedih.",
+            "\"Kenapa kamu sedih?\" tanya Awan. \"Saya jatuh semasa belajar terbang,\" kata Nunu.", "\"Saya pun pernah jatuh,\" kata Awan. \"Jom cuba bersama.\"",
+            "Mereka terbang perlahan-lahan. Nunu masih takut.", "\"Tarik nafas. Saya ada di sini,\" kata Awan.",
+            "Nunu naik makin tinggi, dan dia mula tersenyum.", "\"Saya boleh terbang!\" Mereka ketawa gembira sambil mengelilingi awan."],
+          moral:"Kawan sejati menolong kita bangkit semula.", quiz:["Apa yang Awan buat bila Nunu sedih?", "Menolong", ["Ketawa", "Pergi"]] },
+        { id:"tutu-sabar", emoji:"🐢", title:"Tutu si Kura-kura yang Sabar", scenes:[
+            "Tutu si kura-kura terbang perlahan-lahan.", "Seekor arnab berkata, \"Tutu, kamu lambat sangat!\"",
+            "Tutu senyum. \"Saya suka perlahan. Saya nampak banyak benda.\"", "Dalam perjalanan, Tutu terjumpa anak burung yang jatuh dari sarang.",
+            "Tutu berhenti dan membantu anak burung itu pulang ke sarangnya.", "Arnab berlari laju, tetapi kemudian dia penat dan tertidur.",
+            "Tutu terus berjalan tanpa berhenti dan sampai dahulu.", "Arnab berkata, \"Maaf, Tutu. Kamu hebat!\""],
+          moral:"Kesabaran dan usaha membawa kejayaan.", quiz:["Kenapa Tutu sampai dahulu?", "Dia sabar dan tidak berhenti", ["Dia lari laju", "Dia tidur"]] }
+    ],
+    pahlawan: [
+        { id:"hang-tuah", emoji:"⚔️", title:"Hang Tuah yang Setia", scenes:[
+            "Dahulu kala di tanah Melayu, hiduplah seorang pemuda bernama Hang Tuah.", "Hang Tuah rajin belajar dan sangat hormat kepada ibu bapanya.",
+            "Dia mempunyai empat orang kawan baik yang berlatih bersamanya setiap pagi.", "Mereka suka menolong orang kampung yang kesusahan.",
+            "Berita tentang kebaikan Hang Tuah sampai kepada Sultan.", "Hang Tuah dipanggil ke istana. Dia memberi salam dengan sopan.",
+            "\"Saya akan menjaga rakyat dan negeri dengan setia,\" katanya.", "Sejak itu, Hang Tuah dikenali sebagai pahlawan yang setia."],
+          moral:"Kesetiaan, keberanian dan adab membuat kita dihormati.", quiz:["Hang Tuah terkenal kerana?", "Kesetiaan", ["Kekayaan", "Kelajuan"]] },
+        { id:"tun-perak", emoji:"📜", title:"Tun Perak yang Bijak", scenes:[
+            "Tun Perak ialah seorang bendahara yang bijak di Melaka.", "Setiap pagi dia berfikir, \"Apa yang baik untuk rakyat hari ini?\"",
+            "Suatu hari, dua orang kampung bergaduh tentang tanah.", "Tun Perak tidak marah. Dia mendengar kedua-dua pihak dengan sabar.",
+            "Kemudian dia berkata, \"Tanah ini cukup untuk dikongsi secara adil.\"", "Mereka bersalaman dan pulang dengan hati yang tenang.",
+            "Apabila banjir kecil datang, Tun Perak mengatur bantuan makanan dan air bersih.", "Rakyat sayang kepada Tun Perak kerana dia adil dan prihatin."],
+          moral:"Dengar dahulu, fikir dahulu, barulah bertindak.", quiz:["Tun Perak bekerja sebagai?", "Bendahara", ["Nelayan", "Pedagang"]] }
+    ],
+    teladan: [
+        { id:"berkongsi", emoji:"🍎", title:"Amir Berkongsi Epal", scenes:[
+            "Amir membawa bekal epal dan roti ke sekolah.", "Di waktu rehat, dia nampak kawannya Siti duduk diam.",
+            "Siti tidak membawa bekal hari itu. Perutnya berbunyi.", "Amir memotong epalnya kepada dua. \"Siti, jom kongsi.\"",
+            "\"Terima kasih, Amir!\" kata Siti dengan gembira.", "Epal itu terasa lebih manis kerana dikongsi.",
+            "Cikgu tersenyum. \"Berkongsi itu perbuatan yang mulia.\"", "Keesokan hari, Siti pula membawa buah untuk dikongsi dengan Amir."],
+          moral:"Berkongsi membuat kita dan kawan gembira.", quiz:["Apa yang Amir buat dengan epalnya?", "Berkongsi", ["Makan sendiri", "Buang"]] },
+        { id:"cakap-benar", emoji:"🏺", title:"Lina Bercakap Benar", scenes:[
+            "Lina bermain di ruang tamu dan terlanggar pasu bunga.", "Pasu itu pecah. Lina berasa takut.",
+            "Dia berfikir, \"Kalau saya diam, mungkin ibu tidak tahu.\"", "Tetapi hati Lina tidak tenang. Dia berasa bersalah.",
+            "Ibu bertanya, \"Siapa yang memecahkan pasu?\"", "Lina menjawab, \"Saya, ibu. Maafkan saya.\"",
+            "Ibu memeluk Lina. \"Terima kasih kerana jujur.\"", "Mereka membersihkan lantai bersama. Lina berasa lega."],
+          moral:"Bercakap benar membuat hati kita tenang.", quiz:["Apa yang Lina buat?", "Bercakap benar", ["Berbohong", "Lari"]] },
+        { id:"jaga-alam", emoji:"🌊", title:"Ombak Menjaga Laut", scenes:[
+            "Naga Ombak berenang di Laut Kristal yang cantik.", "Tiba-tiba dia nampak sampah plastik terapung di air.",
+            "Seekor penyu kecil tersangkut. Ombak menolongnya.", "Ombak memanggil kawan-kawan untuk membersihkan laut bersama.",
+            "Mereka mengutip sampah sambil menyanyi.", "Tidak lama kemudian, laut jernih semula.",
+            "Ombak membuat papan tanda: \"Buang sampah ke dalam tong.\"", "Semua haiwan laut kembali menari dengan gembira."],
+          moral:"Menjaga kebersihan alam adalah tanggungjawab kita semua.", quiz:["Apa yang Ombak dan kawan-kawan buat?", "Mengutip sampah", ["Membuang sampah", "Tidur"]] },
+        { id:"minta-maaf", emoji:"🤗", title:"Rafi Meminta Maaf", scenes:[
+            "Rafi bermain bola di rumah bersama adiknya.", "Bola terkena adik. Adik jatuh dan menangis.",
+            "Rafi mula-mula marah, tetapi dia nampak air mata adik.", "Dia teringat pesan ibu, \"Bila buat silap, mintalah maaf.\"",
+            "Rafi duduk di sebelah adik. \"Maaf ya, abang tak sengaja.\"", "Adik berhenti menangis dan tersenyum.",
+            "Mereka bermain blok bersama dengan gembira.", "Meminta maaf membuat hati kita dan hati kawan menjadi lega."],
+          moral:"Meminta maaf memperbaiki hubungan yang renggang.", quiz:["Apa yang Rafi cakap kepada adik?", "Maaf ya", ["Pergi!", "Diam"]] },
+        { id:"kebersihan", emoji:"🧼", title:"Mira Menjaga Kebersihan", scenes:[
+            "Pagi-pagi, ibu memanggil Mira untuk membasuh tangan dan muka.", "Mira menguap, tetapi dia ikut gerak lagu basuh tangan.",
+            "Sabun berbuih, air terasa sejuk. Mira berasa segar.", "Kemudian dia menggosok gigi hingga putih dan bersih.",
+            "Di sekolah, dia ingat membasuh tangan sebelum makan.", "Dia mengajak kawannya membasuh tangan bersama.",
+            "Malam itu Mira mandi dan tidur dengan badan yang wangi.", "Kanak-kanak yang bersih akan sihat dan ceria."],
+          moral:"Menjaga kebersihan diri membuat kita sihat.", quiz:["Apa yang Mira buat sebelum makan?", "Basuh tangan", ["Terus makan", "Tidur"]] }
+    ]
+};
+let curStory = null, storyIdx = 0;
+function openStories() { $("storyCats").classList.remove("hidden"); $("storyList").classList.add("hidden"); $("storyPlayer").classList.add("hidden"); showScreen("storyScreen"); }
+function showStoryList(cat) {
+    $("storyCats").classList.add("hidden"); $("storyList").classList.remove("hidden");
+    profile = loadProfile(curName());
+    $("storyList").innerHTML = STORIES[cat].map(s => `<button class="hbtn row" data-id="${s.id}" data-cat="${cat}"><span class="ic">${s.emoji}</span><span>${s.title}${profile.pet.stories.includes(s.id) ? " ✅" : ""}</span></button>`).join("") +
+        '<button class="btn btn-secondary" onclick="openStories()">⬅️ Kembali</button>';
+    $("storyList").querySelectorAll("[data-id]").forEach(b => b.onclick = () => openStory(b.dataset.cat, b.dataset.id));
+}
+function openStory(cat, id) {
+    curStory = STORIES[cat].find(s => s.id === id); storyIdx = 0;
+    $("storyList").classList.add("hidden"); $("storyPlayer").classList.remove("hidden"); renderScene();
+}
+function renderScene() {
+    const s = curStory, n = s.scenes.length;
+    $("storyTitle").textContent = s.title; $("storyEmoji").textContent = s.emoji;
+    $("storyDots").innerHTML = s.scenes.map((_, i) => `<i class="${i <= storyIdx ? "on" : ""}"></i>`).join("");
+    if (storyIdx < n) {
+        $("storyText").textContent = s.scenes[storyIdx]; $("storyEnd").classList.add("hidden"); speak(s.scenes[storyIdx]);
+    } else {
+        $("storyText").textContent = "Tamat cerita! 🎉"; $("storyEnd").classList.remove("hidden");
+        $("storyMoral").textContent = "💡 " + s.moral;
+        const [q, a, w] = s.quiz;
+        $("storyQ").innerHTML = `<p style="font-weight:bold;margin:8px 0;">${escapeHTML(q)}</p><div class="options">${shuffle([a, ...w]).map(o => `<button class="option" style="font-size:18px" data-v="${escapeHTML(o)}">${escapeHTML(o)}</button>`).join("")}</div>`;
+        $("storyQ").querySelectorAll(".option").forEach(b => b.onclick = () => {
+            $("storyQ").querySelectorAll(".option").forEach(x => x.disabled = true);
+            if (b.dataset.v === a) {
+                b.classList.add("correct"); fireworks(30); sfx("ok");
+                profile = loadProfile(curName());
+                if (!profile.pet.stories.includes(s.id)) { profile.pet.stories.push(s.id); profile.pet.stars += 2; toast("Betul! +2 ⭐"); }
+                touchStreak(); saveProfile(profile); speak("Pandainya!");
+            } else { b.classList.add("wrong"); speak("Cuba fikir lagi"); }
+        });
+    }
+}
+
+/* ============================================================
+   PENJANA PDF RINGAN (tiada pustaka luar)
+============================================================ */
+function PDFB(landscape) {
+    const W = landscape ? 842 : 595, H = landscape ? 595 : 842, pages = [];
+    let c = null;
+    const f = v => (+v).toFixed(2);
+    const esc = s => String(s).replace(/[\\()]/g, m => "\\" + m);
+    const clean = s => String(s).replace(/[^\x20-\x7E\xA0-\xFF]/g, "").replace(/\s+/g, " ").trim();
+    const col = h => { const n = parseInt(h.slice(1), 16); return [(n >> 16 & 255) / 255, (n >> 8 & 255) / 255, (n & 255) / 255].map(v => v.toFixed(3)).join(" "); };
+    const o = {
+        W, H,
+        page() { c = []; pages.push(c); c.push(`q /GS2 gs ${col("#5b50d6")} rg BT /F2 ${landscape ? 100 : 80} Tf 0.819 0.574 -0.574 0.819 ${landscape ? 170 : 100} ${landscape ? 130 : 250} Tm (mastaxul.my) Tj ET Q`); return o; },
+        T(x, y, s, size, bold, color) { c.push(`BT /${bold ? "F2" : "F1"} ${size} Tf ${col(color || "#263238")} rg ${f(x)} ${f(H - y)} Td (${esc(clean(s))}) Tj ET`); },
+        TO(x, y, s, size, color) { c.push(`q BT /F1 ${size} Tf 1 Tr ${col(color || "#9e9e9e")} RG 1.2 w [3 3] 0 d ${f(x)} ${f(H - y)} Td (${esc(clean(s))}) Tj ET Q`); },
+        tw(s, size, bold) { return clean(s).length * size * (bold ? 0.58 : 0.52); },
+        R(x, y, w, h, color) { c.push(`${col(color)} rg ${f(x)} ${f(H - y - h)} ${f(w)} ${f(h)} re f`); },
+        RS(x, y, w, h, color, lw) { c.push(`${col(color)} RG ${lw || 1} w ${f(x)} ${f(H - y - h)} ${f(w)} ${f(h)} re S`); },
+        L(x1, y1, x2, y2, color, lw, dash) { c.push(`q ${col(color || "#999999")} RG ${lw || 1} w ${dash ? "[" + dash + "] 0 d " : ""}${f(x1)} ${f(H - y1)} m ${f(x2)} ${f(H - y2)} l S Q`); },
+        C(cx, cy, r, color, fill) {
+            const k = r * 0.5523, X = cx, Y = H - cy;
+            c.push(`${fill ? col(color) + " rg" : col(color) + " RG 1.5 w"} ${f(X + r)} ${f(Y)} m ${f(X + r)} ${f(Y + k)} ${f(X + k)} ${f(Y + r)} ${f(X)} ${f(Y + r)} c ${f(X - k)} ${f(Y + r)} ${f(X - r)} ${f(Y + k)} ${f(X - r)} ${f(Y)} c ${f(X - r)} ${f(Y - k)} ${f(X - k)} ${f(Y - r)} ${f(X)} ${f(Y - r)} c ${f(X + k)} ${f(Y - r)} ${f(X + r)} ${f(Y - k)} ${f(X + r)} ${f(Y)} c ${fill ? "f" : "S"}`);
+        },
+        POLY(pts, color, lw, fill) {
+            const p = pts.map((q, i) => `${f(q[0])} ${f(H - q[1])} ${i ? "l" : "m"}`).join(" ");
+            c.push(`${fill ? col(color) + " rg" : col(color) + " RG " + (lw || 2) + " w"} ${p} h ${fill ? "f" : "S"}`);
+        },
+        STAR(cx, cy, R, color, fill) {
+            const pts = []; for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, r = i % 2 ? R * 0.42 : R; pts.push([cx + r * Math.cos(a), cy + r * Math.sin(a)]); }
+            o.POLY(pts, color, 2, fill !== false);
+        },
+        stamp(x, y, dt) {
+            const cs = Math.cos(-12 * Math.PI / 180), sn = Math.sin(-12 * Math.PI / 180);
+            c.push(`q /GS1 gs ${col("#5b50d6")} RG ${col("#5b50d6")} rg 1 0 0 1 ${f(x)} ${f(H - y)} cm ${f(cs)} ${f(sn)} ${f(-sn)} ${f(cs)} 0 0 cm 3 w -80 -36 160 72 re S 1.2 w -74 -30 148 60 re S BT /F2 8 Tf -38 18 Td (JOM BELAJAR!) Tj ET BT /F2 20 Tf -62 -2 Td (mastaxul.my) Tj ET BT /F2 9 Tf -30 -17 Td (DISAHKAN) Tj ET BT /F1 8 Tf -24 -27 Td (${dt}) Tj ET Q`);
+        },
+        finish() {
+            pages.forEach((pg, i) => { c = pg; o.T(36, H - 22, "Jom Belajar!  |  mastaxul.my  |  Halaman " + (i + 1) + "/" + pages.length, 8, false, "#888888"); });
+            let pdf = "%PDF-1.4\n"; const offs = [];
+            const obj = (id, body) => { offs[id] = pdf.length; pdf += id + " 0 obj\n" + body + "\nendobj\n"; };
+            obj(1, "<< /Type /Catalog /Pages 2 0 R >>");
+            obj(2, `<< /Type /Pages /Kids [${pages.map((_, i) => (7 + 2 * i) + " 0 R").join(" ")}] /Count ${pages.length} >>`);
+            obj(3, "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>");
+            obj(4, "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>");
+            obj(5, "<< /Type /ExtGState /ca 0.65 /CA 0.65 >>");
+            obj(6, "<< /Type /ExtGState /ca 0.07 /CA 0.07 >>");
+            pages.forEach((pg, i) => {
+                const s = pg.join("\n");
+                obj(7 + 2 * i, `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${W} ${H}] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> /ExtGState << /GS1 5 0 R /GS2 6 0 R >> >> /Contents ${8 + 2 * i} 0 R >>`);
+                obj(8 + 2 * i, `<< /Length ${s.length} >>\nstream\n${s}\nendstream`);
+            });
+            const n = 7 + 2 * pages.length, xref = pdf.length;
+            pdf += `xref\n0 ${n}\n0000000000 65535 f \n`;
+            for (let i = 1; i < n; i++) pdf += String(offs[i]).padStart(10, "0") + " 00000 n \n";
+            pdf += `trailer\n<< /Size ${n} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`;
+            return Uint8Array.from(pdf, ch => ch.charCodeAt(0) & 255);
+        }
+    };
+    return o;
+}
+function savePDF(bytes, name) {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([bytes], { type:"application/pdf" }));
+    a.download = name;
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 5000);
+}
+const dtStr = () => { const d = new Date(); return String(d.getDate()).padStart(2, "0") + "/" + String(d.getMonth() + 1).padStart(2, "0") + "/" + d.getFullYear(); };
+
+/* ============================================================
+   LEMBARAN KERJA BOLEH CETAK
+============================================================ */
+function wsHeader(p, title) {
+    p.R(0, 0, p.W, 56, "#5b50d6");
+    p.T(36, 36, title, 20, true, "#ffffff"); p.T(p.W - 120, 36, "mastaxul.my", 12, true, "#ffffff");
+    p.T(36, 82, "Nama: ______________________________", 12); p.T(p.W - 230, 82, "Tarikh: ________________", 12);
+}
+function wsLetters(p) {
+    for (let i = 0; i < RUMI.length; i += 6) {
+        p.page(); wsHeader(p, "Jejak Huruf A - Z");
+        RUMI.slice(i, i + 6).forEach((L, r) => {
+            const y0 = 105 + r * 120, base = y0 + 92, lo = L.toLowerCase();
+            p.L(36, y0 + 20, 559, y0 + 20, "#dddddd", 0.8, "3 3"); p.L(36, y0 + 56, 559, y0 + 56, "#c9c9f0", 0.8, "3 3"); p.L(36, base, 559, base, "#888888", 1.2);
+            [[L, 0, 1], [L, 1, 0], [L, 2, 0], [lo, 3, 1], [lo, 4, 0], [lo, 5, 0]].forEach(([chr, k, solid]) => {
+                const x = 36 + k * 88;
+                if (solid) p.T(x, base, chr, 80, false, "#5b50d6"); else p.TO(x, base, chr, 80, "#8e8eb8");
+            });
+        });
+    }
+}
+function wsNumbers(p) {
+    for (let i = 0; i < 10; i += 5) {
+        p.page(); wsHeader(p, "Jejak Nombor 0 - 9");
+        for (let n = i; n < i + 5; n++) {
+            const y0 = 110 + (n - i) * 138, base = y0 + 96;
+            p.L(36, base, 559, base, "#888888", 1.2); p.L(36, y0 + 30, 559, y0 + 30, "#dddddd", 0.8, "3 3");
+            p.T(36, base, String(n), 84, false, "#5b50d6"); p.TO(110, base, String(n), 84, "#8e8eb8"); p.TO(180, base, String(n), 84, "#8e8eb8");
+            for (let k = 0; k < n; k++) p.C(285 + (k % 5) * 30, y0 + 40 + Math.floor(k / 5) * 34, 12, "#e57373", false);
+            if (n === 0) p.T(285, y0 + 56, "(tiada)", 12, false, "#888888");
+        }
+    }
+}
+function wsMath(p) {
+    const add = [], sub = [];
+    while (add.length < 20) { const a = rnd(10), b = rnd(11 - a); add.push([a, b]); }
+    while (sub.length < 20) { const a = 1 + rnd(10), b = rnd(a + 1); sub.push([a, b]); }
+    [["Tambah", add, "+"], ["Tolak", sub, "-"]].forEach(([title, list, op]) => {
+        p.page(); wsHeader(p, title + " (sehingga 10)");
+        list.forEach((q, i) => { const col = i % 2, row = Math.floor(i / 2); p.T(60 + col * 270, 140 + row * 62, q[0] + "  " + op + "  " + q[1] + "  =  ______", 20); });
+    });
+    p.page(); wsHeader(p, "Jawapan (untuk ibu bapa)");
+    p.T(36, 120, "Tambah:", 13, true, "#5b50d6");
+    add.forEach((q, i) => p.T(36 + (i % 4) * 130, 145 + Math.floor(i / 4) * 22, q[0] + " + " + q[1] + " = " + (q[0] + q[1]), 12));
+    p.T(36, 290, "Tolak:", 13, true, "#5b50d6");
+    sub.forEach((q, i) => p.T(36 + (i % 4) * 130, 315 + Math.floor(i / 4) * 22, q[0] + " - " + q[1] + " = " + (q[0] - q[1]), 12));
+}
+function wsCount(p) {
+    const COL = ["#e53935", "#43a047", "#1e88e5", "#fb8c00", "#8e24aa"];
+    p.page(); wsHeader(p, "Kira dan Tulis Nombor");
+    for (let r = 0; r < 7; r++) {
+        const n = 1 + rnd(10), y = 135 + r * 85, shape = r % 3, color = COL[r % 5];
+        for (let k = 0; k < n; k++) {
+            const x = 56 + k * (n > 8 ? 31 : 40);
+            if (shape === 0) p.C(x, y, 14, color, true); else if (shape === 1) p.STAR(x, y, 16, color, true); else p.R(x - 13, y - 13, 26, 26, color);
+        }
+        p.RS(470, y - 28, 90, 56, "#888888", 1.5); p.T(366, y + 6, "Ada berapa?", 14);
+    }
+}
+function wsMatch(p) {
+    p.page(); wsHeader(p, "Padankan");
+    p.T(36, 120, "1. Padankan huruf besar dengan huruf kecil (tarik garisan)", 13, true, "#5b50d6");
+    const L = shuffle(RUMI).slice(0, 7), R = shuffle(L);
+    L.forEach((l, i) => { p.T(110, 170 + i * 36, l, 24, true); p.C(160, 162 + i * 36, 5, "#5b50d6", true); p.C(430, 162 + i * 36, 5, "#5b50d6", true); });
+    R.forEach((l, i) => p.T(460, 170 + i * 36, l.toLowerCase(), 24, true));
+    p.T(36, 460, "2. Padankan nombor dengan bilangan bulatan", 13, true, "#5b50d6");
+    const N = shuffle([1, 2, 3, 4]).concat([]), M = shuffle(N);
+    N.forEach((n, i) => { p.T(110, 505 + i * 46, String(n), 24, true); p.C(160, 497 + i * 46, 5, "#5b50d6", true); p.C(430, 497 + i * 46, 5, "#5b50d6", true); for (let k = 0; k < M[i]; k++) p.C(465 + k * 22, 497 + i * 46, 8, "#e57373", true); });
+}
+function wsColor(p) {
+    p.page(); wsHeader(p, "Warnakan Bentuk");
+    p.T(36, 120, "Warnakan setiap bentuk dengan cantik!", 13, false, "#555555");
+    p.C(150, 250, 70, "#555555", false); p.T(120, 345, "Bulatan", 14, true);
+    p.RS(370, 180, 140, 140, "#555555", 2.5); p.T(405, 345, "Segi empat", 14, true);
+    p.POLY([[150, 420], [80, 560], [220, 560]], "#555555", 2.5, false); p.T(115, 590, "Segi tiga", 14, true);
+    p.STAR(440, 495, 78, "#555555", false); p.T(410, 590, "Bintang", 14, true);
+    p.T(36, 640, "Warna yang saya guna: ____________________________________", 12);
+}
+const WORKSHEETS = {
+    jejak:  ["✍️ Jejak Huruf A–Z (5 muka surat)", [wsLetters], "Jejak-Huruf"],
+    nombor: ["🔢 Jejak Nombor 0–9 (2 muka surat)", [wsNumbers], "Jejak-Nombor"],
+    math:   ["➕ Tambah & Tolak + Jawapan (3 muka surat)", [wsMath], "Tambah-Tolak"],
+    kira:   ["🧮 Kira dan Tulis Nombor", [wsCount], "Kira"],
+    padan:  ["🔗 Padankan Huruf & Nombor", [wsMatch], "Padankan"],
+    warna:  ["🎨 Warnakan Bentuk", [wsColor], "Warnakan"],
+    semua:  ["📚 Semua lembaran dalam satu fail", [wsLetters, wsNumbers, wsMath, wsCount, wsMatch, wsColor], "Semua-Lembaran"]
+};
+function makeWorksheet(key) {
+    const w = WORKSHEETS[key], p = PDFB(false);
+    w[1].forEach(fn => fn(p));
+    p.stamp(p.W - 110, p.H - 70, dtStr());
+    savePDF(p.finish(), "JomBelajar-" + w[2] + ".pdf");
+    toast("Lembaran kerja dimuat turun 📄");
+}
+function openWork() {
+    $("workList").innerHTML = Object.keys(WORKSHEETS).map(k => `<button class="hbtn row" data-k="${k}"><span class="ic">📄</span><span>${WORKSHEETS[k][0]}</span></button>`).join("");
+    $("workList").querySelectorAll("button").forEach(b => b.onclick = () => makeWorksheet(b.dataset.k));
+    showScreen("workScreen");
+}
+
+/* ============================================================
+   SIJIL PENCAPAIAN + STREAK
+============================================================ */
+const RANKS = [["Pelajar Cilik", 0], ["Bintang Rajin", 50], ["Juara Cilik", 200], ["Wira Ilmu", 500], ["Raja Ilmu", 1000]];
+function rankOf(c) { let r = RANKS[0], nx = null; RANKS.forEach((x, i) => { if (c >= x[1]) { r = x; nx = RANKS[i + 1] || null; } }); return { r, nx }; }
+function certStats(p) {
+    let T = 0, C = 0; Object.values(p.stats).forEach(s => { T += s.t; C += s.c; });
+    return { T, C, stars:p.pet.stars, streak:p.pet.streak.best, stories:p.pet.stories.length, stickers:STICKERS.filter(s => p.stickers[s]).length };
+}
+function openCert() {
+    profile = loadProfile(curName());
+    const s = certStats(profile), { r, nx } = rankOf(s.C);
+    const pct = nx ? Math.min(100, Math.round((s.C - r[1]) / (nx[1] - r[1]) * 100)) : 100;
+    $("certBody").innerHTML = `
+        <div class="rbox"><b>${escapeHTML(curName())}</b><br>Gelaran: <b>🏅 ${r[0]}</b><br>Soalan betul (percubaan pertama): <b>${s.C}</b> / ${s.T}<br>Bintang: <b>${s.stars}</b> • Cerita: <b>${s.stories}</b> • Stiker: <b>${s.stickers}/${STICKERS.length}</b><br>Streak terbaik: <b>🔥 ${s.streak} hari</b></div>
+        ${nx ? `<div class="rrow">Seterusnya: <b>${nx[0]}</b> (${nx[1]} betul)<div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div></div>` : "<p>Anda sudah mencapai gelaran tertinggi! 🎉</p>"}
+        <div class="rbox">Ganjaran streak: setiap hari main dapat +1 ⭐, dan setiap 3 hari berturut-turut dapat bonus +3 ⭐.</div>`;
+    showScreen("certScreen");
+}
+function makeCertificate() {
+    const n = curName(), s = certStats(loadProfile(n)), { r } = rankOf(s.C);
+    const p = PDFB(true); p.page();
+    const W = p.W, H = p.H, mid = W / 2;
+    p.RS(18, 18, W - 36, H - 36, "#5b50d6", 6); p.RS(32, 32, W - 64, H - 64, "#f5a623", 2);
+    [[70, 70], [W - 70, 70], [70, H - 70], [W - 70, H - 70]].forEach(q => p.STAR(q[0], q[1], 22, "#ffca28", true));
+    const ctr = (t, y, size, bold, color) => p.T(mid - p.tw(t, size, bold) / 2, y, t, size, bold, color);
+    ctr("SIJIL PENGHARGAAN", 120, 40, true, "#5b50d6");
+    ctr("Jom Belajar! - mastaxul.my", 148, 13, false, "#888888");
+    ctr("Dengan ini disahkan bahawa", 205, 16, false, "#555555");
+    ctr(n, 262, 38, true, "#e65100");
+    p.L(mid - 190, 274, mid + 190, 274, "#e65100", 1.2);
+    ctr("telah menunjukkan semangat belajar yang tinggi dan diberi gelaran", 312, 15, false, "#555555");
+    ctr(r[0].toUpperCase(), 360, 34, true, "#5b50d6");
+    ctr(s.C + " soalan betul   |   " + s.stars + " bintang   |   " + s.stories + " cerita   |   streak terbaik " + s.streak + " hari", 405, 13, false, "#444444");
+    ctr("Tahniah! Teruskan belajar dan bermain.", 440, 14, false, "#555555");
+    p.T(90, 462, "Tarikh: " + dtStr(), 12, false, "#555555");
+    p.L(90, 505, 270, 505, "#888888", 1); p.T(110, 521, "Tandatangan ibu / bapa", 10, false, "#888888");
+    p.stamp(W - 170, 480, dtStr());
+    savePDF(p.finish(), "Sijil-JomBelajar-" + n.replace(/[^\w\-]+/g, "_") + ".pdf");
+    toast("Sijil dimuat turun 🏅");
+}
+
+/* ============================================================
    MARKAH / FEEDBACK
 ============================================================ */
 function curCat() { const q = currentQuestions[currentIndex]; return q ? q.category : ""; }
 function correct() {
     score += 10; correctAnswers++; totalAnswered++;
+    if (profile && profile.pet) { profile.pet.stars++; if (typeof addExp === "function") addExp(1); }
     $("score").textContent = score;
     recordStat(curCat(), qMistakes === 0);
     const fb = $("feedback");
@@ -1968,6 +3169,7 @@ function fireworks(n) {
 
 function finishGame() {
     clearInterval(timerInterval);
+    if (cleanupFn) { try { cleanupFn(); } catch (e) {} cleanupFn = null; }
     try { if ("speechSynthesis" in window) speechSynthesis.cancel(); } catch (e) {}
     showScreen("resultScreen");
     $("resultName").textContent = $("studentName").value.trim();
@@ -1981,15 +3183,25 @@ function finishGame() {
     $("resultDetail").textContent = `Betul: ${correctAnswers} | Dijawab: ${totalAnswered} soalan`;
 
     const got = awardStickers();
+    let earn = "⭐ +" + correctAnswers + " bintang sahabat";
     if (profile) {
+        const P = profile.pet;
+        if (adventure) {
+            const r = correctAnswers >= 5 ? 3 : correctAnswers >= 3 ? 2 : correctAnswers >= 1 ? 1 : 0;
+            P.adv[adventure] = Math.max(P.adv[adventure] || 0, r); P.stars += r;
+            earn = "🗺️ Pengembaraan selesai! " + "⭐".repeat(r) + (r ? " (+" + r + " bintang bonus)" : "") + "<br>" + earn;
+        }
         const sel = $("category");
-        profile.sessions = (profile.sessions || []).concat([{ d:Date.now(), cat:sel.options[sel.selectedIndex].text, score, c:correctAnswers, t:totalAnswered }]).slice(-20);
+        const label = adventure ? "🏝️ Pengembaraan" : sel.options[sel.selectedIndex].text;
+        profile.sessions = (profile.sessions || []).concat([{ d:Date.now(), cat:label, score, c:correctAnswers, t:totalAnswered }]).slice(-20);
         saveProfile(profile);
+        earn += "<br>Jumlah bintang: <b>" + P.stars + "</b>";
     }
+    $("petEarn").innerHTML = earn;
     $("newStickers").innerHTML = got.length ? "🎁 Stiker baru!<br>" + got.join(" ") : "";
 }
-function restartGame() { startGame(); }
-function backToStart() { showStartScreen(); }
+function restartGame() { if (adventure) startAdventure(AREAS.find(a => a.id === adventure)); else startGame(); }
+function backToStart() { adventure = null; goHome(); }
 
 function escapeHTML(v) {
     return String(v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
@@ -2013,8 +3225,8 @@ function escapeHTML(v) {
         }
         showTokenMessage("Menyemak akses...", true);
         const r = await verifyWithServer(lid, tk);
-        if (r.success) return showStartScreen();
-        if (r.status === "Error") return showStartScreen();   // offline / server ralat: benarkan
+        if (r.success) return goHome();
+        if (r.status === "Error") return goHome();   // offline / server ralat: benarkan
         clearActivation();
         handleVerifyResult(r, lid, tk);
         return;
