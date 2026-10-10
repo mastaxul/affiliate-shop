@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | mastaxul.my</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #e2e8f0;
+    }
+
+    .login-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5);
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .logo h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+
+    .logo span {
+      color: #38bdf8;
+    }
+
+    .logo p {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      margin-top: 0.4rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+      color: #cbd5e1;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      color: #f1f5f9;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgb(56 189 248 / 0.15);
+    }
+
+    .email-wrapper {
+      position: relative;
+    }
+
+    .email-domain {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #64748b;
+      font-size: 0.9rem;
+      pointer-events: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.85rem;
+      background: #0ea5e9;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 0.5rem;
+    }
+
+    button:hover {
+      background: #0284c7;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 1.75rem;
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+
+    .footer a {
+      color: #38bdf8;
+      text-decoration: none;
+    }
+
+    .error {
+      background: #7f1d1d;
+      color: #fecaca;
+      padding: 0.75rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <div class="logo">
+      <h1>mastax<span>ul</span>.my</h1>
+      <p>Login ke akaun anda</p>
+    </div>
+
+    <div class="error" id="errorMsg">Email atau kata laluan tidak sah</div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <div class="email-wrapper">
+          <input 
+            type="text" 
+            id="email" 
+            placeholder="nama" 
+            required 
+            autocomplete="username"
+          />
+          <span class="email-domain">@mastaxul.my</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Kata Laluan</label>
+        <input 
+          type="password" 
+          id="password" 
+          placeholder="••••••••" 
+          required 
+          autocomplete="current-password"
+        />
+      </div>
+
+      <button type="submit">Log Masuk</button>
+    </form>
+
+    <div class="footer">
+      <a href="#">Lupa kata laluan?</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const emailInput = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const fullEmail = emailInput + '@mastaxul.my';
+
+      // Contoh validasi ringkas
+      if (!emailInput) {
+        showError('Sila masukkan email');
+        return;
+      }
+
+      console.log('Login attempt:', fullEmail);
+
+      // Di sini kau sambungkan ke backend / API kau
+      // Contoh: Firebase Auth, Supabase, custom API, dsb.
+      
+      // Buat masa ni hanya simulation
+      alert('Cuba login dengan: ' + fullEmail + '\n\nSambungkan ke backend anda untuk authentication sebenar.');
+    });
+
+    function showError(msg) {
+      const err = document.getElementById('errorMsg');
+      err.textContent = msg;
+      err.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
